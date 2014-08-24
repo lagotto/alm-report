@@ -11,6 +11,7 @@ gem "therubyracer", "~> 0.12.0", :require => "v8"
 gem "uglifier", "~> 2.4.0"
 gem "jquery-rails", "~> 3.1.0"
 gem 'jquery-ui-rails', '~> 5.0.0'
+gem 'slim-rails'
 
 group :development do
   gem 'capistrano-rails', '~> 1.1.1', require: false
