@@ -1,4 +1,3 @@
-@charset "utf-8";
 /*------------------------------------------------------------------
   [Table of contents]
 
@@ -36,7 +35,7 @@
   3. Mid Grey: #666
   4. Grey (labels, input fields): #999
   5. Light grey : #ccc
-  6. Blue (Reset button): #3c63af
+  6. Blue (Reset button): #3c63af;
   7. Grey (Input example text): #9f9f9f
   8. Light red (Error text in Search.doi page): #c27e86
   9. Red (Error message text): #e533050
@@ -138,7 +137,7 @@ body {
   width: 100%;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
-  color: #fff;
+  color: $header_text_color;
 }
 
 /* ==========================================================================
@@ -148,30 +147,29 @@ body {
 .container {
   width: 100%;
 }
-
 .albert-light-normal {
-  font-family: "FS Albert Web Regular", Verdana , sans-serif;
+  font-family: $font_family_normal;
   font-size-adjust: 0.48;
   font-weight: normal;
   font-style: normal;
 }
 
 .albert-light-italic {
-  font-family: "FS Albert Web Italic", Verdana , sans-serif;
+  font-family: $font_family_italic;
   font-size-adjust: 0.48;
   font-weight: normal;
   font-style: italic;
 }
 
 .albert-bold-normal {
-  font-family: "FS Albert Web Bold", Verdana , sans-serif;
+  font-family: $font_family_bold_normal;
   font-size-adjust: 0.49;
   font-weight: bold;
   font-style: normal;
 }
 
 .albert-bold-italic {
-  font-family: "FS Albert Web Bold Italic", Verdana , sans-serif;
+  font-family: $font_family_bold_italic;
   font-size-adjust: 0.49;
   font-weight: bold;
   font-style: italic;
@@ -179,15 +177,16 @@ body {
 
 .metrics-article-title {
   margin: 0 0 0 43px;
-  font-family: "FS Albert Web Regular", Verdana , sans-serif;
+  font-family: $font_family_normal;
   font-size: 120%;
   font-weight: normal;
   font-style: normal;
 }
 
+
 .nav-area {
   width: 100%;
-  background: #333;
+  background: $background;
 }
 
 .wrapper {
@@ -209,7 +208,7 @@ li {
 }
 
 a {
-  color: #fff;
+  color: $header_text_color;
   text-decoration: none;
 }
 
@@ -253,7 +252,7 @@ h1 + ul li {
 
 .tagline h2 {
   font-size: 34px;
-  color: #fff;
+  color: $header_text_color;
 }
 
 .tagline p {
@@ -293,7 +292,7 @@ h1 + ul li {
 .list-label {
   padding: 18px 0 20px;
   font-size: 14px;
-  background: #3c63af;
+  background: $button_color;
 }
 
 .list-count {
@@ -319,7 +318,7 @@ h1 + ul li {
   float: left;
   font-size: 14px;
   text-align: center;
-  background: #3c63af;
+  background: $button_color;
 }
 
 .list-hover span {
@@ -483,7 +482,7 @@ select {
   min-width: 78px;
   border: none;
   border-radius: 4px;
-  background: #3c63af;
+  background: $button_color;
   color: #fff;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
@@ -500,7 +499,7 @@ select {
 }
 
 .button-hover-dark-blue:hover {
-  background: #3c63af !important;
+  background: $button_color !important;
 }
 
 .reset-btn {
@@ -508,7 +507,7 @@ select {
   border: none;
   background: none;
   cursor: pointer;
-  color: #3c63af;
+  color: $button_color;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 15px;
@@ -519,7 +518,7 @@ select {
 .advanced-form h2 a {
   padding: 8px 6px 9px;
   cursor: pointer;
-  color: #3c63af;
+  color: $button_color;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 17px;
@@ -551,7 +550,7 @@ select {
 }
 
 .aside-container.aside a:hover {
-  background: #333;
+  background: $background;
 }
 
 .aside-container.aside a + a {
@@ -578,7 +577,7 @@ select {
   margin: 0 6px 0 0;
   border-radius: 4px;
   float: left;
-  background: #333;
+  background: $background;
   font-size: 14px;
   font-weight: bold;
 }
@@ -592,7 +591,7 @@ select {
 }
 
 .articles-list div a:hover {
-  background: #3c63af !important;
+  background: $button_color !important;
 }
 
 .articles-list div a span {
@@ -660,7 +659,7 @@ select {
   width: 196px;
   padding-left: 20px;
   float: left;
-  background: #333;
+  background: $background;
   font-size: 14px;
   font-weight: bold;
 }
@@ -763,7 +762,7 @@ select {
 .add-more-fields-btn {
   padding: 7px 19px 8px 18px;
   margin-left: 0;
-  background: #333;
+  background: $background;
   color: #fff;
 }
 
@@ -865,7 +864,7 @@ select {
 .preview-list li {
   padding: 3px 0 2px 10px;
   cursor: pointer;
-  color: #3c63af;
+  color: $button_color;
 }
 
 .article-lists ul li:first-child {
@@ -874,7 +873,7 @@ select {
 }
 
 .article-lists ul li {
-  border-left: 1px solid #3c63af;
+  border-left: 1px solid $button_color;
   display: inline;
 }
 
@@ -905,7 +904,7 @@ p.select-articles-message {
 }
 
 .select-articles-message a {
-  color: #3c63af;
+  color: $button_color;
 }
 
 input[type="checkbox"] {
@@ -1114,7 +1113,7 @@ span.next {
   background: none;
   font-size: 16px;
   font-weight: bold;
-  color: #3c63af;
+  color: $button_color;
 }
 
 /* 5.9. Home.welcome-back
@@ -1134,7 +1133,7 @@ span.next {
   height: 325px;
   margin: 250px auto 0;
   padding: 0 0 0 43px;
-  background: #333;
+  background: $background;
 }
 
 .welcome-close-btn {
@@ -1165,7 +1164,7 @@ span.next {
 .welcome-back-holder a {
   border-radius: 4px;
   display: inline-block;
-  background: #3c63af;
+  background: $button_color;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -1299,7 +1298,7 @@ span.next {
 
 .view-report .metrics-chart-view + span {
   margin: 47px 12px 0 0;
-  color: #3c63af;
+  color: $button_color;
   font-size: 18px;
   font-weight: bold;
 }
@@ -1369,7 +1368,7 @@ span.next {
   padding: 4px 2px 0 3px;
   position: absolute;
   top: 0;
-  left: 0;  
+  left: 0;
   color: #fff;
   font-size: 14px;
   font-weight: bold;
@@ -1407,7 +1406,7 @@ span.next {
   font-size: 14px;
 }
 
-.visualizations-list a:hover { 
+.visualizations-list a:hover {
   cursor: pointer;
 }
 
@@ -1525,7 +1524,7 @@ caption {
   float: left;
   background: url(/assets/matrix-data-icon.png) no-repeat;
   background-position: 0 3px;
-  color: #3c63af;
+  color: $button_color;
   font-weight: bold;
   font-size: 18px;
 }
@@ -1544,7 +1543,7 @@ caption {
   padding: 0 0 0 38px;
   float: left;
   background: url(/assets/visualization-icon.png) 0 1px no-repeat;
-  color: #3c63af;
+  color: $button_color;
   font-weight: bold;
   font-size:18px;
 }
@@ -1589,14 +1588,14 @@ caption {
 .start-over {
   border-radius: 5px;
   float: right;
-  background: #3c63af;
+  background: $button_color;
   font-size: 14px;
   font-weight: bold;
 }
 
 .edit-list:hover,
 .start-over:hover {
-  background: #333;
+  background: $background;
 }
 
 .edit-list {
@@ -1612,8 +1611,8 @@ caption {
   padding: 14px 0 0 57px;
 }
 
-/* 
-  the width used to be 650 but changed to 705 so that 
+/*
+  the width used to be 650 but changed to 705 so that
   download visualization functionality can generate pretty image of the graphs
 */
 .visualizations-container {
@@ -1729,7 +1728,7 @@ caption {
   background: url(/assets/sprite.png) -537px -142px;
 }
 
-/* the visualization download link isn't a real link (doesn't have href attr) 
+/* the visualization download link isn't a real link (doesn't have href attr)
    it needs to be styled as a link */
 #download_viz:hover {
   cursor: pointer;
@@ -1744,16 +1743,16 @@ caption {
   margin: 0;
   padding: 8px 54px 9px 53px;
   text-align: center;
-  background: #333;
+  background: $background;
   display: block;
 }
 
 .report-downloads .report-share-block:hover a {
-  background: #3c63af;
+  background: $button_color;
 }
 
 .report-share-block:hover span {
-  background-color: #3c63af;
+  background-color: $button_color;
 }
 
 .share-box {
@@ -1762,7 +1761,7 @@ caption {
   padding: 9px 0 2px;
   border-radius: 4px;
   display: none;
-  background: #3c63af;
+  background: $button_color;
 }
 
 .report-downloads .report-share-block:hover .share-box {
@@ -2020,7 +2019,7 @@ footer a:hover {
   display: inline-block;
   font-size: 12px;
   font-weight: bold;
-  color: #fff;
+  color: $header_text_color;
 }
 
 .plos-links-holder li {
@@ -2151,13 +2150,13 @@ div.uploader input {
 
 div.uploader span.action {
   border-radius: 4px;
-  background: #3c63af;
+  background: $button_color;
   font-size: 15px;
   font-weight: bold;
 }
 
 div.uploader span.action:hover {
-  background: #333;
+  background: $background;
 }
 div.uploader span.filename {
   border: 1px solid #999;
@@ -2198,8 +2197,8 @@ div.selector.active:hover {
 }
 
 div.selector span {
-  width: 100%; 
-  height: 45px; 
+  width: 100%;
+  height: 45px;
   padding-right: 25px;
   display: block;
   overflow: hidden;
@@ -2279,7 +2278,7 @@ div.selector select {
   height: 392px;
 }
 
-/* 7. Static content 
+/* 7. Static content
    ========================================================================== */
 .static_content {
   width: 635px;
@@ -2402,7 +2401,7 @@ div.selector select {
   min-width: 45px;
   border: none;
   border-radius: 4px;
-  background: #3c63af;
+  background: $button_color;
   color: #fff;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;

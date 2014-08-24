@@ -1,0 +1,35 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ */
+
+// TODO: Needs to be switchable between PLOS and generic
+// PLOS:
+// $background: #333;
+// $header_text_color: #fff;
+// $body_text_color: #333;
+// $button_color: #3c63af;
+// $font_family_normal: "FS Albert Web Regular", Verdana , sans-serif;
+// $font_family_italic: "FS Albert Web Italic", Verdana , sans-serif;
+// $font_family_bold_normal: "FS Albert Web Bold", Verdana , sans-serif;
+// $font_family_bold_italic: "FS Albert Web Bold Italic", Verdana , sans-serif;
+
+$background: #fff;
+$header_text_color: #222;
+$body_text_color: #333;
+$button_color: #00ACE7;
+$font_family_normal: 'Fira Sans', sans-serif;
+$font-family_italic: $font_family_normal;
+$font-family_bold_normal: $font_family_normal;
+$font-family_bold_italic: $font_family_normal;
+
+@import 'jquery-ui-dp';
+@import 'uniform.default';
+@import 'style';
