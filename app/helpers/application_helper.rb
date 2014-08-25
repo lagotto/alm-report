@@ -6,9 +6,11 @@ module ApplicationHelper
     when 'plos'
       'logo.plos-alm.png'
     when 'default'
-      'logo.alm.png'
+      (image_tag 'logo.alm.svg',
+        alt: 'Public Library of Science', height: '48px') +
+      (content_tag(:strong, 'ALM')+ " Reports")
     end
-    image_tag src, :alt => 'Public Library of Science'
+
   end
 
   def footer_logo
@@ -38,7 +40,7 @@ module ApplicationHelper
         })();
       SCRIPT
     when 'default'
-      stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Fira+Sans:300,400,700'
+      stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Fira+Sans:300,500,300italic,500italic'
     end
   end
 end
