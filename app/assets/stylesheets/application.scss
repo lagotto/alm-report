@@ -16,19 +16,41 @@
 // $header_text_color: #fff;
 // $body_text_color: #333;
 // $button_color: #3c63af;
-// $font_family_normal: "FS Albert Web Regular", Verdana , sans-serif;
-// $font_family_italic: "FS Albert Web Italic", Verdana , sans-serif;
-// $font_family_bold_normal: "FS Albert Web Bold", Verdana , sans-serif;
-// $font_family_bold_italic: "FS Albert Web Bold Italic", Verdana , sans-serif;
+// $font_normal: normal normal "FS Albert Web Regular", Verdana , sans-serif;
+// $font_italic: italic normal "FS Albert Web Italic", Verdana , sans-serif;
+// $font_bold_normal: normal bold "FS Albert Web Bold", Verdana , sans-serif;
+// $font_bold_italic: italic bold "FS Albert Web Bold Italic", Verdana , sans-serif;
 
 $background: #fff;
 $header_text_color: #222;
 $body_text_color: #333;
 $button_color: #00ACE7;
-$font_family_normal: 'Fira Sans', sans-serif;
-$font-family_italic: $font_family_normal;
-$font-family_bold_normal: $font_family_normal;
-$font-family_bold_italic: $font_family_normal;
+$font_family: 'Fira Sans', sans-serif;
+$font_normal_weight: 300;
+
+@mixin font_normal($family: $font_family, $weight: normal) {
+  font-style: normal;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+@mixin font_italic($family: $font_family, $weight: normal) {
+  font-style: italic;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+@mixin font_bold_normal($family: $font_family, $weight: bold) {
+  font-style: normal;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+@mixin font_bold_italic($family: $font_family, $weight: bold) {
+  font-style: italic;
+  font-weight: $weight;
+  font-family: $family;
+}
 
 @import 'jquery-ui-dp';
 @import 'uniform.default';

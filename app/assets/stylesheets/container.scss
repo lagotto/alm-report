@@ -1,0 +1,57 @@
+/* ==========================================================================
+   3. Container
+   ========================================================================== */
+
+.container {
+  width: 100%;
+}
+.text-light-normal {
+  @include font_normal($font_family, $font_normal_weight);
+}
+
+.text-light-italic {
+  @include font_italic($font_family, $font_normal_weight);
+}
+
+.text-bold-normal {
+  @include font_bold_normal($font_family);
+}
+
+.text-bold-italic {
+  @include font_bold_italic($font_family);
+}
+
+.metrics-article-title {
+  margin: 0 0 0 43px;
+  @include font_normal;
+  font-size: 120%;
+}
+
+
+.nav-area {
+  width: 100%;
+  background: $background;
+}
+
+.wrapper {
+  width: 960px;
+  margin: 0 auto;
+  position: relative;
+}
+
+header ul a:hover {
+  text-decoration: underline
+}
+
+ul {
+  display: inline-block;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  color: $header_text_color;
+  text-decoration: none;
+}

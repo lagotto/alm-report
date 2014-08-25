@@ -1,0 +1,1569 @@
+/* ==========================================================================
+   5. Content
+   ========================================================================== */
+
+.content {
+  margin-bottom: 49px;
+  border-radius: 0 0 4px 4px;
+  background: #efefef;
+}
+
+/* 5.1. Form block
+   ========================================================================== */
+
+.home-form,
+.advanced-form {
+  width: 500px;
+  margin: 70px 0 50px 103px;
+  float: left;
+}
+
+h2 {
+  color: #333;
+  font-size: 26px;
+}
+
+.input-holder {
+  margin: 0 0 0 3px;
+  position: relative;
+}
+
+label {
+  margin: 11px 0 0;
+  padding: 0 0 9px;
+  display: inline-block;
+  color: #999;
+  font-weight: bold;
+  font-size: 18px;
+  letter-spacing: -1px;
+}
+
+input[type="text"] {
+  width: 434px;
+  padding: 10px 0 10px 12px;
+  border-radius: 6px;
+  font-size: 18px;
+}
+
+.hasdate-picker-active{
+  color: #000!important;
+}
+
+.date-input-fields {
+  display: none;
+}
+
+.date-input-fields input[type="text"] {
+  width: 162px;
+  padding-left: 27px;
+  margin: 14px 0 0;
+  color: #999;
+}
+
+.date-input-fields span {
+  padding: 26px 20px 0;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #999;
+  vertical-align: top;
+}
+
+select {
+  width: 450px;
+  height: 45px;
+  border-radius: 6px;
+  font-size: 18px;
+}
+
+.input-holder select {
+  margin-bottom: 2px;
+}
+
+.select {
+  width: 438px;
+  height: 45px;
+  padding: 12px 0 0 16px;
+  position: absolute;
+  top: 42px;
+  left: -4px;
+  overflow: hidden;
+  background: url(/assets/sprite.png) -187px -399px no-repeat;
+  font-size: 18px;
+  color: #333;
+}
+
+.submit-btn {
+  margin: 25px 6px 0 1px;
+  padding: 8px 0 9px;
+  min-width: 78px;
+  border: none;
+  border-radius: 4px;
+  background: $button_color;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.disabled-submit-btn {
+  background: #333 !important;
+  cursor: default !important;
+}
+
+.button-hover-dark-black:hover {
+  background: #333 !important;
+}
+
+.button-hover-dark-blue:hover {
+  background: $button_color !important;
+}
+
+.reset-btn {
+  padding: 8px 6px 9px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: $button_color;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* make it look like reset-btn */
+.home-form h2 a,
+.advanced-form h2 a {
+  padding: 8px 6px 9px;
+  cursor: pointer;
+  color: $button_color;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+/* 5.2. Aside block
+   ========================================================================== */
+
+.aside-container {
+  width: 240px;
+  margin: 50px 0 0;
+  float: right;
+}
+
+.scroll-fixed {
+  position: fixed;
+  top: 0;
+  margin-top: 10px;
+}
+
+.aside-container.aside {
+  margin: 70px 19px 0 0;
+}
+
+.aside-container.aside a {
+  padding: 8px 0 9px 10px;
+  margin: 26px 0 0;
+  display: block;
+}
+
+.aside-container.aside a:hover {
+  background: $background;
+}
+
+.aside-container.aside a + a {
+  padding: 8px 0 9px 10px;
+  margin: 8px 0 0;
+}
+
+/* 5.3. Articles list block
+   ========================================================================== */
+
+.articles-list {
+  margin: 90px 0 0 36px;
+}
+
+.articles-list div {
+  margin: 32px 6px 0 0;
+  float: left;
+  position: relative;
+}
+
+.articles-list div a {
+  width: 173px;
+  height: 71px;
+  margin: 0 6px 0 0;
+  border-radius: 4px;
+  float: left;
+  background: $background;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.articles-list div a + a {
+  width: 172px;
+}
+
+.articles-list div a + a + a {
+  width: 173px;
+}
+
+.articles-list div a:hover {
+  background: $button_color !important;
+}
+
+.articles-list div a span {
+  float: left;
+}
+.articles-list div a span + span {
+  margin: 26px 0 0;
+}
+
+.top-views {
+  width: 26px;
+  height: 26px;
+  margin: 23px 14px 0 17px;
+  background: url(/assets/sprite.png) -299px -142px;
+}
+
+.top-bookmarked {
+  width: 12px;
+  height: 31px;
+  margin: 20px 12px 0 18px;
+  background: url(/assets/sprite.png) -326px -142px;
+}
+
+.top-tweets {
+  width: 26px;
+  height: 22px;
+  margin: 24px 14px 0 17px;
+  background: url(/assets/sprite.png) -340px -142px;
+}
+
+.top-cited {
+  width: 22px;
+  height: 22px;
+  margin: 25px 16px 0 18px;
+  background: url(/assets/sprite.png) -367px -142px;
+}
+
+.top-shares {
+  width: 30px;
+  height: 30px;
+  margin: 21px 11px 0 15px;
+  background: url(/assets/sprite.png) -390px -142px;
+}
+
+/* 5.4. Sample reports block
+   ========================================================================== */
+
+.sample-reports {
+  margin: 70px 0 0 36px;
+  padding-bottom: 50px;
+}
+
+.sample-reports a {
+  width: 216px;
+  margin: 39px 8px 0 0;
+  float: left;
+}
+
+.sample-reports a:hover img + span,
+.sample-reports a:hover img + span + span {
+  text-decoration: underline;
+}
+
+.sample-reports span {
+  width: 196px;
+  padding-left: 20px;
+  float: left;
+  background: $background;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.sample-reports img + span {
+  padding-top: 22px;
+}
+
+.sample-reports img + span + span {
+  width: 168px;
+  min-height: 38px;
+  padding: 1px 28px 0 20px;
+}
+
+.sample-reports img + span + span + span {
+  padding: 0 0 30px 20px;
+  position: relative;
+  bottom: 0;
+  font-size: 12px;
+  color: #999;
+}
+
+/* 5.5. Search.doi-pmid
+   ========================================================================== */
+
+.doi-pmid-form {
+  padding: 0 0 100px 0;
+  position: relative;
+}
+
+.doi-pmid-form h2 {
+  margin: 0 0 34px 106px;
+  font-size: 26px;
+}
+
+.input-example {
+  font-size: 14px;
+  color: #9f9f9f !important;
+}
+
+.doi-pmid-form .input-holder {
+  margin: 0;
+}
+
+.doi-pmid-form label {
+  margin: 4px 500px 0 106px;
+  padding: 0 0 3px;
+}
+
+.doi-pmid-form input[type="text"] {
+  margin: 0 11px 0 0;
+  display: inline-block;
+}
+
+.doi-pmid-form .input-holder div {
+  padding: 6px 0 6px 107px;
+}
+
+.error-holder {
+  background: #f0d5d8;
+}
+
+.doi-pmid-form .input-holder div p {
+  margin: 15px 0 0 3px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.doi-pmid-form .input-holder div .input-example {
+
+}
+
+.doi-pmid-form .input-holder div span {
+  margin: 15px 10px 0 10px;
+  padding: 0 22px 0 0;
+  display: inline-block;
+  vertical-align: top;
+  float: right;
+  background: url(/assets/remove-background.png) 55px center no-repeat;
+  font-size: 12px;
+  cursor: pointer;
+  color: #c27e86;
+}
+
+.doi-form {
+  width: 700px;
+  margin: 45px 0 0 0px;
+  position: relative;
+  float: left;
+  min-height: 290px;
+}
+
+.add-to-list-btn {
+  margin: 22px 20px 0 107px;
+  padding: 7px 19px 8px;
+}
+
+.add-more-fields-btn {
+  padding: 7px 19px 8px 18px;
+  margin-left: 0;
+  background: $background;
+  color: #fff;
+}
+
+.doi-pmid-form-landing .error-title,
+.doi-pmid-form-landing .input-holder div span,
+.doi-pmid-form-landing .error-message {
+  visibility: hidden;
+}
+
+/* 5.6. Search.doi-pmid.fix-errors
+   ========================================================================== */
+
+.error-color {
+  color: #e53350;
+}
+
+.error-title {
+  margin-left: 106px;
+  margin-top: -16px;
+  font-size: 14px;
+}
+
+/* 5.7. Preview-list
+   ========================================================================== */
+
+.preview-list {
+  width: 628px;
+  margin: 45px 0 0 38px;
+  position: relative;
+  display: inline-block;
+  min-height: 330px;
+}
+
+.preview-form h2 {
+  margin: 0 0 18px 41px;
+}
+
+.preview-form p {
+  margin: 0 0 0 41px;
+  color: #333;
+}
+
+.preview-form .article-info input[type="checkbox"] {
+  top: 1px;
+}
+
+.update-list-btn {
+  margin: 18px 8px 0 42px;
+  padding: 7px 12px 8px 11px;
+}
+
+.preview-form .success,
+.preview-form .updating {
+  display: none;
+}
+
+/* 5.8. Add-articles
+   ========================================================================== */
+
+.article-lists {
+  width: 635px;
+  margin: 45px 0 0 38px;
+  position: relative;
+  float: left;
+  min-height: 290px;
+}
+
+.article-lists h2 {
+  margin: 0 0 18px 42px;
+}
+
+.article-lists p {
+  width: 570px;
+  margin: 0 0 0 41px;
+  line-height: 18px;
+  color: #333;
+}
+
+.keyword,
+.author-name,
+.author-country,
+.publication-date,
+.journals {
+  color: #333;
+  font-weight: bold;
+}
+
+.article-lists p span {
+  display: inline-block;
+  color: #333;
+}
+
+.article-lists ul {
+  margin: 44px 0 0 41px;
+  float: left;
+}
+
+.article-lists li,
+.preview-list li {
+  padding: 3px 0 2px 10px;
+  cursor: pointer;
+  color: $button_color;
+}
+
+.article-lists ul li:first-child {
+  border-left: none;
+  padding: 3px 7px 3px 0;
+}
+
+.article-lists ul li {
+  border-left: 1px solid $button_color;
+  display: inline;
+}
+
+.article-lists span{
+  color: #8d8d8d;
+}
+
+.article-info {
+  width: inherit;
+  margin: 0 0 22px 42px;
+  position: relative;
+}
+
+p.select-articles-message {
+  margin: 16px 0 12px 44px;
+  font-size: 14px;
+  color: #858585;
+  clear: both;
+}
+
+/* I think the nasty hack from DP doesn't fix the problem because we had to make the select wider to accommodate the length of the text */
+#uniform-add-article-select {
+  margin-bottom: 7px; /* nasty hack to allow the "select-articles-message" element to have the correct top vertical margin */
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.select-articles-message a {
+  color: $button_color;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.article-info input[type="checkbox"] {
+  position: absolute;
+  top: 0;
+  left: -36px;
+}
+
+.article-info a {
+  margin: 0;
+  border-bottom: 1px solid #333;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.article-info .success,
+.article-info .error {
+  position: absolute;
+  top: 34px;
+  left: -61px;
+  font-size: 12px;
+  color: #2d9e00;
+}
+
+.article-info .error {
+  color: #e53350;
+}
+
+.success-tick {
+  width: 11px;
+  height: 12px;
+  margin: 0 0 0 1px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url(/assets/sprite.png) no-repeat -124px -142px;
+}
+
+.article-info .updating {
+  position: absolute;
+  width: 16px;
+  height: 11px;
+  top: 24px;
+  left: -35px;
+  background: url(/assets/ajax-loader.gif) no-repeat 0 0;
+}
+
+.article-info p {
+  margin: 3px 0 0;
+  line-height: 16px;
+  color: #666;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+.article-info p + p {
+  margin: 0;
+  color: #333;
+}
+
+.select-all-articles-link:hover,
+.unselect-all-articles-link:hover,
+.select-articles-message a:hover {
+  color: #fb8903;
+}
+
+.add-select-box-holder {
+  margin: 35px 53px 0 0;
+  position: relative;
+  float: right;
+}
+
+.add-select-box-holder .add-select-label {
+  width: 66px;
+  margin: 9px 0 0;
+  float: left;
+}
+
+.article-lists .select {
+  width: 169px;
+  height: 28px;
+  padding: 8px 0 0 16px;
+  top: 0;
+  left: 69px;
+  background: url(/assets/sprite.png) -647px -399px no-repeat;
+  color: #333;
+}
+
+.pagination {
+  width: 100%;
+  margin: 88px 0 154px 0;
+}
+
+.pagination a,
+.pagination span {
+  min-width: 16px;
+  height: 22px;
+  padding: 4px 4px 0 4px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.pagination .ellipses {
+  color: #8d8d8d;
+}
+
+.previous {
+  margin: 0 199px 0 0;
+  background: url(/assets/sprite.png) no-repeat -249px -142px;
+}
+
+span.previous {
+  background-position: 0 -142px;
+}
+
+.pagination-number {
+  margin: 0 0 0 1px;
+  background: #c2c2c2;
+  border-radius: 4px;
+  color: #333 !important; /* i'm sorry about the !important */
+}
+
+.pagination-number:hover {
+  background: #fb8903;
+}
+
+.pagination-selected {
+  background: #fb8903;
+  cursor: default;
+}
+
+.next {
+  margin: 0 0 0 200px;
+  background: url(/assets/sprite.png) no-repeat -274px -142px;
+}
+
+span.next {
+  background-position: -25px -142px;
+}
+
+
+.preview-list-aside.scroll-fixed {
+  margin: 10px 0 0;
+}
+
+.preview-list-aside .add-article-links .article-links {
+  padding: 11px 0 11px 4px;
+}
+
+.preview-list-aside-form,
+.preview-list-aside-form + p {
+  position: relative;
+  float: left;
+}
+
+.preview-list ul {
+  margin: 10px 0 0 31px;
+}
+
+.btn-arrow {
+  width: 5px;
+  height: 9px;
+  position: absolute;
+  top: 17px;
+  right: 12px;
+  background: url(/assets/sprite.png) -50px -142px no-repeat;
+}
+
+.right-list-btn {
+  margin: 0;
+  padding: 13px 26px 12px 9px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.aside-container p {
+  margin: 37px 0 0;
+  color: #333;
+  font-weight: normal;
+  font-size: 22px;
+}
+
+.add-article-links {
+  margin: 19px 0 0;
+}
+
+.add-article-links li {
+  width: 100%;
+  display: inline-block;
+  border-top: 1px solid #aeaeae;
+}
+
+.add-article-links .article-links {
+  width: 106px;
+  padding: 11px 0 11px 4px;
+  border-radius: 0;
+  display: inline-block;
+  background: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: $button_color;
+}
+
+/* 5.9. Home.welcome-back
+   ========================================================================== */
+
+.welcome-back-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url(/assets/welcome-back-bg.png) repeat;
+}
+
+.welcome-back-holder {
+  width: 427px;
+  height: 325px;
+  margin: 250px auto 0;
+  padding: 0 0 0 43px;
+  background: $background;
+}
+
+.welcome-close-btn {
+  width: 25px;
+  height: 25px;
+  margin: 15px 15px 0 0;
+  float: right;
+  text-indent: -9999px;
+  background: url(/assets/sprite.png) -223px -142px;
+  cursor: pointer;
+}
+
+.welcome-back-holder h2 {
+  margin: 38px 0 0;
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+}
+
+.welcome-back-holder p {
+  width: 94%;
+  margin: 8px 0 0;
+  line-height: 18px;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.welcome-back-holder a {
+  border-radius: 4px;
+  display: inline-block;
+  background: $button_color;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.welcome-back-holder p + a {
+  width: 187px;
+  margin: 23px 0 0 1px;
+  padding: 19px 0 21px;
+}
+
+.welcome-back-holder p + a + a {
+  width: 187px;
+  margin: 23px 0 0 4px;
+  padding: 19px 0 21px 0;
+}
+
+.welcome-back-holder p + a + a + a {
+  width: 382px;
+  margin: 7px 0 0 1px;
+  padding: 26px 0 28px 0;
+}
+
+/* 5.10. Sample-charts
+   ========================================================================== */
+
+.sample-charts {
+  width: 600px;
+  margin: 56px 0 2px 78px;
+  font-size: 14px;
+}
+
+.sample-charts h2 {
+  font-size: 27px;
+}
+
+.sample-charts-content .visualizations-list h2 {
+  width: 100%;
+}
+
+.sample-charts-content {
+  padding: 0 0 90px;
+}
+
+.sample-charts-content .visualizations-list {
+  width: 752px;
+  margin: 60px 0 4px 71px;
+  padding: 44px 0 0 8px;
+  border-top: 1px solid #d6d6d6;
+}
+
+.sample-charts-content .sample-charts + .visualizations-list {
+  margin: 31px 0 4px 79px;
+  padding: 0;
+  border: none;
+}
+
+.sample-charts-content .visualizations-list h2,
+.sample-charts-content .visualizations-list p {
+  margin-left: 0;
+}
+
+.sample-charts-content .visualizations-list img {
+  margin: 29px 0 0;
+}
+
+.sample-charts-content .visualizations-list .info {
+  margin: 30px 0 0;
+}
+
+.sample-charts p {
+  margin: 9px 0 0;
+  line-height: 17px;
+  color: #666;
+}
+
+/* 5.11. Sample-metrics
+   ========================================================================== */
+
+.sample-metrics {
+  margin: 56px 0 0 78px;
+  padding: 0 0 54px;
+  color: #333;
+}
+
+.sample-metrics p {
+  width: 600px;
+  margin: 12px 0 30px;
+  color: #666;
+  font-size: 14px;
+}
+
+.sample-metrics-list-container {
+  width: 291px;
+  margin: 0 29px 0 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.sample-metrics h3 {
+  padding: 0 0 4px 9px;
+  border-bottom: 1px solid #aeaeae;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.metrics-list-holder {
+  padding: 0 0 27px;
+}
+
+.metrics-list-holder li {
+  padding: 4px 0 3px 9px;
+  font-size: 14px;
+}
+
+/* 5.12. Report.metrics
+   ========================================================================== */
+
+.view-report.metrics-view-report {
+  height: 123px;
+  background: url(/assets/sprite.png) 0 -602px;
+}
+
+.metrics-chart-view {
+  width: 25px;
+  height: 24px;
+  margin: 47px 12px 0 0;
+  background: url(/assets/sprite.png) -68px -141px;
+}
+
+.view-report .metrics-chart-view + span {
+  margin: 47px 12px 0 0;
+  color: $button_color;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.metrics-icon-active {
+  width: 20px;
+  height: 18px;
+  margin: 49px 12px 0 80px;
+  background: url(/assets/sprite.png) 0px -141px;
+}
+
+.metrics-icon-active + span {
+  margin: 47px 102px 0 0;
+  color: #fb8903;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.metrics-left-content {
+  width: 715px;
+  float: left;
+  position: relative;
+  color: #333;
+  min-height: 560px;
+}
+
+.metrics-left-content .metrics-article {
+  width: 615px;
+  position:absolute;
+  top: 13px;
+  left: 83px;
+  display: inline-block;
+  color: #000;
+  line-height: 19px;
+}
+
+.metrics-article-count {
+  margin: 0 0 5px 83px;
+}
+
+.visualizations-list {
+  margin: 48px 0 4px 35px;
+  display: inline-block;
+  position: relative;
+}
+
+.visualizations-list .vertical-separator {
+  display: inline;
+  margin: 0 2px;
+  font-size: 12px;
+}
+
+.visualizations-list .metrics-para {
+  width: 612px;
+  display: inline-block;
+  line-height: 19px;
+  color: #666;
+  font-size: 14px;
+  padding: 0 0 14px;
+  border: none;
+}
+
+.visualizations-list .list-numbers {
+  min-width: 20px;
+  height: 22px;
+  margin: 0;
+  padding: 4px 2px 0 3px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 17px;
+  background-color: #000;
+  border-radius: 4px;
+}
+
+.visualizations-list .metrics-description {
+  margin: 0 0 0 43px;
+  padding: 0;
+  color: #333;
+  font-size: 12px;
+  line-height: 15px;
+  border: none;
+}
+
+.visualizations-list .metrics-no-data-para {
+  width: 612px;
+  display: inline-block;
+  line-height: 19px;
+  color: #e53350;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 14px 0 14px 0;
+  margin: 0 0 0 43px;
+}
+
+.visualizations-list a {
+  width: 160px;
+  margin: 21px 0 0 43px;
+  display: inline-block;
+  color: #369;
+  font-size: 14px;
+}
+
+.visualizations-list a:hover {
+  cursor: pointer;
+}
+
+.aside-container ul a:hover {
+  text-decoration: underline;
+}
+
+.visualizations-list a span.arrow-down {
+  width: 11px;
+  height: 7px;
+  margin: 0 0 0 10px;
+  padding: 0 0 1px;
+  display: inline-block;
+  background: url(/assets/sprite.png) -617px -141px no-repeat;
+}
+
+.visualizations-list a span.arrow-up {
+  width: 11px;
+  height: 7px;
+  margin: 0 0 0 10px;
+  padding: 0 0 1px;
+  display: inline-block;
+  background: url(/assets/sprite.png) -627px -141px no-repeat;
+}
+
+.visualizations-list .metrics-table-content {
+  width: 620px;
+  margin: 7px 0 0 14px;
+  display: inline-block;
+}
+
+.visualizations-list .metric-row-content{
+  width: 620px;
+  float: left;
+}
+
+.visualizations-list .metrics-table {
+  width: 289px;
+  margin: 0 0 0 20px;
+  padding: 0 0 33px;
+  font-weight: normal;
+  border-spacing: 0 4px;
+  font-size: 14px;
+  float: left;
+}
+
+.visualizations-list .metrics-table.plos-table {
+  float: right;
+}
+
+.visualizations-list td span{
+  width: auto;
+  margin: 0;
+  padding: 0 0 0 8px;
+  display: inline;
+}
+
+.visualizations-list .metrics-table td:first-child {
+  padding: 0 0 2px 8px;
+}
+
+.visualizations-list table th {
+  padding: 0 0 0 8px;
+  text-align: left;
+}
+
+.visualizations-list table .metrics-list-value {
+  padding: 0 10px 0 0;
+  text-align: right;
+}
+
+caption {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: left;
+  margin: 0 0 10px 0;
+
+  border-bottom: 1px solid #aeaeae;
+  padding: 0 0 4px 8px;
+}
+
+.total-usage {
+  font-weight: bold;
+}
+
+.metrics-pagination.pagination {
+  width: 715px;
+  margin: 55px 0 0 38px;
+  padding: 0 0 38px;
+}
+
+.metric-without-data {
+  display: none;
+}
+
+/* 5.13. Report.visualizations
+   ========================================================================== */
+
+.view-report {
+  width: 100%;
+  height: 123px;
+  display: inline-block;
+  background: url(/assets/sprite.png) 0 -478px;
+}
+
+.view-report span {
+  float: left;
+}
+
+.metrics-icon {
+  width: 110px;
+  height: 20px;
+  margin: 46px 100px 0 81px;
+  padding: 0 0 0 31px;
+  float: left;
+  background: url(/assets/matrix-data-icon.png) no-repeat;
+  background-position: 0 3px;
+  color: $button_color;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.metrics-icon:hover,
+.metrics-icon-active {
+  background: url(/assets/matrix-data-hover-icon.png) no-repeat;
+  background-position: 0 3px;
+  color: #fb8903;
+}
+
+.chart-view {
+  width: 110px;
+  height: 23px;
+  margin: 46px 11px 0 0;
+  padding: 0 0 0 38px;
+  float: left;
+  background: url(/assets/visualization-icon.png) 0 1px no-repeat;
+  color: $button_color;
+  font-weight: bold;
+  font-size:18px;
+}
+
+.chart-view:hover,
+.chart-view-active {
+  background: url(/assets/visualization-hover-icon.png) 0 1px no-repeat;
+  color: #fb8903;
+}
+
+.inactive-viz-link {
+  color: #999 !important;
+  background: url(/assets/visualization-inactive-icon.png) 0 1px no-repeat;
+}
+
+.inactive-viz-holder {
+  width: 240px;
+  height: 120px;
+  float: left;
+}
+
+.inactive-viz-link:hover {
+  color: #999 !important;
+  background: url(/assets/visualization-inactive-icon.png) 0 1px no-repeat;
+}
+
+.inactive-viz-msg {
+  height: 23px;
+  padding: 10px 0 0 0;
+  float: left;
+  color: #999;
+  font-size: 10px;
+}
+
+.view-report .download-visuals {
+  width: 185px;
+  margin: 11px 36px 0 0;
+  float: right;
+}
+
+.edit-list,
+.start-over {
+  border-radius: 5px;
+  float: right;
+  background: $button_color;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.edit-list:hover,
+.start-over:hover {
+  background: $background;
+}
+
+.edit-list {
+  width: 122px;
+  height: 29px;
+  padding: 15px 0 0 64px;
+}
+
+.start-over {
+  width: 129px;
+  height: 30px;
+  margin: 3px 0 0;
+  padding: 14px 0 0 57px;
+}
+
+/*
+  the width used to be 650 but changed to 705 so that
+  download visualization functionality can generate pretty image of the graphs
+*/
+.visualizations-container {
+  width: 705px;
+  float: left;
+  min-height: 560px;
+}
+
+.visualizations-container .visualizations-list:last-child {
+  margin: 55px 0 240px 35px;
+}
+
+.visualizations-list h2 {
+  width: 570px;
+  margin: 0 0 0 43px;
+  float: left;
+  font-size: 26px;
+  line-height: 24px;
+}
+
+.visualizations-list img {
+  margin: 31px 0 0 37px;
+}
+
+.visualizations-list .info {
+  margin: 24px 0 0 44px;
+  padding: 0;
+  border-top: none;
+  line-height: 17px;
+  color: #4d4d4d;
+}
+
+.visualizations-list p {
+  width: 602px;
+  margin: 9px 0 0 43px;
+  padding: 10px 0 0 1px;
+  border-top: 1px solid #e4e4e4;
+  font-size: 14px;
+  color: #9c9c9c;
+}
+
+/* 5.14. Report download block
+   ========================================================================== */
+
+.report-downloads {
+  width: 240px;
+  margin: 23px 0 0;
+  float: right;
+}
+
+.report-downloads h2 {
+  margin: 0 0 0 16px;
+  font-size: 22px;
+}
+
+.report-downloads ul {
+  width: 100%;
+}
+
+.report-downloads li {
+  width: 100%;
+  border-bottom: 1px solid #aeaeae;
+  display: inline-block;
+  position: relative;
+}
+
+.report-downloads .csv {
+  width: 40px;
+  height:46px;
+  margin: 29px 15px 0 18px;
+  float: left;
+  background: url(/assets/sprite.png) -459px -141px;
+}
+
+.report-downloads .png {
+  width: 40px;
+  height:46px;
+  margin: 29px 15px 0 18px;
+  float: left;
+  background: url(/assets/sprite.png) -498px -141px;
+}
+
+.report-downloads .file-name {
+  width: 100px;
+  height: 92px;
+  padding: 6px 0 0;
+  line-height: 16px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.file-name:hover {
+  text-decoration: underline;
+}
+
+.report-downloads span {
+  width: 90px;
+  margin: 0;
+  line-height: 16px;
+  display: table-cell;
+  vertical-align: middle;
+  color: #333;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.report-downloads .arrow {
+  width: 13px;
+  height:20px;
+  position: absolute;
+  top: 44%;
+  right: 34px;
+  background: url(/assets/sprite.png) -537px -142px;
+}
+
+/* the visualization download link isn't a real link (doesn't have href attr)
+   it needs to be styled as a link */
+#download_viz:hover {
+  cursor: pointer;
+}
+
+.report-downloads .report-share-block {
+  margin: 40px 0 0 17px;
+  width: 186px;
+}
+
+.report-downloads .report-share-block > a {
+  margin: 0;
+  padding: 8px 54px 9px 53px;
+  text-align: center;
+  background: $background;
+  display: block;
+}
+
+.report-downloads .report-share-block:hover a {
+  background: $button_color;
+}
+
+.report-share-block:hover span {
+  background-color: $button_color;
+}
+
+.share-box {
+  height: 116px;
+  margin: 2px 0 0;
+  padding: 9px 0 2px;
+  border-radius: 4px;
+  display: none;
+  background: $button_color;
+}
+
+.report-downloads .report-share-block:hover .share-box {
+  display: block;
+}
+
+.report-share-block .share-box a {
+  width: 72%;
+  margin: 1px 0 0;
+  padding: 0;
+  float: left;
+  background: none;
+}
+
+.report-share-block .share-box a:hover span {
+  text-decoration: underline;
+}
+
+/*
+ * This is a bit of a hack--see ALM-359.  DP originally had this button
+ * as an <a> but we changed it to a <span> since it's not supposed to be
+ * a link.  Removing the link seems to wreak havoc with the organization
+ * of the related styles (note all the !important below).
+ */
+.share-button {
+  margin: 0;
+  padding: 8px 54px 9px 53px;
+  min-width: 78px;
+  border: none;
+  border-radius: 4px;
+  background: #000;
+  color: #fff !important;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold !important;
+  font-size: 15px !important;
+}
+
+.share-box a span {
+  float: left;
+}
+
+.share-box a span + span {
+  margin: 10px 0 0 5px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.share-box .google-plus-logo {
+  margin: 5px 0 0 18px;
+  background: url(/assets/sprite.png) no-repeat scroll -549px -142px transparent;
+}
+
+.share-box .google-plus-logo,
+.share-box .facebook-logo,
+.share-box .twitter-logo,
+.share-box .email-logo {
+  width: 18px;
+  height: 17px;
+  float: left;
+}
+
+.share-box .google-plus-text {
+  margin: 6px 0 0 5px;
+}
+
+.share-box .facebook-logo {
+  margin: 9px 1px 0 18px;
+  background: url(/assets/sprite.png) no-repeat scroll -566px -142px transparent;
+}
+
+.share-box .twitter-logo {
+  margin: 9px 1px 0 18px;
+  background: url(/assets/sprite.png) no-repeat scroll -583px -142px transparent;
+}
+
+.share-box .email-logo {
+  margin: 9px 1px 0 18px;
+  background: url(/assets/sprite.png) no-repeat scroll -600px -142px transparent;
+}
+
+/* 5.15. Page: Upload-file
+   ========================================================================== */
+
+.upload-file {
+  width: 635px;
+  float: left;
+  position: relative;
+  margin: 45px 0 80px 38px;
+}
+.upload-file h2 {
+  margin: 0 0 18px;
+}
+
+.upload-file p {
+  color: #666;
+  font-size: 14px;
+}
+
+.upload-file a {
+  margin: 0;
+  color: #333333;
+  font-weight: bold;
+}
+
+.upload-file a:hover {
+  border-bottom: 1px solid #333333;
+}
+
+.upload-file-form {
+  width: 360px;
+  margin: 20px 0 0 0;
+}
+
+input[type="file"] {
+  color: #333;
+  float: left;
+}
+
+.upload-file-form input[type="file"] {
+  font-family: Arial,Helvetica,sans-serif;
+  width: 255px;
+}
+
+.upload-file-btn {
+  margin: 29px 0 0 0;
+  padding: 7px 12px 8px;
+}
+
+/* 5.16. Page: Upload file - Fix Errors
+   ========================================================================== */
+
+.upload-message {
+  margin: -16px 0 32px 106px;
+  color: #666;
+  font-size: 14px;
+}
+
+.upload-error-title {
+  margin: 6px 0 6px 106px;
+  font-size: 14px;
+}
+
+.upload-file .doi-pmid-form .error-holder p{
+  color: #e53350;
+}
+.upload-file-form  .error-holder {
+  margin: 2px 0;
+}
+
+.upload-file-form label {
+  margin: 0 15px 0 0;
+  padding: 0 0 25px;
+}
+
+.hidden {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+.upload-file-form input[type="text"] {
+  padding: 2px 0 2px 12px;
+}
+
+.error-holder span {
+  cursor: pointer;
+}
+
+.upload-file-error-input-holder {
+  margin: 0 0 0 107px;
+}
+
+.upload-add-to-my-list {
+  clear: none;
+  margin: 18px 20px 77px 0;
+}
+
+.upload-file-error-input-holder p {
+  width: 60%;
+  display: none;
+  color: #E53350;
+  font-size: 14px;
+}
