@@ -5,7 +5,7 @@
 
   <div class="metrics-left-content">
     <% if @show_metrics_data %>
-      <p class="albert-light-normal metrics-article-count"><%= @start_result %>-<%= @end_result %> of <%= @total_found %> articles</p>
+      <p class="text-light-normal metrics-article-count"><%= @start_result %>-<%= @end_result %> of <%= @total_found %> articles</p>
 
       <% @dois.each do |doi| %>
       <div class="visualizations-list">
@@ -92,7 +92,7 @@
   </div>
 
   <div class="report-downloads">
-    <h2 class="albert-light-normal">Downloads</h2>
+    <h2 class="text-light-normal">Downloads</h2>
     <ul>
       <li>
         <%= link_to(options = {:controller => "reports", :action => "download_data", :id => @report, :format => :csv},
@@ -114,7 +114,7 @@
 
     <%= render "report_share" %>
   </div>
-  
+
   <% if @show_metrics_data %>
   <%= render "pager", :results_per_page => 5 %>
   <% end %>

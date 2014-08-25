@@ -1,7 +1,7 @@
 
     <div class="content wrapper cf">
     <%= form_tag("/add-articles", :method => "get", :class => "home-form") do %>
-        <h2 class="albert-light-normal">Search all Articles <%= link_to "Advanced Search", '/advanced' %></h2>
+        <h2 class="text-light-normal">Search all Articles <%= link_to "Advanced Search", '/advanced' %></h2>
         <div class="input-holder">
           <%= label_tag(:everything, "Keyword") %>
           <%= text_field_tag(:everything) %>
@@ -50,12 +50,12 @@
         </div>
       <% end %>
       <div class="aside aside-container">
-        <h2 class="albert-light-normal">Find Specific Articles</h2>
+        <h2 class="text-light-normal">Find Specific Articles</h2>
         <a class="button-hover-dark-black submit-btn" href="/id/">By DOI/PMID</a>
-        <a class="button-hover-dark-black submit-btn" href="/upload">Upload File</a>        
+        <a class="button-hover-dark-black submit-btn" href="/upload">Upload File</a>
       </div>
       <div class="articles-list cf">
-        <h2 class="albert-light-normal">Browse the 'Best in Class' articles from PLOS</h2>
+        <h2 class="text-light-normal">Browse the 'Best in Class' articles from PLOS</h2>
         	<div>
             <%= link_to '/add-articles?sort=counter_total_all desc' do %>
               <span class="top-views"></span><span>Top Views</span>
@@ -79,7 +79,7 @@
           </div>
       </div>
       <section class="sample-reports cf">
-        <h2 class="albert-light-normal">Explore sample reports</h2>
+        <h2 class="text-light-normal">Explore sample reports</h2>
         <a href="/add-articles?utf8=%E2%9C%93&everything=&author=&author_country=&institution=&publication_days_ago=-1&datepicker1=&datepicker2=&subject=&cross_published_journal_name=All+Journals&financial_disclosure=Alzheimer%27s+Association&commit=Search" class="sample-reports-block-1">
           <%= image_tag "home.sample.reports.img1.plos-alm.jpg", :height => '173', :width => '216', :alt => 'Sample Reports Funder' %>
           <span>Funder:</span>
@@ -96,7 +96,7 @@
           <span>Evolutionary Biology</span>
         </a>
         <a href="/add-articles?utf8=%E2%9C%93&everything=&author=Michael+B.+Eisen&author_country=&institution=&publication_days_ago=-1&datepicker1=&datepicker2=&subject=&cross_published_journal_name=All+Journals&financial_disclosure=&commit=Search" class="sample-reports-block-4">
-          <%= image_tag "home.sample.reports.img4.plos-alm.jpg", :height => '173', :width => '216', :alt => 'Sample Reports Funder' %>        	
+          <%= image_tag "home.sample.reports.img4.plos-alm.jpg", :height => '173', :width => '216', :alt => 'Sample Reports Funder' %>
           <span>Author:</span>
           <span>Michael B. Eisen</span>
         </a>

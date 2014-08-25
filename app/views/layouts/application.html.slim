@@ -30,24 +30,24 @@ body
   .container
     header.nav-area
       .wrapper
-        h1
+        h1.text-light-normal
           a href="/"
             = logo
-        ul.albert-light-normal
+        ul.text-light-normal
           li
             a href="http://article-level-metrics.plos.org/"
               | Article-Level Metrics
           li
             a href="http://www.plos.org/" plos.org
 
-        .tagline.albert-light-italic
-          h2.albert-light-normal ALM: Measuring the Impact of Research
+        .tagline.text-light-italic
+          h2.text-light-normal ALM: Measuring the Impact of Research
           p ALM Reports allows you to view article-level metrics for any set of PLOS articles as well as summarize and visualize the data results.
           p
             a href="/about" About
-            span.albert-light-normal |
+            span.text-light-normal |
             a href="/samples" Samples
-            span.albert-light-normal |
+            span.text-light-normal |
             a href="mailto:alm@plos.org" Send Us Feedback
         .list-outer-container
           .list-container
@@ -122,7 +122,5 @@ body
     var RESULTS_PER_PAGE = #{APP_CONFIG["results_per_page"]}
     var ARTICLE_LIMIT = #{APP_CONFIG["article_limit"]}
     var VIZ_LIMIT = #{APP_CONFIG["viz_limit"]}
-    - if !@total_found.nil?
-      var search_total_found = #{@total_found};
-
+    #{ "var search_total_found = #{@total_found};" if !@total_found.nil? }
   = javascript_include_tag "application"
