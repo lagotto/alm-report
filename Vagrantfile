@@ -25,8 +25,8 @@ def provision(config, override, overrides = {})
   # Link database.yml and settings.yml generated in alm-report recipe to current app directory
   # and install required gems and run pending database migrations
   override.vm.provision "shell", inline: <<-EOF
-    ln -fs /var/www/alm-report/shared/config/database.yml /var/www/alm-report/current/config/database.yml
-    ln -fs /var/www/alm-report/shared/config/settings.yml /var/www/alm-report/current/config/settings.yml
+    cp -n /var/www/alm-report/shared/config/database.yml /var/www/alm-report/current/config/database.yml
+    cp -n /var/www/alm-report/shared/config/settings.yml /var/www/alm-report/current/config/settings.yml
     cd /var/www/alm-report/current && bundle && bundle exec rake db:migrate
   EOF
 end
