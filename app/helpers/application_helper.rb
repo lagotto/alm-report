@@ -1,8 +1,6 @@
 module ApplicationHelper
-  @@template = %w{plos default}[1]
-
   def logo
-    src = case @@template
+    src = case APP_CONFIG['mode']
     when 'plos'
       'logo.plos-alm.png'
     when 'default'
@@ -14,7 +12,7 @@ module ApplicationHelper
   end
 
   def footer_logo
-    src = case @@template
+    src = case APP_CONFIG['mode']
     when 'plos'
       'footer.logo.plos-alm.png'
     when 'default'
@@ -24,7 +22,7 @@ module ApplicationHelper
   end
 
   def font
-    case @@template
+    case APP_CONFIG['mode']
     when 'plos'
       javascript_tag <<-SCRIPT
         WebFontConfig = { fontdeck: { id: '24557' } };

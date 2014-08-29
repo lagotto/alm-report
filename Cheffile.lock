@@ -71,10 +71,8 @@ SITE
     yum-epel (0.4.0)
       yum (~> 3.0)
 
-GIT
-  remote: git@github.com:articlemetrics/alm-report-cookbook.git
-  ref: ec2
-  sha: 9f765f6081d6926dea89204131445c20874353dc
+PATH
+  remote: /Users/juretriglav/src/plos/alm-report-cookbook/
   specs:
     alm-report (0.1.18)
       database (>= 0.0.0)

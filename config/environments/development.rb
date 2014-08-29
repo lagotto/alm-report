@@ -38,3 +38,7 @@ AlmReport::Application.configure do
   # TODO TESTING!
   config.cache_store = :dalli_store
 end
+
+BetterErrors::Middleware.allow_ip! "10.2.2.1"
+
+

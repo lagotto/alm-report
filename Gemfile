@@ -14,6 +14,8 @@ gem 'jquery-ui-rails', '~> 5.0.0'
 gem 'slim-rails'
 
 group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'capistrano-rails', '~> 1.1.1', require: false
   gem 'capistrano-bundler', '~> 1.1.2', require: false
 end
