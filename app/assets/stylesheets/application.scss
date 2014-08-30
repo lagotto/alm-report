@@ -1,28 +1,11 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the top of the
- * compiled file, but it's generally better to create a new file per style scope.
- *
- */
-
-// TODO: Needs to be switchable between PLOS and generic
-// PLOS:
-// $background: #333;
-// $header_text_color: #fff;
-// $body_text_color: #333;
-// $button_color: #3c63af;
-// $font_normal: normal normal "FS Albert Web Regular", Verdana , sans-serif;
-// $font_italic: italic normal "FS Albert Web Italic", Verdana , sans-serif;
-// $font_bold_normal: normal bold "FS Albert Web Bold", Verdana , sans-serif;
-// $font_bold_italic: italic bold "FS Albert Web Bold Italic", Verdana , sans-serif;
+// Default colors and typography:
 
 $background: #fff;
+$footer_background: #fff;
+$header_background: #fff;
 $header_text_color: #222;
+$footer_text_color: #666;
+$footer_text_strong_color: #333;
 $body_text_color: #333;
 $button_color: #00ACE7;
 $font_family: 'Fira Sans', sans-serif;
@@ -35,30 +18,4 @@ $breadcrumb_text_color: white;
 $breadcrumb_background_active: #fb8903;
 $breadcrumb_background: white;
 
-@mixin font_normal($family: $font_family, $weight: normal) {
-  font-style: normal;
-  font-weight: $weight;
-  font-family: $family;
-}
-
-@mixin font_italic($family: $font_family, $weight: normal) {
-  font-style: italic;
-  font-weight: $weight;
-  font-family: $family;
-}
-
-@mixin font_bold_normal($family: $font_family, $weight: bold) {
-  font-style: normal;
-  font-weight: $weight;
-  font-family: $family;
-}
-
-@mixin font_bold_italic($family: $font_family, $weight: bold) {
-  font-style: italic;
-  font-weight: $weight;
-  font-family: $family;
-}
-
-@import 'jquery-ui-dp';
-@import 'uniform.default';
-@import 'style';
+@import 'common';

@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def method_missing(template)
-    if %i[logo footer_logo font side_heading].include?(template)
+    if %i[logo footer_logo font side_heading links_holder stylesheet].include?(template)
       switch(template)
     else
       super

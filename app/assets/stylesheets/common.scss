@@ -1,0 +1,27 @@
+@mixin font_normal($family: $font_family, $weight: normal) {
+  font-style: normal;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+@mixin font_italic($family: $font_family, $weight: normal) {
+  font-style: italic;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+@mixin font_bold_normal($family: $font_family, $weight: bold) {
+  font-style: normal;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+@mixin font_bold_italic($family: $font_family, $weight: bold) {
+  font-style: italic;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+@import 'jquery-ui-dp';
+@import 'uniform.default';
+@import 'style';

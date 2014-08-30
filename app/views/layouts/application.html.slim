@@ -6,7 +6,7 @@ html.no-js lang="en"
 
     title #{@title} | ALM Reports
 
-    = stylesheet_link_tag "application"
+    = stylesheet
     = stylesheet_link_tag "print", :media => 'print'
 
     <!--[if lt IE 9]>
@@ -73,43 +73,14 @@ html.no-js lang="en"
       footer.nav-area
         .wrapper
           .credits
-            a.footer-logo href="http://www.plos.org/"
-              = footer_logo
+            = footer_logo
             p
               a href="/about" About
               span= ' | '
               a href="/privacy_policy" Privacy Policy
               span= ' | '
               a href="/terms_of_use" Terms of Use
-          .plos-links-holder
-            h2 Journals
-            ul.journal-links
-              li
-                a href="http://www.plosbiology.org/" PLOS Biology
-              li
-                a href="http://www.plosmedicine.org/" PLOS Medicine
-              li
-                a href="http://www.ploscompbiol.org/" PLOS Computational Biology
-              li
-                a href="http://currents.plos.org/" PLOS Currents
-              li
-                a href="http://www.plosgenetics.org/" PLOS Genetics
-              li
-                a href="http://www.plospathogens.org/" PLOS Pathogens
-              li
-                a href="http://www.plosone.org/" PLOS ONE
-              li
-                a href="http://www.plosntds.org/" PLOS Neglected Tropical Diseases
-
-            ul.external-links
-              li
-                a href="http://www.plos.org/" plos.org
-              li
-                a href="http://blogs.plos.org/" Blogs
-              li
-                a href="http://www.ploscollections.org/" Collections
-              li
-                a href="mailto:alm@plos.org" Send us feedback
+          = links_holder
 
     javascript:
       var RESULTS_PER_PAGE = #{APP_CONFIG["results_per_page"]}
