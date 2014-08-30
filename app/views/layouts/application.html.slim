@@ -1,126 +1,124 @@
 doctype html
 html.no-js lang="en"
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
 
-head
-  meta charset="utf-8"
-  meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
+    title #{@title} | ALM Reports
 
-  title #{@title} | ALM Reports
+    = stylesheet_link_tag "application"
+    = stylesheet_link_tag "print", :media => 'print'
 
-  = stylesheet_link_tag "application"
-  = stylesheet_link_tag "print", :media => 'print'
-
-  <!--[if lt IE 9]>
-    = javascript_include_tag "html5shiv"
-  <![endif]-->
+    <!--[if lt IE 9]>
+      = javascript_include_tag "html5shiv"
+    <![endif]-->
 
 
-  = font
+    = font
 
-  script src="http://www.google.com/jsapi"
+    script src="http://www.google.com/jsapi"
 
-  javascript:
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-338393-1']);
-    _gaq.push(['_trackPageview']);
-    (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); }
-    )();
+    javascript:
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-338393-1']);
+      _gaq.push(['_trackPageview']);
+      (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); }
+      )();
 
-body
-  .container
-    header.nav-area
-      .wrapper
-        h1.text-light-normal
-          a href="/"
-            = logo
-        ul.text-light-normal
-          li
-            a href="http://article-level-metrics.plos.org/"
-              | Article-Level Metrics
-          li
-            a href="http://www.plos.org/" plos.org
-
-        .tagline.text-light-italic
-          h2.text-light-normal ALM: Measuring the Impact of Research
-          p ALM Reports allows you to view article-level metrics for any set of PLOS articles as well as summarize and visualize the data results.
-          p
-            a href="/about" About
-            span.text-light-normal |
-            a href="/samples" Samples
-            span.text-light-normal |
-            a href="mailto:alm@plos.org" Send Us Feedback
-        .list-outer-container
-          .list-container
-            span.list-label Your List
-            span.list-count= @saved_dois.nil? ? 0 : @saved_dois.length
-
-          div#your-list-choices.list-hover
-            - if @saved_dois.nil? || @saved_dois.length == 0
-              span View Report
-              span Edit List
-            - else
-              a href="/reports/generate" View Report
-              a href="/preview-list" Edit List
-
-        - if @display_nav
-          ul.progress-bar
-            li class=(@tab == :select_articles ? 'progress-bar-tab1-active progress-bar-tab1' : 'progress-bar-tab1') Select Articles
-            li class=(@tab == :preview_list ? 'progress-bar-tab2-active progress-bar-tab2' : 'progress-bar-tab2') Preview List
-            li class=(@tab == :view_report ? 'progress-bar-tab3-active progress-bar-tab3' : 'progress-bar-tab3') View Report
-
-    - if !flash[:error].nil?
-      .wrapper#error-message-div style="display: block"
-        = flash[:error].html_safe
-    - else
-      .wrapper#error-message-div
-
-    = yield
-
-    footer.nav-area
-      .wrapper
-      	.credits
-          a.footer-logo href="http://www.plos.org/"
-            = footer_logo
-          p
-            a href="/about" About
-            span= ' | '
-            a href="/privacy_policy" Privacy Policy
-            span= ' | '
-            a href="/terms_of_use" Terms of Use
-
-        .plos-links-holder
-          h2 Journals
-          ul.journal-links
+  body
+    .container
+      header.nav-area
+        .wrapper
+          h1.text-light-normal
+            a href="/"
+              = logo
+          ul.text-light-normal
             li
-              a href="http://www.plosbiology.org/" PLOS Biology
-            li
-              a href="http://www.plosmedicine.org/" PLOS Medicine
-            li
-              a href="http://www.ploscompbiol.org/" PLOS Computational Biology
-            li
-              a href="http://currents.plos.org/" PLOS Currents
-            li
-              a href="http://www.plosgenetics.org/" PLOS Genetics
-            li
-              a href="http://www.plospathogens.org/" PLOS Pathogens
-            li
-              a href="http://www.plosone.org/" PLOS ONE
-            li
-              a href="http://www.plosntds.org/" PLOS Neglected Tropical Diseases
-
-          ul.external-links
+              a href="http://article-level-metrics.plos.org/"
+                | Article-Level Metrics
             li
               a href="http://www.plos.org/" plos.org
-            li
-              a href="http://blogs.plos.org/" Blogs
-            li
-              a href="http://www.ploscollections.org/" Collections
-            li
-              a href="mailto:alm@plos.org" Send us feedback
 
-  javascript:
-    var RESULTS_PER_PAGE = #{APP_CONFIG["results_per_page"]}
-    var ARTICLE_LIMIT = #{APP_CONFIG["article_limit"]}
-    var VIZ_LIMIT = #{APP_CONFIG["viz_limit"]}
-    #{ "var search_total_found = #{@total_found};" if !@total_found.nil? }
-  = javascript_include_tag "application"
+          .tagline.text-light-italic
+            h2.text-light-normal ALM: Measuring the Impact of Research
+            p ALM Reports allows you to view article-level metrics for any set of PLOS articles as well as summarize and visualize the data results.
+            p
+              a href="/about" About
+              span.text-light-normal |
+              a href="/samples" Samples
+              span.text-light-normal |
+              a href="mailto:alm@plos.org" Send Us Feedback
+
+          .list-outer-container
+            .list-container
+              span.list-label Your List
+              span.list-count= @saved_dois.nil? ? 0 : @saved_dois.length
+            div#your-list-choices.list-hover
+              - if @saved_dois.nil? || @saved_dois.length == 0
+                span View Report
+                span Edit List
+              - else
+                a href="/reports/generate" View Report
+                a href="/preview-list" Edit List
+
+          - if @display_nav
+            ul.breadcrumb
+              li class=(@tab == :select_articles ? 'active' : nil) Select Articles
+              li class=(@tab == :preview_list ? 'active' : nil) Preview List
+              li class=(@tab == :view_report ? 'active' : nil) View Report
+
+      - if !flash[:error].nil?
+        .wrapper#error-message-div style="display: block"
+          = flash[:error].html_safe
+      - else
+        .wrapper#error-message-div
+
+      = yield
+
+      footer.nav-area
+        .wrapper
+          .credits
+            a.footer-logo href="http://www.plos.org/"
+              = footer_logo
+            p
+              a href="/about" About
+              span= ' | '
+              a href="/privacy_policy" Privacy Policy
+              span= ' | '
+              a href="/terms_of_use" Terms of Use
+          .plos-links-holder
+            h2 Journals
+            ul.journal-links
+              li
+                a href="http://www.plosbiology.org/" PLOS Biology
+              li
+                a href="http://www.plosmedicine.org/" PLOS Medicine
+              li
+                a href="http://www.ploscompbiol.org/" PLOS Computational Biology
+              li
+                a href="http://currents.plos.org/" PLOS Currents
+              li
+                a href="http://www.plosgenetics.org/" PLOS Genetics
+              li
+                a href="http://www.plospathogens.org/" PLOS Pathogens
+              li
+                a href="http://www.plosone.org/" PLOS ONE
+              li
+                a href="http://www.plosntds.org/" PLOS Neglected Tropical Diseases
+
+            ul.external-links
+              li
+                a href="http://www.plos.org/" plos.org
+              li
+                a href="http://blogs.plos.org/" Blogs
+              li
+                a href="http://www.ploscollections.org/" Collections
+              li
+                a href="mailto:alm@plos.org" Send us feedback
+
+    javascript:
+      var RESULTS_PER_PAGE = #{APP_CONFIG["results_per_page"]}
+      var ARTICLE_LIMIT = #{APP_CONFIG["article_limit"]}
+      var VIZ_LIMIT = #{APP_CONFIG["viz_limit"]}
+      #{ "var search_total_found = #{@total_found};" if !@total_found.nil? }
+    = javascript_include_tag "application"

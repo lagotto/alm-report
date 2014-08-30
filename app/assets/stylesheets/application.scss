@@ -28,6 +28,13 @@ $button_color: #00ACE7;
 $font_family: 'Fira Sans', sans-serif;
 $font_normal_weight: 300;
 
+$breadcrumb_background_first: #6B6B6B;
+$breadcrumb_background_second: #525252;
+$breadcrumb_background_third: #1E1E1E;
+$breadcrumb_text_color: white;
+$breadcrumb_background_active: #fb8903;
+$breadcrumb_background: white;
+
 @mixin font_normal($family: $font_family, $weight: normal) {
   font-style: normal;
   font-weight: $weight;
