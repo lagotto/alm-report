@@ -1,16 +1,26 @@
 module ApplicationHelper
 
   def switch(template)
+    controller.prepend_view_path("app/views/#{controller.controller_name}/")
     case APP_CONFIG['mode']
     when 'plos'
-      render "home/plos/#{template}"
+      render "plos/#{template}"
     when 'default'
-      render "home/default/#{template}"
+      render "default/#{template}"
     end
   end
 
   def method_missing(template)
-    if %i[logo footer_logo font side_heading links_holder stylesheet].include?(template)
+    templates = %i(
+      logo
+      footer_logo
+      font
+      side_heading
+      links_holder
+      stylesheet
+      articles_list
+    )
+    if templates.include?(template)
       switch(template)
     else
       super
