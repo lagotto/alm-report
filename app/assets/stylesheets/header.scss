@@ -2,6 +2,10 @@
    4. Header
    ========================================================================== */
 
+header h1 {
+  font-size: 20px;
+}
+
 h1 {
   margin: 61px 0 0 10px;
   display: inline-block;
@@ -120,49 +124,4 @@ h1 + ul li {
 
 .hover-bg-dark-black {
   background: #333 !important;
-}
-
-.progress-bar {
-  margin: 21px 0 0;
-  font-weight: bold;
-}
-
-.progress-bar li {
-  height: 47px;
-  padding-top: 22px;
-  display: inline-block;
-  font-size: 22px;
-  letter-spacing: -1px;
-}
-
-.progress-bar-tab1.progress-bar-tab1-active {
-  background: url(/assets/sprite.png) 0 0;
-}
-
-.progress-bar-tab1 {
-  width: 334px;
-  background: url(/assets/sprite.png) 0 -71px;
-  text-indent: 75px;
-}
-
-.progress-bar-tab2 {
-  width: 334px;
-  margin: 0 0 0 -18px;
-  background: url(/assets/sprite.png) -336px -71px;
-  text-indent: 87px;
-}
-
-.progress-bar-tab2.progress-bar-tab2-active{
-  background: url(/assets/sprite.png) -336px 0px;
-}
-
-.progress-bar-tab3 {
-  width: 320px;
-  margin: 0 0 0 -19px;
-  background: url(/assets/sprite.png) -672px -71px;
-  text-indent: 91px;
-}
-
-.progress-bar-tab3.progress-bar-tab3-active {
-  background: url(/assets/sprite.png) -672px 0;
 }
