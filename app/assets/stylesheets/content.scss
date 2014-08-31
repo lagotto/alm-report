@@ -589,7 +589,7 @@ input[type="checkbox"] {
 .select-all-articles-link:hover,
 .unselect-all-articles-link:hover,
 .select-articles-message a:hover {
-  color: #fb8903;
+  color: $active;
 }
 
 .add-select-box-holder {
@@ -653,11 +653,11 @@ span.previous {
 }
 
 .pagination-number:hover {
-  background: #fb8903;
+  background: $active;
 }
 
 .pagination-selected {
-  background: #fb8903;
+  background: $active;
   cursor: default;
 }
 
@@ -929,7 +929,7 @@ span.next {
 
 .metrics-icon-active + span {
   margin: 47px 102px 0 0;
-  color: #fb8903;
+  color: $active;
   font-size: 18px;
   font-weight: bold;
 }
@@ -1139,8 +1139,7 @@ caption {
   margin: 46px 100px 0 81px;
   padding: 0 0 0 31px;
   float: left;
-  background: url(/assets/matrix-data-icon.png) no-repeat;
-  background-position: 0 3px;
+  @include metrics-icon($button_color);
   color: $button_color;
   font-weight: bold;
   font-size: 18px;
@@ -1148,9 +1147,8 @@ caption {
 
 .metrics-icon:hover,
 .metrics-icon-active {
-  background: url(/assets/matrix-data-hover-icon.png) no-repeat;
-  background-position: 0 3px;
-  color: #fb8903;
+  @include metrics-icon($active);
+  color: $active;
 }
 
 .chart-view {
@@ -1159,7 +1157,7 @@ caption {
   margin: 46px 11px 0 0;
   padding: 0 0 0 38px;
   float: left;
-  background: url(/assets/visualization-icon.png) 0 1px no-repeat;
+  @include visualization-icon($button_color);
   color: $button_color;
   font-weight: bold;
   font-size:18px;
@@ -1167,13 +1165,13 @@ caption {
 
 .chart-view:hover,
 .chart-view-active {
-  background: url(/assets/visualization-hover-icon.png) 0 1px no-repeat;
-  color: #fb8903;
+  @include visualization-icon($active);
+  color: $active;
 }
 
 .inactive-viz-link {
   color: #999 !important;
-  background: url(/assets/visualization-inactive-icon.png) 0 1px no-repeat;
+  @include visualization-icon(#999);
 }
 
 .inactive-viz-holder {
@@ -1184,7 +1182,7 @@ caption {
 
 .inactive-viz-link:hover {
   color: #999 !important;
-  background: url(/assets/visualization-inactive-icon.png) 0 1px no-repeat;
+  @include visualization-icon(#999);
 }
 
 .inactive-viz-msg {

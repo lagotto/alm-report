@@ -1,7 +1,8 @@
 module ApplicationHelper
 
   def switch(template)
-    controller.prepend_view_path("app/views/#{controller.controller_name}/")
+    controller.prepend_view_path(["app/views/#{controller.controller_name}/",
+      "app/views/application/"])
     case APP_CONFIG['mode']
     when 'plos'
       render "plos/#{template}"
