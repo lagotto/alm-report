@@ -9,11 +9,12 @@ $body_text_color: #333;
 $button_color: #3c63af;
 $font-family: "FS Albert Web Regular", Verdana , sans-serif;
 $font_normal_weight: normal;
+$active: #fb8903;
 $breadcrumb_background_first: #6B6B6B;
 $breadcrumb_background_second: #525252;
 $breadcrumb_background_third: #1E1E1E;
 $breadcrumb_text_color: white;
-$breadcrumb_background_active: #fb8903;
+$breadcrumb_background_active: $active;
 $breadcrumb_background: white;
 
 @import 'common';
