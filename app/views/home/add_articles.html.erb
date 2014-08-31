@@ -1,7 +1,7 @@
 
 <div class="content wrapper cf">
  <div class="article-lists">
-   <h2 class="albert-light-normal">Add selected articles to your list</h2>
+   <h2 class="text-light-normal">Add selected articles to your list</h2>
    <% if @total_found > 0 %>
      <p><%= @start_result %>-<%= @end_result %> of <%= number_with_delimiter(@total_found, :delimiter => ',') %> results for
    <% else %>
@@ -38,7 +38,7 @@
 
      <% end %>
    </p>
-   
+
    <% if @total_found > 0 %>
    <ul>
      <li class="select-all-articles-link">select all</li>
@@ -61,7 +61,7 @@
    </div>
    <% end %>
 
-   <p class="select-articles-message albert-light-normal invisible">
+   <p class="select-articles-message text-light-normal invisible">
      <span id="select-articles-message-text"></span>
      <span id="select-all-articles-message-text"></span>
    </p>

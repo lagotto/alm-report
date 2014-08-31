@@ -1,0 +1,330 @@
+/* ==========================================================================
+   6. Footer
+   ========================================================================== */
+
+footer {
+  padding-bottom: 70px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer.nav-area {
+  background: $footer_background;
+}
+
+.credits {
+  width: 400px;
+  margin: 25px 0 0 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.credits > a {
+  width: 100%;
+  display: inline-block;
+}
+
+.credits p {
+  width: 240px;
+  margin: 113px 0 0;
+  display: inline-block;
+  color: $footer_text_color;
+  font-size: 12px;
+}
+
+.credits strong {
+  color: $footer_text_strong_color;
+}
+
+.credits p + p {
+  width: 100%;
+  margin: 26px 0 0;
+  font-size: 12px;
+}
+
+.credits p + p span {
+  padding: 0 5px;
+  display: inline-block;
+}
+
+.credits li {
+  padding: 0 10px 0 0;
+  color: #666;
+}
+
+.credits a {
+  color: $footer_text_color;
+}
+
+.links-holder {
+  width: 460px;
+  margin: 18px 0 0 44px;
+  display: inline-block;
+}
+
+.links-holder h2 {
+  width: 50%;
+  padding: 0 0 5px 0;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: bold;
+  color: $header_text_color;
+}
+
+.links-holder li {
+  width: 100%;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.journal-links {
+  width: 236px;
+}
+
+.journal-links a {
+  color: $footer_text_color;
+}
+
+.external-links {
+  width: 180px;
+  position: relative;
+  top: -25px;
+  font-weight: bold;
+  vertical-align: top;
+}
+
+
+/* override the jquery datepicker defaults */
+.ui-datepicker {
+  font-size: 12px;
+  width: 186px;
+  z-index: 6 !important;
+}
+
+/* General settings */
+div.selector,
+div.selector span,
+div.checker span,
+div.radio span,
+div.uploader,
+div.uploader span.action,
+div.button,
+div.button span {
+  background: none;
+ -webkit-font-smoothing: auto;
+}
+
+.selector,
+.checker,
+.button,
+.radio,
+.uploader {
+  display: -moz-inline-box;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  vertical-align: middle;
+}
+
+.selector select:focus,
+.radio input:focus,
+.checker input:focus,
+.uploader input:focus {
+  outline: 0;
+}
+
+.selector,
+.radio,
+.checker,
+.uploader,
+.button,
+.selector *,
+.radio *,
+.checker *,
+.uploader *,
+.button * {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove default webkit and possible mozilla .search styles */
+div.checker input,
+input.search,
+input.search:active {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Uploader */
+div.uploader {
+  width: 256px;
+  height: auto;
+  margin: 5px 0 0 0;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+div.uploader span.action {
+  min-width: 78px;
+  width: auto;
+  height: auto;
+  padding: 7px 12px 8px;
+  text-align: center;
+  float: left;
+  display: inline;
+  overflow: hidden;
+  cursor: pointer;
+  line-height: normal;
+  text-shadow: none;
+}
+
+div.uploader span.filename {
+  height: auto;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  float: left;
+  cursor: text;
+  margin: 0 2px 0 0;
+  width: 118px;
+  padding: 7px 10px;
+  line-height: normal;
+}
+
+div.uploader input {
+  position: absolute;
+}
+
+div.uploader span.action {
+  border-radius: 4px;
+  background: $button_color;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+div.uploader span.action:hover {
+  background: $background;
+}
+div.uploader span.filename {
+  border: 1px solid #999;
+  font-size: 15px;
+  color: #666;
+}
+
+div.uploader.disabled span.action {
+  color: #aaa;
+}
+
+div.uploader.disabled span.filename {
+  border-color: #ddd;
+  color: #aaa;
+}
+
+/* Select selector */
+
+div.selector {
+  width: 439px !important;
+  height: 45px;
+  padding: 0 0 0 16px;
+  font-size: 18px;
+  background: url(/assets/sprite.png) -192px -399px no-repeat;
+}
+
+div.selector.focus,
+div.selector.hover,
+div.selector:hover {
+  background-position: -192px -399px;
+}
+
+div.selector.focus:active,
+div.selector.focus.active,
+div.selector:hover:active,
+div.selector.active:hover {
+  background-position: -192px -399px;
+}
+
+div.selector span {
+  width: 100%;
+  height: 45px;
+  padding-right: 25px;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  background-position: right 0;
+  line-height: 45px;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #333;
+  text-overflow: ellipsis;
+}
+
+div.selector select {
+  width: 450px;
+  height: 45px;
+  display: inline-block;
+  position: relative;
+  top: -47px;
+  left: -16px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -moz-opacity: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.add-select-box-holder div.selector {
+  width: 260px !important;
+  height: 36px;
+  padding: 0 0 0 16px;
+  font-size: 18px;
+  background: url(/assets/sprite.png) -647px -399px no-repeat;
+}
+
+.add-select-box-holder div.selector span {
+  width: 100%;
+  height: 36px;
+  padding-right: 25px;
+  color: #333;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  background-position: right 0;
+  line-height: 37px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.add-select-box-holder div.selector select {
+  width: 275px;
+}
+
+.add-select-box-holder div.selector.focus:active,
+.add-select-box-holder div.selector.focus.active,
+.add-select-box-holder div.selector:hover:active,
+.add-select-box-holder div.selector.active:hover {
+  background-position: -647px -399px;
+}
+
+.input-holder option,
+.add-select-box-holder option {
+  background: #fff;
+  line-height: 21px;
+  padding: 0 0 0 5px;
+}
+
+.reports-header-div {
+  height: 48px;
+  margin-bottom: 7px;
+}
+
+.reports-header-div + div {
+  width: 670px;
+  height: 392px;
+}

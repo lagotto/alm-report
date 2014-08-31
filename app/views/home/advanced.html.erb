@@ -2,7 +2,7 @@
 
 <%= form_tag "/add-articles", method: :get, class: 'advanced-form'  do %>
 
-  <h2 class="albert-light-normal">Construct Your Search <%= link_to "Simple Search", '/' %></h2>
+  <h2 class="text-light-normal">Construct Your Search <%= link_to "Simple Search", '/' %></h2>
 
   <div class="input-holder">
     <%= select_tag "queryFieldId", options_for_select({
@@ -11,7 +11,7 @@
       "Title" => 'title',
       "Author" => 'author',
       "Abstract" => 'abstract',
-      "Subject" => 'subject', 
+      "Subject" => 'subject',
       "Publication Date" => 'publication_date',
       "----- Other -----" => 'divider',
       "Accepted Date" => 'accepted_date',
@@ -67,7 +67,7 @@
     <ol>
       <li>
         <label>
-          <input id="journalsOpt_all" type="radio" name="journalOpt" value="all" title="Search All Journals" 
+          <input id="journalsOpt_all" type="radio" name="journalOpt" value="all" title="Search All Journals"
             <%= "checked=\"checked\"".html_safe if !(!params["filterJournals"].nil? && params["filterJournals"].size > 0) %> > Search all journals
         </label>
       </li>
@@ -82,8 +82,8 @@
         <ul>
           <% @journals.each do | journal | %>
             <li>
-              <input id="filterJournals_<%=journal[:journal_key]%>" name="filterJournals[]" value="<%=journal[:journal_key]%>" type="checkbox" 
-                title="Select <%=journal[:journal_name]%>" alt="Select Journal <%=journal[:journal_name]%> Check Box" 
+              <input id="filterJournals_<%=journal[:journal_key]%>" name="filterJournals[]" value="<%=journal[:journal_key]%>" type="checkbox"
+                title="Select <%=journal[:journal_name]%>" alt="Select Journal <%=journal[:journal_name]%> Check Box"
                 <%= "checked=\"checked\"".html_safe if (!params["filterJournals"].nil? && params["filterJournals"].include?(journal[:journal_key])) %> >&nbsp;
               <label for="filterJournals_<%=journal[:journal_key]%>"><%=journal[:journal_name]%></label>
             </li>
@@ -97,7 +97,7 @@
 <% end %>
 
   <div class="aside aside-container">
-    <h2 class="albert-light-normal">Find Specific Articles</h2>
+    <h2 class="text-light-normal">Find Specific Articles</h2>
     <a class="button-hover-dark-black submit-btn" href="/id/">By DOI/PMID</a>
     <a class="button-hover-dark-black submit-btn" href="/upload">Upload File</a>
 

@@ -1,0 +1,65 @@
+/*------------------------------------------------------------------
+  [Table of contents]
+*/
+
+  /* 1. Reset */
+    @import 'reset';
+  /* 2. Body */
+    body {
+      width: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      color: $header_text_color;
+    }
+  /* 3. Container / .container */
+    @import 'container';
+  /* 4. Header */
+    @import 'header';
+  /* 5. Content
+    5.1. Form block
+    5.2. Aside block
+    5.3. Articles list block
+    5.4. Sample reports block
+    5.5. Page: Search.doi-pmid
+    5.6. Page: Search.doi-pmid.fix-errors
+    5.7. Page: Preview-list
+    5.8. Page: Add-articles
+    5.9. Page: Home.welcome-back
+    5.10. Page: Sample-charts
+    5.11. Page: Sample-metrics
+    5.12. Page: Report.metrics
+    5.13. Page: Report.visualizations
+    5.14. Report download block
+    5.15. Page: Upload-file
+    5.16. Page: Upload file - Fix Errors
+  */
+    @import 'content';
+  /* 6. Footer */
+    @import 'footer';
+  /* 7. Static content */
+    @import 'static_content';
+  /* 8. Advanced Search page */
+    @import 'advanced_search_page';
+  /*------------------------------------------------------------------
+  [Color codes]
+
+  1. White (website default color): #fff
+  2. Dark grey (text): #333
+  3. Mid Grey: #666
+  4. Grey (labels, input fields): #999
+  5. Light grey : #ccc
+  6. Blue (Reset button): #3c63af;
+  7. Grey (Input example text): #9f9f9f
+  8. Light red (Error text in Search.doi page): #c27e86
+  9. Red (Error message text): #e533050
+  10. Grey ("sort by" keyword): #8d8d8d
+  11. Grey: #858585
+  12. Light grey ("saved" keyword): #2d9e00
+  13. Orange (Metric icon active and hover): #fb8903
+  14. Dark blue (anchor in report.metrics page): #369
+  15. Dark grey (Paragraph in visualization page): #4d4d4d
+  16. Dim grey (Visualizatio): 9c9c9c
+
+  -------------------------------------------------------------------*/
+
+@import 'breadcrumb';

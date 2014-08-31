@@ -1,0 +1,131 @@
+/* ==========================================================================
+   4. Header
+   ========================================================================== */
+
+header h1 {
+  font-size: 20px;
+}
+
+header.nav-area {
+  background: $header_background;
+}
+
+h1 {
+  margin: 53px 0 0 10px;
+  display: inline-block;
+}
+
+h1 + ul {
+  margin: 69px 9px 0 0;
+  float: right;
+  font-size: 16px;
+}
+
+h1 + ul li:first-child {
+  padding: 12px 16px 12px 0;
+  border-left: none;
+}
+
+h1 + ul li {
+  padding: 12px 0 12px 18px;
+  border-left: 1px solid #666;
+  display: inline;
+  font-size: 20px;
+}
+
+.tagline {
+  margin: 63px 0 48px 62px;
+  width: 67%;
+  display: inline-block;
+}
+
+.tagline a:hover,
+.list-hover a:hover {
+  text-decoration: underline;
+}
+
+.tagline h2 {
+  font-size: 34px;
+  color: $header_text_color;
+}
+
+.tagline p {
+  margin: 7px 0 0;
+}
+
+.tagline p + p {
+  margin: 2px 0 0;
+}
+
+.tagline p + p span{
+  padding: 0 6px;
+  display: inline-block;
+}
+
+.list-outer-container {
+  margin: 70px 10px 0 0;
+  float: right;
+  font-weight: bold;
+}
+
+.list-container {
+  width: 180px;
+  height: 53px;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.list-container > span {
+  width: 90px;
+  float: left;
+  text-align: center;
+}
+
+.list-label {
+  padding: 18px 0 20px;
+  font-size: 14px;
+  background: $button_color;
+}
+
+.list-count {
+  padding: 8px 0 8px;
+  font-size: 32px;
+  background: #828282;
+}
+
+.list-hover {
+  width: 180px;
+  display: none;
+}
+
+.list-outer-container:hover .list-hover {
+  display: block;
+}
+
+.list-hover a {
+  width: 100%;
+  margin: 3px 0 0;
+  padding: 9px 0;
+  border-radius: 4px;
+  float: left;
+  font-size: 14px;
+  text-align: center;
+  background: $button_color;
+}
+
+.list-hover span {
+  width: 100%;
+  margin: 3px 0 0;
+  padding: 9px 0;
+  border-radius: 4px;
+  float: left;
+  font-size: 14px;
+  text-align: center;
+  background: black;
+}
+
+.hover-bg-dark-black {
+  background: #333 !important;
+}

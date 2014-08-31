@@ -1,387 +1,3 @@
-@charset "utf-8";
-/*------------------------------------------------------------------
-  [Table of contents]
-
-  1. Reset
-  2. Body
-  3. Container / .container
-  4. Header
-  5. Content
-    5.1. Form block
-    5.2. Aside block
-    5.3. Articles list block
-    5.4. Sample reports block
-    5.5. Page: Search.doi-pmid
-    5.6. Page: Search.doi-pmid.fix-errors
-    5.7. Page: Preview-list
-    5.8. Page: Add-articles
-    5.9. Page: Home.welcome-back
-    5.10. Page: Sample-charts
-    5.11. Page: Sample-metrics
-    5.12. Page: Report.metrics
-    5.13. Page: Report.visualizations
-    5.14. Report download block
-    5.15. Page: Upload-file
-    5.16. Page: Upload file - Fix Errors
-  6. Footer
-  7. Static content
-  8. Advanced Search page
-
-  -------------------------------------------------------------------*/
-  /*------------------------------------------------------------------
-  [Color codes]
-
-  1. White (website default color): #fff
-  2. Dark grey (text): #333
-  3. Mid Grey: #666
-  4. Grey (labels, input fields): #999
-  5. Light grey : #ccc
-  6. Blue (Reset button): #3c63af
-  7. Grey (Input example text): #9f9f9f
-  8. Light red (Error text in Search.doi page): #c27e86
-  9. Red (Error message text): #e533050
-  10. Grey ("sort by" keyword): #8d8d8d
-  11. Grey: #858585
-  12. Light grey ("saved" keyword): #2d9e00
-  13. Orange (Metric icon active and hover): #fb8903
-  14. Dark blue (anchor in report.metrics page): #369
-  15. Dark grey (Paragraph in visualization page): #4d4d4d
-  16. Dim grey (Visualizatio): 9c9c9c
-
-  -------------------------------------------------------------------*/
-
-/* ==========================================================================
-   1. Reset
-   ========================================================================== */
-
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-
-/* Force scrollbar */
-html {
-  overflow-y: scroll;
-}
-
-/* Align radios and text inputs with their label */
-input[type="radio"] {
-  vertical-align: text-bottom;
-}
-
-.ie8 input {
-  vertical-align: text-bottom;
-}
-
-/* Hand cursor on clickable input elements */
-label, input[type=button], input[type=submit], button {
-  cursor: pointer;
-}
-
-strong {
-  font-weight: bold;
-  font-family: inherit;
-  font-size: inherit;
-}
-
-em {
-  font-style: italic;
-}
-
-img {
-  border: 0;
-  vertical-align: middle;
-}
-
-sub,sup {
-  font-size: 55%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-sup {
-  top: -.7em;
-}
-
-sub {
-  bottom: -.25em;
-}
-
-.cf:before, .cf:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.cf { zoom: 1; }
-
-/* ==========================================================================
-   2. Body
-   ========================================================================== */
-
-body {
-  width: 100%;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  color: #fff;
-}
-
-/* ==========================================================================
-   3. Container
-   ========================================================================== */
-
-.container {
-  width: 100%;
-}
-
-.albert-light-normal {
-  font-family: "FS Albert Web Regular", Verdana , sans-serif;
-  font-size-adjust: 0.48;
-  font-weight: normal;
-  font-style: normal;
-}
-
-.albert-light-italic {
-  font-family: "FS Albert Web Italic", Verdana , sans-serif;
-  font-size-adjust: 0.48;
-  font-weight: normal;
-  font-style: italic;
-}
-
-.albert-bold-normal {
-  font-family: "FS Albert Web Bold", Verdana , sans-serif;
-  font-size-adjust: 0.49;
-  font-weight: bold;
-  font-style: normal;
-}
-
-.albert-bold-italic {
-  font-family: "FS Albert Web Bold Italic", Verdana , sans-serif;
-  font-size-adjust: 0.49;
-  font-weight: bold;
-  font-style: italic;
-}
-
-.metrics-article-title {
-  margin: 0 0 0 43px;
-  font-family: "FS Albert Web Regular", Verdana , sans-serif;
-  font-size: 120%;
-  font-weight: normal;
-  font-style: normal;
-}
-
-.nav-area {
-  width: 100%;
-  background: #333;
-}
-
-.wrapper {
-  width: 960px;
-  margin: 0 auto;
-  position: relative;
-}
-
-header ul a:hover {
-  text-decoration: underline
-}
-
-ul {
-  display: inline-block;
-}
-
-li {
-  list-style-type: none;
-}
-
-a {
-  color: #fff;
-  text-decoration: none;
-}
-
-/* ==========================================================================
-   4. Header
-   ========================================================================== */
-
-h1 {
-  margin: 61px 0 0 10px;
-  display: inline-block;
-}
-
-h1 + ul {
-  margin: 69px 9px 0 0;
-  float: right;
-  font-size: 16px;
-}
-
-h1 + ul li:first-child {
-  padding: 12px 16px 12px 0;
-  border-left: none;
-}
-
-h1 + ul li {
-  padding: 12px 0 12px 18px;
-  border-left: 1px solid #666;
-  display: inline;
-  font-size: 20px;
-}
-
-.tagline {
-  margin: 63px 0 48px 62px;
-  width: 67%;
-  display: inline-block;
-}
-
-.tagline a:hover,
-.list-hover a:hover {
-  text-decoration: underline;
-}
-
-.tagline h2 {
-  font-size: 34px;
-  color: #fff;
-}
-
-.tagline p {
-  margin: 7px 0 0;
-}
-
-.tagline p + p {
-  margin: 2px 0 0;
-}
-
-.tagline p + p span{
-  padding: 0 6px;
-  display: inline-block;
-}
-
-.list-outer-container {
-  margin: 70px 10px 0 0;
-  float: right;
-  font-weight: bold;
-}
-
-.list-container {
-  width: 180px;
-  height: 53px;
-  overflow: hidden;
-  display: inline-block;
-  vertical-align: top;
-  cursor: pointer;
-}
-
-.list-container > span {
-  width: 90px;
-  float: left;
-  text-align: center;
-}
-
-.list-label {
-  padding: 18px 0 20px;
-  font-size: 14px;
-  background: #3c63af;
-}
-
-.list-count {
-  padding: 8px 0 8px;
-  font-size: 32px;
-  background: #828282;
-}
-
-.list-hover {
-  width: 180px;
-  display: none;
-}
-
-.list-outer-container:hover .list-hover {
-  display: block;
-}
-
-.list-hover a {
-  width: 100%;
-  margin: 3px 0 0;
-  padding: 9px 0;
-  border-radius: 4px;
-  float: left;
-  font-size: 14px;
-  text-align: center;
-  background: #3c63af;
-}
-
-.list-hover span {
-  width: 100%;
-  margin: 3px 0 0;
-  padding: 9px 0;
-  border-radius: 4px;
-  float: left;
-  font-size: 14px;
-  text-align: center;
-  background: black;
-}
-
-.hover-bg-dark-black {
-  background: #333 !important;
-}
-
-.progress-bar {
-  margin: 21px 0 0;
-  font-weight: bold;
-}
-
-.progress-bar li {
-  height: 47px;
-  padding-top: 22px;
-  display: inline-block;
-  font-size: 22px;
-  letter-spacing: -1px;
-}
-
-.progress-bar-tab1.progress-bar-tab1-active {
-  background: url(/assets/sprite.png) 0 0;
-}
-
-.progress-bar-tab1 {
-  width: 334px;
-  background: url(/assets/sprite.png) 0 -71px;
-  text-indent: 75px;
-}
-
-.progress-bar-tab2 {
-  width: 334px;
-  margin: 0 0 0 -18px;
-  background: url(/assets/sprite.png) -336px -71px;
-  text-indent: 87px;
-}
-
-.progress-bar-tab2.progress-bar-tab2-active{
-  background: url(/assets/sprite.png) -336px 0px;
-}
-
-.progress-bar-tab3 {
-  width: 320px;
-  margin: 0 0 0 -19px;
-  background: url(/assets/sprite.png) -672px -71px;
-  text-indent: 91px;
-}
-
-.progress-bar-tab3.progress-bar-tab3-active {
-  background: url(/assets/sprite.png) -672px 0;
-}
-
 /* ==========================================================================
    5. Content
    ========================================================================== */
@@ -483,7 +99,7 @@ select {
   min-width: 78px;
   border: none;
   border-radius: 4px;
-  background: #3c63af;
+  background: $button_color;
   color: #fff;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
@@ -500,7 +116,7 @@ select {
 }
 
 .button-hover-dark-blue:hover {
-  background: #3c63af !important;
+  background: $button_color !important;
 }
 
 .reset-btn {
@@ -508,7 +124,7 @@ select {
   border: none;
   background: none;
   cursor: pointer;
-  color: #3c63af;
+  color: $button_color;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 15px;
@@ -519,7 +135,7 @@ select {
 .advanced-form h2 a {
   padding: 8px 6px 9px;
   cursor: pointer;
-  color: #3c63af;
+  color: $button_color;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   font-size: 17px;
@@ -551,7 +167,7 @@ select {
 }
 
 .aside-container.aside a:hover {
-  background: #333;
+  background: $background;
 }
 
 .aside-container.aside a + a {
@@ -578,7 +194,7 @@ select {
   margin: 0 6px 0 0;
   border-radius: 4px;
   float: left;
-  background: #333;
+  background: $background;
   font-size: 14px;
   font-weight: bold;
 }
@@ -592,7 +208,7 @@ select {
 }
 
 .articles-list div a:hover {
-  background: #3c63af !important;
+  background: $button_color !important;
 }
 
 .articles-list div a span {
@@ -660,7 +276,7 @@ select {
   width: 196px;
   padding-left: 20px;
   float: left;
-  background: #333;
+  background: $background;
   font-size: 14px;
   font-weight: bold;
 }
@@ -763,7 +379,7 @@ select {
 .add-more-fields-btn {
   padding: 7px 19px 8px 18px;
   margin-left: 0;
-  background: #333;
+  background: $background;
   color: #fff;
 }
 
@@ -865,7 +481,7 @@ select {
 .preview-list li {
   padding: 3px 0 2px 10px;
   cursor: pointer;
-  color: #3c63af;
+  color: $button_color;
 }
 
 .article-lists ul li:first-child {
@@ -874,7 +490,7 @@ select {
 }
 
 .article-lists ul li {
-  border-left: 1px solid #3c63af;
+  border-left: 1px solid $button_color;
   display: inline;
 }
 
@@ -905,7 +521,7 @@ p.select-articles-message {
 }
 
 .select-articles-message a {
-  color: #3c63af;
+  color: $button_color;
 }
 
 input[type="checkbox"] {
@@ -973,7 +589,7 @@ input[type="checkbox"] {
 .select-all-articles-link:hover,
 .unselect-all-articles-link:hover,
 .select-articles-message a:hover {
-  color: #fb8903;
+  color: $active;
 }
 
 .add-select-box-holder {
@@ -1037,11 +653,11 @@ span.previous {
 }
 
 .pagination-number:hover {
-  background: #fb8903;
+  background: $active;
 }
 
 .pagination-selected {
-  background: #fb8903;
+  background: $active;
   cursor: default;
 }
 
@@ -1114,7 +730,7 @@ span.next {
   background: none;
   font-size: 16px;
   font-weight: bold;
-  color: #3c63af;
+  color: $button_color;
 }
 
 /* 5.9. Home.welcome-back
@@ -1134,7 +750,7 @@ span.next {
   height: 325px;
   margin: 250px auto 0;
   padding: 0 0 0 43px;
-  background: #333;
+  background: $background;
 }
 
 .welcome-close-btn {
@@ -1165,7 +781,7 @@ span.next {
 .welcome-back-holder a {
   border-radius: 4px;
   display: inline-block;
-  background: #3c63af;
+  background: $button_color;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -1299,7 +915,7 @@ span.next {
 
 .view-report .metrics-chart-view + span {
   margin: 47px 12px 0 0;
-  color: #3c63af;
+  color: $button_color;
   font-size: 18px;
   font-weight: bold;
 }
@@ -1313,7 +929,7 @@ span.next {
 
 .metrics-icon-active + span {
   margin: 47px 102px 0 0;
-  color: #fb8903;
+  color: $active;
   font-size: 18px;
   font-weight: bold;
 }
@@ -1369,7 +985,7 @@ span.next {
   padding: 4px 2px 0 3px;
   position: absolute;
   top: 0;
-  left: 0;  
+  left: 0;
   color: #fff;
   font-size: 14px;
   font-weight: bold;
@@ -1407,7 +1023,7 @@ span.next {
   font-size: 14px;
 }
 
-.visualizations-list a:hover { 
+.visualizations-list a:hover {
   cursor: pointer;
 }
 
@@ -1523,18 +1139,16 @@ caption {
   margin: 46px 100px 0 81px;
   padding: 0 0 0 31px;
   float: left;
-  background: url(/assets/matrix-data-icon.png) no-repeat;
-  background-position: 0 3px;
-  color: #3c63af;
+  @include metrics-icon($button_color);
+  color: $button_color;
   font-weight: bold;
   font-size: 18px;
 }
 
 .metrics-icon:hover,
 .metrics-icon-active {
-  background: url(/assets/matrix-data-hover-icon.png) no-repeat;
-  background-position: 0 3px;
-  color: #fb8903;
+  @include metrics-icon($active);
+  color: $active;
 }
 
 .chart-view {
@@ -1543,21 +1157,21 @@ caption {
   margin: 46px 11px 0 0;
   padding: 0 0 0 38px;
   float: left;
-  background: url(/assets/visualization-icon.png) 0 1px no-repeat;
-  color: #3c63af;
+  @include visualization-icon($button_color);
+  color: $button_color;
   font-weight: bold;
   font-size:18px;
 }
 
 .chart-view:hover,
 .chart-view-active {
-  background: url(/assets/visualization-hover-icon.png) 0 1px no-repeat;
-  color: #fb8903;
+  @include visualization-icon($active);
+  color: $active;
 }
 
 .inactive-viz-link {
   color: #999 !important;
-  background: url(/assets/visualization-inactive-icon.png) 0 1px no-repeat;
+  @include visualization-icon(#999);
 }
 
 .inactive-viz-holder {
@@ -1568,7 +1182,7 @@ caption {
 
 .inactive-viz-link:hover {
   color: #999 !important;
-  background: url(/assets/visualization-inactive-icon.png) 0 1px no-repeat;
+  @include visualization-icon(#999);
 }
 
 .inactive-viz-msg {
@@ -1589,14 +1203,14 @@ caption {
 .start-over {
   border-radius: 5px;
   float: right;
-  background: #3c63af;
+  background: $button_color;
   font-size: 14px;
   font-weight: bold;
 }
 
 .edit-list:hover,
 .start-over:hover {
-  background: #333;
+  background: $background;
 }
 
 .edit-list {
@@ -1612,8 +1226,8 @@ caption {
   padding: 14px 0 0 57px;
 }
 
-/* 
-  the width used to be 650 but changed to 705 so that 
+/*
+  the width used to be 650 but changed to 705 so that
   download visualization functionality can generate pretty image of the graphs
 */
 .visualizations-container {
@@ -1729,7 +1343,7 @@ caption {
   background: url(/assets/sprite.png) -537px -142px;
 }
 
-/* the visualization download link isn't a real link (doesn't have href attr) 
+/* the visualization download link isn't a real link (doesn't have href attr)
    it needs to be styled as a link */
 #download_viz:hover {
   cursor: pointer;
@@ -1744,16 +1358,16 @@ caption {
   margin: 0;
   padding: 8px 54px 9px 53px;
   text-align: center;
-  background: #333;
+  background: $background;
   display: block;
 }
 
 .report-downloads .report-share-block:hover a {
-  background: #3c63af;
+  background: $button_color;
 }
 
 .report-share-block:hover span {
-  background-color: #3c63af;
+  background-color: $button_color;
 }
 
 .share-box {
@@ -1762,7 +1376,7 @@ caption {
   padding: 9px 0 2px;
   border-radius: 4px;
   display: none;
-  background: #3c63af;
+  background: $button_color;
 }
 
 .report-downloads .report-share-block:hover .share-box {
@@ -1950,504 +1564,4 @@ input[type="file"] {
   display: none;
   color: #E53350;
   font-size: 14px;
-}
-
-/* ==========================================================================
-   6. Footer
-   ========================================================================== */
-
-footer {
-  padding-bottom: 70px;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-
-.credits {
-  width: 400px;
-  margin: 25px 0 0 10px;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.credits > a {
-  width: 100%;
-  display: inline-block;
-}
-
-.credits p {
-  width: 240px;
-  margin: 113px 0 0;
-  display: inline-block;
-  color: #ccc;
-  font-size: 12px;
-}
-
-.credits strong {
-  color: #fff;
-}
-
-.credits p + p {
-  width: 100%;
-  margin: 26px 0 0;
-  font-size: 12px;
-}
-
-.credits p + p span {
-  padding: 0 5px;
-  display: inline-block;
-}
-
-.credits li {
-  padding: 0 10px 0 0;
-  color: #666;
-}
-
-.credits a {
-  color: #ccc;
-}
-
-.plos-links-holder {
-  width: 460px;
-  margin: 18px 0 0 44px;
-  display: inline-block;
-}
-
-.plos-links-holder h2 {
-  width: 50%;
-  padding: 0 0 5px 0;
-  display: inline-block;
-  font-size: 12px;
-  font-weight: bold;
-  color: #fff;
-}
-
-.plos-links-holder li {
-  width: 100%;
-  display: inline-block;
-  font-size: 12px;
-}
-
-.journal-links {
-  width: 236px;
-}
-
-.journal-links a {
-  color: #ccc;
-}
-
-.external-links {
-  width: 180px;
-  position: relative;
-  top: -25px;
-  font-weight: bold;
-  vertical-align: top;
-}
-
-
-/* override the jquery datepicker defaults */
-.ui-datepicker {
-  font-size: 12px;
-  width: 186px;
-  z-index: 6 !important;
-}
-
-/* General settings */
-div.selector,
-div.selector span,
-div.checker span,
-div.radio span,
-div.uploader,
-div.uploader span.action,
-div.button,
-div.button span {
-  background: none;
- -webkit-font-smoothing: auto;
-}
-
-.selector,
-.checker,
-.button,
-.radio,
-.uploader {
-  display: -moz-inline-box;
-  display: inline-block;
-  *display: inline;
-  zoom: 1;
-  vertical-align: middle;
-}
-
-.selector select:focus,
-.radio input:focus,
-.checker input:focus,
-.uploader input:focus {
-  outline: 0;
-}
-
-.selector,
-.radio,
-.checker,
-.uploader,
-.button,
-.selector *,
-.radio *,
-.checker *,
-.uploader *,
-.button * {
-  margin: 0;
-  padding: 0;
-}
-
-/* Remove default webkit and possible mozilla .search styles */
-div.checker input,
-input.search,
-input.search:active {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-}
-
-/* Uploader */
-div.uploader {
-  width: 256px;
-  height: auto;
-  margin: 5px 0 0 0;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-div.uploader span.action {
-  min-width: 78px;
-  width: auto;
-  height: auto;
-  padding: 7px 12px 8px;
-  text-align: center;
-  float: left;
-  display: inline;
-  overflow: hidden;
-  cursor: pointer;
-  line-height: normal;
-  text-shadow: none;
-}
-
-div.uploader span.filename {
-  height: auto;
-  text-overflow: ellipsis;
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  float: left;
-  cursor: text;
-  margin: 0 2px 0 0;
-  width: 118px;
-  padding: 7px 10px;
-  line-height: normal;
-}
-
-div.uploader input {
-  position: absolute;
-}
-
-div.uploader span.action {
-  border-radius: 4px;
-  background: #3c63af;
-  font-size: 15px;
-  font-weight: bold;
-}
-
-div.uploader span.action:hover {
-  background: #333;
-}
-div.uploader span.filename {
-  border: 1px solid #999;
-  font-size: 15px;
-  color: #666;
-}
-
-div.uploader.disabled span.action {
-  color: #aaa;
-}
-
-div.uploader.disabled span.filename {
-  border-color: #ddd;
-  color: #aaa;
-}
-
-/* Select selector */
-
-div.selector {
-  width: 439px !important;
-  height: 45px;
-  padding: 0 0 0 16px;
-  font-size: 18px;
-  background: url(/assets/sprite.png) -192px -399px no-repeat;
-}
-
-div.selector.focus,
-div.selector.hover,
-div.selector:hover {
-  background-position: -192px -399px;
-}
-
-div.selector.focus:active,
-div.selector.focus.active,
-div.selector:hover:active,
-div.selector.active:hover {
-  background-position: -192px -399px;
-}
-
-div.selector span {
-  width: 100%; 
-  height: 45px; 
-  padding-right: 25px;
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  background-position: right 0;
-  line-height: 45px;
-  vertical-align: middle;
-  cursor: pointer;
-  color: #333;
-  text-overflow: ellipsis;
-}
-
-div.selector select {
-  width: 450px;
-  height: 45px;
-  display: inline-block;
-  position: relative;
-  top: -47px;
-  left: -16px;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  -moz-opacity: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.add-select-box-holder div.selector {
-  width: 260px !important;
-  height: 36px;
-  padding: 0 0 0 16px;
-  font-size: 18px;
-  background: url(/assets/sprite.png) -647px -399px no-repeat;
-}
-
-.add-select-box-holder div.selector span {
-  width: 100%;
-  height: 36px;
-  padding-right: 25px;
-  color: #333;
-  display: block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  background-position: right 0;
-  line-height: 37px;
-  vertical-align: middle;
-  cursor: pointer;
-}
-
-.add-select-box-holder div.selector select {
-  width: 275px;
-}
-
-.add-select-box-holder div.selector.focus:active,
-.add-select-box-holder div.selector.focus.active,
-.add-select-box-holder div.selector:hover:active,
-.add-select-box-holder div.selector.active:hover {
-  background-position: -647px -399px;
-}
-
-.input-holder option,
-.add-select-box-holder option {
-  background: #fff;
-  line-height: 21px;
-  padding: 0 0 0 5px;
-}
-
-.reports-header-div {
-  height: 48px;
-  margin-bottom: 7px;
-}
-
-.reports-header-div + div {
-  width: 670px;
-  height: 392px;
-}
-
-/* 7. Static content 
-   ========================================================================== */
-.static_content {
-  width: 635px;
-  margin: 45px 0 45px 60px;
-  position: relative;
-  display: inline-block;
-  color: #333;
-}
-
-.static_content h2 {
-  margin: 0 0 18px 0;
-}
-
-.ajax_spinner {
-  background: url(/assets/select_all_loader.gif) no-repeat 0 0;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-left: -25px;
-  margin-top: -25px;
-  text-align: center;
-  z-index: 20;
-  overflow: auto;
-  width: 50px;
-  height: 52px;
-  display: none;
-}
-
-#gray-out-screen {
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: #666;
-}
-
-#error-message-div {
-  background: #f0d5d8 url(/assets/warning.png) no-repeat 35px 10px;
-  color: #e4324f;
-  padding: 15px 30px 15px 80px;
-  width: 850px;
-  display: none;
-}
-
-#error-message-div a {
-  color: #000;
-}
-
-.doi-pmid-error-div {
-  margin: 0 0 18px 0;
-}
-
-
-/* static page */
-.static_page div {
- font-size: 14px;
- margin-top: 18px;
- margin-bottom: 18px;
-}
-
-.static_page a {
-  color: #369;
-}
-
-.static_page a:hover {
-  text-decoration: underline;
-}
-
-.static_page ul {
-  display: block;
-  padding-left: 30px;
-}
-
-.static_page li {
-  list-style-type: disc;
-  font-size: 14px;
-  margin-top: 8px;
-}
-
-.static_page h3 {
-  font-family: "FS Albert Web Regular", Verdana , sans-serif;
-  font-size: 18px;
-  font-weight: normal;
-  font-style: normal;
-}
-
-.exception-message {
-  font-family: "courier"
-}
-
-
-/* ==========================================================================
-   8. Advanced search page
-   ========================================================================== */
-
-/* text area.  should look like input text box*/
-#unformattedQueryId {
-  height: 10.5em;
-  width: 434px;
-  padding: 10px 0 10px 12px;
-  border-radius: 6px;
-  font-size: 18px;
-}
-
-.ui-datepicker-month,
-.ui-datepicker-year {
-  height: 21px;
-}
-
-.advanced-form .input-holder {
-  margin: 11px 0 0;
-}
-
-.advanced-form input[type="text"] {
-  margin-top: 10px;
-}
-
-.small-btn {
-  margin: 0 0 0 5px;
-  padding: 3px 0 3px 0;
-  min-width: 45px;
-  border: none;
-  border-radius: 4px;
-  background: #3c63af;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 15px;
-}
-
-.filter-journals label {
-  font-size: 15px;
-  color: #333;
-  font-weight: normal;
-}
-
-#fsJournalOpt {
-  padding-left: 20px;
-}
-
-#fsJournalOpt label {
-  padding: 0;
-}
-
-.help-block {
-  margin: 30px 19px 20px 0;
-  font-size: 14px;
-  color: #333;
-}
-
-.help-block li {
-  list-style-type: inherit;
-  padding-top: 5px;
-  margin-left: 20px;
-}
-
-.help-block h3 {
-  font-family: "FS Albert Web Regular", Verdana , sans-serif;
-  font-size: 17px;
-  border-bottom: 1px solid #b3b3b3;
-  padding-top: 10px;
-  padding-bottom: 5px;
-}
-
-.advanced-form .filter-journals label {
-  letter-spacing: normal;
-}
-
-.nona-link {
-  cursor: pointer;
-  text-decoration: underline;
 }

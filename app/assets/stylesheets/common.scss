@@ -1,0 +1,56 @@
+@mixin font_normal($family: $font_family, $weight: normal) {
+  font-style: normal;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+@mixin font_italic($family: $font_family, $weight: normal) {
+  font-style: italic;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+@mixin font_bold_normal($family: $font_family, $weight: bold) {
+  font-style: normal;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+@mixin font_bold_italic($family: $font_family, $weight: bold) {
+  font-style: italic;
+  font-weight: $weight;
+  font-family: $family;
+}
+
+// Icons
+
+@mixin metrics-icon($color: black) {
+  background: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'>
+      <rect y='21.6' width='42.3' height='42.3' fill='#{$color}'/>
+      <rect y='126.6' width='42.3' height='42.3' fill='#{$color}'/>
+      <rect y='231.6' width='42.3' height='42.3' fill='#{$color}'/>
+      <rect y='336.5' width='42.3' height='42.3' fill='#{$color}'/>
+      <rect x='84' y='21.6' width='316' height='42.3' fill='#{$color}'/>
+      <rect x='84' y='126.6' width='316' height='42.3' fill='#{$color}'/>
+      <rect x='84' y='231.6' width='316' height='42.3' fill='#{$color}'/>
+      <rect x='84' y='336.5' width='316' height='42.3' fill='#{$color}'/>
+      </svg>") no-repeat;
+}
+
+@mixin visualization-icon($color: black) {
+  background: url("data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'>
+    <line stroke-width='30' stroke-miterlimit='10' x1='15' y1='31' x2='15' y2='369' stroke='#{$color}'/>
+    <line stroke-width='30' stroke-miterlimit='10' x1='402' y1='354' x2='2' y2='354' stroke='#{$color}'/>
+    <line stroke-width='20' stroke-miterlimit='10' x1='64.2' y1='277.8' x2='170.7' y2='171.2' stroke='#{$color}'/>
+    <line stroke-width='20' stroke-miterlimit='10' x1='170.7' y1='171.2' x2='239.5' y2='240' stroke='#{$color}'/>
+    <line stroke-width='20' stroke-miterlimit='10' x1='239.5' y1='240' x2='379.5' y2='99.9' stroke='#{$color}'/>
+    <circle cx='80.2' cy='263.3' r='24.7' fill='#{$color}'/>
+    <circle cx='171.1' cy='170.4' r='24.7' fill='#{$color}'/>
+    <circle cx='237.6' cy='234.8' r='24.7' fill='#{$color}'/>
+    <circle cx='366.2' cy='115.2' r='24.7' fill='#{$color}'/>
+    </svg>") no-repeat;
+}
+
+@import 'jquery-ui-dp';
+@import 'uniform.default';
+@import 'style';

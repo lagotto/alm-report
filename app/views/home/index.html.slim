@@ -1,0 +1,67 @@
+.content.wrapper.cf
+  = form_tag("/add-articles", :method => "get", :class => "home-form")
+    h2.text-light-normal
+      | Search all Articles
+      =< link_to "Advanced Search", '/advanced'
+    .input-holder
+      = label_tag(:everything, "Keyword")
+      = text_field_tag(:everything)
+    .input-holder
+      = label_tag(:author, "Author")
+      = text_field_tag(:author)
+    .input-holder
+      = label_tag(:author_country, "Author Country")
+      = text_field_tag(:author_country)
+    .input-holder
+      = label_tag(:institution)
+      = text_field_tag(:institution)
+    .input-holder
+      = label_tag(:publication_days_ago, "Publication date")
+      = select_tag(:publication_days_ago, \
+          options_for_select( \
+              [["All Time", -1], \
+              ["Last 30 days", 30], \
+              ["Last 365 days", 365], \
+              ["Custom date range", 0]]), :class => "styled")
+      .date-input-fields
+        = text_field_tag(:datepicker1, nil, :placeholder => "MM-DD-YYYY")
+        span to
+        = text_field_tag(:datepicker2, nil, :placeholder => "MM-DD-YYYY")
+    .input-holder
+      = label_tag(:subject, "Subject Area")
+      = text_field_tag(:subject, nil, :class => "subject-autocomplete")
+    .input-holder
+      = label_tag(:cross_published_journal_name, "Journal")
+      = select_tag(:cross_published_journal_name, options_for_select(@journals), :class => "styled")
+    .input-holder
+      = label_tag(:financial_disclosure, "Funder name or funding number")
+      = text_field_tag(:financial_disclosure)
+    .input-holder
+      = submit_tag "Search", :class => "button-hover-dark-black submit-btn"
+      input.reset-btn type="reset" value="Clear All"
+  .aside.aside-container
+    h2.text-light-normal Find Specific Articles
+    a.button-hover-dark-black.submit-btn href="/id/" By DOI/PMID
+    a.button-hover-dark-black.submit-btn href="/upload" Upload File
+  = articles_list
+  section.sample-reports.cf
+    h2.text-light-normal Explore sample reports
+    a.sample-reports-block-1 href="/add-articles?utf8=%E2%9C%93&everything=&author=&author_country=&institution=&publication_days_ago=-1&datepicker1=&datepicker2=&subject=&cross_published_journal_name=All+Journals&financial_disclosure=Alzheimer%27s+Association&commit=Search"
+      = image_tag "home.sample.reports.img1.plos-alm.jpg", :height => '173', :width => '216', :alt => 'Sample Reports Funder'
+      span Funder:
+      span Alzheimer's Association
+    a.sample-reports-block-2 href="/add-articles?utf8=%E2%9C%93&everything=&author=&author_country=&institution=Harvard+University&publication_days_ago=-1&datepicker1=&datepicker2=&subject=&cross_published_journal_name=All+Journals&financial_disclosure=&commit=Search"
+      = image_tag "home.sample.reports.img2.plos-alm.jpg", :height => '173', :width => '216', :alt => 'Sample Reports Funder'
+      span Institution:
+      span Harvard University
+    a.sample-reports-block-3 href="/add-articles?utf8=%E2%9C%93&everything=&author=&author_country=&institution=&publication_days_ago=-1&datepicker1=&datepicker2=&subject=Evolutionary+Biology&cross_published_journal_name=All+Journals&financial_disclosure=&commit=Search"
+      = image_tag "home.sample.reports.img3.plos-alm.jpg", :height => '173', :width => '216', :alt => 'Sample Reports Funder'
+      span Subject Area:
+      span Evolutionary Biology
+
+    a.sample-reports-block-4 href="/add-articles?utf8=%E2%9C%93&everything=&author=Michael+B.+Eisen&author_country=&institution=&publication_days_ago=-1&datepicker1=&datepicker2=&subject=&cross_published_journal_name=All+Journals&financial_disclosure=&commit=Search"
+      = image_tag "home.sample.reports.img4.plos-alm.jpg", :height => '173', :width => '216', :alt => 'Sample Reports Funder'
+      span Author:
+      span Michael B. Eisen
+
+
