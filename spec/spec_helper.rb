@@ -44,8 +44,7 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:each) do |example|
-    # TODO figure out a better way to do this
-    APP_CONFIG = YAML.load(ERB.new(File.read("#{Rails.root}/config/settings.yml")).result)[Rails.env]
+    stub_const('APP_CONFIG', YAML.load(ERB.new(File.read("#{Rails.root}/config/settings.yml")).result)[Rails.env])
     Rails.cache.clear
   end
 
