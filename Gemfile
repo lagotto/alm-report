@@ -14,6 +14,7 @@ gem 'jquery-ui-rails', '~> 5.0.0'
 gem 'slim-rails'
 
 group :development do
+  gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'capistrano-rails', '~> 1.1.1', require: false
