@@ -22,7 +22,7 @@ describe AlmRequest do
 
       body = File.read("#{fixture_path}alm_good_response.json")
 
-      stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
+      stub_request(:get, url).to_return(:body => body, :status => 200)
 
       data = AlmRequest.get_data_for_articles(report.report_dois)
 
@@ -86,7 +86,7 @@ describe AlmRequest do
       data['10.1371/journal.pmed.0020124'][:twitter].should eq(640)
       data['10.1371/journal.pmed.0020124'][:wikipedia].should eq(9)
       data['10.1371/journal.pmed.0020124'][:discussed_data_present].should eq(true)
-      
+
       data['10.1371/journal.pmed.0020124'][:reddit].should eq(37)
       data['10.1371/journal.pmed.0020124'][:wordpress].should eq(0)
 
@@ -194,7 +194,7 @@ describe AlmRequest do
     params[:ids] = dois.join(",")
     params[:info] = "event"
     params[:source] = "counter,pmc,citeulike,twitter,researchblogging,nature,scienceseeker,mendeley"
-    url = AlmRequest.get_alm_url(params)    
+    url = AlmRequest.get_alm_url(params)
 
     body = File.read("#{fixture_path}alm_one_article_event.json")
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
@@ -237,7 +237,7 @@ describe AlmRequest do
     data['10.1371/journal.pmed.0020124'][:mendeley].has_key?(:events).should eq(true)
 
   end
-  
+
   # Test for an ALM source that should exist, but is not present.  I think this
   # is a bug in ALM (that we have to work around for now).
   it "source missing" do
@@ -245,12 +245,12 @@ describe AlmRequest do
     report = Report.new
     report.save
     report.add_all_dois([doi])
-    
+
     url = AlmRequest.get_alm_url({:ids => doi})
     body = File.read("#{fixture_path}alm_pntd.0002063.json")
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
     data = AlmRequest.get_data_for_articles(report.report_dois)
-    
+
     data.size.should eq(1)
     data[doi][:plos_html].should eq(902)
     data[doi][:web_of_science].should eq(0)
@@ -273,7 +273,7 @@ describe AlmRequest do
       body = File.read("#{fixture_path}alm_solr_data_for_viz.json")
       url = "http://api.plos.org/search?facet=false&fl=id,alm_scopusCiteCount,alm_mendeleyCount,counter_total_all,alm_pmc_usage_total_all&fq=!article_type_facet:%22Issue%20Image%22&q=id:%2210.1371/journal.pone.0064652%22%20OR%20id:%2210.1371/journal.pmed.0020124%22&rows=2&wt=json"
 
-      stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
+      stub_request(:get, url).to_return(:body => body, :status => 200)
 
       data = AlmRequest.get_data_for_viz(report.report_dois)
 
