@@ -8,11 +8,25 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'webmock/rspec'
 
+require 'capybara/rspec'
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 WebMock.disable_net_connect!(allow: 'codeclimate.com')
+Capybara.javascript_driver = :webkit
+
+# Starts headless at the beginning of an RSpec run and kills it at the end
+# Headless is required for... headless testing (it wraps xvfb).
+require 'headless'
+
+headless = Headless.new
+headless.start
+
+at_exit do
+ headless.destroy
+end
 
 RSpec.configure do |config|
   # ## Mock Framework
