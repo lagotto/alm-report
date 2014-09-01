@@ -22,9 +22,8 @@ group :development do
 end
 
 group :test do
-  gem 'capybara-webkit'
+  gem 'poltergeist'
   gem 'capybara'
-  gem 'headless'
   gem "webmock", "~> 1.17.2"
   gem "minitest", "~> 4.4.0"
   gem "codeclimate-test-reporter", require: false

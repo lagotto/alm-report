@@ -1,5 +1,5 @@
-require 'headless'
 require 'pry'
+
 describe 'generate report', :type => :feature do
   before :each do
     WebMock.allow_net_connect!
@@ -11,6 +11,7 @@ describe 'generate report', :type => :feature do
 
   it 'loads the articles result page', js: true do
     visit '/'
+    binding.pry
     fill_in 'everything', with: 'biology'
     click_button 'Search'
     expect(page).to have_content 'A Future Vision for PLOS Computational Biology'
