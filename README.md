@@ -1,3 +1,4 @@
+![ALM Reports](https://cloud.githubusercontent.com/assets/238667/4099964/4ae98d6e-3078-11e4-9c59-8909a01029c4.png)
 alm-report
 ==========
 
@@ -13,7 +14,8 @@ alm-report
 
 Once the setup is complete (it might take up to 20 minutes), you'll be able to open up a browser and navigate to [http://10.2.2.2](http://10.2.2.2), and you should see this screen:
 
-![ALM Reports screenshot](https://cloud.githubusercontent.com/assets/238667/4020981/d23964e4-2adb-11e4-9cc0-189ed73cc7f8.png)
+![ALM Reports screenshot](https://cloud.githubusercontent.com/assets/238667/4106614/fba19bee-31bb-11e4-9467-214488da6ece.png)
+
 
 ## Developing using AWS/EC2
 
