@@ -19,15 +19,13 @@ sudo apt-get install curl patch openssl ca-certificates libreadline6 \
 ```
 
 #### Install Ruby 2.1.2
-We only need one Ruby version, but we'll want to use all of the performance benefits of Ruby 2.1.2, so let's just compile from source:
+We only need one Ruby version, but we'll want to use all of the performance benefits of Ruby 2.1.2, so let's just use the Brightbox PPA:
 
 ```sh
-wget http://ftp.ruby-lang.org/pub/ruby/2.1/ruby-2.1.2.tar.gz
-tar -xzvf ruby-2.1.2.tar.gz
-cd ruby-2.1.2/
-./configure
-make
-sudo make install
+sudo apt-get install python-software-properties
+sudo apt-add-repository ppa:brightbox/ruby-ng
+sudo apt-get update
+sudo apt-get install ruby rubygems ruby-switch
 ruby -v
 ```
 
