@@ -3,7 +3,7 @@ layout: page
 title: "Development"
 ---
 
-ALM Reports is a typical Ruby on Rails web application. The application has been tested with Apache/Passenger and nginx/Passenger. ALM Reports uses Ruby on Rails 3.2.x, migration to Rails 4.x is planned for 2014.
+ALM Reports is a typical Ruby on Rails web application. The application has been tested with Nginx/Passenger. ALM Reports uses Ruby on Rails 3.2.x, migration to Rails 4.x is planned for 2014.
 
 #### Ruby
 ALM Reports requires Ruby 1.9.3 or greater, and has been tested with Ruby 1.9.3, 2.0 and 2.1. Not all Linux distributions include Ruby 1.9 as a standard install, which makes it more difficult than it should be. [RVM] and [Rbenv] are Ruby version management tools for installing Ruby 1.9. Unfortunately they also introduce additional dependencies, making them sometimes not the best choices in a production environment. The Chef script below installs Ruby 2.1.
@@ -98,7 +98,7 @@ This can take up to 15 min, future updates with `vagrant provision` are of cours
 
 ```sh
 vagrant ssh
-cd /vagrant
+cd /var/www/alm-report
 ```
 
 This uses the private SSH key provided by you in the `Vagrantfile` (the default insecure key for local installations using VirtualBox is `~/.vagrant.d/insecure_private_key`). The `vagrant` user has sudo privileges. The MySQL password is stored at `config/database.yml`, and is auto-generated during the installation. The database servers can be reached from the virtual machine or via port forwarding (configured in `Vagrantfile`). Vagrant syncs the folder on the host containing the checked out ALM git repo with the folder `/var/www/alm-report/current` on the guest.

@@ -6,9 +6,10 @@ alm-report
 
 ## How to start developing now?
 
-`ALM Reports` uses [Vagrant](https://www.vagrantup.com/) for setting up the development environment. To start developing now on your local machine (Mac OS X, Linux or Windows):
+`ALM Reports` uses [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtualbox.org/) for setting up the development environment. To start developing now on your local machine (Mac OS X, Linux or Windows):
 
 1. Install Vagrant: https://www.vagrantup.com/downloads.html
+1. Install Virtualbox: https://www.virtualbox.org/wiki/Downloads
 2. Clone this repository `git clone git@github.com:articlemetrics/alm-report.git`
 3. Cd into it and run `vagrant up`
 
