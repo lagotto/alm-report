@@ -65,7 +65,7 @@ Vagrant.configure("2") do |config|
   # Override settings for specific providers
   config.vm.provider :virtualbox do |vb, override|
     vb.name = "alm-report"
-    vb.customize ["modifyvm", :id, "--memory", "1024"]
+    vb.customize ["modifyvm", :id, "--memory", "512"]
     nfs_setting = RUBY_PLATFORM =~ /darwin/ || RUBY_PLATFORM =~ /linux/
     # Disable default synced folder before bindfs tries to bind to it
     override.vm.synced_folder ".", "/var/www/alm-report/current", disabled: true
@@ -76,7 +76,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provider :vmware_fusion do |fusion, override|
-    fusion.vmx["memsize"] = "1024"
+    fusion.vmx["memsize"] = "512"
 
     override.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-14.04_chef-provisionerless.box"
     provision(config, override)
