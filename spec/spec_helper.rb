@@ -14,7 +14,13 @@ require 'capybara/poltergeist'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-WebMock.disable_net_connect!(allow: ['codeclimate.com'])
+WebMock.disable_net_connect!(allow: ['codeclimate.com'], allow_localhost: true)
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, {
+    timeout: 180
+  })
+end
 
 Capybara.javascript_driver = :poltergeist
 
@@ -51,5 +57,4 @@ RSpec.configure do |config|
     stub_const('APP_CONFIG', YAML.load(ERB.new(File.read("#{Rails.root}/config/settings.yml")).result)[Rails.env])
     Rails.cache.clear
   end
-
 end
