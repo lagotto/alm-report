@@ -53,6 +53,7 @@ Open repository config file:
 
 ```
 sudo nano /etc/apt/sources.list.d/passenger.list
+```
 
 Add following repository source:
 
