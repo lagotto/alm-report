@@ -44,50 +44,108 @@ Memcached is used to cache requests (in particular API requests), and the defaul
 sudo apt-get install memcached
 ```
 
-#### Install Apache and dependencies required for Passenger
+#### Install Nginx and Passenger
 
 ```sh
-sudo apt-get install apache2 apache2-prefork-dev libapr1-dev libaprutil1-dev libcurl4-openssl-dev
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+sudo apt-get install apt-transport-https ca-certificates
 ```
 
-#### Install and configure Passenger
-Passenger is a Rails application server: http://www.modrails.com. Update `passenger.load` and `passenger.conf` when you install a new version of the passenger gem.
+Open repository config file:
 
-```sh
-sudo gem install passenger -v 4.0.50
-sudo passenger-install-apache2-module --auto
+```
+sudo nano /etc/apt/sources.list.d/passenger.list
 
-# /etc/apache2/mods-available/passenger.load
-LoadModule passenger_module /usr/local/lib/ruby/gems/2.1.0/gems/passenger-4.0.50/ext/apache2/mod_passenger.so
+Add following repository source:
 
-# /etc/apache2/mods-available/passenger.conf
-PassengerRoot /usr/local/lib/ruby/gems/2.1.0/gems/passenger-4.0.50
-PassengerRuby /usr/local/bin/ruby
-
-sudo a2enmod passenger
+```
+deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main
 ```
 
-#### Set up virtual host
-Please set `ServerName` if you have set up more than one virtual host. Also don't forget to add`AllowEncodedSlashes On` to the Apache virtual host file in order to keep Apache from messing up encoded embedded slashes in DOIs. Use `RailsEnv development` to use the Rails development environment.
+And then install:
 
-```apache
-# /etc/apache2/sites-available/alm-report
-<VirtualHost *:80>
-  ServerName localhost
-  RailsEnv production
-  DocumentRoot /var/www/alm-report/public
+```
+sudo apt-get install nginx-full passenger
+```
 
-  <Directory /var/www/alm-report/public>
-    Options FollowSymLinks
-    AllowOverride None
-    Order allow,deny
-    Allow from all
-  </Directory>
+#### Set up Nginx
 
-  # Important for ALM: keeps Apache from messing up encoded embedded slashes in DOIs
-  AllowEncodedSlashes On
+Your `/etc/nginx/nginx.conf` file should look something like this:
 
-</VirtualHost>
+```
+user www-data;
+worker_processes 4;
+pid /run/nginx.pid;
+
+events {
+  worker_connections 768;
+  # multi_accept on;
+}
+
+http {
+
+  ##
+  # Basic Settings
+  ##
+
+  sendfile on;
+  tcp_nopush on;
+  tcp_nodelay on;
+  keepalive_timeout 65;
+  types_hash_max_size 2048;
+  # server_tokens off;
+
+  # server_names_hash_bucket_size 64;
+  # server_name_in_redirect off;
+
+  include /etc/nginx/mime.types;
+  default_type application/octet-stream;
+
+  ##
+  # Logging Settings
+  ##
+
+  access_log /var/log/nginx/access.log;
+  error_log /var/log/nginx/error.log;
+
+  ##
+  # Gzip Settings
+  ##
+
+  gzip on;
+  gzip_disable "msie6";
+
+  # gzip_vary on;
+  # gzip_proxied any;
+  # gzip_comp_level 6;
+  # gzip_buffers 16 8k;
+  # gzip_http_version 1.1;
+  # gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+  ##
+  # nginx-naxsi config
+  ##
+  # Uncomment it if you installed nginx-naxsi
+  ##
+
+  # include /etc/nginx/naxsi_core.rules;
+
+  ##
+  # Phusion Passenger config
+  ##
+  # Uncomment it if you installed passenger or passenger-enterprise
+  ##
+
+  passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
+  passenger_ruby /usr/bin/ruby;
+
+  ##
+  # Virtual Host Configs
+  ##
+
+  include /etc/nginx/conf.d/*.conf;
+  include /etc/nginx/sites-enabled/*;
+}
 ```
 
 #### Install ALM Reports code
@@ -117,13 +175,8 @@ cp config/database.yml.example config/database.yml
 cp config/settings.yml.example config/settings.yml
 ```
 
-#### Start Apache
-We are making `alm-report` the default site.
+#### Start Nginx
 
-```sh
-sudo a2dissite default
-sudo a2ensite alm-report
-sudo service apache2 reload
-```
+`/etc/init.d/nginx start`
 
 You can now access the ALM Reports application with your web browser at the name or IP address (if it is the only virtual host) of your Ubuntu installation.
