@@ -1,33 +1,19 @@
 SITE
   remote: http://community.opscode.com/api/v1
   specs:
-    apache2 (2.0.0)
-      iptables (>= 0.0.0)
-      logrotate (>= 0.0.0)
-      pacman (>= 0.0.0)
-    apt (2.3.8)
+    apt (2.5.3)
     aws (2.4.0)
-    build-essential (2.0.0)
-    chef-sugar (2.0.0)
+    build-essential (2.0.6)
+    chef-sugar (2.2.0)
     chef_handler (1.1.6)
     chocolatey (0.1.0)
       powershell (>= 0.0.0)
-    database (2.1.2)
+    database (2.3.0)
       aws (>= 0.0.0)
       mysql (>= 5.0.0)
       mysql-chef_gem (>= 0.0.0)
       postgresql (>= 1.0.0)
       xfs (>= 0.0.0)
-    dmg (2.2.0)
-    git (4.0.0)
-      build-essential (>= 0.0.0)
-      dmg (>= 0.0.0)
-      runit (>= 1.0.0)
-      windows (>= 0.0.0)
-      yum (~> 3.0)
-      yum-epel (>= 0.0.0)
-    iptables (0.13.2)
-    logrotate (1.6.0)
     memcached (1.7.2)
       runit (~> 1.0)
       yum (~> 3.0)
@@ -38,20 +24,17 @@ SITE
       windows (>= 0.0.0)
     ms_dotnet45 (1.1.2)
       windows (>= 0.0.0)
-    mysql (5.1.12)
+    mysql (5.4.4)
+      yum-mysql-community (>= 0.0.0)
     mysql-chef_gem (0.0.2)
       build-essential (>= 0.0.0)
       mysql (>= 0.0.0)
     openssl (2.0.0)
       chef-sugar (>= 0.0.0)
-    pacman (1.1.1)
-    passenger_apache2 (2.2.0)
-      apache2 (>= 1.0.4)
-      build-essential (>= 0.0.0)
     phantomjs (1.0.3)
       build-essential (>= 0.0.0)
       chocolatey (>= 0.0.0)
-    postgresql (3.4.1)
+    postgresql (3.4.2)
       apt (>= 1.9.0)
       build-essential (>= 0.0.0)
       openssl (>= 0.0.0)
@@ -67,31 +50,70 @@ SITE
     windows (1.34.2)
       chef_handler (>= 0.0.0)
     xfs (1.1.0)
-    yum (3.2.2)
+    yum (3.2.4)
     yum-epel (0.4.0)
       yum (~> 3.0)
+    yum-mysql-community (0.1.10)
+      yum (>= 3.0)
 
 GIT
-  remote: git@github.com:articlemetrics/alm-report-cookbook.git
-  ref: mode
-  sha: e580b5ff3ac017b5c5fc5b2fd2e4c0e848cbf16e
+  remote: git@github.com:articlemetrics/alm_report-cookbook.git
+  ref: master
+  sha: a5de8713a6f3a2a1b6bb4d1ff93f304d5cd97bb2
   specs:
-    alm-report (0.1.18)
+    alm_report (0.4.1)
+      apt (>= 0.0.0)
+      capistrano (~> 0.5.0)
       database (>= 0.0.0)
-      git (>= 0.0.0)
+      memcached (>= 0.0.0)
+      mysql (~> 5.4.3)
+      mysql_rails (~> 0.1.0)
+      passenger_nginx (~> 0.2.0)
+      phantomjs (~> 1.0.3)
+      ruby (~> 0.2.0)
+
+GIT
+  remote: git@github.com:articlemetrics/capistrano-cookbook.git
+  ref: master
+  sha: 04e3714d5de044625a0291b1c1308df0aaec67f3
+  specs:
+    capistrano (0.5.15)
+      ruby (~> 0.2.0)
+
+GIT
+  remote: git@github.com:articlemetrics/mysql_rails-cookbook.git
+  ref: master
+  sha: 608e7d3fca87cb4ee2d165d7e191abcdef105e79
+  specs:
+    mysql_rails (0.1.19)
+      database (>= 0.0.0)
       mysql (>= 0.0.0)
-      passenger_apache2 (>= 0.0.0)
-      phantomjs (>= 0.0.0)
+
+GIT
+  remote: git@github.com:articlemetrics/passenger_nginx-cookbook.git
+  ref: master
+  sha: 6571ea46a0a6fb29a4ba747b4920a142375ae2f9
+  specs:
+    passenger_nginx (0.2.10)
+      apt (~> 2.5.3)
+      ruby (~> 0.2.0)
+
+GIT
+  remote: git@github.com:articlemetrics/ruby-cookbook.git
+  ref: master
+  sha: a91e232772309d09dfab59887b2819a885beb377
+  specs:
+    ruby (0.2.1)
+      apt (~> 2.5.3)
 
 DEPENDENCIES
-  alm-report (>= 0)
-  apache2 (= 2.0.0)
-  apt (= 2.3.8)
-  build-essential (= 2.0.0)
-  database (= 2.1.2)
-  git (= 4.0.0)
-  memcached (= 1.7.2)
-  mysql (= 5.1.12)
-  passenger_apache2 (= 2.2.0)
-  phantomjs (= 1.0.3)
+  alm_report (>= 0)
+  capistrano (>= 0)
+  database (~> 2.3.0)
+  memcached (>= 0)
+  mysql (~> 5.4.3)
+  mysql_rails (>= 0)
+  passenger_nginx (>= 0)
+  phantomjs (>= 0)
+  ruby (>= 0)
 
