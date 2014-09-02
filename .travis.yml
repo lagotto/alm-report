@@ -3,8 +3,11 @@ rvm:
   - 2.1.2
 
 env:
-  - DB=mysql
-  # - DB=postgresql
+  matrix:
+    - DB=mysql
+    # - DB=postgresql
+  global:
+    secure: "agQGmJu7sSCjuBYu/Sbo4a3WoXA2C/BVPoIUneSR2+soFPeyrAFoHOa/EflxIt+uUEApXiodG+u2twFBf07yMVVojluzmONricmjh563gu6rKR9vhE5ZTUYIo3IHdi/w1OTd28uA0T0RpFcxLRbVg2lm5juxE+GjI+QmeROr4lY="
 
 services:
   - memcached
