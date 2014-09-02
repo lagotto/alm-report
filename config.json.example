@@ -1,5 +1,5 @@
 {
-  "alm": { "rails_env": "development",
+  "alm_report": { "rails_env": "development",
            "db": { "password": "EXAMPLE" },
            "settings": {
              "ip_range_uk": null,
