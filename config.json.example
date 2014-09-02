@@ -1,5 +1,7 @@
 {
-  "alm_report": { "rails_env": "development",
+  "alm_report": {
+           "rails_env": "development",
+           "deploy_user": "vagrant",
            "db": { "password": "EXAMPLE" },
            "settings": {
              "ip_range_uk": null,
