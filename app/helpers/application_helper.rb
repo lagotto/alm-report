@@ -20,6 +20,7 @@ module ApplicationHelper
       links_holder
       stylesheet
       articles_list
+      footer
     )
     if templates.include?(template)
       switch(template)
