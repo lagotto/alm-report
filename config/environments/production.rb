@@ -1,9 +1,4 @@
-  AlmReport::Application.config.middleware.use ExceptionNotification::Rack,
-  :webhook => {
-    :url => 'http://requestb.in/wkhsiywk'
-  }
-
-  AlmReport::Application.configure do
+AlmReport::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
