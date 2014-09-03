@@ -4,8 +4,8 @@
            "deploy_user": "vagrant",
            "db": { "password": "EXAMPLE" },
            "settings": {
-             "ip_range_uk": null,
-             "ip_range_us": null
+             "url": "http://alm.plos.org",
+             "api_key": "EXAMPLE"
            }
          }
 }

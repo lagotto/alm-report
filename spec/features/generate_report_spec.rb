@@ -15,11 +15,11 @@ describe 'generate report', :type => :feature do
     ).to_return(File.open('spec/fixtures/api_plos_journal.pcbi.1002727.raw'))
 
     stub_request(:get,
-      %r{http://alm.plos.org/api/v3/articles/\?api_key=.*&ids=10.1371/journal.pcbi.1002727(&info=history&source=crossref,pubmed,scopus)?$},
+      %r{http://alm.plos.org/api/v3/articles\?api_key=.*&ids=10.1371/journal.pcbi.1002727(&info=history&source=crossref,pubmed,scopus)?$},
     ).to_return(File.open('spec/fixtures/alm_api_journal.pcbi.1002727.raw'))
 
     stub_request(:get,
-      %r{http://alm.plos.org/api/v3/articles/\?api_key=.*&ids=10.1371/journal.pcbi.1002727&info=event&source=counter,pmc,citeulike,twitter,researchblogging,nature,scienceseeker,mendeley$},
+      %r{http://alm.plos.org/api/v3/articles\?api_key=.*&ids=10.1371/journal.pcbi.1002727&info=event&source=counter,pmc,citeulike,twitter,researchblogging,nature,scienceseeker,mendeley$},
     ).to_return(File.open('spec/fixtures/alm_api_journal.pcbi.102727.event.raw'))
 
   end

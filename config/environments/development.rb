@@ -40,5 +40,3 @@ AlmReport::Application.configure do
 end
 
 BetterErrors::Middleware.allow_ip! "10.2.2.1"
-
-

@@ -4,7 +4,7 @@ require "json"
 
 # Interface to the PLOS ALM API.
 module AlmRequest
-  
+
   @@ALM_METRICS = ActiveSupport::OrderedHash.new
   @@ALM_METRICS[:plos_total] = "PLOS Total"
   @@ALM_METRICS[:plos_html] = "PLOS views"
@@ -32,7 +32,7 @@ module AlmRequest
   @@ALM_METRICS[:wordpress] = "Wordpress.com"
   @@ALM_METRICS[:figshare] = "Figshare"
   @@ALM_METRICS[:f1000] = "F1000Prime"
-      
+
   # Returns an ordered dict of all ALM metrics used in the app.  The key is
   # the key returned by get_data_for_articles, and the value is suitable for
   # display in the UI.  The order is used in some parts of the app (such as
@@ -40,8 +40,8 @@ module AlmRequest
   def self.ALM_METRICS
     @@ALM_METRICS
   end
-      
-  
+
+
   # Retrieves and returns all ALM data for the given DOIs.  Multiple requests to ALM
   # may be made if the number of DOIs is large.  The returned list is the raw JSON
   # output from ALM, with no additional processing.
@@ -54,7 +54,7 @@ module AlmRequest
 
       # ALM will return all the data it can in the list of articles.
       # the only ones missing will be omitted from the response.
-      # if it only has one article and it fails to retrieve data for that one article, 
+      # if it only has one article and it fails to retrieve data for that one article,
       # that's when it will return 404
 
       url = get_alm_url(params)
@@ -76,8 +76,8 @@ module AlmRequest
     end
     json
   end
-  
-  
+
+
   # Checks memcache to see if data about the given DOIs are present.
   #
   # Params:
@@ -106,7 +106,7 @@ module AlmRequest
 
     # get alm data from cache
     dois = check_cache(dois, all_results, "alm")
-    
+
     json = AlmRequest.get_raw_data(dois)
     json.each do | article |
       sources = article["sources"].map { | source | ([source["name"], source["metrics"]]) }
@@ -154,7 +154,7 @@ module AlmRequest
       results[:discussed_data_present] = (results[:nature] + results[:research_blogging] +
           results[:scienceseeker] + results[:facebook] + + results[:twitter] + results[:wikipedia] +
           results[:reddit] + results[:wordpress]) > 0
-      
+
       results[:f1000] = get_source_total(sources_dict, "f1000")
       results[:recommended_data_present] = results[:f1000] > 0
 
@@ -165,7 +165,7 @@ module AlmRequest
     end
     all_results
   end
-  
+
   # Returns the total for the given ALM source, or zero if the source (or its total
   # attribute) is not present.
   def self.get_source_total(sources_dict, source_name)
@@ -176,7 +176,7 @@ module AlmRequest
       source["total"].nil? ? 0 : source["total"].to_i
     end
   end
-  
+
   # Retrieves article data from ALM suitable for display in a brief list, such
   # as search results or the preview list.
   #
@@ -193,7 +193,7 @@ module AlmRequest
     end
     results
   end
-  
+
   # Gathers ALM data for visualization for a given list of dois
   # If the list of dois exceed certain size, the data will be retrieved from solr
   # (for performance reasons)
@@ -250,7 +250,7 @@ module AlmRequest
     params[:source] = "crossref,pubmed,scopus"
 
     url = get_alm_url(params)
-    
+
     resp = Net::HTTP.get_response(URI.parse(url))
 
     all_results = {}
@@ -285,7 +285,7 @@ module AlmRequest
     params[:source] = "counter,pmc,citeulike,twitter,researchblogging,nature,scienceseeker,mendeley"
 
     url = get_alm_url(params)
-    
+
     resp = Net::HTTP.get_response(URI.parse(url))
 
     if !resp.kind_of?(Net::HTTPSuccess)
@@ -308,7 +308,7 @@ module AlmRequest
       end
 
       all_results[article["doi"]] = results
-    end    
+    end
 
     return all_results
   end
@@ -317,7 +317,7 @@ module AlmRequest
   def self.get_alm_url(params)
     url = ""
     if (!params.nil? && params.length > 0)
-      url = "#{APP_CONFIG["alm_url"]}/?api_key=#{APP_CONFIG["alm_api_key"]}&#{params.to_param}"
+      url = "#{APP_CONFIG['alm']['url']}/api/v3/articles?api_key=#{APP_CONFIG['alm']['api_key']}&#{params.to_param}"
     end
     return url
   end

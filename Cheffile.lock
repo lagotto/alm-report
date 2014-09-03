@@ -59,51 +59,52 @@ SITE
 GIT
   remote: git@github.com:articlemetrics/alm_report-cookbook.git
   ref: master
-  sha: fcc3709dbc0800fe2fe03376c8d715d90e93e42f
+  sha: f672fc11e2fd81a304d0e68fa776bb8bdc8afcd1
   specs:
-    alm_report (0.4.6)
+    alm_report (0.5.6)
       apt (>= 0.0.0)
-      capistrano (~> 0.5.0)
+      capistrano (~> 0.6.0)
       database (>= 0.0.0)
       memcached (>= 0.0.0)
       mysql (~> 5.4.3)
-      mysql_rails (~> 0.1.0)
+      mysql_rails (~> 0.2.0)
       passenger_nginx (~> 0.2.0)
       phantomjs (~> 1.0.3)
-      ruby (~> 0.2.0)
+      ruby (~> 0.3.0)
 
 GIT
   remote: git@github.com:articlemetrics/capistrano-cookbook.git
   ref: master
-  sha: 129d29281ecdc820e2a611474e8a30cf8e4e162e
+  sha: 43d031f6041ca8a034bd89bde5167a51459d1f0e
   specs:
-    capistrano (0.5.17)
-      ruby (~> 0.2.0)
+    capistrano (0.6.4)
+      ruby (~> 0.3.0)
 
 GIT
   remote: git@github.com:articlemetrics/mysql_rails-cookbook.git
   ref: master
-  sha: f1d80f36c1eb144445cca989f3c7b4f199a0ed34
+  sha: 1f890904b9dcc4d206688b8afa599e04764863fc
   specs:
-    mysql_rails (0.1.20)
+    mysql_rails (0.2.3)
       database (>= 0.0.0)
       mysql (>= 0.0.0)
+      ruby (~> 0.3.0)
 
 GIT
   remote: git@github.com:articlemetrics/passenger_nginx-cookbook.git
   ref: master
-  sha: 1aaad2a028dbb81d2e5b0c10107697f6f240349f
+  sha: 6b1d24822d9c84e9b3117e22a53cb23c891d89d2
   specs:
-    passenger_nginx (0.2.12)
+    passenger_nginx (0.2.15)
       apt (~> 2.5.3)
-      ruby (~> 0.2.0)
+      ruby (~> 0.3.0)
 
 GIT
   remote: git@github.com:articlemetrics/ruby-cookbook.git
   ref: master
-  sha: 737515bfa97d85af9c0e17fdb82dbad146331068
+  sha: 099726c8bdcdb61376a9e15aead239346b26061f
   specs:
-    ruby (0.2.7)
+    ruby (0.3.2)
       apt (~> 2.5.3)
 
 DEPENDENCIES
