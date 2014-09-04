@@ -11,11 +11,7 @@ sudo apt-get update
 `libxml2-dev` and `libxslt1-dev` are required for XML processing by the `nokogiri` gem, `nodejs` provides Javascript for the `therubyracer` gem. `readline` is a library for reading from standard inputs (like the Rails console). Other libraries cover dependencies of various Ruby gems.
 
 ```sh
-sudo apt-get install curl patch openssl ca-certificates libreadline6 \
-        libreadline6-dev curl zlib1g zlib1g-dev libssl-dev libyaml-dev \
-        libsqlite3-dev autoconf \
-        libgdbm-dev libncurses5-dev libffi-dev \
-        build-essential git-core libxml2-dev libxslt1-dev nodejs
+sudo apt-get install curl patch git-core libxml2-dev libxslt-dev libmysqlclient-dev nodejs
 ```
 
 #### Install Ruby 2.1.2
@@ -147,6 +143,20 @@ http {
 }
 ```
 
+You also need to set up the virtual host configuration for ALM Reports, for example:
+
+```
+#/etc/nginx/sites-enables/alm-report.conf
+server {
+  listen 80 default_server;
+  server_name alm-report.;
+  root /var/www/alm-report/current/public;
+  access_log /var/log/nginx/alm-report.access.log;
+  passenger_enabled on;
+  passenger_app_env development;
+}
+```
+
 #### Install ALM Reports code
 You may have to set the permissions first, depending on your server setup. Passenger by default is run by the user who owns `config.ru`.
 
@@ -176,6 +186,6 @@ cp config/settings.yml.example config/settings.yml
 
 #### Start Nginx
 
-`/etc/init.d/nginx start`
+`sudo service nginx restart`
 
 You can now access the ALM Reports application with your web browser at the name or IP address (if it is the only virtual host) of your Ubuntu installation.
