@@ -1,7 +1,7 @@
 AlmReport::Application.routes.draw do
 
   root :to => "home#index"
-  
+
   match "/add-articles" => "home#add_articles"
   match "/update-session" => "home#update_session"
   match "/select-all-search-results" => "home#select_all_search_results"
@@ -15,13 +15,11 @@ AlmReport::Application.routes.draw do
 
   match "/id" => "id#index", :via => :get
   match "/id" => "id#save", :via => :post
-  
+
   match "/upload" => "id#upload", :via => :get
   match "/upload" => "id#process_upload", :via => :post
 
   match "/about" => "static_pages#about"
-  match "/privacy_policy" => "static_pages#privacy_policy"
-  match "/terms_of_use" => "static_pages#terms_of_use"
   match "/samples" => "static_pages#samples"
 
   # Any other routes are handled here, as ActionDispatch prevents RoutingError
@@ -29,5 +27,5 @@ AlmReport::Application.routes.draw do
   # https://github.com/rails/rails/issues/671
   # BE SURE TO KEEP THIS AS THE LAST LINE!
   match "*path", :to => "application#routing_error"
-  
+
 end
