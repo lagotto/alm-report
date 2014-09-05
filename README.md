@@ -1,6 +1,4 @@
-![ALM Reports](https://cloud.githubusercontent.com/assets/238667/4099964/4ae98d6e-3078-11e4-9c59-8909a01029c4.png)
-alm-report
-==========
+# ALM Reports
 
 [![Build Status](https://magnum.travis-ci.com/articlemetrics/alm-report.svg?token=KamPjZmu9WPvmWcXwBRx&branch=master)](https://magnum.travis-ci.com/articlemetrics/alm-report)
 
