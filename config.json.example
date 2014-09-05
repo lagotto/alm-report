@@ -1,11 +1,13 @@
 {
+  "ruby": {
+    "rails_env": "production",
+    "user": "vagrant",
+    "db": { "password": "EXAMPLE" }
+  },
   "alm_report": {
-           "rails_env": "development",
-           "deploy_user": "vagrant",
-           "db": { "password": "EXAMPLE" },
-           "settings": {
-             "url": "http://alm.plos.org",
-             "api_key": "EXAMPLE"
-           }
-         }
+    "settings": {
+      "url": "http://alm.plos.org",
+      "api_key": "EXAMPLE"
+    }
+  }
 }
