@@ -180,16 +180,17 @@ module ChartData
   def self.generate_data_for_usage_chart(report)
 
     # get counter and pmc usage stat data
-    counter = report.report_dois[0].alm[:counter][:events]
-    pmc = report.report_dois[0].alm[:pmc][:events]
+    # properly handle missing elements
+    counter = report.report_dois[0].alm.fetch(:counter, {}).fetch(:events, nil)
+    pmc = report.report_dois[0].alm.fetch(:pmc, {}).fetch(:events, nil)
 
-    counter_data = counter.inject({}) do | result, month_data |
+    counter_data = Array(counter).inject({}) do | result, month_data |
       month_date = Date.new(month_data["year"].to_i, month_data["month"].to_i, 1)
       result[month_date] = month_data
       result
     end
 
-    pmc_data = pmc.inject({}) do | result, month_data |
+    pmc_data = Array(pmc).inject({}) do | result, month_data |
       month_date = Date.new(month_data["year"].to_i, month_data["month"].to_i, 1)
       result[month_date] = month_data
       result
