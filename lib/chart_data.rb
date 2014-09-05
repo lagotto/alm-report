@@ -38,7 +38,7 @@ module ChartData
     subject_area_data = {}
 
     report.report_dois.each do | report_doi |
-      # get the subject area 
+      # get the subject area
       if !report_doi.solr["subject"].nil?
         # collect the second level subject areas
         # we are looking for unique list of second level subject areas
@@ -69,7 +69,7 @@ module ChartData
     return article_usage_citation_subject_area_data
   end
 
-  
+
   # Generates tooltip text for markers on the article locations chart,
   # based on the author affiliations.  Returns a tuple of the first
   # and second lines of the tooltip.  (Unfortunately, it seems impossible
@@ -92,11 +92,11 @@ module ChartData
     end
     return [line1, line2]
   end
-  
-  # Generate data for author location geo graph 
+
+  # Generate data for author location geo graph
   def self.generate_data_for_articles_by_location_chart(report)
     total_authors_data = 0
-    
+
     # Map from address to author count and list of author institutions, parsed
     # from the author affiliate data.
     address_to_count_and_inst = Hash.new{|h, k| h[k] = [0, []]}
@@ -147,7 +147,7 @@ module ChartData
           # a linear scale, the large markers tend to take over the map.  So after
           # playing around a while I settled on the following concave function.
           size = Math.atan(Math.log2(count + 1))
-          
+
           # There's an undocumented feature of the GeoChart where you can specify
           # the first line of tooltip text as an element right after the lat/lng.
           # Otherwise, the first line will be lat/lng.  The final element is the
@@ -166,7 +166,7 @@ module ChartData
         institutions = fields[1]
         size = Math.atan(Math.log2(count + 1))
         tooltip = generate_location_tooltip(address, count, institutions)
-        
+
         # When we're not in lat/lng mode, the first line of the tooltip must
         # be the address.
         article_locations_data << [address, size, size, tooltip[1]]
@@ -176,7 +176,7 @@ module ChartData
   end
 
 
-  # Generate data for single article usage chart 
+  # Generate data for single article usage chart
   def self.generate_data_for_usage_chart(report)
 
     # get counter and pmc usage stat data
@@ -202,8 +202,8 @@ module ChartData
 
     month_index = 0
 
-    # process the usage data in order 
-    # ignore gaps 
+    # process the usage data in order
+    # ignore gaps
     sorted_keys.each do | key |
       counter_month_data = counter_data[key]
       pmc_month_data = pmc_data[key]
@@ -229,8 +229,8 @@ module ChartData
 
     article_citation_data = []
 
-    if (report.report_dois[0].alm[:crossref][:total] == 0 && 
-      report.report_dois[0].alm[:pubmed][:total] == 0 && 
+    if (report.report_dois[0].alm[:crossref][:total] == 0 &&
+      report.report_dois[0].alm[:pubmed][:total] == 0 &&
       report.report_dois[0].alm[:scopus][:total] == 0)
 
       return article_citation_data
@@ -239,6 +239,9 @@ module ChartData
     crossref_history_data = process_history_data(report.report_dois[0].alm[:crossref][:histories])
     pubmed_history_data = process_history_data(report.report_dois[0].alm[:pubmed][:histories])
     scopus_history_data = process_history_data(report.report_dois[0].alm[:scopus][:histories])
+
+    # check that we have history data
+    return [] if crossref_history_data.empty? && pubmed_history_data.empty? && scopus_history_data.empty?
 
     # starting date is the publication date
     data_date = Date.parse(report.report_dois[0].alm[:publication_date])
@@ -324,7 +327,7 @@ module ChartData
     index = 1
     column = {}
 
-    social_data.each do | data | 
+    social_data.each do | data |
       if (!data[:data].empty?)
         # collect the sources that will be used for the graph (ones with data)
         column_header << data[:column_name]
@@ -361,7 +364,7 @@ module ChartData
           social_scatter << row
         end
       end
-      
+
       month_index = month_index + 1
       data_date = data_date >> 1
     end
@@ -406,6 +409,7 @@ module ChartData
 
 
   def self.process_history_data(history_data)
+    return {} unless history_data.is_a?(Array)
 
     monthly_historical_data = {}
 
@@ -422,7 +426,7 @@ module ChartData
 
       current_date = data_date
 
-      # loop through the historical data and pick out one data point per month 
+      # loop through the historical data and pick out one data point per month
       # want to grab the first data retrieval event
       # alm usually retrieves data more than once a month
       history_data.each do | data |
