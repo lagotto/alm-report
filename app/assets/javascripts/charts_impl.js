@@ -30,7 +30,7 @@ function getBubbleChartOptions() {
       'PLOS Biology': {color: '1ebd21'},                // Green
       'PLOS Computational Biology': {color: '1ebd21'},  // Green
       'PLOS Genetics': {color: '1ebd21'}                // Green
-      
+
       // All other journals get the default color specified below.
     },
     colors: ['b526fb'],  // Purple
@@ -74,7 +74,7 @@ function drawArticleUsageCitationSubjectArea() {
 function drawArticleLocation() {
   var raw_data = getArticleLocationData();
   var data = new google.visualization.DataTable();
-  
+
   // Determine if we're in lat/lng mode, or just getting addresses passed to us.
   if (raw_data[0].length == 6) {
     data.addColumn('number', 'latitude', 'latitude');
@@ -116,32 +116,35 @@ function drawArticleLocation() {
 
 function drawArticleUsageAge() {
 
-  var data = new google.visualization.DataTable();
-  data.addColumn('number', 'Months');
-  data.addColumn('number', 'HTML Views');
-  data.addColumn({type: 'string', role: 'tooltip'});
-  data.addColumn('number', 'PDF Views');
-  data.addColumn({type: 'string', role: 'tooltip'});
-  data.addColumn('number', 'XML Views');
-  data.addColumn({type: 'string', role: 'tooltip'});
-  data.addRows(getArticleUsageData());
+  var chartData = getArticleUsageData();
+  if (chartData.length > 0) {
+    var data = new google.visualization.DataTable();
+    data.addColumn('number', 'Months');
+    data.addColumn('number', 'HTML Views');
+    data.addColumn({type: 'string', role: 'tooltip'});
+    data.addColumn('number', 'PDF Views');
+    data.addColumn({type: 'string', role: 'tooltip'});
+    data.addColumn('number', 'XML Views');
+    data.addColumn({type: 'string', role: 'tooltip'});
+    data.addRows(chartData);
 
-  var options = {
-    backgroundColor: '#efefef',
-    vAxis: {
-      title: 'Total Views'
-    },
-    hAxis: {
-      title: 'Months'
-    },
-    chartArea: {
-      top: 40,
-      height: "70%"
-    }
-  };
+    var options = {
+      backgroundColor: '#efefef',
+      vAxis: {
+        title: 'Total Views'
+      },
+      hAxis: {
+        title: 'Months'
+      },
+      chartArea: {
+        top: 40,
+        height: "70%"
+      }
+    };
 
-  var chart = new google.visualization.LineChart(document.getElementById('article_usage_div'));
-  chart.draw(data, options);
+    var chart = new google.visualization.LineChart(document.getElementById('article_usage_div'));
+    chart.draw(data, options);
+  }
 }
 
 function drawArticleCitationAge() {
@@ -205,7 +208,7 @@ function drawArticleSocialScatter() {
       chartArea: {
         top: 40,
         height: "70%"
-      }    
+      }
     };
 
     var chart = new google.visualization.ScatterChart(document.getElementById('social_scatter_div'));
@@ -238,7 +241,7 @@ function drawReportGraphs() {
       drawArticleUsageCitationsAge();
       drawArticleUsageMendeleyAge();
       drawArticleUsageCitationSubjectArea();
-      drawArticleLocation();      
+      drawArticleLocation();
     }
 
   } else {
