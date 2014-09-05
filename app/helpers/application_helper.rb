@@ -21,6 +21,7 @@ module ApplicationHelper
       stylesheet
       articles_list
       footer
+      tagline
     )
     if templates.include?(template)
       switch(template)
