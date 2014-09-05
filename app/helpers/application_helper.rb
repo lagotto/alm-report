@@ -13,14 +13,14 @@ module ApplicationHelper
 
   def method_missing(template)
     templates = %i(
-      logo
       footer_logo
       font
-      side_heading
       links_holder
       stylesheet
       articles_list
       footer
+      tagline
+      top_bar
     )
     if templates.include?(template)
       switch(template)
