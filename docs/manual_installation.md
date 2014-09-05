@@ -11,23 +11,17 @@ sudo apt-get update
 `libxml2-dev` and `libxslt1-dev` are required for XML processing by the `nokogiri` gem, `nodejs` provides Javascript for the `therubyracer` gem. `readline` is a library for reading from standard inputs (like the Rails console). Other libraries cover dependencies of various Ruby gems.
 
 ```sh
-sudo apt-get install curl patch openssl ca-certificates libreadline6 \
-        libreadline6-dev curl zlib1g zlib1g-dev libssl-dev libyaml-dev \
-        libsqlite3-dev autoconf \
-        libgdbm-dev libncurses5-dev libffi-dev \
-        build-essential git-core libxml2-dev libxslt1-dev nodejs
+sudo apt-get install curl patch git-core libxml2-dev libxslt-dev libmysqlclient-dev nodejs
 ```
 
 #### Install Ruby 2.1.2
-We only need one Ruby version, but we'll want to use all of the performance benefits of Ruby 2.1.2, so let's just compile from source:
+We only need one Ruby version, but we'll want to use all of the performance benefits of Ruby 2.1.2, so let's just use the Brightbox PPA:
 
 ```sh
-wget http://ftp.ruby-lang.org/pub/ruby/2.1/ruby-2.1.2.tar.gz
-tar -xzvf ruby-2.1.2.tar.gz
-cd ruby-2.1.2/
-./configure
-make
-sudo make install
+sudo apt-get install python-software-properties
+sudo apt-add-repository ppa:brightbox/ruby-ng
+sudo apt-get update
+sudo apt-get install ruby rubygems ruby-switch
 ruby -v
 ```
 
@@ -44,50 +38,123 @@ Memcached is used to cache requests (in particular API requests), and the defaul
 sudo apt-get install memcached
 ```
 
-#### Install Apache and dependencies required for Passenger
+#### Install Nginx and Passenger
 
 ```sh
-sudo apt-get install apache2 apache2-prefork-dev libapr1-dev libaprutil1-dev libcurl4-openssl-dev
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+sudo apt-get install apt-transport-https ca-certificates
 ```
 
-#### Install and configure Passenger
-Passenger is a Rails application server: http://www.modrails.com. Update `passenger.load` and `passenger.conf` when you install a new version of the passenger gem.
+Open repository config file:
 
-```sh
-sudo gem install passenger -v 4.0.50
-sudo passenger-install-apache2-module --auto
-
-# /etc/apache2/mods-available/passenger.load
-LoadModule passenger_module /usr/local/lib/ruby/gems/2.1.0/gems/passenger-4.0.50/ext/apache2/mod_passenger.so
-
-# /etc/apache2/mods-available/passenger.conf
-PassengerRoot /usr/local/lib/ruby/gems/2.1.0/gems/passenger-4.0.50
-PassengerRuby /usr/local/bin/ruby
-
-sudo a2enmod passenger
+```
+sudo nano /etc/apt/sources.list.d/passenger.list
 ```
 
-#### Set up virtual host
-Please set `ServerName` if you have set up more than one virtual host. Also don't forget to add`AllowEncodedSlashes On` to the Apache virtual host file in order to keep Apache from messing up encoded embedded slashes in DOIs. Use `RailsEnv development` to use the Rails development environment.
+Add following repository source:
 
-```apache
-# /etc/apache2/sites-available/alm-report
-<VirtualHost *:80>
-  ServerName localhost
-  RailsEnv production
-  DocumentRoot /var/www/alm-report/public
+```
+deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main
+```
 
-  <Directory /var/www/alm-report/public>
-    Options FollowSymLinks
-    AllowOverride None
-    Order allow,deny
-    Allow from all
-  </Directory>
+And then install:
 
-  # Important for ALM: keeps Apache from messing up encoded embedded slashes in DOIs
-  AllowEncodedSlashes On
+```
+sudo apt-get install nginx-full passenger
+```
 
-</VirtualHost>
+#### Set up Nginx
+
+Your `/etc/nginx/nginx.conf` file should look something like this:
+
+```
+user www-data;
+worker_processes 4;
+pid /run/nginx.pid;
+
+events {
+  worker_connections 768;
+  # multi_accept on;
+}
+
+http {
+
+  ##
+  # Basic Settings
+  ##
+
+  sendfile on;
+  tcp_nopush on;
+  tcp_nodelay on;
+  keepalive_timeout 65;
+  types_hash_max_size 2048;
+  # server_tokens off;
+
+  # server_names_hash_bucket_size 64;
+  # server_name_in_redirect off;
+
+  include /etc/nginx/mime.types;
+  default_type application/octet-stream;
+
+  ##
+  # Logging Settings
+  ##
+
+  access_log /var/log/nginx/access.log;
+  error_log /var/log/nginx/error.log;
+
+  ##
+  # Gzip Settings
+  ##
+
+  gzip on;
+  gzip_disable "msie6";
+
+  # gzip_vary on;
+  # gzip_proxied any;
+  # gzip_comp_level 6;
+  # gzip_buffers 16 8k;
+  # gzip_http_version 1.1;
+  # gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+  ##
+  # nginx-naxsi config
+  ##
+  # Uncomment it if you installed nginx-naxsi
+  ##
+
+  # include /etc/nginx/naxsi_core.rules;
+
+  ##
+  # Phusion Passenger config
+  ##
+  # Uncomment it if you installed passenger or passenger-enterprise
+  ##
+
+  passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
+  passenger_ruby /usr/bin/ruby;
+
+  ##
+  # Virtual Host Configs
+  ##
+
+  include /etc/nginx/conf.d/*.conf;
+  include /etc/nginx/sites-enabled/*;
+}
+```
+
+You also need to set up the virtual host configuration for ALM Reports, for example:
+
+```
+#/etc/nginx/sites-enables/alm-report.conf
+server {
+  listen 80 default_server;
+  server_name alm-report.;
+  root /var/www/alm-report/current/public;
+  access_log /var/log/nginx/alm-report.access.log;
+  passenger_enabled on;
+  passenger_app_env development;
+}
 ```
 
 #### Install ALM Reports code
@@ -117,13 +184,8 @@ cp config/database.yml.example config/database.yml
 cp config/settings.yml.example config/settings.yml
 ```
 
-#### Start Apache
-We are making `alm-report` the default site.
+#### Start Nginx
 
-```sh
-sudo a2dissite default
-sudo a2ensite alm-report
-sudo service apache2 reload
-```
+`sudo service nginx restart`
 
 You can now access the ALM Reports application with your web browser at the name or IP address (if it is the only virtual host) of your Ubuntu installation.
