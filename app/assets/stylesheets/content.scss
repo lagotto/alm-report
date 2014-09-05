@@ -112,7 +112,7 @@ select {
 }
 
 .button-hover-dark-black:hover {
-  background: #333 !important;
+  background: $button_hover !important;
 }
 
 .button-hover-dark-blue:hover {
@@ -1206,11 +1206,12 @@ caption {
   background: $button_color;
   font-size: 14px;
   font-weight: bold;
+  color: $button_text_color;
 }
 
 .edit-list:hover,
 .start-over:hover {
-  background: $background;
+  background: $button_hover;
 }
 
 .edit-list {
