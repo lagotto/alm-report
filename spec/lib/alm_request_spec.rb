@@ -204,13 +204,9 @@ describe AlmRequest do
     data.size.should eq(1)
 
     data['10.1371/journal.pmed.0020124'][:crossref][:total].should eq(528)
-    data['10.1371/journal.pmed.0020124'][:crossref].has_key?(:histories).should eq(true)
-
     data['10.1371/journal.pmed.0020124'][:pubmed][:total].should eq(208)
-    data['10.1371/journal.pmed.0020124'][:pubmed].has_key?(:histories).should eq(true)
 
     data['10.1371/journal.pmed.0020124'][:scopus][:total].should eq(915)
-    data['10.1371/journal.pmed.0020124'][:scopus].has_key?(:histories).should eq(true)
 
     data['10.1371/journal.pmed.0020124'][:counter][:total].should eq(677173)
     data['10.1371/journal.pmed.0020124'][:counter].has_key?(:events).should eq(true)

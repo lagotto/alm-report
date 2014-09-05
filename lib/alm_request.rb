@@ -269,7 +269,6 @@ module AlmRequest
       results = article["sources"].inject({}) do | result, source |
         key = source["name"].to_sym
         result[key] = {}
-        result[key][:histories] = source["histories"]
         result[key][:total] = source["metrics"]["total"].to_i
         result
       end
