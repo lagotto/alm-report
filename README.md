@@ -15,8 +15,7 @@ alm-report
 
 Once the setup is complete (it might take up to 20 minutes), you'll be able to open up a browser and navigate to [http://10.2.2.2](http://10.2.2.2), and you should see this screen:
 
-![ALM Reports screenshot](https://cloud.githubusercontent.com/assets/238667/4106614/fba19bee-31bb-11e4-9467-214488da6ece.png)
-
+![ALM Reports screenshot](https://cloud.githubusercontent.com/assets/238667/4172919/1a7325a4-3551-11e4-9292-98e4a95702fb.png)
 
 ## Developing using AWS/EC2
 
