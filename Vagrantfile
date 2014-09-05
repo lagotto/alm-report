@@ -66,12 +66,12 @@ Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox do |vb, override|
     vb.name = "alm-report"
     vb.customize ["modifyvm", :id, "--memory", "1024"]
-    nfs_setting = RUBY_PLATFORM =~ /darwin/ || RUBY_PLATFORM =~ /linux/
-    # Disable default synced folder before bindfs tries to bind to it
-    override.vm.synced_folder ".", "/var/www/alm-report/current", disabled: true
-    override.vm.synced_folder ".", "/vagrant", id: "vagrant-root", :nfs => nfs_setting
-    override.bindfs.bind_folder "/vagrant", "/var/www/alm-report/current"
-
+    unless Vagrant::Util::Platform.windows?
+      # Disable default synced folder before bindfs tries to bind to it
+      override.vm.synced_folder ".", "/var/www/alm-report/current", disabled: true
+      override.vm.synced_folder ".", "/vagrant", id: "vagrant-root", nfs: true
+      override.bindfs.bind_folder "/vagrant", "/var/www/alm-report/current", create_as_user: true
+    end
     provision(vb, override)
   end
 
