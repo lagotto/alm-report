@@ -39,3 +39,7 @@ Detailed instructions on how to start developing are [here](https://github.com/a
 When you're ready to deploy `ALM Reports`, take a look at the [in-depth deployment guide](https://github.com/articlemetrics/alm-report/blob/master/docs/development.md).
 
 In case you would like to setup the dependencies manually (for example for non-Vagrant local development, or for servers not provisioned with Chef), check out the [manual installation guide](https://github.com/articlemetrics/alm-report/blob/master/docs/manual_installation.md).
+
+## License
+
+ALM Reports is released under the [MIT License](http://www.opensource.org/licenses/MIT).
