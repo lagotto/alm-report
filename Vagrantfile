@@ -147,3 +147,15 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder ".", "/var/www/alm-report/current", id: "vagrant-root"
 end
+
+# workaround for shared folders with vmware and lxc providers
+# see https://github.com/applicationsonline/librarian/issues/151
+require 'librarian/action'
+class Librarian::Action::Install < Librarian::Action::Base
+  def create_install_path
+    if install_path.exist?
+      FileUtils.rm_rf("#{install_path}/.", secure: true)
+    end
+    install_path.mkpath
+  end
+end
