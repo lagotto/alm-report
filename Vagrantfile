@@ -70,7 +70,15 @@ Vagrant.configure("2") do |config|
       # Disable default synced folder before bindfs tries to bind to it
       override.vm.synced_folder ".", "/var/www/alm-report/current", disabled: true
       override.vm.synced_folder ".", "/vagrant", id: "vagrant-root", nfs: true
-      override.bindfs.bind_folder "/vagrant", "/var/www/alm-report/current", create_as_user: true
+      override.bindfs.bind_folder "/vagrant", "/var/www/alm-report/current",
+        :owner => "900",
+        :group => "33",
+        :"create-as-user" => true,
+        :perms => "u=rwx:g=rwx:o=rwx",
+        :"create-with-perms" => "u=rwx:g=rwx:o=rwx",
+        :"chown-ignore" => true,
+        :"chgrp-ignore" => true,
+        :"chmod-ignore" => true
     end
     provision(vb, override)
   end
