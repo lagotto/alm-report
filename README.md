@@ -1,6 +1,6 @@
 # ALM Reports
 
-[![Build Status](https://travis-ci.org/articlemetrics/alm-report.svg?branch=master)](https://travis-ci.org/articlemetrics/alm-report) [![Code Climate](https://codeclimate.com/github/articlemetrics/alm-report/badges/gpa.svg)](https://codeclimate.com/github/articlemetrics/alm-report)
+[![Build Status](https://travis-ci.org/articlemetrics/alm-report.svg?branch=master)](https://travis-ci.org/articlemetrics/alm-report) [![Code Climate](https://codeclimate.com/github/articlemetrics/alm-report/badges/gpa.svg)](https://codeclimate.com/github/articlemetrics/alm-report) [![Test Coverage](https://codeclimate.com/github/articlemetrics/alm-report/badges/coverage.svg)](https://codeclimate.com/github/articlemetrics/alm-report)
 
 ## How to start developing now?
 
