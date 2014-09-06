@@ -1,6 +1,6 @@
 # ALM Reports
 
-[![Build Status](https://magnum.travis-ci.com/articlemetrics/alm-report.svg?token=KamPjZmu9WPvmWcXwBRx&branch=master)](https://magnum.travis-ci.com/articlemetrics/alm-report)
+[![Build Status](https://magnum.travis-ci.com/articlemetrics/alm-report.svg?token=KamPjZmu9WPvmWcXwBRx&branch=master)](https://magnum.travis-ci.com/articlemetrics/alm-report) [![Code Climate](https://codeclimate.com/github/articlemetrics/alm-report/badges/gpa.svg)](https://codeclimate.com/github/articlemetrics/alm-report)
 
 ## How to start developing now?
 
