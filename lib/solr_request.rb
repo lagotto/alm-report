@@ -43,32 +43,6 @@ class SolrRequest
     "fl=#{@fl}"
   end
 
-  # Adds leading and trailing double-quotes to the string if it contains any whitespace.
-  def quote_if_spaces(s)
-    if /\s/.match(s)
-      s = "\"#{s}\""
-    end
-    return s
-  end
-  private :quote_if_spaces
-
-  # The search page uses two form fields, author_country and institution, that are both
-  # implemented by mapping onto the same field in the solr schema: affiliate.  This method
-  # handles building the affiliate param based on the other two (whether or not they are
-  # present).  It will also delete the two "virtual" params as a side-effect.
-  def build_affiliate_param(solr_params)
-    part1 = solr_params.delete(:author_country).to_s.strip
-    part2 = solr_params.delete(:institution).to_s.strip
-    if part1.length == 0 && part2.length == 0
-      return solr_params
-    end
-    both = part1.length > 0 && part2.length > 0
-    solr_params[:affiliate] = (both ? "(" : "") + quote_if_spaces(part1) + (both ? " AND " : "") \
-        + quote_if_spaces(part2) + (both ? ")" : "")
-    return solr_params
-  end
-  private :build_affiliate_param
-
 
   # Returns the portion of the solr URL with the q parameter, specifying the search.
   # Note that the results of this method *must* be URL-escaped before use.
@@ -356,34 +330,22 @@ class SolrRequest
 
   # Retrieves article related information from solr for a given list of DOIs.
   def self.get_data_for_articles(report_dois)
-    return SolrRequest.get_data_helper(report_dois, "solr", FL)
+    measure do
+      return SolrRequest.get_data_helper(report_dois, "solr", FL)
+    end
   end
 
   # Retrieves alm data from solr for a given list of DOIs
   def self.get_data_for_viz(report_dois)
-    start_time = Time.now
-
-    data = SolrRequest.get_data_helper(report_dois, nil, FL_METRIC_DATA)
-
-    end_time = Time.now
-    Rails.logger.debug "SOLR Data for Viz Request for #{report_dois.size} articles took " \
-        "#{end_time - start_time} seconds."
-
-    return data
-
+    measure do
+      SolrRequest.get_data_helper(report_dois, nil, FL_METRIC_DATA)
+    end
   end
 
   def self.validate_dois(report_dois)
-    start_time = Time.now
-
-    data = SolrRequest.get_data_helper(report_dois, nil, FL_VALIDATE_ID)
-
-    end_time = Time.now
-    Rails.logger.debug "SOLR Validate Dois Request for #{report_dois.size} articles took " \
-        "#{end_time - start_time} seconds."
-
-    return data
-
+    measure do
+      SolrRequest.get_data_helper(report_dois, nil, FL_VALIDATE_ID)
+    end
   end
 
 
@@ -406,4 +368,42 @@ class SolrRequest
     results
   end
 
+  private
+
+  # Adds leading and trailing double-quotes to the string if it contains any whitespace.
+  def quote_if_spaces(s)
+    if /\s/.match(s)
+      s = "\"#{s}\""
+    end
+    return s
+  end
+
+  # The search page uses two form fields, author_country and institution, that are both
+  # implemented by mapping onto the same field in the solr schema: affiliate.  This method
+  # handles building the affiliate param based on the other two (whether or not they are
+  # present).  It will also delete the two "virtual" params as a side-effect.
+  def build_affiliate_param(solr_params)
+    part1 = solr_params.delete(:author_country).to_s.strip
+    part2 = solr_params.delete(:institution).to_s.strip
+    if part1.length == 0 && part2.length == 0
+      return solr_params
+    end
+    both = part1.length > 0 && part2.length > 0
+    solr_params[:affiliate] = (both ? "(" : "") + quote_if_spaces(part1) + (both ? " AND " : "") \
+        + quote_if_spaces(part2) + (both ? ")" : "")
+    return solr_params
+  end
+
+  def self.measure(&block)
+    start_time = Time.now
+    data = block.call
+    end_time = Time.now
+
+    method = block.binding.eval('__method__')
+    count = block.binding.local_variable_get(:report_dois).size
+    Rails.logger.debug "SOLR #{method} Request for #{count} articles took " \
+        "#{end_time - start_time} seconds."
+
+    return data
+  end
 end
