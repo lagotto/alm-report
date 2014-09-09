@@ -13,7 +13,6 @@ end
 # TODO: consider renaming this class.  Originally I thought there would also be a SolrResponse,
 # but that was not necessary.
 class SolrRequest
-
   SOLR_TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
   FILTER = "fq=doc_type:full&fq=!article_type_facet:#{URI::encode("\"Issue Image\"")}"
@@ -37,11 +36,11 @@ class SolrRequest
   # solr; otherwise all fields that we are interested in will be returned.
   def initialize(params, fl=nil)
     @params = params
-    if fl.nil?
-      @fl = "fl=#{FL}"
-    else
-      @fl = "fl=#{fl}"
-    end
+    @fl = fl || FL
+  end
+
+  def fl
+    "fl=#{@fl}"
   end
 
   # Adds leading and trailing double-quotes to the string if it contains any whitespace.
@@ -52,7 +51,6 @@ class SolrRequest
     return s
   end
   private :quote_if_spaces
-
 
   # The search page uses two form fields, author_country and institution, that are both
   # implemented by mapping onto the same field in the solr schema: affiliate.  This method
@@ -186,7 +184,7 @@ class SolrRequest
     sort = @params.delete(:sort)
     page_block = build_page_block  # This needs to get called before build_query
 
-    common_params = "#{FILTER}&#{@fl}&wt=json&facet=false&#{page_block}"
+    common_params = "#{FILTER}&#{fl}&wt=json&facet=false&#{page_block}"
 
     if !@params.has_key?(:unformattedQueryId)
       # execute home page search
