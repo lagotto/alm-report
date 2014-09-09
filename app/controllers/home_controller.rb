@@ -12,10 +12,10 @@ class HomeController < ApplicationController
     journals.collect! { | journal | [journal[:journal_name], journal[:journal_name]] }
 
     # Add a fake entry for "all journals"
-    @journals = journals.unshift([SolrRequest.ALL_JOURNALS, SolrRequest.ALL_JOURNALS])
+    @journals = journals.unshift([SolrRequest::ALL_JOURNALS, SolrRequest::ALL_JOURNALS])
   end
-  
-  
+
+
   # Performs a solr search based on the parameters passed into an action.
   # Returns a tuple of (solr documents, total results found).  If argument fl
   # is none-nil, it specifies what results fields we want to retrieve from solr.
@@ -45,7 +45,7 @@ class HomeController < ApplicationController
   end
   private :search_from_params
 
-  
+
   def add_articles
     @tab = :select_articles
     @title = "Add Articles"
@@ -84,8 +84,8 @@ class HomeController < ApplicationController
 
     set_paging_vars(params[:current_page])
   end
-  
-  
+
+
   # Parses date sent in the ajax call to update_session.  This is of the form
   # "10.1371/journal.pone.0052192|12345678"; that is, a DOI and a timestamp separated by
   # a '|' character.  Returns (doi, timestamp).
@@ -94,8 +94,8 @@ class HomeController < ApplicationController
     return fields[0], fields[1].to_i
   end
   private :parse_article_key
-  
-  
+
+
   def update_session
     initial_count = @saved_dois.length
     status = "success"
@@ -122,20 +122,20 @@ class HomeController < ApplicationController
       format.json { render :json => payload}
     end
   end
-  
-  
+
+
   # Simple AJAX action that returns the count of articles stored in the session.
   def get_article_count
     respond_to do |format|
       format.json {render :json => @saved_dois.length}
     end
   end
-  
-  
+
+
   # Queries solr for the results used by select_all_search_results.
   def get_all_results
     page = params.delete(:current_page)
-      
+
     # For efficiency, we want to query solr for the smallest number of results.
     # However, this is difficult because the user may have already selected
     # some articles from various pages of the search results, and there is no
@@ -144,7 +144,7 @@ class HomeController < ApplicationController
     # various pathological cases such as the user having checked every other
     # search result.
     limit = APP_CONFIG["article_limit"] * 2
-    
+
     # solr usually returns 500s if you try to retreive all 1000 articles at once,
     # so we do paging here (with a larger page size than in the UI).
     params[:start] = 1
@@ -160,8 +160,8 @@ class HomeController < ApplicationController
     results
   end
   private :get_all_results
-  
-  
+
+
   # Ajax action that handles the "Select all nnn articles" link.  Selects
   # *all* of the articles from the search, not just those on the current page.
   # (Subject to the article limit.)
@@ -179,7 +179,7 @@ class HomeController < ApplicationController
         docs = get_all_results
       rescue SolrError
         logger.warn("Error querying solr: #{$!}")
-        
+
         # Send a json response, instead of the rails 500 HTML page.
         respond_to do |format|
           format.json {render :json => {:status => "error"}, :status => 500}
@@ -200,22 +200,22 @@ class HomeController < ApplicationController
       format.json { render :json => payload}
     end
   end
-  
+
 
   # Action that clears any DOIs in the session and redirects to home.
   def start_over
     @saved_dois.clear
     redirect_to :action => :index
   end
-  
-  
+
+
   def preview_list
     @tab = :preview_list
     @title = "Preview List"
     dois = @saved_dois.clone
     @total_found = dois.length
     set_paging_vars(params[:current_page])
-    
+
     # Convert to array, sorted in descending order by timestamp, then throw away the timestamps.
     dois = dois.sort_by{|doi, timestamp| -timestamp}.collect{|x| x[0]}
     dois = dois[(@start_result) - 1..(@end_result - 1)]

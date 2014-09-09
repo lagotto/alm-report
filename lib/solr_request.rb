@@ -13,22 +13,22 @@ end
 # TODO: consider renaming this class.  Originally I thought there would also be a SolrResponse,
 # but that was not necessary.
 class SolrRequest
-  
-  @@SOLR_TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
-  
-  @@FILTER = "fq=doc_type:full&fq=!article_type_facet:#{URI::encode("\"Issue Image\"")}"
-  
+
+  SOLR_TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+
+  FILTER = "fq=doc_type:full&fq=!article_type_facet:#{URI::encode("\"Issue Image\"")}"
+
   # The fields we want solr to return for each article by default.
-  @@FL = "id,pmid,publication_date,received_date,accepted_date,title," \
+  FL = "id,pmid,publication_date,received_date,accepted_date,title," \
       "cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject," \
       "financial_disclosure"
 
-  @@FL_METRIC_DATA = "id,alm_scopusCiteCount,alm_mendeleyCount,counter_total_all," \
+  FL_METRIC_DATA = "id,alm_scopusCiteCount,alm_mendeleyCount,counter_total_all," \
       "alm_pmc_usage_total_all"
 
-  @@FL_VALIDATE_ID = "id"
+  FL_VALIDATE_ID = "id"
 
-  @@ALL_JOURNALS = "All Journals"
+  ALL_JOURNALS = "All Journals"
 
 
   # Creates a solr request.  The query (q param in the solr request) will be based on
@@ -38,22 +38,11 @@ class SolrRequest
   def initialize(params, fl=nil)
     @params = params
     if fl.nil?
-      @fl = "fl=#{@@FL}"
+      @fl = "fl=#{FL}"
     else
       @fl = "fl=#{fl}"
     end
   end
-
-
-  def self.ALL_JOURNALS
-    return @@ALL_JOURNALS
-  end
-  
-  
-  def self.SOLR_TIMESTAMP_FORMAT
-    return @@SOLR_TIMESTAMP_FORMAT
-  end
-
 
   # Adds leading and trailing double-quotes to the string if it contains any whitespace.
   def quote_if_spaces(s)
@@ -92,17 +81,17 @@ class SolrRequest
     solr_params = {}
     @params.keys.each do |key|
       value = @params[key].strip
-      
+
       # Also take this opportunity to strip out the bogus "all journals" journal value.
       # It is implicit.
-      if value.length > 0 && (key.to_s != "cross_published_journal_name" || value != @@ALL_JOURNALS)
+      if value.length > 0 && (key.to_s != "cross_published_journal_name" || value != ALL_JOURNALS)
         solr_params[key] = value
       end
     end
-    
+
     solr_params = build_affiliate_param(solr_params)
     query = "q="
-    
+
     # Sort the keys to ensure deterministic param order.  This is mainly for testing.
     keys = solr_params.keys.sort
     keys.each_with_index do |key, i|
@@ -157,8 +146,8 @@ class SolrRequest
     end
     return JSON.parse(resp.body)
   end
-  
-  
+
+
   # Returns a list of JSON entities for article results given a json response from solr.
   def self.parse_docs(json)
     docs = json["response"]["docs"]
@@ -167,8 +156,8 @@ class SolrRequest
     end
     return docs
   end
-  
-  
+
+
   # Returns the fragment of the URL having to do with paging; specifically, the rows
   # and start parameters.  These can be passed in directly to the constructor, or calculated
   # based on the current_page param, if it is present.
@@ -197,7 +186,7 @@ class SolrRequest
     sort = @params.delete(:sort)
     page_block = build_page_block  # This needs to get called before build_query
 
-    common_params = "#{@@FILTER}&#{@fl}&wt=json&facet=false&#{page_block}"
+    common_params = "#{FILTER}&#{@fl}&wt=json&facet=false&#{page_block}"
 
     if !@params.has_key?(:unformattedQueryId)
       # execute home page search
@@ -223,7 +212,7 @@ class SolrRequest
   # The goal is to mimic advanced search journal filter on the ambra side (journal site)
   # 1. use fq (filter query) with cross_published_journal_key field
   # 2. display the journal names that are tied to the cross_published_journal_key field on the front end
-  # There wasn't a way to tie cross_published_journal_key field values to cross_published_journal_name values 
+  # There wasn't a way to tie cross_published_journal_key field values to cross_published_journal_name values
   # easily without matching them up by hand
   def self.get_journal_name_key
     params = {}
@@ -234,7 +223,7 @@ class SolrRequest
     params[:rows] = 0
     params[:wt] = "json"
 
-    url = "#{APP_CONFIG["solr_url"]}?#{params.to_param}&#{@@FILTER}"
+    url = "#{APP_CONFIG["solr_url"]}?#{params.to_param}&#{FILTER}"
     json = send_query(url)
 
     journal_keys = json["facet_counts"]["facet_fields"]["cross_published_journal_key"]
@@ -268,29 +257,29 @@ class SolrRequest
     end_time = get_now
     if days_ago == -1  # All time; default.  Nothing to do.
       return nil, nil
-      
+
     elsif days_ago == 0  # Custom date range
       start_time = Date.strptime(start_date, "%m-%d-%Y")
       end_time = DateTime.strptime(end_date + " 23:59:59", "%m-%d-%Y %H:%M:%S")
-      
+
     else  # days_ago specifies start date; end date now
       start_time = end_time - (3600 * 24 * days_ago)
     end
     return start_time, end_time
   end
 
-  
+
   # Returns a legal value constraining the publication_date solr field for the given start and
   # end DateTimes.  Returns nil if either of the arguments are nil.
   def self.build_date_range(start_date, end_date)
     if start_date.nil? || end_date.nil?
       return nil
     else
-      return "[#{start_date.strftime(@@SOLR_TIMESTAMP_FORMAT)} " \
-          "TO #{end_date.strftime(@@SOLR_TIMESTAMP_FORMAT)}]"
+      return "[#{start_date.strftime(SOLR_TIMESTAMP_FORMAT)} " \
+          "TO #{end_date.strftime(SOLR_TIMESTAMP_FORMAT)}]"
     end
   end
-  
+
   # There are a handful of special cases where we want to display a "massaged"
   # version of what solr returns, instead of the direct value.  This method
   # takes care of all of those.
@@ -298,7 +287,7 @@ class SolrRequest
     SolrRequest.fix_date(doc, "publication_date")
     SolrRequest.fix_date(doc, "received_date")
     SolrRequest.fix_date(doc, "accepted_date")
-    
+
     # For articles cross-published in PLOS Collections, we want to display the
     # original journal name throughout the app.
     if doc["cross_published_journal_name"] && doc["cross_published_journal_name"].length > 1
@@ -310,12 +299,12 @@ class SolrRequest
     end
     doc
   end
-  
+
   # Substitutes a formatted value for a date field of the given name
   # in the solr data structure.
   def self.fix_date(doc, date_field_name)
     if doc[date_field_name]
-      doc[date_field_name] = Date.strptime(doc[date_field_name], @@SOLR_TIMESTAMP_FORMAT)
+      doc[date_field_name] = Date.strptime(doc[date_field_name], SOLR_TIMESTAMP_FORMAT)
     end
     doc
   end
@@ -323,7 +312,7 @@ class SolrRequest
   # helper function for retrieving data from solr
   def self.get_data_helper(report_dois, cache_postfix, fields_to_retrieve)
     # TODO should we return emtpy array or nil if report_dois is nil / empty?
-    
+
     all_results = {}
     if (report_dois.first.kind_of? String)
       dois = report_dois.clone
@@ -345,8 +334,8 @@ class SolrRequest
     while dois.length > 0 do
       subset_dois = dois.slice!(0, APP_CONFIG["solr_max_dois_per_request"])
       q = subset_dois.map { | doi | "id:\"#{doi}\"" }.join(" OR ")
-  
-      url = "#{APP_CONFIG["solr_url"]}?q=#{URI::encode(q)}&#{@@FILTER}&fl=#{fields_to_retrieve}" \
+
+      url = "#{APP_CONFIG["solr_url"]}?q=#{URI::encode(q)}&#{FILTER}&fl=#{fields_to_retrieve}" \
           "&wt=json&facet=false&rows=#{subset_dois.length}"
 
       json = SolrRequest.send_query(url)
@@ -355,7 +344,7 @@ class SolrRequest
       docs.each do |doc|
         doc = fix_data(doc)
         all_results[doc["id"]] = doc
-  
+
         # store solr data in cache
         if (!cache_postfix.nil?)
           Rails.cache.write("#{doc["id"]}.#{cache_postfix}", doc, :expires_in => 1.day)
@@ -369,14 +358,14 @@ class SolrRequest
 
   # Retrieves article related information from solr for a given list of DOIs.
   def self.get_data_for_articles(report_dois)
-    return SolrRequest.get_data_helper(report_dois, "solr", @@FL)
+    return SolrRequest.get_data_helper(report_dois, "solr", FL)
   end
 
   # Retrieves alm data from solr for a given list of DOIs
   def self.get_data_for_viz(report_dois)
     start_time = Time.now
 
-    data = SolrRequest.get_data_helper(report_dois, nil, @@FL_METRIC_DATA)
+    data = SolrRequest.get_data_helper(report_dois, nil, FL_METRIC_DATA)
 
     end_time = Time.now
     Rails.logger.debug "SOLR Data for Viz Request for #{report_dois.size} articles took " \
@@ -388,8 +377,8 @@ class SolrRequest
 
   def self.validate_dois(report_dois)
     start_time = Time.now
-    
-    data = SolrRequest.get_data_helper(report_dois, nil, @@FL_VALIDATE_ID)
+
+    data = SolrRequest.get_data_helper(report_dois, nil, FL_VALIDATE_ID)
 
     end_time = Time.now
     Rails.logger.debug "SOLR Validate Dois Request for #{report_dois.size} articles took " \
@@ -399,20 +388,20 @@ class SolrRequest
 
   end
 
-  
+
   # Performs a batch query for articles based on the list of PubMed IDs passed in.
   # Returns a hash of PMID => solr doc, with only id, pmid, and publication_date defined
   # in the solr docs.
   def self.query_by_pmids(pmids)
     q = pmids.map {|pmid| "pmid:\"#{pmid}\""}.join(" OR ")
-    url = "#{APP_CONFIG["solr_url"]}?q=#{URI::encode(q)}&#{@@FILTER}" \
+    url = "#{APP_CONFIG["solr_url"]}?q=#{URI::encode(q)}&#{FILTER}" \
         "&fl=id,publication_date,pmid&wt=json&facet=false&rows=#{pmids.length}"
     json = SolrRequest.send_query(url)
     docs = json["response"]["docs"]
     results = {}
     docs.each do |doc|
       if doc["publication_date"]
-        doc["publication_date"] = Date.strptime(doc["publication_date"], @@SOLR_TIMESTAMP_FORMAT)
+        doc["publication_date"] = Date.strptime(doc["publication_date"], SOLR_TIMESTAMP_FORMAT)
       end
       results[doc["pmid"].to_i] = doc
     end
