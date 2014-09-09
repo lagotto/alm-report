@@ -125,12 +125,12 @@ describe SolrRequest do
     stub_request(:get, url).to_return(:body => body, :status => 200)
 
     params = {
-      :everything=>"word", 
-      :author=>"Garmay", 
-      :author_country=>"", 
-      :institution=>"University of California", 
-      :subject=>"Gene regulation", 
-      :cross_published_journal_name=>"All Journals", 
+      :everything=>"word",
+      :author=>"Garmay",
+      :author_country=>"",
+      :institution=>"University of California",
+      :subject=>"Gene regulation",
+      :cross_published_journal_name=>"All Journals",
       :financial_disclosure=>""
     }
 
@@ -141,39 +141,52 @@ describe SolrRequest do
 
     data[0].should eq([
       {
-        "id" => "10.1371/journal.pone.0006901", 
-        "cross_published_journal_name" => ["PLOS ONE"], 
-        "pmid" => "19730735", 
+        "id" => "10.1371/journal.pone.0006901",
+        "cross_published_journal_name" => ["PLOS ONE"],
+        "pmid" => "19730735",
         "subject" => [
-          "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis", 
-          "/Biology and life sciences/Genetics/Genomics/Genome analysis/Genomic databases", 
-          "/Computer and information sciences/Information technology/Databases/Genomic databases", 
-          "/Biology and life sciences/Biochemistry/DNA/DNA sequences", 
-          "/Biology and life sciences/Biochemistry/Proteins/DNA-binding proteins/Transcription factors", 
-          "/Computer and information sciences/Information technology/Databases/Database and informatics methods/Database searching/Sequence similarity searching", 
-          "/Research and analysis methods/Database and informatics methods/Database searching/Sequence similarity searching", 
-          "/Biology and life sciences/Genetics/Genomics/Animal genomics/Invertebrate genomics", 
-          "/Biology and life sciences/Genetics/Gene expression/Gene regulation/Transcription factors", 
-          "/Biology and life sciences/Computational biology/Genome analysis/Genomic databases", 
-          "/Biology and life sciences/Biochemistry/Proteins/Regulatory proteins/Transcription factors", 
-          "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence motif analysis", 
+          "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis",
+          "/Biology and life sciences/Genetics/Genomics/Genome analysis/Genomic databases",
+          "/Computer and information sciences/Information technology/Databases/Genomic databases",
+          "/Biology and life sciences/Biochemistry/DNA/DNA sequences",
+          "/Biology and life sciences/Biochemistry/Proteins/DNA-binding proteins/Transcription factors",
+          "/Computer and information sciences/Information technology/Databases/Database and informatics methods/Database searching/Sequence similarity searching",
+          "/Research and analysis methods/Database and informatics methods/Database searching/Sequence similarity searching",
+          "/Biology and life sciences/Genetics/Genomics/Animal genomics/Invertebrate genomics",
+          "/Biology and life sciences/Genetics/Gene expression/Gene regulation/Transcription factors",
+          "/Biology and life sciences/Computational biology/Genome analysis/Genomic databases",
+          "/Biology and life sciences/Biochemistry/Proteins/Regulatory proteins/Transcription factors",
+          "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence motif analysis",
           "/Biology and life sciences/Genetics/Gene expression/Gene regulation", "/Biology and life sciences/Genetics/DNA/DNA sequences"
-        ], 
-        "publication_date" => Date.strptime("2009-09-04T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"), 
-        "article_type" => "Research Article", 
-        "author_display" => ["Garmay Leung", "Michael B. Eisen"], 
+        ],
+        "publication_date" => Date.strptime("2009-09-04T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"),
+        "article_type" => "Research Article",
+        "author_display" => ["Garmay Leung", "Michael B. Eisen"],
         "affiliate" => [
-          "University of California Berkeley and University of California San Francisco Joint Graduate Group in Bioengineering, University of California, Berkeley, California, United States of America", 
-          "Department of Molecular and Cell Biology, University of California, Berkeley, California, United States of America", 
+          "University of California Berkeley and University of California San Francisco Joint Graduate Group in Bioengineering, University of California, Berkeley, California, United States of America",
+          "Department of Molecular and Cell Biology, University of California, Berkeley, California, United States of America",
           "Howard Hughes Medical Institute, University of California, Berkeley, California, United States of America"
-        ], 
+        ],
         "title" => "Identifying Cis-Regulatory Sequences by Word Profile Similarity"
       }
     ])
     data[1].should eq(1)
   end
 
-  it "query advanced search" do
-  end
+  it "can use a custom field list (fl)" do
+    url = "http://api.plos.org/search?facet=false&fl=id,pmid,publication_date" \
+          "&fq=!article_type_facet:%22Issue%20Image%22&hl=false" \
+          "&q=everything:biology&rows=25&wt=json"
 
+    fl = "id,pmid,publication_date"
+
+    fixture = File.open("#{fixture_path}solr_custom_field_list.raw")
+    stub_request(:get, url).to_return(fixture)
+
+    request = SolrRequest.new({everything: 'biology'}, fl)
+    data = request.query
+
+    # We should get the requested fields in the result
+    data[0].first.keys.should eq(fl.split(','))
+  end
 end
