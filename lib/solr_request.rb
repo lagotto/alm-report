@@ -212,12 +212,6 @@ class SolrRequest
     return journals
   end
 
-
-  def self.get_now
-    return Time.new
-  end
-
-
   # Logic for creating a limit on the publication_date for a query.  All params are strings.
   # Legal values for days_ago are "-1", "0", or a positive integer.  If -1, the method
   # returns (nil, nil) (no date range specified).  If 0, the values of start_date and end_date
@@ -226,7 +220,7 @@ class SolrRequest
   # format %m-%d-%Y.
   def self.parse_date_range(days_ago, start_date, end_date)
     days_ago = days_ago.to_i
-    end_time = get_now
+    end_time = Time.new
     if days_ago == -1  # All time; default.  Nothing to do.
       return nil, nil
 
