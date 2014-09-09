@@ -2,13 +2,13 @@ require 'spec_helper'
 require 'solr/solr_query_builder'
 
 def build_query_test_once(params, expected)
-  req = SolrQueryBuilder.new(params)
-  expected.should eq(req.build)
+  qb = SolrQueryBuilder.new(params)
+  qb.build.should eq(expected)
 end
 
 def build_page_block_test_once(params, expected)
-  req = SolrQueryBuilder.new(params)
-  expected.should eq(req.build_page_block)
+  qb = SolrQueryBuilder.new(params)
+  qb.page_block.should eq(expected)
 end
 
 describe SolrQueryBuilder do
@@ -67,13 +67,13 @@ describe SolrQueryBuilder do
 
   it "doesn't have interactions between build_page_block and build" do
     params = {:everything => "hi", :title => "bye"}
-    req = SolrRequest.new(params)
-    "rows=25".should eq(req.build_page_block)
-    "q=everything:hi AND title:bye".should eq(req.build_query)
+    qb = SolrQueryBuilder.new(params)
+    qb.page_block.should eq("rows=25")
+    qb.build.should eq("q=everything:hi AND title:bye")
 
     params = {:everything => "bad", :title => "business", :start => 41, :rows => 475}
-    req = SolrRequest.new(params)
-    "rows=475&start=41".should eq(req.build_page_block)
-    "q=everything:bad AND title:business".should eq(req.build_query)
+    qb = SolrQueryBuilder.new(params)
+    qb.page_block.should eq("rows=475&start=41")
+    qb.build.should eq("q=everything:bad AND title:business")
   end
 end

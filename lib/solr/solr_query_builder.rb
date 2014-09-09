@@ -1,10 +1,12 @@
 require_relative '../solr_request'
 
 class SolrQueryBuilder
+  attr_reader :page_block
+
   def initialize(params, fl = nil)
     @params = params
-    @page_block = build_page_block
     @fl = fl || SolrRequest::FL
+    @page_block = build_page_block
   end
 
   def fl
