@@ -24,6 +24,7 @@ group :development do
 end
 
 group :test do
+  gem 'timecop'
   gem 'poltergeist'
   gem 'capybara'
   gem "webmock", "~> 1.17.2"
