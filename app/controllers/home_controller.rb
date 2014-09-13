@@ -53,7 +53,7 @@ class HomeController < ApplicationController
     @docs, @total_found = search_from_params
 
     if !params["unformattedQueryId"].nil?
-      # search exected from the advanced search page
+      # search executed from the advanced search page
       # convert the journal key to journal name
       @filter_journal_names = []
       if !params["filterJournals"].nil?

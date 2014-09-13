@@ -7,72 +7,45 @@ class SolrQueryBuilder
     @params = params
     @fl = fl || SolrRequest::FL
     @page_block = build_page_block
+    @query = {}
   end
 
   def fl
     "fl=#{@fl}"
   end
 
+
   # Returns the portion of the solr URL with the q parameter, specifying the search.
   # Note that the results of this method *must* be URL-escaped before use.
   def build
-    # Strip out empty params.  Has to be done in a separate loop from the one below to
-    # preserve the AND logic.
-    solr_params = {}
-    @params.keys.each do |key|
-      value = @params[key].strip
+    clean_params
+    build_affiliate_param
 
-      # Also take this opportunity to strip out the bogus "all journals" journal value.
-      # It is implicit.
-      if value.length > 0 &&
-        (key.to_s != "cross_published_journal_name" || value != SolrRequest::ALL_JOURNALS)
-          solr_params[key] = value
+    @query[:q] = @params.sort_by{|k,v| k}.map do |k,v|
+      unless %i(affiliate publication_date).include?(k) # Pre-formatted
+        v = quote_if_spaces(v)
       end
-    end
+      "#{k}:#{v}"
+    end.join(' AND ')
 
-    solr_params = build_affiliate_param(solr_params)
-    query = "q="
-
-    # Sort the keys to ensure deterministic param order.  This is mainly for testing.
-    keys = solr_params.keys.sort
-    keys.each_with_index do |key, i|
-      value = solr_params[key]
-      if key != :affiliate && key != :publication_date  # params assumed to be pre-formatted
-        value = quote_if_spaces(value)
-      end
-      query << "#{key}:#{value}"
-      if keys.length > 1 && i < keys.length - 1
-        query << " AND "
-      end
-    end
-
-    # if the user hasn't entered in anything, search for everything
-    if keys.empty?
-      query << "*:*"
-    end
-
-    Rails.logger.debug("solr query: #{query}")
+    Rails.logger.debug("Solr query: #{query}")
     query
   end
 
 
   # Returns the portion of the solr URL with the query parameter and journal filter populated
   def build_advanced_query
-    solr_params = {}
-
     if @params.has_key?(:unformattedQueryId)
-      solr_params[:q] = @params[:unformattedQueryId].strip
-    else
-      # this shouldn't happen but just in case
-      solr_params[:q] = "*:*"
+      @query[:q] = @params[:unformattedQueryId].strip
     end
 
     if @params.has_key?(:filterJournals)
       filter_journals = @params[:filterJournals]
-      solr_params[:fq] = filter_journals.map { | filter_journal | "cross_published_journal_key:#{filter_journal}" }.join(" OR ")
+      @query[:fq] = filter_journals.map do |filter_journal|
+        "cross_published_journal_key:#{filter_journal}"
+      end.join(' OR ')
     end
-
-    return solr_params
+    @query
   end
 
     # Adds leading and trailing double-quotes to the string if it contains any whitespace.
@@ -80,23 +53,26 @@ class SolrQueryBuilder
     if /\s/.match(s)
       s = "\"#{s}\""
     end
-    return s
+    s
   end
 
   # The search page uses two form fields, author_country and institution, that are both
-  # implemented by mapping onto the same field in the solr schema: affiliate.  This method
+  # implemented by mapping onto the same field in the solr schema: affiliate. This method
   # handles building the affiliate param based on the other two (whether or not they are
-  # present).  It will also delete the two "virtual" params as a side-effect.
-  def build_affiliate_param(solr_params)
-    part1 = solr_params.delete(:author_country).to_s.strip
-    part2 = solr_params.delete(:institution).to_s.strip
-    if part1.length == 0 && part2.length == 0
-      return solr_params
+  # present). It will also delete the two "virtual" params as a side-effect.
+  def build_affiliate_param
+    parts = [@params.delete(:author_country), @params.delete(:institution)]
+    parts = parts.compact.map do |part|
+      quote_if_spaces(part)
     end
-    both = part1.length > 0 && part2.length > 0
-    solr_params[:affiliate] = (both ? "(" : "") + quote_if_spaces(part1) + (both ? " AND " : "") \
-        + quote_if_spaces(part2) + (both ? ")" : "")
-    return solr_params
+    if parts.present?
+      affiliate = parts.join(' AND ')
+      if parts.size > 1
+        @params[:affiliate] = "(#{affiliate})"
+      else
+        @params[:affiliate] = affiliate
+      end
+    end
   end
 
   # Returns the fragment of the URL having to do with paging; specifically, the rows
@@ -127,12 +103,38 @@ class SolrQueryBuilder
   def url
     if !@params.has_key?(:unformattedQueryId)
       # execute home page search
-      query = build
-      url = "#{APP_CONFIG["solr_url"]}?#{URI::encode(query)}&#{common_params}"
+      build
+      url = "#{APP_CONFIG["solr_url"]}?q=#{URI.encode(query)}&#{common_params}"
     else
       # advanced search query
-      solr_params = build_advanced_query
-      url = "#{APP_CONFIG["solr_url"]}?#{solr_params.to_param}&#{common_params}"
+      build_advanced_query
+      url = "#{APP_CONFIG["solr_url"]}?#{advanced_query}&#{common_params}"
     end
+  end
+
+  private
+
+  def query
+    if @query[:q].present?
+      @query[:q]
+    else
+      # if the user hasn't entered in anything, search for everything
+      '*:*'
+    end
+  end
+
+  def advanced_query
+    unless @query[:q].present?
+      @query[:q] = '*:*'
+    end
+    @query.to_param
+  end
+
+  def clean_params
+    # Strip out empty params.  Has to be done in a separate loop from the one below to
+    # preserve the AND logic.
+    @params.delete_if{|k, v| v.blank?}
+    # Strip out the placeholder "all journals" journal value.
+    @params.delete_if{|k,v| [k.to_s, v] == ['cross_published_journal_name', SolrRequest::ALL_JOURNALS]}
   end
 end
