@@ -28,7 +28,7 @@ class SolrQueryBuilder
       "#{k}:#{v}"
     end.join(" AND ")
 
-    Rails.logger.debug("Solr query: #{query}")
+    Rails.logger.info("Solr query: #{query}")
     query
   end
 
