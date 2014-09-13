@@ -105,11 +105,11 @@ class SolrQueryBuilder
     if !@params.has_key?(:unformattedQueryId)
       # execute home page search
       build
-      url = "#{APP_CONFIG["solr_url"]}?q=#{URI.encode(query)}&#{common_params}"
+      "#{APP_CONFIG["solr_url"]}?q=#{URI.encode(query)}&#{common_params}"
     else
       # advanced search query
       build_advanced
-      url = "#{APP_CONFIG["solr_url"]}?#{advanced_query}&#{common_params}"
+      "#{APP_CONFIG["solr_url"]}?#{advanced_query}&#{common_params}"
     end
   end
 
@@ -132,12 +132,11 @@ class SolrQueryBuilder
   end
 
   def clean_params
-    # Strip out empty params.  Has to be done in a separate loop from the one below to
-    # preserve the AND logic.
-    @params.delete_if { |k, v| v.blank?}
+    # Strip out empty params.
+    @params.delete_if { |_, v| v.blank? }
     # Strip out the placeholder "all journals" journal value.
-    @params.delete_if { |k, v|
+    @params.delete_if do |k, v|
       [k.to_s, v] == ["cross_published_journal_name", SolrRequest::ALL_JOURNALS]
-    }
+    end
   end
 end

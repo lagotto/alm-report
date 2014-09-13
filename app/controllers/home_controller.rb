@@ -89,7 +89,6 @@ class HomeController < ApplicationController
   end
   private :parse_article_key
 
-
   def update_session
     initial_count = @saved_dois.length
     status = "success"
