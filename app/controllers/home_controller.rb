@@ -2,8 +2,6 @@
 # TODO: separate out the methods into multiple Controller classes, if necessary.
 # Right now this is the entire app except for the report page.
 class HomeController < ApplicationController
-
-
   def index
     @tab = :select_articles
     @title = "Homepage"
@@ -14,7 +12,6 @@ class HomeController < ApplicationController
     # Add a fake entry for "all journals"
     @journals = journals.unshift([SolrRequest::ALL_JOURNALS, SolrRequest::ALL_JOURNALS])
   end
-
 
   # Performs a solr search based on the parameters passed into an action.
   # Returns a tuple of (solr documents, total results found).  If argument fl
@@ -45,7 +42,6 @@ class HomeController < ApplicationController
   end
   private :search_from_params
 
-
   def add_articles
     @tab = :select_articles
     @title = "Add Articles"
@@ -72,7 +68,6 @@ class HomeController < ApplicationController
     # get the dois that have been selected
     dois = session[:dois]
 
-
     # make sure that the articles that have been checked previously are checked when we render the page
     if (!dois.nil? && !dois.empty?)
       @docs.each do | doc |
@@ -84,7 +79,6 @@ class HomeController < ApplicationController
 
     set_paging_vars(params[:current_page])
   end
-
 
   # Parses date sent in the ajax call to update_session.  This is of the form
   # "10.1371/journal.pone.0052192|12345678"; that is, a DOI and a timestamp separated by
@@ -123,14 +117,12 @@ class HomeController < ApplicationController
     end
   end
 
-
   # Simple AJAX action that returns the count of articles stored in the session.
   def get_article_count
     respond_to do |format|
       format.json {render :json => @saved_dois.length}
     end
   end
-
 
   # Queries solr for the results used by select_all_search_results.
   def get_all_results
@@ -160,7 +152,6 @@ class HomeController < ApplicationController
     results
   end
   private :get_all_results
-
 
   # Ajax action that handles the "Select all nnn articles" link.  Selects
   # *all* of the articles from the search, not just those on the current page.
@@ -201,13 +192,11 @@ class HomeController < ApplicationController
     end
   end
 
-
   # Action that clears any DOIs in the session and redirects to home.
   def start_over
     @saved_dois.clear
     redirect_to :action => :index
   end
-
 
   def preview_list
     @tab = :preview_list
@@ -226,7 +215,6 @@ class HomeController < ApplicationController
       @docs << data[doi]
     end
   end
-
 
   def advanced
     @tab = :select_articles
