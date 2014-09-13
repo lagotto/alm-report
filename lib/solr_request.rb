@@ -121,7 +121,7 @@ class SolrRequest
       query << "*:*"
     end
 
-    Rails.logger.debug("solr query: #{query}")
+    Rails.logger.info "Solr query: #{query}"
     return query
   end
 
