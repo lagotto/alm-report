@@ -121,4 +121,9 @@ describe SolrQueryBuilder do
       "&facet=false&rows=25"
     qb.url.should eq(url)
   end
+
+  it "doesn't raise an exception if a param is nil" do
+    qb = SolrQueryBuilder.new(everything: nil, title: "testing")
+    qb.build.should eq("title:testing")
+  end
 end
