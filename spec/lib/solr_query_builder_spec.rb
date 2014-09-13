@@ -118,12 +118,26 @@ describe SolrQueryBuilder do
       "Image%22&fl=id,pmid,publication_date,received_date,accepted_date,title" \
       ",cross_published_journal_name,author_display,editor_display," \
       "article_type,affiliate,subject,financial_disclosure&wt=json" \
-      "&facet=false&rows=25"
+      "&facet=false&rows=25&hl=false"
     qb.url.should eq(url)
   end
 
   it "doesn't raise an exception if a param is nil" do
     qb = SolrQueryBuilder.new(everything: nil, title: "testing")
     qb.build.should eq("title:testing")
+  end
+
+  it "ignores all sorts that are not whitelisted" do
+    sort = "sum(malformed,"
+    qb = SolrQueryBuilder.new(everything: "testing", sort: sort)
+    qb.build
+    qb.sort.should eq(nil)
+  end
+
+  it "takes whitelisted sorts into account" do
+    sort = "publication_date desc"
+    qb = SolrQueryBuilder.new(everything: "testing", sort: sort)
+    qb.build
+    qb.sort.should eq("&sort=publication_date%20desc")
   end
 end

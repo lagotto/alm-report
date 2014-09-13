@@ -29,6 +29,25 @@ class SolrRequest
 
   ALL_JOURNALS = "All Journals"
 
+  SORTS = {
+    "Relevance" => "",
+    "Date, newest first" => "publication_date desc",
+    "Date, oldest first" => "publication_date asc",
+    "Most views, last 30 days" => "counter_total_month desc",
+    "Most views, all time" => "counter_total_all desc",
+    "Most cited, all time" => "alm_scopusCiteCount desc",
+    "Most bookmarked" => "sum(alm_citeulikeCount, alm_mendeleyCount) desc",
+    "Most shared in social media" => "sum(alm_twitterCount, alm_facebookCount) desc",
+    "Most tweeted" => "alm_twitterCount desc",
+  }
+
+  WHITELIST = [
+    :everything, :author, :author_country, :institution, :publication_days_ago,
+    :datepicker1, :datepicker2, :subject, :cross_published_journal_name,
+    :financial_disclosure, :title
+  ]
+
+
   # Creates a solr request.  The query (q param in the solr request) will be based on
   # the values of the params passed in, so these should all be valid entries in the PLOS schema.
   # If the fl argument is non-nil, it will specify what result fields to return from
@@ -59,19 +78,10 @@ class SolrRequest
     return docs
   end
 
-  # Performs a single solr search, based on the parameters set on this object.  Returns a tuple
-  # of the documents retrieved, and the total number of results.
+  # Performs a single solr search, based on the parameters set on this object.
+  # Returns a tuple of the documents retrieved, and the total number of results.
   def query
-    sort = @params.delete(:sort)
-
     url = query_builder.url
-
-    if !sort.nil?
-      url << "&sort=#{URI::encode(sort)}"
-    end
-    # exclude things that we do not need (hl => highlighting)
-    url << "&hl=false"
-
     json = SolrRequest.send_query(url)
     docs = SolrRequest.parse_docs(json)
     return docs, json["response"]["numFound"]

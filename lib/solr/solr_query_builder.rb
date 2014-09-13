@@ -5,6 +5,8 @@ class SolrQueryBuilder
 
   def initialize(params, fl = nil)
     @params = params
+    @sort = @params[:sort]
+
     @fl = fl || SolrRequest::FL
     @page_block = build_page_block
     @query = {}
@@ -98,19 +100,26 @@ class SolrQueryBuilder
   end
 
   def common_params
-    "#{SolrRequest::FILTER}&#{fl}&wt=json&facet=false&#{@page_block}"
+    "&#{SolrRequest::FILTER}&#{fl}&wt=json&facet=false&#{@page_block}"
+  end
+
+  def sort
+    if SolrRequest::SORTS.values.include? @sort
+      "&sort=#{URI::encode(@sort)}"
+    end
   end
 
   def url
-    if !@params.has_key?(:unformattedQueryId)
+    q = if !@params.has_key?(:unformattedQueryId)
       # execute home page search
       build
-      "#{APP_CONFIG["solr_url"]}?q=#{URI.encode(query)}&#{common_params}"
+      "q=#{URI.encode(query)}"
     else
       # advanced search query
       build_advanced
-      "#{APP_CONFIG["solr_url"]}?#{advanced_query}&#{common_params}"
+      "#{advanced_query}"
     end
+    "#{APP_CONFIG["solr_url"]}?#{q}#{common_params}#{sort}&hl=false"
   end
 
   private
@@ -132,8 +141,8 @@ class SolrQueryBuilder
   end
 
   def clean_params
-    # Strip out empty params.
-    @params.delete_if { |_, v| v.blank? }
+    # Strip out empty and only keep whitelisted params
+    @params.delete_if { |k, v| v.blank? || !SolrRequest::WHITELIST.include?(k) }
     # Strip out the placeholder "all journals" journal value.
     @params.delete_if do |k, v|
       [k.to_s, v] == ["cross_published_journal_name", SolrRequest::ALL_JOURNALS]
