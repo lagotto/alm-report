@@ -8,7 +8,6 @@ require_relative "solr/solr_query_builder"
 class SolrError < StandardError
 end
 
-
 # Interface to solr search for PLOS articles.  A thin wrapper around the solr http API.
 #
 # TODO: consider renaming this class.  Originally I thought there would also be a SolrResponse,
@@ -29,7 +28,6 @@ class SolrRequest
   FL_VALIDATE_ID = "id"
 
   ALL_JOURNALS = "All Journals"
-
 
   # Creates a solr request.  The query (q param in the solr request) will be based on
   # the values of the params passed in, so these should all be valid entries in the PLOS schema.
@@ -52,7 +50,6 @@ class SolrRequest
     return JSON.parse(resp.body)
   end
 
-
   # Returns a list of JSON entities for article results given a json response from solr.
   def self.parse_docs(json)
     docs = json["response"]["docs"]
@@ -61,9 +58,6 @@ class SolrRequest
     end
     return docs
   end
-
-
-
 
   # Performs a single solr search, based on the parameters set on this object.  Returns a tuple
   # of the documents retrieved, and the total number of results.
@@ -135,7 +129,6 @@ class SolrRequest
     end
     return start_time, end_time
   end
-
 
   # Returns a legal value constraining the publication_date solr field for the given start and
   # end DateTimes.  Returns nil if either of the arguments are nil.
@@ -223,7 +216,6 @@ class SolrRequest
     return all_results
   end
 
-
   # Retrieves article related information from solr for a given list of DOIs.
   def self.get_data_for_articles(report_dois)
     measure do
@@ -243,7 +235,6 @@ class SolrRequest
       SolrRequest.get_data_helper(report_dois, nil, FL_VALIDATE_ID)
     end
   end
-
 
   # Performs a batch query for articles based on the list of PubMed IDs passed in.
   # Returns a hash of PMID => solr doc, with only id, pmid, and publication_date defined
