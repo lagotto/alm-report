@@ -20,7 +20,6 @@ before_script:
 script:
   - bundle exec rake db:setup RAILS_ENV=test
   - bundle exec rake spec
-  - bundle exec rake test
 
 addons:
   code_climate:

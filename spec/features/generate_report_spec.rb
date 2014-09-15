@@ -1,4 +1,4 @@
-require 'pry'
+require 'benchmark'
 
 describe 'generate report', :type => :feature do
   before :each do
@@ -25,7 +25,10 @@ describe 'generate report', :type => :feature do
   end
 
   it 'loads the articles result page', js: true do
-    visit '/'
+    Benchmark.realtime{
+      visit '/'
+    }.should < 10
+
     fill_in 'everything', with: 'cancer'
     click_button 'Search'
     expect(page).to have_content 'A Future Vision for PLOS Computational Biology'
