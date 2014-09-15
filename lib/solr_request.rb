@@ -47,7 +47,6 @@ class SolrRequest
     :financial_disclosure, :title
   ]
 
-
   # Creates a solr request.  The query (q param in the solr request) will be based on
   # the values of the params passed in, so these should all be valid entries in the PLOS schema.
   # If the fl argument is non-nil, it will specify what result fields to return from
@@ -228,20 +227,29 @@ class SolrRequest
 
   # Retrieves article related information from solr for a given list of DOIs.
   def self.get_data_for_articles(report_dois)
-    measure do
-      return SolrRequest.get_data_helper(report_dois, "solr", FL)
+    ActiveSupport::Notifications.instrument(
+      'SolrRequest.get_data_for_articles',
+      report_dois
+    ) do
+      SolrRequest.get_data_helper(report_dois, "solr", FL)
     end
   end
 
   # Retrieves alm data from solr for a given list of DOIs
   def self.get_data_for_viz(report_dois)
-    measure do
+    ActiveSupport::Notifications.instrument(
+      'SolrRequest.get_data_for_viz',
+      report_dois
+    ) do
       SolrRequest.get_data_helper(report_dois, nil, FL_METRIC_DATA)
     end
   end
 
   def self.validate_dois(report_dois)
-    measure do
+    ActiveSupport::Notifications.instrument(
+      'SolrRequest.validate_dois',
+      report_dois
+    ) do
       SolrRequest.get_data_helper(report_dois, nil, FL_VALIDATE_ID)
     end
   end
@@ -269,18 +277,5 @@ class SolrRequest
 
   def query_builder
     SolrQueryBuilder.new(@params, @fl)
-  end
-
-  def self.measure(&block)
-    start_time = Time.now
-    data = block.call
-    end_time = Time.now
-
-    method = block.binding.eval('__method__')
-    count = block.binding.local_variable_get(:report_dois).size
-    Rails.logger.debug "SOLR #{method} Request for #{count} articles took " \
-        "#{end_time - start_time} seconds."
-
-    return data
   end
 end
