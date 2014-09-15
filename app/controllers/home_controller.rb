@@ -17,28 +17,31 @@ class HomeController < ApplicationController
   # Returns a tuple of (solr documents, total results found).  If argument fl
   # is none-nil, it specifies what results fields we want to retrieve from solr.
   def search_from_params(fl=nil)
-
-    # Strip out form params not relevant to solr.
-    solr_params = {}
-    params.keys.each do |key|
-      if !["utf8", "commit", "controller", "action"].include?(key.to_s)
-        solr_params[key.to_sym] = params[key]
+    if APP_CONFIG["search"] == "crossref"
+      Search.new(params).find
+    else
+      # Strip out form params not relevant to solr.
+      solr_params = {}
+      params.keys.each do |key|
+        if !["utf8", "commit", "controller", "action"].include?(key.to_s)
+          solr_params[key.to_sym] = params[key]
+        end
       end
-    end
 
-    if (solr_params[:publication_days_ago].nil?)
-      # default value
-      solr_params[:publication_days_ago] = -1
-    end
+      if (solr_params[:publication_days_ago].nil?)
+        # default value
+        solr_params[:publication_days_ago] = -1
+      end
 
-    @start_date, @end_date = SolrRequest.parse_date_range(solr_params.delete(:publication_days_ago),
-        solr_params.delete(:datepicker1), solr_params.delete(:datepicker2))
-    date_range = SolrRequest.build_date_range(@start_date, @end_date)
-    if !date_range.nil?
-      solr_params[:publication_date] = date_range
+      @start_date, @end_date = SolrRequest.parse_date_range(solr_params.delete(:publication_days_ago),
+          solr_params.delete(:datepicker1), solr_params.delete(:datepicker2))
+      date_range = SolrRequest.build_date_range(@start_date, @end_date)
+      if !date_range.nil?
+        solr_params[:publication_date] = date_range
+      end
+      q = SolrRequest.new(solr_params, fl)
+      q.query
     end
-    q = SolrRequest.new(solr_params, fl)
-    q.query
   end
   private :search_from_params
 

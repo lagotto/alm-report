@@ -1,0 +1,42 @@
+= form_tag("/update-session")
+  = csrf_meta_tag
+  - @docs.each do |doc|
+    - if Search.plos?
+        // Article info that we want to send to the server when the checkbox is clicked.
+        // We include publication_date since that is our default sort order on the
+        // preview list page (and we don't want to have to re-query solr for it).
+
+        - doc_key = "#{doc['id']}|#{doc['publication_date'].strftime("%s")}"  # Convert to unix timestamp
+
+        div.article-info.cf
+          - if !doc[:doc_checked].nil? && doc[:doc_checked] == true
+            input class="check-save-article" type="checkbox" checked="yes" name="" id="" value="#{doc_key}"
+          - else
+            input class="check-save-article" type="checkbox" #{@articles_checked ? 'checked="yes"' : ''} name="" id="" value="#{doc_key}"
+
+          a href="http://dx.doi.org/#{doc['id']}" target="_blank"
+            = doc["title"]
+
+          - detail_displayed = false
+          - if !doc["author_display"].nil?
+            - detail_displayed = true
+          p
+            - doc["author_display"].each_with_index do |author, idx|
+              = "#{author}#{if(idx < doc["author_display"].length - 1) then ',' end}"
+
+          p
+            - if !doc["article_type"].nil?
+              - detail_displayed = true
+              = doc["article_type"]
+            - if detail_displayed
+              span |
+              | published
+            - else
+              | Published
+            = doc["publication_date"].strftime("%d %b %Y")
+            span |
+            = doc["cross_published_journal_name"][0]
+    - elsif Search.crossref?
+      = doc
+
+= render "pager", :results_per_page => APP_CONFIG["results_per_page"]

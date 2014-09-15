@@ -14,6 +14,8 @@ gem 'jquery-ui-rails', '~> 5.0.0'
 gem 'slim-rails'
 gem 'exception_notification', '~> 4.0.1'
 gem 'httparty', '~> 0.13.1'
+gem 'faraday'
+gem 'faraday_middleware'
 
 group :development do
   gem 'rubocop'

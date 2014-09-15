@@ -93,6 +93,10 @@ GEM
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
     execjs (2.2.1)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.1)
+      faraday (>= 0.7.4, < 0.10)
     fastercsv (1.5.5)
     haml (4.0.5)
       tilt
@@ -119,6 +123,7 @@ GEM
     minitest (4.4.0)
     multi_json (1.10.1)
     multi_xml (0.5.5)
+    multipart-post (2.0.0)
     mysql2 (0.3.16)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -259,6 +264,8 @@ DEPENDENCIES
   countries (~> 0.9.2)
   dalli (~> 2.7.0)
   exception_notification (~> 4.0.1)
+  faraday
+  faraday_middleware
   httparty (~> 0.13.1)
   jquery-rails (~> 3.1.0)
   jquery-ui-rails (~> 5.0.0)
