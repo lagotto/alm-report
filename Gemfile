@@ -16,6 +16,7 @@ gem 'exception_notification', '~> 4.0.1'
 gem 'httparty', '~> 0.13.1'
 
 group :development do
+  gem 'rubocop'
   gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
