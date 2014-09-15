@@ -3,6 +3,7 @@ require "net/http"
 require "open-uri"
 require "json"
 require_relative "solr/solr_query_builder"
+require_relative "performance"
 
 # Exception class thrown when the solr server returns a 50x response.
 class SolrError < StandardError
@@ -13,6 +14,7 @@ end
 # TODO: consider renaming this class.  Originally I thought there would also be a SolrResponse,
 # but that was not necessary.
 class SolrRequest
+  include Performance
   SOLR_TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
   FILTER = "fq=doc_type:full&fq=!article_type_facet:#{URI::encode("\"Issue Image\"")}"
@@ -227,29 +229,20 @@ class SolrRequest
 
   # Retrieves article related information from solr for a given list of DOIs.
   def self.get_data_for_articles(report_dois)
-    ActiveSupport::Notifications.instrument(
-      'SolrRequest.get_data_for_articles',
-      report_dois
-    ) do
+    measure(report_dois) do
       SolrRequest.get_data_helper(report_dois, "solr", FL)
     end
   end
 
   # Retrieves alm data from solr for a given list of DOIs
   def self.get_data_for_viz(report_dois)
-    ActiveSupport::Notifications.instrument(
-      'SolrRequest.get_data_for_viz',
-      report_dois
-    ) do
+    measure(report_dois) do
       SolrRequest.get_data_helper(report_dois, nil, FL_METRIC_DATA)
     end
   end
 
   def self.validate_dois(report_dois)
-    ActiveSupport::Notifications.instrument(
-      'SolrRequest.validate_dois',
-      report_dois
-    ) do
+    measure(report_dois) do
       SolrRequest.get_data_helper(report_dois, nil, FL_VALIDATE_ID)
     end
   end

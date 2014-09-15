@@ -1,29 +1,13 @@
 # Subscribes to performance instruments throughout the app & logs their results
 
-ActiveSupport::Notifications.subscribe(
-  "SolrRequest.get_data_for_articles"
-) do |*args|
-  event = ActiveSupport::Notifications::Event.new(*args)
-  Rails.logger.debug(
-    "#{event.name} for #{event.payload.size} articles took #{event.duration}ms."
-  )
-end
-
-ActiveSupport::Notifications.subscribe(
-  "SolrRequest.get_data_for_viz"
-) do |*args|
-  event = ActiveSupport::Notifications::Event.new(*args)
-  Rails.logger.debug(
-    "#{event.name} for #{event.payload.size} articles took #{event.duration}ms."
-  )
-end
-
-ActiveSupport::Notifications.subscribe(
+[
+  "SolrRequest.get_data_for_articles", "SolrRequest.get_data_for_viz",
   "SolrRequest.validate_dois"
-) do |*args|
-  event = ActiveSupport::Notifications::Event.new(*args)
-  Rails.logger.debug(
-    "#{event.name} for #{event.payload.size} articles took #{event.duration}ms."
-  )
+].each do |name|
+  ActiveSupport::Notifications.subscribe(name) do |*args|
+    event = ActiveSupport::Notifications::Event.new(*args)
+    Rails.logger.debug(
+      "#{event.name}: #{event.payload.size} articles took #{event.duration}ms."
+    )
+  end
 end
-
