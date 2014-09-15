@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "rails", "3.2.17"
+gem "rails", "3.2.19"
 gem "mysql2", "~> 0.3.13"
 gem "dalli", "~> 2.7.0"
 gem "countries", "~> 0.9.2"
