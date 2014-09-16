@@ -18,6 +18,8 @@ describe HomeController do
 
   describe 'GET add_articles' do
     it 'renders the add_articles template' do
+      stub_request(:get, "http://api.crossref.org/works?query=cancer").
+        to_return(File.open('spec/fixtures/api_crossref_cancer.raw'))
       stub_request(
         :get,
         "http://api.plos.org/search?facet=false&fl=id,pmid,publication_date," \
