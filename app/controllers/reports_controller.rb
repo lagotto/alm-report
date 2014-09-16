@@ -4,13 +4,9 @@ class ReportsController < ApplicationController
   # display it.
   def generate
     dois = session[:dois]
-    if dois.nil? || dois.length == 0
 
-      # We don't need to give a polite message to the user, since the link
-      # to this action shouldn't be visible if they have no articles in
-      # the session.
-      raise "No DOIs saved in session!"
-    end
+    # start again if we find no dois
+    return redirect_to(controller: 'home', action: 'advanced', unformattedQueryId: params[:unformattedQueryId], filterJournals: params[:filterJournals]) if dois.blank?
 
     @report = Report.new
     if !@report.save
@@ -46,7 +42,7 @@ class ReportsController < ApplicationController
     load_report(params[:id])
     @report_sub_tab = :metrics
     @title = "Report Metrics"
-    
+
     paging_logic = lambda {
       @total_found = @report.report_dois.length
       set_paging_vars(params[:current_page], APP_CONFIG["metrics_results_per_page"])
@@ -66,7 +62,7 @@ class ReportsController < ApplicationController
       dois_to_delete = manage_report_data(@dois, solr_data, alm_data, i)
       if (!dois_to_delete.empty?)
         purge_bad_dois(dois_to_delete)
-        
+
         # We need to re-do paging logic since the number of articles has changed.
         solr_data, alm_data = paging_logic.call()
         i = @start_result
@@ -77,7 +73,7 @@ class ReportsController < ApplicationController
     end
   end
 
-  
+
   # Permanently removes the given DOIs from a report.
   def purge_bad_dois(dois_to_delete)
     logger.warn("Nonexistent DOIs detected; will delete from report: #{@report.id}: #{dois_to_delete.inspect}")
@@ -98,7 +94,7 @@ class ReportsController < ApplicationController
 
     # deteremine if the report contains only one article
     one_article_report = false
-    if (@report.report_dois.length == 1) 
+    if (@report.report_dois.length == 1)
       one_article_report = true
       alm_data = AlmRequest.get_data_for_one_article(@report.report_dois)
     else
@@ -140,7 +136,7 @@ class ReportsController < ApplicationController
           break
         end
       end
-      
+
       # this covers situations where a report contains many articles but very small
       # portion of the articles have alm data  (without alm data, viz page will look very weird)
       if solr_data.length >= APP_CONFIG["visualization_min_num_of_alm_data_points"]
@@ -150,7 +146,7 @@ class ReportsController < ApplicationController
         @article_usage_mendeley_age_data = bubble_data[:mendeley_data]
 
         @article_usage_citation_subject_area_data = ChartData.generate_data_for_subject_area_chart(@report)
-        
+
         loc_data = ChartData.generate_data_for_articles_by_location_chart(@report)
         @total_authors_data = loc_data[:total_authors_data]
         @article_locations_data = loc_data[:locations_data]
@@ -180,7 +176,7 @@ class ReportsController < ApplicationController
 
         if alm.nil?
           # if there isn't alm data for an article that exists in solr
-          # alm had an error for that article or 
+          # alm had an error for that article or
           # the article is too new to have any alm data
           # either way, display an error message
         else
@@ -188,7 +184,7 @@ class ReportsController < ApplicationController
         end
       end
 
-      
+
       # Set the display index as a property for rendering.
       doi.display_index = i
       i += 1
