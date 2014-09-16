@@ -6,8 +6,8 @@ class ReportsController < ApplicationController
     dois = session[:dois]
 
     # start again if we find no dois
-    return redirect_to(controller: 'home',
-                       action: 'advanced',
+    return redirect_to(controller: "home",
+                       action: "advanced",
                        unformattedQueryId: params[:unformattedQueryId],
                        filterJournals: params[:filterJournals]) if dois.blank?
 
