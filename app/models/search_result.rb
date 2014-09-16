@@ -1,8 +1,8 @@
 class SearchResult
   attr_accessor :checked
   attr_reader :affiliates, :article_type, :cross_published_journal_name,
-    :data, :financial_disclosure, :id, :pmid, :publication_date, :subjects,
-    :title
+              :data, :financial_disclosure, :id, :pmid, :publication_date,
+              :subjects, :title
 
   def initialize(data)
     @data = data
@@ -34,10 +34,10 @@ class SearchResult
   end
 
   def published
-    start = if detail_displayed
-      " | published "
+    if detail_displayed
+      start = " | published "
     else
-      "Published "
+      start = "Published "
     end
     start + publication_date.strftime("%d %b %Y")
   end
