@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   # Creates a new report based on the DOIs stored in the session,
   # and redirects to display it.
   def generate
-    dois = session[:dois]
+    dois = @cart.clone
 
     # start again if we find no dois
     return redirect_to(controller: "home",
@@ -35,9 +35,9 @@ class ReportsController < ApplicationController
     @report = Report.find(id)
 
     # Save the report DOIs in the session (overwriting whatever might already be there).
-    @saved_dois.clear
+    @cart.clear
     @report.report_dois.each do |report_doi|
-      @saved_dois[report_doi.doi] = report_doi.sort_order
+      @cart[report_doi.doi] = report_doi.sort_order
     end
   end
 

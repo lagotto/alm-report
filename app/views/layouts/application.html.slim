@@ -36,9 +36,9 @@ html.no-js lang="en"
           .list-outer-container
             .list-container
               span.list-label Your List
-              span.list-count= @saved_dois.nil? ? 0 : @saved_dois.length
+              span.list-count= @cart.nil? ? 0 : @cart.size
             div#your-list-choices.list-hover
-              - if @saved_dois.nil? || @saved_dois.length == 0
+              - if @cart.nil? || @cart.empty?
                 span View Report
                 span Edit List
               - else
