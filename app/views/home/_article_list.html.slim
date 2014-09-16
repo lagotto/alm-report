@@ -1,8 +1,8 @@
 = form_tag("/update-session")
   = csrf_meta_tag
-  - @docs.each do |doc|
+  - @results.each do |result|
     - if Search.plos?
-      = render "article", doc: doc
+      = render "search_result", r: result, all_checked: @all_checked
     - elsif Search.crossref?
       = doc
 

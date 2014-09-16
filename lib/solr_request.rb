@@ -73,10 +73,10 @@ class SolrRequest
   # Returns a list of JSON entities for article results given a json response from solr.
   def self.parse_docs(json)
     docs = json["response"]["docs"]
-    docs.each do |doc|
+    docs.map do |doc|
       doc = fix_data(doc)
+      SearchResult.new(doc)
     end
-    return docs
   end
 
   # Performs a single solr search, based on the parameters set on this object.

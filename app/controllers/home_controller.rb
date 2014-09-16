@@ -49,7 +49,7 @@ class HomeController < ApplicationController
     @tab = :select_articles
     @title = "Add Articles"
 
-    @docs, @total_found = search_from_params
+    @results, @total_found = search_from_params
 
     if !params["unformattedQueryId"].nil?
       # search executed from the advanced search page
@@ -65,17 +65,17 @@ class HomeController < ApplicationController
           end
         end
       end
-
     end
 
     # get the dois that have been selected
     dois = session[:dois]
 
-    # make sure that the articles that have been checked previously are checked when we render the page
+    # make sure that the articles that have been checked previously are checked
+    # when we render the page
     if (!dois.nil? && !dois.empty?)
-      @docs.each do | doc |
-        if (dois.has_key?(doc["id"]))
-          doc[:doc_checked] = true
+      @results.each do |result|
+        if (dois.has_key?(result.id))
+          result.checked = true
         end
       end
     end
@@ -210,12 +210,10 @@ class HomeController < ApplicationController
     # Convert to array, sorted in descending order by timestamp, then throw away the timestamps.
     dois = dois.sort_by{|doi, timestamp| -timestamp}.collect{|x| x[0]}
     dois = dois[(@start_result) - 1..(@end_result - 1)]
-    @docs = []
+    @results = []
 
     data = BackendService.get_article_data_for_list_display(dois)
-    dois.each do |doi|
-      @docs << data[doi]
-    end
+    @results = dois.map { |doi| SearchResult.new(data[doi]) }
   end
 
   def advanced
