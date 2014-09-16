@@ -36,18 +36,23 @@ describe Cart do
   end
 
   it "merge! add" do
-    subject.merge!({ "10.1371/journal.pmed.0008763" => 1410868258 })
+    subject.merge!("10.1371/journal.pmed.0008763" => 1410868258)
     expect(subject.dois).to eq("10.1371/journal.pone.0010031"=>1410868245,
       "10.1371/journal.pmed.0008763"=>1410868258)
   end
 
   it "merge! update" do
-    subject.merge!({ "10.1371/journal.pone.0010031" => 1410868258 })
+    subject.merge!("10.1371/journal.pone.0010031" => 1410868258)
     expect(subject.dois).to eq("10.1371/journal.pone.0010031" => 1410868258)
   end
 
   it "except!" do
     subject.except!("10.1371/journal.pone.0010031")
+    expect(subject.dois).to be_empty
+  end
+
+  it "except! array" do
+    subject.except!(["10.1371/journal.pone.0010031", "10.1371/journal.pmed.0008763"])
     expect(subject.dois).to be_empty
   end
 
