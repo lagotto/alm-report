@@ -1,19 +1,23 @@
 class ReportsController < ApplicationController
 
-  # Creates a new report based on the DOIs stored in the session, and redirects to
-  # display it.
+  # Creates a new report based on the DOIs stored in the session,
+  # and redirects to display it.
   def generate
     dois = session[:dois]
 
     # start again if we find no dois
-    return redirect_to(controller: 'home', action: 'advanced', unformattedQueryId: params[:unformattedQueryId], filterJournals: params[:filterJournals]) if dois.blank?
+    return redirect_to(controller: 'home',
+                       action: 'advanced',
+                       unformattedQueryId: params[:unformattedQueryId],
+                       filterJournals: params[:filterJournals]) if dois.blank?
 
     @report = Report.new
     if !@report.save
       raise "Error saving report"
     end
 
-    # Convert to array, sorted in descending order by timestamp, then throw away the timestamps.
+    # Convert to array, sorted in descending order by timestamp,
+    # then throw away the timestamps.
     dois = dois.sort_by{|doi, timestamp| -timestamp}.collect{|x| x[0]}
     @report.add_all_dois(dois)
     if @report.save
@@ -24,8 +28,8 @@ class ReportsController < ApplicationController
   end
 
 
-  # Loads a report based on the report_id, and sets some other common variables used by
-  # the reports pages.
+  # Loads a report based on the report_id, and sets some other common variables
+  # used by the reports pages.
   def load_report(id)
     @tab = :view_report
     @report = Report.find(id)
