@@ -44,4 +44,37 @@ describe HomeController do
       expect(response).to render_template('add_articles')
     end
   end
+
+  # describe "GET update_session" do
+  #   let(:params) { { "article_ids"=>["10.1371/journal.pone.0010031|1270166400",
+  #                                    "10.1371/journal.pmed.0010065|1104192000",
+  #                                    "10.1371/journal.pone.0009584|1268092800"],
+  #                    "mode" =>"REMOVE" } }
+  #   it "handles empty params" do
+  #     @cart = Cart.new
+  #     post :update_session, {}
+  #     expect(response).to eq(2)
+  #   end
+  # end
+
+  describe "parse_article_keys" do
+    let(:article_ids) { ["10.1371/journal.pone.0010031|1410868245",
+                         "10.1371/journal.pmed.0008763|1410868258"] }
+
+    it "parses keys" do
+      expect(subject.parse_article_keys(article_ids))
+        .to eq("10.1371/journal.pone.0010031" => 1410868245,
+               "10.1371/journal.pmed.0008763" => 1410868258)
+    end
+
+    it "parses nil" do
+      expect(subject.parse_article_keys(nil)).to be_empty
+    end
+
+    it "respects limit" do
+      expect(subject.parse_article_keys(article_ids,
+                                        APP_CONFIG["article_limit"]))
+        .to be_empty
+    end
+  end
 end
