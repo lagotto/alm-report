@@ -1,62 +1,3 @@
-
-# Exception class thrown when there is an attempt to save a new DOI in the session,
-# but the article limit has been reached.
-class DoiLimitReachedError < StandardError
-end
-
-
-# Wrapper around the session data which enforces the limit on the number of articles
-# per report.  Controller code should read and write through this interface instead
-# of the session directly.
-class SavedDois
-
-  attr_reader :saved
-
-
-  def initialize(session_data)
-    @saved = session_data
-    if @saved.nil?
-      @saved = {}
-    end
-  end
-
-
-  def [](x)
-    return @saved[x]
-  end
-
-
-  def []=(x, val)
-    if @saved.length >= APP_CONFIG["article_limit"]
-      raise DoiLimitReachedError, "Reached limit of #{APP_CONFIG["article_limit"]} DOIs"
-    else
-      @saved[x] = val
-    end
-  end
-
-
-  def delete(val)
-    @saved.delete(val)
-  end
-
-
-  def clone
-    @saved.clone
-  end
-
-
-  def length
-    @saved.length
-  end
-
-
-  def clear
-    @saved = {}
-  end
-
-end
-
-
 class ApplicationController < ActionController::Base
 
   protect_from_forgery
@@ -75,13 +16,11 @@ class ApplicationController < ActionController::Base
     # rescue_from StandardError, :with => :internal_error
   end
 
-
   # See comment in routes.rb and https://github.com/rails/rails/issues/671
   # for why this is necessary.
   def routing_error
     raise ActionController::RoutingError.new(params[:path])
   end
-
 
   def page_not_found
     @display_nav = false
@@ -89,24 +28,40 @@ class ApplicationController < ActionController::Base
     render :template => "static_pages/page_not_found", :status => 404
   end
 
-
   def internal_error
     @display_nav = false
     @title = "Internal Error"
     render :template => "static_pages/internal_error", :status => 500
   end
 
-
-  # Sets @saved_dois based on the contents of the session, and saves it back to the
+  # Sets @cart based on the contents of the session, and saves it back to the
   # session after an action is run.
   def save_session_dois
-    @saved_dois = SavedDois.new(session[:dois])
+    @cart = Cart.new(session[:dois])
 
     yield  # Run the action
 
-    session[:dois] = @saved_dois.saved
+    session[:dois] = @cart.dois
   end
 
+  # The navigation UI element (1 Select Articles and etc) will not be displayed on the static pages
+  # That is the only change for the static pages so having a whole separate layout seemed like an overkill
+  # This might change in the future
+  def display_nav
+    @display_nav = true
+  end
+
+  # prevent the user from moving forward if the article limit has been reached
+  def article_limit_reached?
+    return false if @cart.size < APP_CONFIG["article_limit"]
+
+    flash[:error] = "The maximum report size is #{APP_CONFIG["article_limit"]} " \
+                    "articles. Go to <a href=\"/preview-list\">Preview List</a> " \
+                    "and remove articles before adding more to your selection."
+    true
+  end
+
+  protected
 
   # Sets fields used by the UI for results paging of articles.
   # A precondition of this method is that @total_found is set appropriately.
@@ -116,23 +71,4 @@ class ApplicationController < ActionController::Base
     @end_result = @start_result + results_per_page - 1
     @end_result = [@end_result, @total_found].min
   end
-  protected :set_paging_vars
-
-  # The navigation UI element (1 Select Articles and etc) will not be displayed on the static pages
-  # That is the only change for the static pages so having a whole separate layout seemed like an overkill
-  # This might change in the future
-  def display_nav
-    @display_nav = true
-  end
-
-  def articleLimitReached?
-    # prevent the user from moving forward if the article limit has been reached
-    if (session[:dois].length >= APP_CONFIG["article_limit"])
-      flash[:error] = "The maximum report size is #{APP_CONFIG["article_limit"]} articles. Go to <a href=\"/preview-list\">Preview List</a> and remove articles before adding more to your selection."
-      return true
-    else
-      return false
-    end
-  end
-
 end

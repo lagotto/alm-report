@@ -26,9 +26,7 @@ if Search.plos?
     end
 
     it 'loads the articles result page', js: true do
-      Benchmark.realtime{
-        visit '/'
-      }.should < 10
+      visit '/'
 
       fill_in 'everything', with: 'cancer'
       click_button 'Search'

@@ -24,74 +24,60 @@ class HomeController < ApplicationController
       # convert the journal key to journal name
       @filter_journal_names = []
       if !params["filterJournals"].nil?
-        if (!APP_CONFIG["journals"].nil? && APP_CONFIG["journals"].size > 0)
+        if APP_CONFIG["journals"].present?
           params["filterJournals"].each do | journal_key |
             journal_name = APP_CONFIG["journals"][journal_key]
-            if !journal_name.nil?
-              @filter_journal_names << journal_name
-            end
+            @filter_journal_names << journal_name if journal_name.present?
           end
         end
       end
     end
 
-    # get the dois that have been selected
-    dois = session[:dois]
-
-    # make sure that the articles that have been checked previously are checked
-    # when we render the page
-    if (!dois.nil? && !dois.empty?)
+    if @cart.dois.present?
       @results.each do |result|
-        if (dois.has_key?(result.id))
-          result.checked = true
-        end
+        result.checked = true if @card.dois.has_key?(result.id)
       end
     end
 
     set_paging_vars(params[:current_page])
   end
 
-  # Parses date sent in the ajax call to update_session.  This is of the form
-  # "10.1371/journal.pone.0052192|12345678"; that is, a DOI and a timestamp separated by
-  # a '|' character.  Returns (doi, timestamp).
-  def parse_article_key(key)
-    fields = key.split("|")
-    return fields[0], fields[1].to_i
-  end
-  private :parse_article_key
-
+  # Update session via ajax call
+  # params[:article_ids] is of the form "10.1371/journal.pone.0052192|12345678";
   def update_session
-    initial_count = @saved_dois.length
-    status = "success"
-    if params[:mode] == "SAVE"
-      if initial_count >= APP_CONFIG["article_limit"]
-        status = "limit"
-      else
-        params[:article_ids][0..(APP_CONFIG["article_limit"] - initial_count - 1)].each do |doc_key|
-          doi, pub_date = parse_article_key(doc_key)
-          @saved_dois[doi] = pub_date
-        end
-      end
-    elsif params[:mode] == "REMOVE"
-      params[:article_ids].each do |doc_key|
-        doi, _ = parse_article_key(doc_key)
-        @saved_dois.delete(doi)
-      end
-    else
-      raise "Unexpected mode " + params[:mode]
+    initial_count = @cart.size
+
+    # don't update session when article_limit reached
+    return render json: { status: "limit", delta: 0 } \
+      unless initial_count < APP_CONFIG["article_limit"]
+
+    # generate hash in format doi => timestamp, observe article_limit
+    article_ids = parse_article_keys(params[:article_ids], initial_count)
+
+    case params[:mode]
+    when "SAVE" then @cart.merge!(article_ids)
+    when "REMOVE" then @cart.except!(article_ids.keys)
     end
 
-    payload = {:status => status, :delta => @saved_dois.length - initial_count}
-    respond_to do |format|
-      format.json { render :json => payload}
+    render json: { status: "success", delta: @cart.size - initial_count }
+  end
+
+  # Parse array of keys in the form "10.1371/journal.pone.0052192|12345678",
+  # i.e. a doi and timestamp separated by a '|' character. Returns a hash.
+  # Hash is empty if params[:article_ids] is nil or limit reached
+  def parse_article_keys(keys, count = 0)
+    limit = APP_CONFIG["article_limit"] - count
+    return {} unless limit > 0
+
+    article_ids = Array(keys)[0...limit].reduce({}) do |hash, id|
+      fields = id.split("|")
+      hash.merge(fields.first => fields.last.to_i)
     end
   end
 
   # Simple AJAX action that returns the count of articles stored in the session.
   def get_article_count
-    respond_to do |format|
-      format.json {render :json => @saved_dois.length}
-    end
+    render json: @cart.size
   end
 
   # Queries solr for the results used by select_all_search_results.
@@ -127,7 +113,7 @@ class HomeController < ApplicationController
   # *all* of the articles from the search, not just those on the current page.
   # (Subject to the article limit.)
   def select_all_search_results
-    initial_count = @saved_dois.length
+    initial_count = @cart.size
 
     # This is a little weird... if the user has no more capacity before the
     # article limit, return an error status, but if at least one article can
@@ -148,15 +134,11 @@ class HomeController < ApplicationController
         return
       end
       docs.each do |doc|
-        begin
-          @saved_dois[doc["id"]] = doc["publication_date"].strftime("%s").to_i
-        rescue DoiLimitReachedError
-          break
-        end
+        @cart[doc["id"]] = doc["publication_date"].strftime("%s").to_i
       end
     end
 
-    payload = {:status => status, :delta => @saved_dois.length - initial_count}
+    payload = {:status => status, :delta => @cart.size - initial_count}
     respond_to do |format|
       format.json { render :json => payload}
     end
@@ -164,15 +146,15 @@ class HomeController < ApplicationController
 
   # Action that clears any DOIs in the session and redirects to home.
   def start_over
-    @saved_dois.clear
+    @cart.clear
     redirect_to :action => :index
   end
 
   def preview_list
     @tab = :preview_list
     @title = "Preview List"
-    dois = @saved_dois.clone
-    @total_found = dois.length
+    @total_found = @cart.size
+    dois = @cart.clone
     set_paging_vars(params[:current_page])
 
     # Convert to array, sorted in descending order by timestamp, then throw away the timestamps.
