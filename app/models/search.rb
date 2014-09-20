@@ -1,25 +1,12 @@
 require 'pry'
 
 class Search
-  def initialize(query)
-    @query = query[:everything]
-    @conn = Faraday.new(url: "http://api.crossref.org") do |faraday|
-      faraday.request  :url_encoded
-      faraday.response :logger
-      faraday.response :json
-      faraday.adapter  Faraday.default_adapter
+  def self.find(query, opts = {})
+    if plos?
+      SearchPlos.new(query, opts).run
+    elsif crossref?
+      SearchCrossref.new(query, opts).run
     end
-  end
-
-  def find
-    response = @conn.get "/works", {
-      query: @query,
-    }
-
-    results = response.body["message"]["items"]
-    total_results = response.body["message"]["total-results"]
-
-    return results, total_results
   end
 
   def self.plos?

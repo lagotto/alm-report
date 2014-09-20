@@ -13,43 +13,11 @@ class HomeController < ApplicationController
     @journals = journals.unshift([SolrRequest::ALL_JOURNALS, SolrRequest::ALL_JOURNALS])
   end
 
-  # Performs a solr search based on the parameters passed into an action.
-  # Returns a tuple of (solr documents, total results found).  If argument fl
-  # is none-nil, it specifies what results fields we want to retrieve from solr.
-  def search_from_params(fl=nil)
-    if APP_CONFIG["search"] == "crossref"
-      Search.new(params).find
-    else
-      # Strip out form params not relevant to solr.
-      solr_params = {}
-      params.keys.each do |key|
-        if !["utf8", "commit", "controller", "action"].include?(key.to_s)
-          solr_params[key.to_sym] = params[key]
-        end
-      end
-
-      if (solr_params[:publication_days_ago].nil?)
-        # default value
-        solr_params[:publication_days_ago] = -1
-      end
-
-      @start_date, @end_date = SolrRequest.parse_date_range(solr_params.delete(:publication_days_ago),
-          solr_params.delete(:datepicker1), solr_params.delete(:datepicker2))
-      date_range = SolrRequest.build_date_range(@start_date, @end_date)
-      if !date_range.nil?
-        solr_params[:publication_date] = date_range
-      end
-      q = SolrRequest.new(solr_params, fl)
-      q.query
-    end
-  end
-  private :search_from_params
-
   def add_articles
     @tab = :select_articles
     @title = "Add Articles"
 
-    @results, @total_found = search_from_params
+    @results, @total_found = Search.find(params)
 
     if !params["unformattedQueryId"].nil?
       # search executed from the advanced search page
@@ -147,7 +115,7 @@ class HomeController < ApplicationController
     begin
       rows = [page_size, limit - params[:start] + 1].min
       params[:rows] = rows
-      docs, _ = search_from_params("id,publication_date")
+      docs, _ = Search.find(params, fl: "id,publication_date")
       results += docs
       params[:start] = params[:start] + rows
     end while params[:start] <= limit

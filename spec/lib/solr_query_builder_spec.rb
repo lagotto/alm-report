@@ -140,4 +140,12 @@ describe SolrQueryBuilder do
     qb.build
     qb.sort.should eq("&sort=publication_date%20desc")
   end
+
+  it "accepts HashWithIndifferentAccess as a parameter" do
+    params = ActiveSupport::HashWithIndifferentAccess.new(
+      "everything" => "testing"
+    )
+    qb = SolrQueryBuilder.new(params)
+    qb.build.should eq("everything:testing")
+  end
 end

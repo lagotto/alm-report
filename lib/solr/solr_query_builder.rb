@@ -142,7 +142,11 @@ class SolrQueryBuilder
 
   def clean_params
     # Strip out empty and only keep whitelisted params
-    @params.delete_if { |k, v| v.blank? || !SolrRequest::WHITELIST.include?(k) }
+    @params.delete_if do |k, v|
+      v.blank? ||
+        !SolrRequest::WHITELIST.include?(k.to_sym)
+    end
+
     # Strip out the placeholder "all journals" journal value.
     @params.delete_if do |k, v|
       [k.to_s, v] == ["cross_published_journal_name", SolrRequest::ALL_JOURNALS]
