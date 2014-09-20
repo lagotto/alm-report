@@ -6,8 +6,9 @@ describe HomeController do
       stub_request(
         :get,
         "http://api.plos.org/search?facet=true&facet.field=" \
-        "cross_published_journal_key&facet.mincount=1&fq=!article_type_facet:" \
-        "%22Issue%20Image%22&q=*:*&rows=0&wt=json"
+        "cross_published_journal_key&facet.mincount=1&" \
+        "fq%5B%5D=doc_type:full&" \
+        "fq%5B%5D=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
       ).to_return(
         File.open('spec/fixtures/solr_request_get_journal_name_key.raw')
       )
@@ -25,8 +26,10 @@ describe HomeController do
         "http://api.plos.org/search?facet=false&fl=id,pmid,publication_date," \
         "received_date,accepted_date,title,cross_published_journal_name," \
         "author_display,editor_display,article_type,affiliate,subject," \
-        "financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22" \
+        "financial_disclosure&fq%5B%5D=doc_type:full&" \
+        "fq%5B%5D=!article_type_facet:%22Issue%20Image%22" \
         "&hl=false&q=everything:cancer&rows=25&wt=json"
+
       ).to_return(File.open('spec/fixtures/api_plos_cancer_search.raw'))
       get :"add_articles", {
         utf8: "✓",
@@ -98,4 +101,34 @@ describe HomeController do
         .to be_empty
     end
   end
+
+  describe "GET add_articles from advanced search" do
+    it "renders the add_articles template" do
+      url = "http://api.plos.org/search?facet=false&fl=id,pmid," \
+        "publication_date,received_date,accepted_date,title," \
+        "cross_published_journal_name,author_display,editor_display," \
+        "article_type,affiliate,subject,financial_disclosure&" \
+        "fq%5B%5D=cross_published_journal_key:PLoSCompBiol&" \
+        "fq%5B%5D=doc_type:full&" \
+        "fq%5B%5D=!article_type_facet:%22Issue%20Image%22&hl=false" \
+        "&q=everything:biology&rows=25&wt=json"
+      stub_request(:get, url).
+        to_return(File.open('spec/fixtures/api_plos_biology_advanced.raw'))
+
+      get :"add_articles", {
+        queryFieldId: "everything",
+        queryTermId: "",
+        startDateAsStringId: "",
+        endDateAsStringId: "",
+        unformattedQueryId: "everything:biology",
+        commit: "Search",
+        journalOpt: "some",
+        filterJournals: ["PLoSCompBiol"],
+        utf8: "✓"
+      }
+
+      expect(response).to render_template('add_articles')
+    end
+  end
+
 end

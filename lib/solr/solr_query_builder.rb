@@ -39,10 +39,9 @@ class SolrQueryBuilder
     if @params.has_key?(:unformattedQueryId)
       @query[:q] = @params[:unformattedQueryId].strip
     end
-
     if @params.has_key?(:filterJournals)
       filter_journals = @params[:filterJournals]
-      @query[:fq] = filter_journals.map do |filter_journal|
+      @query["fq[]"] = filter_journals.map do |filter_journal|
         "cross_published_journal_key:#{filter_journal}"
       end.join(" OR ")
     end
@@ -117,7 +116,7 @@ class SolrQueryBuilder
     else
       # advanced search query
       build_advanced
-      "#{advanced_query}"
+      advanced_query
     end
     "#{APP_CONFIG["solr_url"]}?#{q}#{common_params}#{sort}&hl=false"
   end

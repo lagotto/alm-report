@@ -2,6 +2,7 @@
 # TODO: separate out the methods into multiple Controller classes, if necessary.
 # Right now this is the entire app except for the report page.
 class HomeController < ApplicationController
+
   def index
     @tab = :select_articles
     @title = "Homepage"
@@ -19,18 +20,12 @@ class HomeController < ApplicationController
 
     @results, @total_found = Search.find(params)
 
-    if !params["unformattedQueryId"].nil?
-      # search executed from the advanced search page
-      # convert the journal key to journal name
-      @filter_journal_names = []
-      if !params["filterJournals"].nil?
-        if APP_CONFIG["journals"].present?
-          params["filterJournals"].each do | journal_key |
-            journal_name = APP_CONFIG["journals"][journal_key]
-            @filter_journal_names << journal_name if journal_name.present?
-          end
-        end
-      end
+    # search executed from the advanced search page
+    # convert the journal key to journal name
+    if params[:unformattedQueryId] && params[:filterJournals]
+      @filter_journal_names = params["filterJournals"].map do |journal|
+        APP_CONFIG["journals"][journal] if APP_CONFIG["journals"]
+      end.compact
     end
 
     if @cart.dois.present?

@@ -114,7 +114,7 @@ describe SolrQueryBuilder do
     qb = SolrQueryBuilder.new(everything: "everyTitle", title: "titleFoo")
     qb.build
     url = "http://api.plos.org/search?q=everything:everyTitle%20AND%20" \
-      "title:titleFoo&fq=doc_type:full&fq=!article_type_facet:%22Issue%20" \
+      "title:titleFoo&fq[]=doc_type:full&fq[]=!article_type_facet:%22Issue%20" \
       "Image%22&fl=id,pmid,publication_date,received_date,accepted_date,title" \
       ",cross_published_journal_name,author_display,editor_display," \
       "article_type,affiliate,subject,financial_disclosure&wt=json" \

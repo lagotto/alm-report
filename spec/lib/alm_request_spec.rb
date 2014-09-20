@@ -267,7 +267,7 @@ describe AlmRequest do
       report.add_all_dois(dois)
 
       body = File.read("#{fixture_path}alm_solr_data_for_viz.json")
-      url = "http://api.plos.org/search?facet=false&fl=id,alm_scopusCiteCount,alm_mendeleyCount,counter_total_all,alm_pmc_usage_total_all&fq=!article_type_facet:%22Issue%20Image%22&q=id:%2210.1371/journal.pone.0064652%22%20OR%20id:%2210.1371/journal.pmed.0020124%22&rows=2&wt=json"
+      url = "http://api.plos.org/search?facet=false&fl=id,alm_scopusCiteCount,alm_mendeleyCount,counter_total_all,alm_pmc_usage_total_all&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20Image%22&q=id:%2210.1371/journal.pone.0064652%22%20OR%20id:%2210.1371/journal.pmed.0020124%22&rows=2&wt=json"
 
       stub_request(:get, url).to_return(:body => body, :status => 200)
 

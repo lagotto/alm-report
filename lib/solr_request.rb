@@ -17,7 +17,7 @@ class SolrRequest
   include Performance
   SOLR_TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
-  FILTER = "fq=doc_type:full&fq=!article_type_facet:#{URI::encode("\"Issue Image\"")}"
+  FILTER = "fq[]=doc_type:full&fq[]=!article_type_facet:#{URI::encode("\"Issue Image\"")}"
 
   # The fields we want solr to return for each article by default.
   FL = "id,pmid,publication_date,received_date,accepted_date,title," \
@@ -61,6 +61,7 @@ class SolrRequest
   def self.send_query(url)
     start_time = Time.now
     resp = Net::HTTP.get_response(URI.parse(url))
+
     end_time = Time.now
     Rails.logger.debug "SOLR Request took #{end_time - start_time} seconds\n#{url}"
 
