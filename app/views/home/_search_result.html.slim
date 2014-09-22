@@ -15,7 +15,15 @@ div.article-info.cf
   p
     = r.authors
   p
-    = r.article_type
+    = r.type.humanize
+    span<> |
+    - if r.article_type
+      = r.article_type
+      span<> |
     = r.published
-    span |
-    = r.cross_published_journal_name
+    span<> |
+    - if r.type == "journal-article"
+      span |
+      = r.journal
+    - elsif r.type == "journal"
+      = r.publisher

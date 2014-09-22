@@ -8,7 +8,10 @@ class SearchCrossref
       query: @query,
     }
 
-    results = response.body["message"]["items"]
+    results = response.body["message"]["items"].map do |result|
+      SearchResult.new(result)
+    end
+
     total_results = response.body["message"]["total-results"]
 
     return results, total_results
