@@ -1,11 +1,15 @@
 class SearchCrossref
   def initialize(query, opts = {})
     @query = query[:everything]
+    @page = query[:current_page] || 1
+    @rows = APP_CONFIG["results_per_page"]
   end
 
   def run
     response = conn.get "/works", {
       query: @query,
+      rows: @rows,
+      offset: offset,
     }
 
     results = response.body["message"]["items"].map do |result|
@@ -15,6 +19,10 @@ class SearchCrossref
     total_results = response.body["message"]["total-results"]
 
     return results, total_results
+  end
+
+  def offset
+    @rows * (@page.to_i - 1)
   end
 
   def conn
