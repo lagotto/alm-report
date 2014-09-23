@@ -22,39 +22,22 @@ class IdController < ApplicationController
   end
 
 
-  # Checks that a given DOI appears to be a well-formed PLOS DOI.  Note that
+  # Checks that a given DOI appears to be a well-formed DOI. Note that
   # this method only does a regex match; it does not query any backend to
   # determine if the corresponding article actually exists.
-  # Returns nil if this is not a PLOS DOI, and something like
-  # "10.1371/journal.pone.0049349" if it is (without the "info:doi/" prefix,
-  # even if it is present on the input).
   def self.validate_doi(doi)
-
-    # First strip out any optional parts.
-    %r|(info:)?(doi/)?(\S+)| =~ doi
-    if $~.nil?
-      return nil
-    else
-      doi = $~[3]
-
-      # For simplicity we handle currents DOIs separately, since they don't have
-      # as much internal structure as non-currents ones.
-      if BackendService.is_currents_doi(doi)
-        return doi
-      else
-        %r|10\.1371/journal\.p[a-z]{3}\.\d{7}| =~ doi
-        return $~.nil? ? nil : doi
-      end
-    end
+    doi =~ %r(\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?!["&\'<>])\S)+)\b)
+    return $1 ? $1 : nil
   end
-
 
   # Performs validation of fields from the DOI/PMID form against SOLR.
   # Returns a list of matching solr docs, and populates the @errors field
   # if necessary as a side effect.
   def query_solr_for_ids(field_to_parsed_doi, field_to_parsed_pmid)
-    dois = field_to_parsed_doi.values
-    solr_docs = dois.length == 0 ? {} : SolrRequest.get_data_for_articles(dois)
+    solr_docs = Hash[field_to_parsed_doi.values.map do |doi|
+      [doi, SearchResult.from_cache(id)]
+    end]
+
     field_to_parsed_doi.each do |field, doi|
       if solr_docs[doi].nil?
         @errors[field.to_sym] = "This paper could not be found"
@@ -99,21 +82,13 @@ class IdController < ApplicationController
     currents_dois = []
     params.each do |k, v|
       if k.start_with?("doi-pmid-") && !v.empty?
-
-        # Assume for now that anything that looks like an int is a PMID.  We can't
-        # use to_i here, since it will accept a value that only *starts* with
-        # an integer.  So "10.1371/journal.pbio.0000001".to_i == 10.
-        begin
+        # PMIDs are numbers
+        if v =~ /\A\d+\z/
           field_to_parsed_pmid[k] = Integer(v)
-        rescue ArgumentError
+        else
           validated = IdController.validate_doi(v)
           if validated.nil?
-            @errors[k.to_sym] = "This DOI/PMID is not a PLOS article"
-
-          # Don't attempt to validate currents DOIs against solr, since they
-          # won't be there.
-          elsif BackendService.is_currents_doi(validated)
-            currents_dois << validated
+            @errors[k.to_sym] = "This DOI is not valid."
           else
             field_to_parsed_doi[k] = validated
           end
@@ -204,13 +179,12 @@ class IdController < ApplicationController
       end
     end
 
-    solr_docs = BackendService.get_article_data_for_list_display(valid_dois)
     valid_dois.each do |doi|
-      doc = solr_docs[doi]
+      doc = SearchResult.from_cache(doi)
       if doc.nil?
         add_error.call(doi, "This paper could not be found")
       else
-        @cart[doc["id"]] = doc["publication_date"].strftime("%s").to_i
+        @cart[doc["id"]] = doc
       end
     end
 
