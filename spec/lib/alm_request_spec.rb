@@ -253,37 +253,6 @@ describe AlmRequest do
   end
 
   context "get ALM data for visualization" do
-    it "use Solr to get the data" do
-      APP_CONFIG["alm_max_size_for_realtime"] = 1
-
-      report = Report.new
-      report.save
-
-      dois = [
-        '10.1371/journal.pone.0064652',
-        '10.1371/journal.pmed.0020124'
-      ]
-
-      report.add_all_dois(dois)
-
-      body = File.read("#{fixture_path}alm_solr_data_for_viz.json")
-      url = "http://api.plos.org/search?facet=false&fl=id,alm_scopusCiteCount,alm_mendeleyCount,counter_total_all,alm_pmc_usage_total_all&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20Image%22&q=id:%2210.1371/journal.pone.0064652%22%20OR%20id:%2210.1371/journal.pmed.0020124%22&rows=2&wt=json"
-
-      stub_request(:get, url).to_return(:body => body, :status => 200)
-
-      data = AlmRequest.get_data_for_viz(report.report_dois)
-
-      data.size.should eq(2)
-
-      data['10.1371/journal.pmed.0020124'][:total_usage].should eq(686164 + 127280)
-      data['10.1371/journal.pmed.0020124'][:scopus_citations].should eq(915)
-      data['10.1371/journal.pmed.0020124'][:mendeley].should eq(4064)
-
-      data['10.1371/journal.pone.0064652'][:total_usage].should eq(439 + 1)
-      data['10.1371/journal.pone.0064652'][:scopus_citations].should eq(0)
-      data['10.1371/journal.pone.0064652'][:mendeley].should eq(0)
-    end
-
     it "use ALM to get the data" do
       report = Report.new
       report.save
@@ -303,7 +272,7 @@ describe AlmRequest do
 
       stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
 
-      data = AlmRequest.get_data_for_viz(report.report_dois)
+      data = AlmRequest.get_data_for_articles(report.report_dois)
 
       data.size.should eq(2)
 
@@ -367,7 +336,5 @@ describe AlmRequest do
       data['10.1371/journal.pmed.0020124'][:discussed_data_present].should eq(true)
 
     end
-
   end
-
 end

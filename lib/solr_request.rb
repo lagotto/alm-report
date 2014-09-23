@@ -235,13 +235,6 @@ class SolrRequest
     end
   end
 
-  # Retrieves alm data from solr for a given list of DOIs
-  def self.get_data_for_viz(report_dois)
-    measure(report_dois) do
-      SolrRequest.get_data_helper(report_dois, nil, FL_METRIC_DATA)
-    end
-  end
-
   def self.validate_dois(report_dois)
     measure(report_dois) do
       SolrRequest.get_data_helper(report_dois, nil, FL_VALIDATE_ID)

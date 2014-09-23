@@ -58,7 +58,6 @@ module AlmRequest
       # that's when it will return 404
 
       url = get_alm_url(params)
-
       start_time = Time.now
 
       resp = Net::HTTP.get_response(URI.parse(url))
@@ -76,7 +75,6 @@ module AlmRequest
     end
     json
   end
-
 
   # Checks memcache to see if data about the given DOIs are present.
   #
@@ -179,10 +177,6 @@ module AlmRequest
 
   # Retrieves article data from ALM suitable for display in a brief list, such
   # as search results or the preview list.
-  #
-  # Note that most of the time, you'll want to get this data from solr via
-  # SolrRequest.get_data_for_articles.  The exception is PLOS Currents articles,
-  # which are not currently in solr.
   def self.get_article_data_for_list_display(dois)
     results = {}
     dois = check_cache(dois, results, "alm_list_display")
@@ -198,47 +192,6 @@ module AlmRequest
   # If the list of dois exceed certain size, the data will be retrieved from solr
   # (for performance reasons)
   #
-  # the alm data that's retrieved from solr will not be cached.  Alm data in solr
-  # is at most 1 day behind the data in alm application and the app should not cache data that's
-  # already 1 day behind
-  def self.get_data_for_viz(report_dois)
-
-    # TODO future: only count the articles that are not cached when comparing the # of articles to retrieve alm data for
-
-    # For performance reasons, we get the ALM data from solr instead if there are more
-    # than a certain number of articles.  However we can't do this for currents articles
-    # since these aren't in solr.
-    has_currents_article = false
-    report_dois.each do |report_doi|
-      if report_doi.is_currents_doi
-        has_currents_article = true
-        break
-      end
-    end
-    if report_dois.size > APP_CONFIG["alm_max_size_for_realtime"] && !has_currents_article
-      metric_data = SolrRequest.get_data_for_viz(report_dois)
-
-      all_results = {}
-
-      metric_data.each_pair do | doi, data |
-        # make the data look like what it would have looked like if the data was retrieved from alm
-
-        results = {}
-
-        results[:total_usage] = data["counter_total_all"].to_i + data["alm_pmc_usage_total_all"].to_i
-        results[:scopus_citations] = data["alm_scopusCiteCount"].to_i
-        results[:mendeley] = data["alm_mendeleyCount"].to_i
-
-        all_results[doi] = results
-      end
-
-      return all_results
-
-    else
-      # get alm data from alm
-      return self.get_data_for_articles(report_dois)
-    end
-  end
 
   # get data for single article visualization report
   def self.get_data_for_one_article(report_dois)
