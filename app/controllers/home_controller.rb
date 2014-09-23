@@ -23,14 +23,14 @@ class HomeController < ApplicationController
     # search executed from the advanced search page
     # convert the journal key to journal name
     if params[:unformattedQueryId] && params[:filterJournals]
-      @filter_journal_names = params["filterJournals"].map do |journal|
+      @filter_journal_names = params[:filterJournals].map do |journal|
         APP_CONFIG["journals"][journal] if APP_CONFIG["journals"]
       end.compact
     end
 
-    if @cart.dois.present?
+    if @cart.items.present?
       @results.each do |result|
-        result.checked = true if @card.dois.has_key?(result.id)
+        result.checked = true if @cart.items.has_key?(result.id)
       end
     end
 
@@ -38,7 +38,6 @@ class HomeController < ApplicationController
   end
 
   # Update session via ajax call
-  # params[:article_ids] is of the form "10.1371/journal.pone.0052192|12345678";
   def update_session
     initial_count = @cart.size
 
@@ -46,12 +45,11 @@ class HomeController < ApplicationController
     return render json: { status: "limit", delta: 0 } \
       unless initial_count < APP_CONFIG["article_limit"]
 
-    # generate hash in format doi => timestamp, observe article_limit
-    article_ids = parse_article_keys(params[:article_ids], initial_count)
+    article_ids = params[:article_ids]
 
     case params[:mode]
-    when "SAVE" then @cart.merge!(article_ids)
-    when "REMOVE" then @cart.except!(article_ids.keys)
+    when "ADD" then @cart.add(article_ids)
+    when "REMOVE" then @cart.remove(article_ids)
     end
 
     render json: { status: "success", delta: @cart.size - initial_count }
@@ -149,16 +147,9 @@ class HomeController < ApplicationController
     @tab = :preview_list
     @title = "Preview List"
     @total_found = @cart.size
-    dois = @cart.clone
     set_paging_vars(params[:current_page])
 
-    # Convert to array, sorted in descending order by timestamp, then throw away the timestamps.
-    dois = dois.sort_by{|doi, timestamp| -timestamp}.collect{|x| x[0]}
-    dois = dois[(@start_result) - 1..(@end_result - 1)]
-    @results = []
-
-    data = BackendService.get_article_data_for_list_display(dois)
-    @results = dois.map { |doi| SearchResult.new(data[doi]) }
+    @results = @cart.items.values
   end
 
   def advanced

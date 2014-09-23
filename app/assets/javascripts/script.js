@@ -19,10 +19,10 @@ jQuery(function(d, $){
 
         // set up event handlers
         $('.check-save-article').on("click", jQuery.proxy(this.checkboxClickHandler, this));
-        $('.select-all-articles-link').on("click", { 'mode' : "SAVE" }, jQuery.proxy(this.toggleAllArticles, this));
+        $('.select-all-articles-link').on("click", { 'mode' : "ADD" }, jQuery.proxy(this.toggleAllArticles, this));
         $('.unselect-all-articles-link').on("click", { 'mode' : "REMOVE" }, jQuery.proxy(this.toggleAllArticles, this));
         $('.reset-btn').on("click", { 'mode' : "REMOVE" }, jQuery.proxy(this.toggleAllArticles, this));
-        
+
         // We want the preview list count to be accurate even if the user navigates
         // with the back button.  So we always load the current preview list count
         // via ajax.
@@ -38,14 +38,14 @@ jQuery(function(d, $){
       // Replaces the preview list counts in the UI with the new value.
       updateListCount : function(new_count) {
         preview_list_count = new_count;
-        
+
         // update "your list" box in header
         $list_count.text(new_count);
 
         // update preview list button
         $preview_list_count_elem.val("Preview List (" + new_count + ")");
 
-        // add the correct options depending on the user action 
+        // add the correct options depending on the user action
         // remove all children
         $('#your-list-choices').children().remove();
         // add the correct options
@@ -65,7 +65,7 @@ jQuery(function(d, $){
         }
 
       },
-      
+
       // Increments the preview list counts in the UI by the specified delta, which
       // can be positive or negative.
       incrementListCount : function(delta) {
@@ -93,9 +93,9 @@ jQuery(function(d, $){
           article_ids : [$checkbox.val()],
 
           // set the "mode" based on what state the checkbox is transitioning to
-          // NOTE: this handler runs *after* the checkbox element has been 
+          // NOTE: this handler runs *after* the checkbox element has been
           // updated so we check the "checked" prop.
-          mode : $checkbox.prop("checked") ? "SAVE" : "REMOVE"
+          mode : $checkbox.prop("checked") ? "ADD" : "REMOVE"
         };
 
         var $container = $checkbox.parent('.article-info');
@@ -104,19 +104,19 @@ jQuery(function(d, $){
         this.displayProgressIndicators($container, ajax_data.mode);
 
         // pass the data to the server to update the session
-        // NOTE: update server expects an array (or collection) of checkboxes 
+        // NOTE: update server expects an array (or collection) of checkboxes
         // and containers to iterate over later on
         this.updateServer(ajax_data, $checkbox, $container);
       },
 
       // expects a jquery collection of containers to operate on
       displayProgressIndicators : function($containers, mode) {
-        // we need to clear out the result message before trying to display a 
+        // we need to clear out the result message before trying to display a
         // "updating" message since they occupy the same space
         // $containers.find('.result').remove();
 
         // compose a message based on the "mode"
-        // var initial_msg = (mode == "SAVE") ? "Saving..." : "Removing...";
+        // var initial_msg = (mode == "ADD") ? "Saving..." : "Removing...";
 
         // insert the message into the DOM
         // $containers.find('a').after("<span class='updating'>" + initial_msg + "</span>");
@@ -124,8 +124,8 @@ jQuery(function(d, $){
       },
 
       toggleAllArticles : function(e) {
-        if (e.data['mode'] == 'SAVE') {
-          
+        if (e.data['mode'] == 'ADD') {
+
           // Enforce article limit if necessary by only selecting the
           // first articles.
           var max = ARTICLE_LIMIT - preview_list_count;
@@ -165,7 +165,7 @@ jQuery(function(d, $){
           var checkbox = $(c);
 
           // actually check the checkbox since we did not physically interact with it
-          checkbox.prop("checked", (e.data['mode'] == 'SAVE'));
+          checkbox.prop("checked", (e.data['mode'] == 'ADD'));
 
           // grab the value from the checkbox; that's what we want to send to the server
           ajax_data['article_ids'].push(checkbox.val());
@@ -178,7 +178,7 @@ jQuery(function(d, $){
           this.displayProgressIndicators($container, ajax_data.mode);
         }, this));
 
-        // now that we have our array of container nodes, turn it into a jquery 
+        // now that we have our array of container nodes, turn it into a jquery
         // collection so we can more easily operate on it later
         $containers = $($containers);
 
@@ -190,7 +190,7 @@ jQuery(function(d, $){
 
       updateServer : function(ajax_data, $checkboxes, $containers, toggle_all) {
         toggle_all = toggle_all || false;
-        
+
         // disable the checkboxes while we await confirmation the server that it's been updated
         $checkboxes.prop('disabled', true);
         $.ajax('/update-session', {
@@ -202,7 +202,7 @@ jQuery(function(d, $){
               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
               },
           data : ajax_data,
-        
+
           // NOTE: ajaxResponseHandler requires checkboxes and containers passed in to the handler
           // so that we can update the correct article(s)!
           complete : jQuery.proxy(this.ajaxResponseHandler, this, ajax_data.mode,
@@ -214,7 +214,7 @@ jQuery(function(d, $){
       ajaxResponseHandler : function(mode, $checkboxes, $containers, toggle_all, xhr, status) {
         var json_resp = $.parseJSON(xhr.responseText);
 
-        // collection of values that controls what kind of status message gets 
+        // collection of values that controls what kind of status message gets
         // inserted. values change based on XHR status
         var status_data;
 
@@ -224,7 +224,7 @@ jQuery(function(d, $){
           if (json_resp.status == "success") {
             status_data = {
               class_name : "success",
-              text : (mode == "SAVE") ? "Saved" : "Removed",
+              text : (mode == "ADD") ? "Saved" : "Removed",
               img_class_name : "success-tick"
             };
           } else if (json_resp.status == "limit") {
@@ -250,24 +250,24 @@ jQuery(function(d, $){
         // update the containers' progress indicators based on the status data
         this.updateProgressIndicators($containers, status_data);
 
-        // now that the server returned a response, we can re-enable the 
-        // checkboxes so the user can do something else with the article or try 
-        // again (on the off chance the AJAX response was an error and the 
+        // now that the server returned a response, we can re-enable the
+        // checkboxes so the user can do something else with the article or try
+        // again (on the off chance the AJAX response was an error and the
         // article state wasn't set correctly.)
         $checkboxes.prop('disabled', false);
 
-        // if there was an error, we need to reset the state of the checkbox to 
+        // if there was an error, we need to reset the state of the checkbox to
         // what it as before the user interacted with it. (hence the not operator)
         if (error_occurred) {
           // console.log("error occurred; reverting checkbox to previous state: ", !($checkboxes.eq(0).prop('checked')));
 
-          // note that $checkboxes is an array, so we need the first element's 
+          // note that $checkboxes is an array, so we need the first element's
           // value to determine what to set all the others to.
           $checkboxes.prop('checked', !($checkboxes.eq(0).prop('checked')));
         }
 
-        // now that we have a response from the server and we've adjusted the 
-        // checkbox states if necessary, re-query the DOM to figure out how 
+        // now that we have a response from the server and we've adjusted the
+        // checkbox states if necessary, re-query the DOM to figure out how
         // many article are actually selected on this page.
         var selected_articles_count = $(".check-save-article:checked").length;
 
@@ -284,8 +284,8 @@ jQuery(function(d, $){
         // Show select all/unselect all messaging if applicable.
         if (!error_occurred && toggle_all) {
 
-          // show "select all articles across all pages" message if this 
-          // result set spans multiple pages and we've just checked all the 
+          // show "select all articles across all pages" message if this
+          // result set spans multiple pages and we've just checked all the
           // articles on this page
           if (results_span_pages && (selected_articles_count == RESULTS_PER_PAGE)) {
             this.showSelectAll();
@@ -295,7 +295,7 @@ jQuery(function(d, $){
         }
 
       },
-      
+
       // Removes any "select all" or "unselect all" message from the add articles page.
       clearSelectAllMessage : function(message) {
         if ($('.select-articles-message').is(':visible')) {
@@ -304,7 +304,7 @@ jQuery(function(d, $){
           $('.select-articles-message').addClass('invisible');
         }
       },
-      
+
       // Shows the "select all" message on the add articles page.
       showSelectAll : function() {
         this.clearSelectAllMessage();
@@ -322,10 +322,10 @@ jQuery(function(d, $){
         $('#select_all_searchresults').on('click',
             jQuery.proxy(this.selectAllSearchResults, this));
       },
-      
+
       // Shows the "unselect all" message on the add articles page.
       showUnselectAll : function(unselect_count) {
-        
+
         // We use the same DOM components as showSelectAll above.  Don't let that
         // confuse you...
         this.clearSelectAllMessage();
@@ -348,14 +348,14 @@ jQuery(function(d, $){
           })
         }, this));
       },
-      
+
       // Changes the visual appearance of one of the styled submit buttons
       // in the UI and prevents it from being activated.
       disableButton : function($button) {
         $button.addClass('disabled-submit-btn');
         $button.attr('disabled', 'disabled');
       },
-      
+
       // Enables a submit button that was previously disabled through disableButton.
       enableButton : function($button) {
         $button.removeClass('disabled-submit-btn');
@@ -384,19 +384,19 @@ jQuery(function(d, $){
           // setTimeout(function() { updated_msg.fadeOut(2000); }, 3000);
         });
       },
-      
+
       // Handles the user clicking on the "Select all nnn articles" link.  Selects
       // *all* of the articles from the search, not just those on the current page.
       // (Subject to the article limit.)
       selectAllSearchResults : function(e) {
         var url_params = window.location.search.substr(1);  // Remove leading "?"
-        
+
         // Convert to dict for ajax call.
         var data = {};
         var pairs = url_params.split("&");
         for (i in pairs) {
           var split = pairs[i].split("=");
-          
+
           // We need to convert "+" to " ", which none of the stock javascript functions
           // seem to handle correctly.  See http://unixpapa.com/js/querystring.html
           data[split[0]] = decodeURIComponent(split[1].replace(/\+/g, " "));
@@ -412,7 +412,7 @@ jQuery(function(d, $){
 
         $.ajax("/select-all-search-results", {
           type: "POST",
-          
+
           // Unless we set this header, rails will silently refuse to save anything
           // to the session!
           beforeSend: function(xhr) {
@@ -422,7 +422,7 @@ jQuery(function(d, $){
           complete: jQuery.proxy(this.selectAllSearchResultsResponseHandler, this)
         });
       },
-      
+
       selectAllSearchResultsResponseHandler : function(xhr, status) {
         $("#gray-out-screen").hide();
         $("#select-all-spinner").hide();
@@ -443,7 +443,7 @@ jQuery(function(d, $){
           this.showErrorDialog("solr-500-error-message");
         }
       },
-      
+
       // Displays an error message below the navigation links.  The argument is the
       // ID of an element that contains the error message HTML.
       showErrorDialog : function(error_message_id) {
@@ -466,7 +466,7 @@ jQuery(function(d, $){
     var container_width = $('.wrapper').width();
 
     function scrollHandler() {
-      // fix the position of the .aside_container if the viewport has 
+      // fix the position of the .aside_container if the viewport has
       // scrolled 40 pixels beyond the height of the nav
       if ( $(window).scrollTop() > ($('.nav-area').height() + 40) ) {
 
@@ -485,7 +485,7 @@ jQuery(function(d, $){
     }
 
     function setRightEdge() {
-      // the layout is centered, so we need half of the difference between the 
+      // the layout is centered, so we need half of the difference between the
       // viewport width and the layout width
       var right_edge = parseInt( (($(window).width() - container_width) / 2), 10);
       $aside_container.css('right', right_edge);
@@ -499,9 +499,9 @@ jQuery(function(d, $){
           // the main logic executes on the scroll event handler
           $(window).scroll(scrollHandler);
 
-          // since the page is centered, we also need a resize handler to 
-          // manage the positioning of the right side of the ".aside-container" 
-          // when the window is resized 
+          // since the page is centered, we also need a resize handler to
+          // manage the positioning of the right side of the ".aside-container"
+          // when the window is resized
           $(window).resize(resizeHandler);
         }
 
@@ -540,7 +540,7 @@ jQuery(function(d, $){
     }
 
     // add all the markup in one fell swoop
-    // "-2" because the last .input-holder is for the submit buttons and 
+    // "-2" because the last .input-holder is for the submit buttons and
     // we want the new fields before it.
     $(".doi-pmid-form .input-holder").eq(-2).after(fields_html);
     $('[id^=doi-pmid-]').on("change", doiPmidInputOnChange);
@@ -603,7 +603,7 @@ var highlightDoiPmidError = function($element, error_message) {
 var doiPmidInputOnChange = function() {
   var input_element = $(this)[0];
   var value = $.trim(input_element.value);
-  
+
   // Assume for now that anything that looks like an int is a PMID.  We can't
   // use parseInt here, since it will accept a value that only *starts* with
   // an integer.  So "10.1371/journal.pbio.0000001" == 10.
@@ -612,7 +612,7 @@ var doiPmidInputOnChange = function() {
     pmid = Number(value);
   }
   var doi = null;
-  
+
   // There are two types of PLOS DOIs that we have to handle differently.  Currents
   // DOIs are not in solr, so we don't want to attempt to validate against that
   // if it looks like a currents DOI (which have very little structure).
@@ -631,13 +631,13 @@ var doiPmidInputOnChange = function() {
       }
     }
   }
-  
+
   if (is_currents_doi) {
 
     // Looks like a valid currents doi.  Remove any previous error message.
     dismissDoiPmidFieldError($(input_element).parent('.error-holder'));
   } else if (pmid !== null || doi !== null) {
-  
+
     // Validate ID against solr.  We need to make a jsonp request to get around the
     // same-origin policy.
     if (pmid !== null) {
@@ -652,7 +652,7 @@ var doiPmidInputOnChange = function() {
         jsonp: 'json.wrf',
         success: function(resp) {
           if (resp.response.numFound >= 1) {
-            
+
             // Remove any previous error message.
             dismissDoiPmidFieldError($(input_element).parent('.error-holder'));
           } else {
@@ -737,13 +737,13 @@ jQuery(function(d, $){
 }(document, jQuery));
 
 
-// display the error message on hover over of "ignore errors" button on 
+// display the error message on hover over of "ignore errors" button on
 // the "upload-file.fix-errors" page
 jQuery(function(d, $){
   var $upload_file_error_input_holder_p = $('.upload-file-error-input-holder p');
 
   $('.ignore-errors').hover(function(){
-    $upload_file_error_input_holder_p.css('display','inline-block');               
+    $upload_file_error_input_holder_p.css('display','inline-block');
   },function(){
     $upload_file_error_input_holder_p.css('display','none');
   });
@@ -898,10 +898,10 @@ $(".subject-autocomplete[type='text']").autocomplete({
 // End subject category autocomplete.
 
 
-// Event handler for downloading visualization 
+// Event handler for downloading visualization
 jQuery(function(d, $){
   $('#download_viz').click(function() {
-    
+
     window.print();
 
   });
