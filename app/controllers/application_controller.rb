@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
 
     yield  # Run the action
 
-    session[:dois] = @cart.dois
+    session[:dois] = @cart.items.keys
   end
 
   # The navigation UI element (1 Select Articles and etc) will not be displayed on the static pages

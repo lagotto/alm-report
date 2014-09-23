@@ -3,22 +3,20 @@ class ReportsController < ApplicationController
   # Creates a new report based on the DOIs stored in the session,
   # and redirects to display it.
   def generate
-    dois = @cart.clone
-
+    dois = @cart.items.keys
     # start again if we find no dois
-    return redirect_to(controller: "home",
-                       action: "advanced",
-                       unformattedQueryId: params[:unformattedQueryId],
-                       filterJournals: params[:filterJournals]) if dois.blank?
+    if dois.blank?
+      return redirect_to(controller: "home",
+                         action: "advanced",
+                         unformattedQueryId: params[:unformattedQueryId],
+                         filterJournals: params[:filterJournals])
+    end
 
     @report = Report.new
     if !@report.save
       raise "Error saving report"
     end
 
-    # Convert to array, sorted in descending order by timestamp,
-    # then throw away the timestamps.
-    dois = dois.sort_by{|doi, timestamp| -timestamp}.collect{|x| x[0]}
     @report.add_all_dois(dois)
     if @report.save
       redirect_to :action => "metrics", :id => @report.id
@@ -55,7 +53,7 @@ class ReportsController < ApplicationController
       # to limit what we have to load from solr and ALM.
       @dois = @report.report_dois[(@start_result) - 1..(@end_result - 1)]
       alm_data = AlmRequest.get_data_for_articles(@dois)
-      solr_data = BackendService.get_article_data_for_list_display(@dois)
+      solr_data = Cart.new(@dois.map(&:doi))
       [solr_data, alm_data]
     }
 
@@ -102,10 +100,10 @@ class ReportsController < ApplicationController
       one_article_report = true
       alm_data = AlmRequest.get_data_for_one_article(@report.report_dois)
     else
-      alm_data = AlmRequest.get_data_for_viz(@report.report_dois)
+      alm_data = AlmRequest.get_data_for_articles(@report.report_dois)
     end
 
-    solr_data = BackendService.get_article_data_for_list_display(@report.report_dois)
+    solr_data = @report.report_dois.map { |doi| SearchResult.from_cache(doi) }
 
     dois_to_delete = manage_report_data(@report.report_dois, solr_data, alm_data)
 

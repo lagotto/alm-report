@@ -11,23 +11,51 @@ class SearchResult
   # "book-section","book-part","book","book-chapter","standard-series",
   # "monograph","component","reference-entry","journal-volume","book-set"
 
-  def initialize(data)
-    @data = data
-    if Search.plos?
-      initialize_plos
-    elsif Search.crossref?
-      initialize_crossref
+  def self.from_crossref(id)
+    conn = Faraday.new(url: "http://api.crossref.org") do |faraday|
+      faraday.request  :url_encoded
+      faraday.response :logger
+      faraday.response :json
+      faraday.adapter  Faraday.default_adapter
     end
+    response = conn.get "/works/#{id}"
+    if response.status == 200
+      new response.body["message"], :crossref
+    else
+      nil
+    end
+  end
+
+  def self.from_cache(id)
+    Rails.cache.fetch(id) do
+      from_crossref(id)
+    end
+  end
+
+  def cache
+    Rails.cache.write(@id, self)
+  end
+
+  def initialize(data, source = nil)
+    @data = data
+    source ||= Search.crossref? ? :crossref : :plos
+
+    if source == :crossref
+      initialize_crossref
+    elsif source == :plos
+      initialize_plos
+    end
+    cache
   end
 
   # PLOS
   def initialize_plos
+    @id = @data["id"]
     @affiliates = @data["affiliate"]
     @article_type = @data["article_type"]
     @authors = @data["author_display"]
     @journal = @data["cross_published_journal_name"]
     @financial_disclosure = @data["financial_disclosure"]
-    @id = @data["id"]
     @pmid = @data["pmid"]
     @publication_date = @data["publication_date"]
     @subjects = @data["subject"]
@@ -49,7 +77,7 @@ class SearchResult
   end
 
   def key
-    "#{id}|#{publication_date.strftime("%s")}"
+    id
   end
 
   def authors
@@ -57,16 +85,16 @@ class SearchResult
   end
 
   def journal
-    cross_published_journal_name.first
+    @journal
   end
 
   # CrossRef
 
   def initialize_crossref
-    @title = @data["title"].first
+    @id = @data["DOI"]
+    @title = title_crossref
     @subjects = @data["subject"]
     @type = @data["type"]
-    @id = @data["DOI"]
     @publication_date = published_crossref
     if @data["author"]
       @authors = @data["author"].map do |author|
@@ -76,6 +104,10 @@ class SearchResult
     @journal = @data["container-title"].join
     @url = @data["URL"]
     @publisher = @data["publisher"]
+  end
+
+  def title_crossref
+    title = @data["title"].first || @data["container-title"].first || 'No title'
   end
 
   def published_crossref

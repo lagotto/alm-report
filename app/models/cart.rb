@@ -1,33 +1,47 @@
-# Wrapper around the session data which enforces the limit on the number of dois
-# per report.  Controller code should read and write through this interface instead
-# of the session directly.
-class Cart
-  attr_reader :dois
+# Wrapper around the session data which enforces the limit on the number of items
+# per report. Controller code should read and write through this interface
+# instead of the session directly.
 
-  def initialize(session_data = {})
-    @dois = session_data || {}
+class Cart
+  attr_reader :items
+
+  def initialize(item_ids = [])
+    @items = {}
+    item_ids ||= []
+    add(item_ids)
+  end
+
+  def add(item_ids)
+    hash = Hash[item_ids.map do |item_id|
+      [item_id, SearchResult.from_cache(item_id)]
+    end]
+    @items.merge!(hash)
+  end
+
+  def remove(items)
+    @items.except!(*items)
   end
 
   def [](x)
-    return @dois[x]
+    return @items[x]
   end
 
   def []=(x, val)
     if size < APP_CONFIG["article_limit"]
-      @dois[x] = val
+      @items[x] = val
     end
   end
 
   def delete(val)
-    @dois.delete(val)
+    @items.delete(val)
   end
 
   def clone
-    @dois.clone
+    @items.clone
   end
 
   def size
-    @dois.length
+    @items.length
   end
 
   def empty?
@@ -35,14 +49,14 @@ class Cart
   end
 
   def merge!(hash)
-    @dois.merge!(hash)
+    @items.merge!(hash)
   end
 
   def except!(keys)
-    @dois.except!(*keys)
+    @items.except!(*keys)
   end
 
   def clear
-    @dois = {}
+    @items = {}
   end
 end

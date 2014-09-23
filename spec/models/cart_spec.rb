@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Cart do
-  let(:session_data) { { "10.1371/journal.pone.0010031" => 1410868245 } }
+  let(:item_ids) { ["10.1371/journal.pone.0010031"] }
 
-  subject { Cart.new(session_data) }
+  subject { Cart.new(item_ids) }
 
   it "[]" do
     expect(subject["10.1371/journal.pone.0010031"]).to eq(1410868245)
