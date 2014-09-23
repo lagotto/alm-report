@@ -255,7 +255,7 @@ class SolrRequest
       if doc["publication_date"]
         doc["publication_date"] = Date.strptime(doc["publication_date"], SOLR_TIMESTAMP_FORMAT)
       end
-      results[doc["pmid"].to_i] = doc
+      results[doc["pmid"].to_i] = SearchResult.new(doc, :plos)
     end
     results
   end

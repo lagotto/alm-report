@@ -21,9 +21,9 @@ div.article-info.cf
       = r.article_type
       span<> |
     = r.published
-    span<> |
     - if r.type == "journal-article"
-      span |
+      span<> |
       = r.journal
-    - elsif r.type == "journal"
+    - if %w[journal journal-issue journal-article].include? r.type
+      span<> |
       = r.publisher

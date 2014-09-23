@@ -10,20 +10,18 @@
       <% @dois.each do |doi| %>
       <div class="visualizations-list">
         <span class="list-numbers"><%= doi.display_index %></span>
-        <h3 class="metrics-article-title nona-link" data-href="http://dx.doi.org/<%= doi.doi %>"><%= doi.solr["title"] %></h3>
-        <% if !doi.solr["author_display"].nil? %>
+        <h3 class="metrics-article-title nona-link" data-href="http://dx.doi.org/<%= doi.doi %>"><%= doi.solr.title %></h3>
+        <% if doi.solr.authors %>
         <p class="metrics-para">
-          <% doi.solr["author_display"].each_with_index do |author, idx| %>
-            <%= author %><% if idx < doi.solr["author_display"].length - 1 %>,<% end %>
-          <% end %>
+          <%= doi.solr.authors %>
         </p>
         <% end %>
         <p class="metrics-description">
           Research Article
           <span class="vertical-separator">|</span>
-          published <%= doi.solr["publication_date"].strftime("%d %b %Y") %>
+          <%= doi.solr.published %>
           <span class="vertical-separator">|</span>
-          <%= doi.solr["cross_published_journal_name"][0] %>
+          <%= doi.solr.journal %>
         </p>
         <p class="metrics-description nona-link" data-href="http://dx.doi.org/<%= doi.doi %>"><%= doi.doi %></p>
 
