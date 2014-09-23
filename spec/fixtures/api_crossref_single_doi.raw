@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Date: Mon, 22 Sep 2014 11:54:27 GMT
+Server: http-kit
+Access-Control-Allow-Headers: X-Requested-With
+Access-Control-Allow-Origin: *
+Vary: Accept
+Content-Type: application/json;charset=UTF-8
+Content-Length: 823
+
+{"status":"ok","message-type":"work","message-version":"1.0.0","message":{"subtitle":[],"subject":["Psychology(all)"],"issued":{"date-parts":[[2004]]},"score":1.0,"prefix":"http:\/\/id.crossref.org\/prefix\/10.1037","author":[{"family":"Ray","given":"Oakley"}],"container-title":["American Psychologist"],"reference-count":105,"page":"29-40","deposited":{"date-parts":[[2011,8,21]],"timestamp":1313884800000},"issue":"1","title":["How the Mind Hurts and Heals the Body."],"type":"journal-article","DOI":"10.1037\/0003-066x.59.1.29","ISSN":["1935-990X","0003-066X"],"URL":"http:\/\/dx.doi.org\/10.1037\/0003-066x.59.1.29","source":"CrossRef","publisher":"American Psychological Association (APA)","indexed":{"date-parts":[[2014,9,3]],"timestamp":1409777925276},"volume":"59","member":"http:\/\/id.crossref.org\/member\/15"}}
