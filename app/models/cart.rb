@@ -22,6 +22,10 @@ class Cart
     @items.except!(*items)
   end
 
+  def dois
+    @items.keys
+  end
+
   def [](x)
     return @items[x]
   end
@@ -32,8 +36,8 @@ class Cart
     end
   end
 
-  def delete(val)
-    @items.delete(val)
+  def delete(key)
+    @items.delete(key)
   end
 
   def clone
@@ -46,14 +50,6 @@ class Cart
 
   def empty?
     size == 0
-  end
-
-  def merge!(hash)
-    @items.merge!(hash)
-  end
-
-  def except!(keys)
-    @items.except!(*keys)
   end
 
   def clear

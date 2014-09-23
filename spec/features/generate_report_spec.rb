@@ -1,4 +1,5 @@
 require 'benchmark'
+require 'spec_helper'
 
 if Search.plos?
   describe 'generate report', :type => :feature do
@@ -27,7 +28,6 @@ if Search.plos?
 
     it 'loads the articles result page', js: true do
       visit '/'
-
       fill_in 'everything', with: 'cancer'
       click_button 'Search'
       expect(page).to have_content 'A Future Vision for PLOS Computational Biology'
@@ -45,6 +45,7 @@ if Search.plos?
       click_link('Visualizations')
 
       expect(page).to have_css('#article_usage_div svg')
+
     end
   end
 elsif Search.crossref?
@@ -54,9 +55,8 @@ elsif Search.crossref?
       to_return(File.open('spec/fixtures/api_crossref_cancer.raw'))
     end
     it 'loads the articles result page', js: true do
-      Benchmark.realtime{
-        visit '/'
-      }.should < 10
+      visit '/'
+
       fill_in 'everything', with: 'cancer'
       click_button 'Search'
     end

@@ -25,7 +25,7 @@ class SearchCrossref
     @rows * (@page.to_i - 1)
   end
 
-  def self.get(url, params)
+  def self.get(url, params = nil)
     conn.get(url, params)
   end
 

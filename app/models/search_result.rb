@@ -42,6 +42,10 @@ class SearchResult
     cache
   end
 
+  def ==(other)
+    data == other.data
+  end
+
   # PLOS
   def initialize_plos
     @id = @data["id"]

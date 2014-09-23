@@ -76,7 +76,7 @@ class SolrRequest
     docs = json["response"]["docs"]
     docs.map do |doc|
       doc = fix_data(doc)
-      SearchResult.new(doc)
+      SearchResult.new(doc, :plos)
     end
   end
 
@@ -95,29 +95,28 @@ class SolrRequest
   # There wasn't a way to tie cross_published_journal_key field values to cross_published_journal_name values
   # easily without matching them up by hand
   def self.get_journal_name_key
-    params = {}
-    params[:q] = "*:*"
-    params[:facet] = "true"
-    params["facet.field"] = "cross_published_journal_key"
-    params["facet.mincount"] = 1
-    params[:rows] = 0
-    params[:wt] = "json"
+    params = {
+      q: "*:*",
+      facet: "true",
+      rows: 0,
+      wt: "json",
+      "facet.field" => "cross_published_journal_key",
+      "facet.mincount" => 1
+    }
 
     url = "#{APP_CONFIG["solr_url"]}?#{params.to_param}&#{FILTER}"
     json = send_query(url)
 
-    journal_keys = json["facet_counts"]["facet_fields"]["cross_published_journal_key"]
-    journal_keys = journal_keys.values_at(* journal_keys.each_index.select {|i| i.even?})
+    keys = Hash[
+      *json["facet_counts"]["facet_fields"]["cross_published_journal_key"]
+    ].keys
 
-    journals = []
-    if (!APP_CONFIG["journals"].nil? && APP_CONFIG["journals"].size > 0)
-      journal_keys.each do | journal_key |
-        journal_name = APP_CONFIG["journals"][journal_key]
-        journals << {:journal_name => APP_CONFIG["journals"][journal_key], :journal_key => journal_key} if !journal_name.nil?
-      end
+    if APP_CONFIG["journals"].present?
+      journals = keys.map do |key|
+        name = APP_CONFIG["journals"][key]
+        [key, name] if name
+      end.compact
     end
-
-    return journals
   end
 
   # Logic for creating a limit on the publication_date for a query.  All params are strings.

@@ -7,7 +7,7 @@ api_urls = {
     "financial_disclosure&fq%5B%5D=doc_type:full&" \
     "fq%5B%5D=!article_type_facet:%22Issue%20Image%22&" \
     "&hl=false&q=everything:cancer&rows=25&wt=json",
-  crossref: "http://api.crossref.org/works?query=cancer"
+  crossref: "http://api.crossref.org/works?query=cancer&offset=0&rows=25"
 }
 
 describe Search do

@@ -103,7 +103,9 @@ class ReportsController < ApplicationController
       alm_data = AlmRequest.get_data_for_articles(@report.report_dois)
     end
 
-    solr_data = @report.report_dois.map { |doi| SearchResult.from_cache(doi) }
+    solr_data = Hash[@report.report_dois.map do |report_doi|
+      [report_doi.doi, SearchResult.from_cache(report_doi.doi)]
+    end]
 
     dois_to_delete = manage_report_data(@report.report_dois, solr_data, alm_data)
 

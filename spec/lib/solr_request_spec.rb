@@ -17,13 +17,13 @@ describe SolrRequest do
     data = SolrRequest.query_by_pmids(pmids)
     data.size.should eq(2)
 
-    data[23717645]["id"].should eq("10.1371/journal.pone.0064652")
-    data[23717645]["pmid"].should eq("23717645")
-    data[23717645]["publication_date"].should eq(Date.strptime("2013-05-23T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"))
+    data[23717645].id.should eq("10.1371/journal.pone.0064652")
+    data[23717645].pmid.should eq("23717645")
+    data[23717645].publication_date.should eq(Date.strptime("2013-05-23T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"))
 
-    data[16060722]["id"].should eq("10.1371/journal.pmed.0020124")
-    data[16060722]["pmid"].should eq("16060722")
-    data[16060722]["publication_date"].should eq(Date.strptime("2005-08-30T00:00:00Zdddddddddd", "%Y-%m-%dT%H:%M:%SZ"))
+    data[16060722].id.should eq("10.1371/journal.pmed.0020124")
+    data[16060722].pmid.should eq("16060722")
+    data[16060722].publication_date.should eq(Date.strptime("2005-08-30T00:00:00Zdddddddddd", "%Y-%m-%dT%H:%M:%SZ"))
   end
 
   it "parses date ranges" do
@@ -121,18 +121,18 @@ describe SolrRequest do
     data = SolrRequest.get_journal_name_key
 
     data.size.should eq(8)
+
     journals = [
-      { :journal_name => "PLOS ONE", :journal_key => "PLoSONE"},
-      { :journal_name => "PLOS Genetics", :journal_key => "PLoSGenetics"},
-      { :journal_name => "PLOS Pathogens", :journal_key => "PLoSPathogens"},
-      { :journal_name => "PLOS Computational Biology", :journal_key => "PLoSCompBiol"},
-      { :journal_name => "PLOS Biology", :journal_key => "PLoSBiology"},
-      { :journal_name => "PLOS Neglected Tropical Diseases", :journal_key => "PLoSNTD"},
-      { :journal_name => "PLOS Medicine", :journal_key => "PLoSMedicine"},
-      { :journal_name => "PLOS Collections", :journal_key => "PLoSCollections"}
+      ["PLoSONE", "PLOS ONE"],
+      ["PLoSGenetics", "PLOS Genetics"],
+      ["PLoSPathogens", "PLOS Pathogens"],
+      ["PLoSCompBiol", "PLOS Computational Biology"],
+      ["PLoSBiology", "PLOS Biology"],
+      ["PLoSNTD", "PLOS Neglected Tropical Diseases"],
+      ["PLoSMedicine", "PLOS Medicine"],
+      ["PLoSCollections", "PLOS Collections"],
     ]
     data.should eq(journals)
-
   end
 
   it "query for articles using simple search" do

@@ -80,12 +80,12 @@
       <li class="options">
         <fieldset id="fsJournalOpt">
         <ul>
-          <% @journals.each do | journal | %>
+          <% @journals.each do |key, name| %>
             <li>
-              <input id="filterJournals_<%=journal[:journal_key]%>" name="filterJournals[]" value="<%=journal[:journal_key]%>" type="checkbox"
-                title="Select <%=journal[:journal_name]%>" alt="Select Journal <%=journal[:journal_name]%> Check Box"
-                <%= "checked=\"checked\"".html_safe if (!params["filterJournals"].nil? && params["filterJournals"].include?(journal[:journal_key])) %> >&nbsp;
-              <label for="filterJournals_<%=journal[:journal_key]%>"><%=journal[:journal_name]%></label>
+              <input id="filterJournals_<%= key %>" name="filterJournals[]" value="<%= key %>" type="checkbox"
+                title="Select <%= name %>" alt="Select Journal <%= name %> Check Box"
+                <%= "checked=\"checked\"".html_safe if (!params["filterJournals"].nil? && params["filterJournals"].include?( key )) %> >&nbsp;
+              <label for="filterJournals_<%= key %>"><%= name %></label>
             </li>
           <% end %>
         </ul>
