@@ -6,7 +6,7 @@ class SearchCrossref
   end
 
   def run
-    response = conn.get "/works", {
+    response = SearchCrossref.get "/works", {
       query: @query,
       rows: @rows,
       offset: offset,
@@ -25,7 +25,11 @@ class SearchCrossref
     @rows * (@page.to_i - 1)
   end
 
-  def conn
+  def self.get(url, params)
+    conn.get(url, params)
+  end
+
+  def self.conn
     @conn ||= Faraday.new(url: "http://api.crossref.org") do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger

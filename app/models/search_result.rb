@@ -12,13 +12,7 @@ class SearchResult
   # "monograph","component","reference-entry","journal-volume","book-set"
 
   def self.from_crossref(id)
-    conn = Faraday.new(url: "http://api.crossref.org") do |faraday|
-      faraday.request  :url_encoded
-      faraday.response :logger
-      faraday.response :json
-      faraday.adapter  Faraday.default_adapter
-    end
-    response = conn.get "/works/#{id}"
+    response = SearchCrossref.get "/works/#{id}"
     if response.status == 200
       new response.body["message"], :crossref
     else
