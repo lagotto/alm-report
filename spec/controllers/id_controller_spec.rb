@@ -33,4 +33,17 @@ describe IdController do
     IdController.validate_doi("doi:10.1021/ac1014832").
       should eq("10.1021/ac1014832")
   end
+
+  it "POST #process_upload" do
+    stub_request(:get, /api.crossref.org\/works/).
+      to_return(File.open('spec/fixtures/api_crossref_single_doi.raw'))
+
+    stub_request(:get, /api.plos.org.*pmid:.*/).
+      to_return(File.open('spec/fixtures/solr_pmids.raw'))
+
+    file = fixture_file_upload "sample_upload_file.csv", "text/plain"
+    post :process_upload, :"upload-file-field" => file
+
+    response.redirect_url.should eq('http://test.host/preview-list')
+  end
 end

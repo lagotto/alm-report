@@ -184,7 +184,7 @@ class IdController < ApplicationController
       if doc.nil?
         add_error.call(doi, "This paper could not be found")
       else
-        @cart[doc["id"]] = doc
+        @cart[doc.id] = doc
       end
     end
 
@@ -194,7 +194,7 @@ class IdController < ApplicationController
       if doc.nil?
         add_error.call(pmid, "This paper could not be found")
       else
-        @cart[doc["id"]] = doc["publication_date"].strftime("%s").to_i
+        @cart[doc.id] = doc
       end
     end
 
