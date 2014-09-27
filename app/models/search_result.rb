@@ -66,12 +66,7 @@ class SearchResult
   end
 
   def published
-    if detail_displayed
-      start = " | published "
-    else
-      start = "Published "
-    end
-    start + publication_date.strftime("%d %b %Y")
+    "Published " + publication_date.strftime("%d %b %Y")
   end
 
   def key
@@ -105,7 +100,7 @@ class SearchResult
   end
 
   def title_crossref
-    title = @data["title"].first || @data["container-title"].first || 'No title'
+    title = @data["title"].first || @data["container-title"].first || "No title"
   end
 
   def published_crossref

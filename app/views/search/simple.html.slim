@@ -14,7 +14,8 @@
           span.journals journals: All Journals
       - else
         - if !params[:everything].nil? && params[:everything].length > 0
-          | keyword:
+          ' keyword:
+
           span.keyword= params[:everything]
         - if !params[:author].nil? && params[:author].length > 0
           | author:
@@ -28,9 +29,10 @@
           span.publication-date>= @start_date.strftime("%m-%d-%Y")
           ' to
           span.publication-date= @end_date.strftime("%m-%d-%Y")
-        span
-          ' journals:
-          span.journals= params[:cross_published_journal_name]
+        - if Search.plos?
+          span
+            ' journals:
+            span.journals= params[:cross_published_journal_name]
 
     - if @total_found > 0
       ul
@@ -64,7 +66,7 @@ div#article-limit-error-message style="display: none;"
   a<> href="/preview-list" Preview List
   | and remove articles before adding more to your selection.
 
-div#partial-select-all-error-message" style="display: none;"
+div#partial-select-all-error-message style="display: none;"
 
 div#solr-500-error-message style="display: none;"
   | Our search server is not responding.  Please try again in a few minutes.
