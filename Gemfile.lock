@@ -275,6 +275,7 @@ DEPENDENCIES
   rspec-rails (~> 2.14.0)
   rubocop
   sass-rails (~> 3.2.5)
+  simplecov
   slim-rails
   therubyracer (~> 0.12.0)
   timecop
