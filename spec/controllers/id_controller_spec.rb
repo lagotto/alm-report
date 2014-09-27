@@ -44,6 +44,6 @@ describe IdController do
     file = fixture_file_upload "sample_upload_file.csv", "text/plain"
     post :process_upload, :"upload-file-field" => file
 
-    response.redirect_url.should eq('http://test.host/preview-list')
+    response.redirect_url.should eq('http://test.host/preview')
   end
 end

@@ -17,42 +17,6 @@ describe HomeController do
     end
   end
 
-  describe 'GET add_articles' do
-    it 'renders the add_articles template' do
-      stub_request(
-        :get,
-        "http://api.crossref.org/works?offset=0&rows=25&query=cancer"
-      ).to_return(File.open('spec/fixtures/api_crossref_cancer.raw'))
-
-      stub_request(
-        :get,
-        "http://api.plos.org/search?facet=false&fl=id,pmid,publication_date," \
-        "received_date,accepted_date,title,cross_published_journal_name," \
-        "author_display,editor_display,article_type,affiliate,subject," \
-        "financial_disclosure&fq%5B%5D=doc_type:full&" \
-        "fq%5B%5D=!article_type_facet:%22Issue%20Image%22" \
-        "&hl=false&q=everything:cancer&rows=25&wt=json"
-
-      ).to_return(File.open('spec/fixtures/api_plos_cancer_search.raw'))
-      get :"add_articles", {
-        utf8: "✓",
-        everything: "cancer",
-        author: "",
-        author_country: "",
-        institution: "",
-        publication_days_ago: -1,
-        datepicker1: "",
-        datepicker2: "",
-        subject: "",
-        cross_published_journal_name: "All Journals",
-        financial_disclosure: "",
-        commit: "Search",
-        x: "Y"
-      }
-      expect(response).to render_template('add_articles')
-    end
-  end
-
   describe "GET update_session" do
     let(:article_ids) { ["10.1371/journal.pone.0010031",
                          "10.1371/journal.pmed.0010065",
@@ -65,8 +29,8 @@ describe HomeController do
     before do
       stub_request(:get, /api.crossref.org\/works/).
         to_return(File.open('spec/fixtures/api_crossref_single_doi.raw'))
-
     end
+
     it "handles params" do
       post :update_session, { "article_ids" => article_ids, "mode" => "ADD" }
       body = JSON.parse(response.body)
@@ -108,38 +72,6 @@ describe HomeController do
       expect(subject.parse_article_keys(article_ids,
                                         APP_CONFIG["article_limit"]))
         .to be_empty
-    end
-  end
-
-  # PLOS specific spec, because there's no advanced search for CrossRef
-  if Search.plos?
-    describe "GET add_articles from advanced search" do
-      it "renders the add_articles template" do
-        url = "http://api.plos.org/search?facet=false&fl=id,pmid," \
-          "publication_date,received_date,accepted_date,title," \
-          "cross_published_journal_name,author_display,editor_display," \
-          "article_type,affiliate,subject,financial_disclosure&" \
-          "fq%5B%5D=cross_published_journal_key:PLoSCompBiol&" \
-          "fq%5B%5D=doc_type:full&" \
-          "fq%5B%5D=!article_type_facet:%22Issue%20Image%22&hl=false" \
-          "&q=everything:biology&rows=25&wt=json"
-        stub_request(:get, url).
-          to_return(File.open('spec/fixtures/api_plos_biology_advanced.raw'))
-
-        get :"add_articles", {
-          queryFieldId: "everything",
-          queryTermId: "",
-          startDateAsStringId: "",
-          endDateAsStringId: "",
-          unformattedQueryId: "everything:biology",
-          commit: "Search",
-          journalOpt: "some",
-          filterJournals: ["PLoSCompBiol"],
-          utf8: "✓"
-        }
-
-        expect(response).to render_template('add_articles')
-      end
     end
   end
 end

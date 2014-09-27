@@ -1,5 +1,5 @@
 .content.wrapper.cf
-  = form_tag("/add-articles", :method => "get", :class => "home-form")
+  = form_tag("/search", :method => "get", :class => "home-form")
     h2.text-light-normal
       | Search all Articles
       - if Search.plos?

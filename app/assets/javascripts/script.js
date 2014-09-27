@@ -52,7 +52,7 @@ jQuery(function(d, $){
         if (new_count == 0) {
           $('#your-list-choices').append('<span>View Report</span><span>Edit List</span>');
         } else {
-          $('#your-list-choices').append('<a href="/reports/generate">View Report</a><a href="/preview-list">Edit List</a>')
+          $('#your-list-choices').append('<a href="/reports/generate">View Report</a><a href="/preview">Edit List</a>')
         }
 
         // make sure the next action button is in a correct state

@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
     return false if @cart.size < APP_CONFIG["article_limit"]
 
     flash[:error] = "The maximum report size is #{APP_CONFIG["article_limit"]} " \
-                    "articles. Go to <a href=\"/preview-list\">Preview List</a> " \
+                    "articles. Go to <a href=\"#{preview_path}\">Preview List</a> " \
                     "and remove articles before adding more to your selection."
     true
   end

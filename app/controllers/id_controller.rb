@@ -63,7 +63,7 @@ class IdController < ApplicationController
 
     # Ignore Errors is an option in the case when the user uploads a file
     # and it contains errors (that is, we get here via process_upload).
-    return redirect_to "/preview-list" if params[:commit] == "Ignore Errors"
+    return redirect_to preview_path if params[:commit] == "Ignore Errors"
 
     # This is totally not the rails way to do validation.  The rails way would
     # do it in the model.  Since we don't have a model for the DOIs that we
@@ -110,7 +110,7 @@ class IdController < ApplicationController
       # the order they were added to the form instead.
       currents_dois.each_with_index {|doi, i| @cart[doi] = i}
       solr_docs.each {|_, doc| @cart[doc.id] = doc}
-      redirect_to "/preview-list"
+      redirect_to preview_path
     else
       render "index"
     end
@@ -202,7 +202,7 @@ class IdController < ApplicationController
       @num_valid_dois = @cart.size
       render "fix_errors"
     else
-      redirect_to "/preview-list"
+      redirect_to preview_path
     end
   end
 

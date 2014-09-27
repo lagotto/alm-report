@@ -1,0 +1,71 @@
+.content.wrapper.cf
+  .article-lists
+    h2.text-light-normal Add selected articles to your list
+    p
+      - if @total_found > 0
+        => "#{@start_result} - #{@end_result} of #{number_with_delimiter(@total_found, :delimiter => ',')} results for"
+      - else
+        ' No results found for
+      - if params.has_key?("unformattedQueryId")
+        span.keyword= params["unformattedQueryId"]
+        - if params.has_key?("filterJournals")
+          span.journals journals: #{@filter_journal_names.join(" or ")}
+        - else
+          span.journals journals: All Journals
+      - else
+        - if !params[:everything].nil? && params[:everything].length > 0
+          | keyword:
+          span.keyword= params[:everything]
+        - if !params[:author].nil? && params[:author].length > 0
+          | author:
+          span.author-name= params[:author]
+        - if !params[:author_country].nil? &&params[:author_country].length > 0
+          | author country:
+          span.author-country= params[:author_country]
+        - if !@start_date.nil? && !@end_date.nil?
+          span
+          | publication date:
+          span.publication-date>= @start_date.strftime("%m-%d-%Y")
+          ' to
+          span.publication-date= @end_date.strftime("%m-%d-%Y")
+        span
+          ' journals:
+          span.journals= params[:cross_published_journal_name]
+
+    - if @total_found > 0
+      ul
+        li.select-all-articles-link select all
+        li.unselect-all-articles-link unselect all
+
+      .add-select-box-holder
+        span.add-select-label Sort by
+        = select_tag( \
+          :sort, \
+          options_for_select(SolrRequest::SORTS.to_a, params[:sort]), \
+          class: "styled", \
+          id: "search_results_sort_order_select" \
+        )
+
+    p.select-articles-message.text-light-normal.invisible
+      span#select-articles-message-text
+      span#select-all-articles-message-text
+    div#select-all-spinner.ajax_spinner
+    - @all_checked = false
+    = render "article_list"
+  = render "right_nav", :current_page => :add_articles
+
+div#gray-out-screen
+
+div#viz-limit-error-message style="display: none;"
+  | Although the ALM report data can contain up to #{APP_CONFIG["article_limit"]} articles, the maximum size for visualizations is #{APP_CONFIG["viz_limit"]} articles.
+
+div#article-limit-error-message style="display: none;"
+  | The maximum report size is #{APP_CONFIG["article_limit"]} articles. Go to
+  a<> href="/preview-list" Preview List
+  | and remove articles before adding more to your selection.
+
+div#partial-select-all-error-message" style="display: none;"
+
+div#solr-500-error-message style="display: none;"
+  | Our search server is not responding.  Please try again in a few minutes.
+
