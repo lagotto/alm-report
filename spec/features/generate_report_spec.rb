@@ -1,4 +1,3 @@
-require 'benchmark'
 require 'spec_helper'
 
 if Search.plos?
@@ -49,16 +48,46 @@ if Search.plos?
     end
   end
 elsif Search.crossref?
-  describe 'generate report', :type => :feature do
+  describe "generate report", :type => :feature do
     before :each do
-      stub_request(:get, "http://api.crossref.org/works?query=cancer").
-      to_return(File.open('spec/fixtures/api_crossref_cancer.raw'))
-    end
-    it 'loads the articles result page', js: true do
-      visit '/'
+      stub_request(
+        :get,
+        "http://api.crossref.org/works?query=A%20Future%20Vision%20for%20PLOS" \
+        "%20Computational%20Biology&rows=25&offset=0"
+      ).to_return(File.open("spec/fixtures/api_crossref_future_vision.raw"))
 
-      fill_in 'everything', with: 'cancer'
-      click_button 'Search'
+      stub_request(:get,
+        %r{http://alm.plos.org/api/v3/articles\?api_key=.*&ids=10.1371/journal.pcbi.1002727(&info=history&source=crossref,pubmed,scopus)?$},
+      ).to_return(File.open('spec/fixtures/alm_api_journal.pcbi.1002727.raw'))
+
+      stub_request(:get,
+        %r{http://alm.plos.org/api/v3/articles\?api_key=.*&ids=10.1371/journal.pcbi.1002727&info=event&source=counter,pmc,citeulike,twitter,researchblogging,nature,scienceseeker,mendeley$},
+      ).to_return(File.open('spec/fixtures/alm_api_journal.pcbi.102727.event.raw'))
+    end
+
+    it "loads the articles result page", js: true do
+      visit "/"
+
+      fill_in "everything",
+        with: "A Future Vision for PLOS Computational Biology"
+
+      click_button "Search"
+
+      expect(page).to have_content "A Future Vision for PLOS Computational Biology"
+      expect(page).to have_button("Preview List (0)", disabled: true)
+      first(".article-info.cf").find("input.check-save-article").click
+
+      expect(page).to have_button("Preview List (1)")
+      find_button("Preview List (1)").click
+      expect(page).to have_content "A Future Vision for PLOS Computational Biology"
+      expect(page).not_to have_content "What Do I Want from the Publisher of the Future?"
+      click_button "Create Report"
+
+      expect(page).to have_content("Metrics Data")
+      expect(page).to have_content("Visualizations")
+      click_link("Visualizations")
+
+      expect(page).to have_css('#article_usage_div svg')
     end
   end
 end
