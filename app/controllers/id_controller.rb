@@ -35,7 +35,7 @@ class IdController < ApplicationController
   # if necessary as a side effect.
   def query_solr_for_ids(field_to_parsed_doi, field_to_parsed_pmid)
     solr_docs = Hash[field_to_parsed_doi.values.map do |doi|
-      [doi, SearchResult.from_cache(id)]
+      [doi, SearchResult.from_cache(doi)]
     end]
 
     field_to_parsed_doi.each do |field, doi|
@@ -109,7 +109,7 @@ class IdController < ApplicationController
       # We don't have a publication date for currents articles, so just use
       # the order they were added to the form instead.
       currents_dois.each_with_index {|doi, i| @cart[doi] = i}
-      solr_docs.each {|_, doc| @cart[doc["id"]] = doc["publication_date"].strftime("%s").to_i}
+      solr_docs.each {|_, doc| @cart[doc.id] = doc}
       redirect_to "/preview-list"
     else
       render "index"

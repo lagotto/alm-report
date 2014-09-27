@@ -244,6 +244,7 @@ class SolrRequest
   # Returns a hash of PMID => solr doc, with only id, pmid, and publication_date defined
   # in the solr docs.
   def self.query_by_pmids(pmids)
+    return unless pmids.present?
     q = pmids.map {|pmid| "pmid:\"#{pmid}\""}.join(" OR ")
     url = "#{APP_CONFIG["solr_url"]}?q=#{URI::encode(q)}&#{FILTER}" \
         "&fl=id,publication_date,pmid&wt=json&facet=false&rows=#{pmids.length}"
