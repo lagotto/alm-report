@@ -5,7 +5,7 @@ describe ReportsController do
     it "redirects to home for session without dois" do
       @cart = Cart.new
       get :generate
-      response.should redirect_to(controller: "home", action: "advanced")
+      response.should redirect_to(search_advanced_path)
     end
   end
 end

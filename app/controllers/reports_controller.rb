@@ -6,8 +6,7 @@ class ReportsController < ApplicationController
     dois = @cart.items.keys
     # start again if we find no dois
     if dois.blank?
-      return redirect_to(controller: "home",
-                         action: "advanced",
+      return redirect_to(search_advanced_path,
                          unformattedQueryId: params[:unformattedQueryId],
                          filterJournals: params[:filterJournals])
     end

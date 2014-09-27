@@ -3,7 +3,7 @@
     h2.text-light-normal
       | Search all Articles
       - if Search.plos?
-        =< link_to "Advanced Search", '/advanced'
+        =< link_to "Advanced Search", search_advanced_path
     .input-holder
       = label_tag(:everything, "Keyword")
       = text_field_tag(:everything)

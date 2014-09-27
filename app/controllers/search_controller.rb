@@ -2,6 +2,12 @@ class SearchController < ApplicationController
   before_filter :journal_names, only: [:index]
 
   def index
+    params[:advanced] ? advanced : simple
+  end
+
+  private
+
+  def simple
     @tab = :select_articles
     @title = "Add Articles"
 
@@ -14,6 +20,7 @@ class SearchController < ApplicationController
     end
 
     set_paging_vars(params[:current_page])
+    render "simple"
   end
 
   def advanced
@@ -21,9 +28,8 @@ class SearchController < ApplicationController
     @title = "Advanced Search"
 
     @journals = SolrRequest.get_journal_name_key
+    render "advanced"
   end
-
-  private
 
   def journal_names
     # if search executed from the advanced search page convert the journal key
