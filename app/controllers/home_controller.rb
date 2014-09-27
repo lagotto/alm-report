@@ -1,6 +1,3 @@
-
-# TODO: separate out the methods into multiple Controller classes, if necessary.
-# Right now this is the entire app except for the report page.
 class HomeController < ApplicationController
 
   def index
@@ -12,29 +9,6 @@ class HomeController < ApplicationController
       # Add a "All Journals" entry
       @journals.unshift([SolrRequest::ALL_JOURNALS, SolrRequest::ALL_JOURNALS])
     end
-  end
-
-  def add_articles
-    @tab = :select_articles
-    @title = "Add Articles"
-
-    @results, @total_found = Search.find(params)
-
-    # search executed from the advanced search page
-    # convert the journal key to journal name
-    if params[:unformattedQueryId] && params[:filterJournals]
-      @filter_journal_names = params[:filterJournals].map do |journal|
-        APP_CONFIG["journals"][journal] if APP_CONFIG["journals"]
-      end.compact
-    end
-
-    if @cart.items.present?
-      @results.each do |result|
-        result.checked = true if @cart.items.has_key?(result.id)
-      end
-    end
-
-    set_paging_vars(params[:current_page])
   end
 
   # Update session via ajax call
@@ -141,21 +115,5 @@ class HomeController < ApplicationController
   def start_over
     @cart.clear
     redirect_to :action => :index
-  end
-
-  def preview_list
-    @tab = :preview_list
-    @title = "Preview List"
-    @total_found = @cart.size
-    set_paging_vars(params[:current_page])
-
-    @results = @cart.items.values
-  end
-
-  def advanced
-    @tab = :select_articles
-    @title = "Advanced Search"
-
-    @journals = SolrRequest.get_journal_name_key
   end
 end

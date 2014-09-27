@@ -46,5 +46,8 @@
     a.button-hover-dark-black.submit-btn href="/id/" By DOI/PMID
     a.button-hover-dark-black.submit-btn href="/upload" Upload File
   = articles_list
-  = example_reports
 
+  - if Search.plos?
+    = render "plos_example_reports"
+  - elsif Search.crossref?
+    = render "crossref_example_reports"
