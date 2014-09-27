@@ -21,6 +21,7 @@ module ApplicationHelper
       footer
       tagline
       top_bar
+      example_reports
     )
     if templates.include?(template)
       switch(template)
