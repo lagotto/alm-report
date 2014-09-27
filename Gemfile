@@ -31,7 +31,6 @@ group :test do
   gem 'poltergeist'
   gem 'capybara'
   gem "webmock", "~> 1.17.2"
-  gem "minitest", "~> 4.4.0"
   gem "codeclimate-test-reporter", require: false
 end
 
