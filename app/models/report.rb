@@ -35,7 +35,7 @@ class Report < ActiveRecord::Base
   # Precondition: load_articles_from_solr has already been called.
   def sort_report_dates
     if @sorted_report_dates.nil?
-      @sorted_report_dates = report_dois.collect{|report_doi| report_doi.solr["publication_date"]}
+      @sorted_report_dates = report_dois.collect{|report_doi| report_doi.solr.publication_date}
       @sorted_report_dates.sort!
     end
   end
@@ -153,4 +153,7 @@ class Report < ActiveRecord::Base
     article_data[field_name].nil? ? "" : article_data[field_name]
   end
 
+  def has_alm?
+    report_dois.index{|r| r.alm.present? }.present?
+  end
 end

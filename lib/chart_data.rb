@@ -11,15 +11,15 @@ module ChartData
     article_usage_citations_age_data << ["Title", "Months", "Total Usage", "Journal", "Scopus"]
     article_usage_mendeley_age_data << ["Title", "Months", "Total Usage", "Journal", "Mendeley"]
     report.report_dois.each do |report_doi|
-      if (!report_doi.alm.nil?)
-        days = (Date.today - report_doi.solr["publication_date"]).to_i
+      if report_doi.alm.present?
+        days = (Date.today - report_doi.solr.publication_date).to_i
         months = days / 30
 
         usage = report_doi.alm.fetch(:total_usage, {})
-        article_usage_citations_age_data << [report_doi.solr["title"], months, usage,
-            report_doi.solr["cross_published_journal_name"][0], report_doi.alm.fetch(:scopus_citations, {})]
-        article_usage_mendeley_age_data << [report_doi.solr["title"], months, usage,
-            report_doi.solr["cross_published_journal_name"][0], report_doi.alm.fetch(:mendeley, {})]
+        article_usage_citations_age_data << [report_doi.solr.title, months, usage,
+            report_doi.solr.journal, report_doi.alm.fetch(:scopus_citations, {})]
+        article_usage_mendeley_age_data << [report_doi.solr.title, months, usage,
+            report_doi.solr.journal, report_doi.alm.fetch(:mendeley, {})]
       end
     end
 
@@ -39,30 +39,31 @@ module ChartData
 
     report.report_dois.each do | report_doi |
       # get the subject area
-      if !report_doi.solr["subject"].nil?
-        # collect the second level subject areas
-        # we are looking for unique list of second level subject areas
-        # (if they have different parent (different 1st level subject area term),
-        #  we are treating them as the same thing)
-        report_doi.solr["subject"].each do | subject_area_full |
-          subject_areas = subject_area_full.split('/')
-          subject_area = subject_areas[2]
-          if !subject_area.nil?
-            if subject_area_data[subject_area].nil?
-              subject_area_data[subject_area] = []
-            end
-            # associate article to the subject area
-            subject_area_data[subject_area] << report_doi
-          end
+      report_doi.solr.subjects.each do | subject_area_full |
+        subject_areas = subject_area_full.split('/')
+        # Example subject from PLOS' Solr:
+        # "/Social sciences/Linguistics/Speech"
+        # Example subject from CrossRef's API:
+        # "Molecular Biology"
+        subject_area = subject_areas[2] || subject_areas[0]
+        if subject_area
+          subject_area_data[subject_area] ||= []
+          # associate article to the subject area
+          subject_area_data[subject_area] << report_doi
         end
       end
     end
 
     # loop through subjects
     subject_area_data.each do | subject_area, report_dois |
-      total_usage = report_dois.inject(0) { | sum, report_doi | sum + report_doi.alm.fetch(:total_usage, {}) if (!report_doi.alm.nil?) }
-      if (!total_usage.nil?)
-        article_usage_citation_subject_area_data << [subject_area, placeholder_subject, report_dois.size, total_usage]
+      total_usage = report_dois.map { |r| r.alm.fetch(:total_usage, 0) }.sum
+      if total_usage
+        article_usage_citation_subject_area_data << [
+          subject_area,
+          placeholder_subject,
+          report_dois.size,
+          total_usage
+        ]
       end
     end
 
@@ -104,14 +105,14 @@ module ChartData
     report.report_dois.each do | report_doi |
       solr_data = report_doi.solr
 
-      if (!solr_data["author_display"].nil?)
-        total_authors_data = total_authors_data + solr_data["author_display"].length
+      if solr_data.authors
+        total_authors_data = total_authors_data + solr_data.authors.length
       end
 
-      if (!solr_data["affiliate"].nil?)
-        solr_data["affiliate"].each do | affiliate |
+      if solr_data.affiliates
+        solr_data.affiliates.each do | affiliate |
           fields = GeocodeRequest.parse_location_from_affiliate(affiliate)
-          if !fields.nil?
+          if fields
             count, institutions = address_to_count_and_inst[fields[0]]
             count += 1
             institutions << fields[1]

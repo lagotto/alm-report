@@ -116,7 +116,13 @@ class ReportsController < ApplicationController
       manage_report_data(@report.report_dois, solr_data, alm_data)
     end
 
-    @draw_viz = true
+    if @report.has_alm?
+      @draw_viz = true
+    else
+      @draw_viz = false
+      return
+    end
+
     if (one_article_report && @report.report_dois.length == 1)
       #render single article report
       @article_usage_data = ChartData.generate_data_for_usage_chart(@report)
@@ -129,13 +135,10 @@ class ReportsController < ApplicationController
       mendeley_reader_data = ChartData.generate_data_for_mendeley_reader_chart(@report)
       @reader_data = mendeley_reader_data[:reader_loc_data]
       @reader_total = mendeley_reader_data[:reader_total]
-
-      render 'visualization'
     else
       # this covers situations where a report contains many articles but very small
       # portion of the articles have alm data  (without alm data, viz page will look very weird)
       if solr_data.length >= APP_CONFIG["visualization_min_num_of_alm_data_points"]
-
         bubble_data = ChartData.generate_data_for_bubble_charts(@report)
         @article_usage_citations_age_data = bubble_data[:citation_data]
         @article_usage_mendeley_age_data = bubble_data[:mendeley_data]
@@ -148,7 +151,6 @@ class ReportsController < ApplicationController
       else
         @draw_viz = false
       end
-      render 'visualizations'
     end
   end
 
@@ -174,8 +176,6 @@ class ReportsController < ApplicationController
           # the article is too new to have any alm data
           # either way, display an error message
         else
-
-
           doi.alm = alm
         end
       end
