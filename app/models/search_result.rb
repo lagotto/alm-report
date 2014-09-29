@@ -98,7 +98,7 @@ class SearchResult
         "#{author["given"]} #{author["family"]}"
       end
     end
-    @journal = @data["container-title"].join
+    @journal = @data["container-title"][1] || @data["container-title"][0]
     @url = @data["URL"]
     @publisher = @data["publisher"]
   end
