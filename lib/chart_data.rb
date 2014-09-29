@@ -312,7 +312,7 @@ module ChartData
           :column_name => AlmRequest.ALM_METRICS[source],
           :column_key => source
         }
-        total_data += data[:total]
+        total_data += source[:total]
       end
     end
 

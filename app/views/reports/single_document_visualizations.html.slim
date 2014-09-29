@@ -58,7 +58,8 @@ div.content.wrapper.cf
 
 javascript:
   function haveDataToDrawViz() {
-    return #{@draw_viz};
+    return #{{ @draw_viz }};
+
   }
 
   function drawVizForOne() {
@@ -66,22 +67,22 @@ javascript:
   }
 
   function getArticleUsageData() {
-    return #{@article_usage_data};
+    return #{{ @article_usage_data }};
   }
 
   function getArticleCitationData() {
-    return #{@article_citation_data};
+    return #{{ @article_citation_data }};
   }
 
   function getSocialScatterHeader() {
-    return <%= raw @social_scatter_header.to_json %>;
+    return #{{ @social_scatter_header.to_json }};
   }
   function getSocialScatterData() {
-    return <%= raw @social_scatter.to_json %>;
+    return #{{ @social_scatter.to_json }};
   }
 
   function getMendeleyReaderData() {
-   return  <%= raw @reader_data %>;
+   return  #{{ @reader_data }};
   }
 
 = javascript_include_tag "charts"
