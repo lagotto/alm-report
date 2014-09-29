@@ -1,21 +1,21 @@
 .articles-list.cf
   h2.text-light-normal Browse the 'Best in Class' articles from PLOS
   div
-    = link_to '/add-articles?sort=counter_total_all desc'
+    = link_to '/search?sort=counter_total_all desc'
       span.top-views
       span Top Views
 
-    = link_to '/add-articles?sort=sum(alm_citeulikeCount, alm_mendeleyCount) desc'
+    = link_to '/search?sort=sum(alm_citeulikeCount, alm_mendeleyCount) desc'
       span.top-bookmarked
       span Top Bookmarked
-    = link_to '/add-articles?sort=alm_twitterCount desc'
+    = link_to '/search?sort=alm_twitterCount desc'
       span.top-tweets
       span Top Tweets
 
-    = link_to '/add-articles?sort=alm_scopusCiteCount desc'
+    = link_to '/search?sort=alm_scopusCiteCount desc'
       span.top-cited
       span Top Cited
 
-    = link_to '/add-articles?sort=sum(alm_twitterCount, alm_facebookCount) desc'
+    = link_to '/search?sort=sum(alm_twitterCount, alm_facebookCount) desc'
       span.top-shares
       span Top Shares
