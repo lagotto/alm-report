@@ -73,6 +73,10 @@ class SearchResult
     id
   end
 
+  def subjects
+    @subjects || []
+  end
+
   def authors
     @authors.join(", ") if @authors
   end

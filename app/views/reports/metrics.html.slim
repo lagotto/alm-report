@@ -52,7 +52,7 @@
                 table.metrics-table class=("metric-without-data" if !doi.alm[:discussed_data_present])
                   caption Discussed
                   = render "alm_stat", :data => doi.alm, :stat => :nature
-                  = render "alm_stat", :data => doi.alm, :stat => :research_blogging
+                  = render "alm_stat", :data => doi.alm, :stat => :researchblogging
                   = render "alm_stat", :data => doi.alm, :stat => :scienceseeker
                   = render "alm_stat", :data => doi.alm, :stat => :facebook
                   = render "alm_stat", :data => doi.alm, :stat => :twitter
@@ -64,13 +64,13 @@
 
                 table.metrics-table class=("metric-without-data" if !doi.alm[:cited_data_present])
                   caption Cited
-                  = render "alm_stat", :data => doi.alm, :stat => :pmc_citations
-                  = render "alm_stat", :data => doi.alm, :stat => :crossref_citations
-                  = render "alm_stat", :data => doi.alm, :stat => :scopus_citations
+                  = render "alm_stat", :data => doi.alm, :stat => :pubmed
+                  = render "alm_stat", :data => doi.alm, :stat => :crossref
+                  = render "alm_stat", :data => doi.alm, :stat => :scopus
                   = render "alm_stat", :data => doi.alm, :stat => :datacite
-                  = render "alm_stat", :data => doi.alm, :stat => :pmc_europe
-                  = render "alm_stat", :data => doi.alm, :stat => :pmc_europe_data
-                  = render "alm_stat", :data => doi.alm, :stat => :web_of_science
+                  = render "alm_stat", :data => doi.alm, :stat => :pmceurope
+                  = render "alm_stat", :data => doi.alm, :stat => :pmceuropedata
+                  = render "alm_stat", :data => doi.alm, :stat => :wos
 
               .metric-row-content
                 table.metrics-table class=("metric-without-data" if !doi.alm[:recommended_data_present])

@@ -17,7 +17,7 @@ module ChartData
 
         usage = report_doi.alm.fetch(:total_usage, {})
         article_usage_citations_age_data << [report_doi.solr.title, months, usage,
-            report_doi.solr.journal, report_doi.alm.fetch(:scopus_citations, {})]
+            report_doi.solr.journal, report_doi.alm.fetch(:scopus, {})]
         article_usage_mendeley_age_data << [report_doi.solr.title, months, usage,
             report_doi.solr.journal, report_doi.alm.fetch(:mendeley, {})]
       end
@@ -291,35 +291,30 @@ module ChartData
 
   # Generate data for single article social media chart
   def self.generate_data_for_social_data_chart(report)
-
     social_data = []
 
     total_data = 0
 
-    citeulike = report.report_dois[0].alm.fetch(:citeulike, {})
-    citeulike_data = process_social_data(citeulike[:events], "post_time")
-    social_data << {:data => citeulike_data, :column_name => "CiteULike", :column_key => "citeulike"}
-    total_data = total_data + citeulike[:total]
+    sources = {
+     citeulike: "post_time",
+     researchblogging: "published_date",
+     nature: "published_at",
+     scienceseeker: "updated",
+     twitter: "created_at"
+    }
 
-    research_blogging = report.report_dois[0].alm.fetch(:researchblogging, {})
-    research_blogging_data = process_social_data(research_blogging[:events], "published_date")
-    social_data << {:data => research_blogging_data, :column_name => "Research Blogging", :column_key => "research_blogging"}
-    total_data = total_data + research_blogging[:total]
-
-    nature = report.report_dois[0].alm.fetch(:nature, {})
-    nature_data = process_social_data(nature[:events], "published_at")
-    social_data << {:data => nature_data, :column_name => "Nature", :column_key => "nature"}
-    total_data = total_data + nature[:total]
-
-    science_seeker = report.report_dois[0].alm.fetch(:scienceseeker, {})
-    science_seeker_data = process_social_data(science_seeker[:events], "updated")
-    social_data << {:data => science_seeker_data, :column_name => "Science Seeker", :column_key => "science_seeker"}
-    total_data = total_data + science_seeker[:total]
-
-    twitter = report.report_dois[0].alm.fetch(:twitter, {})
-    twitter_data = process_social_data(twitter[:events], "created_at")
-    social_data << {:data => twitter_data, :column_name => "Twitter", :column_key => "twitter"}
-    total_data = total_data + twitter[:total]
+    sources.each do |source, key|
+      source = report.report_dois[0].alm.fetch(source, {})
+      if source[:events].present?
+        data = process_social_data(source[:events], key)
+        social_data << {
+          :data => data,
+          :column_name => AlmRequest.ALM_METRICS[source],
+          :column_key => source
+        }
+        total_data += data[:total]
+      end
+    end
 
     if (total_data == 0)
       return {:column_header => [], :data => []}

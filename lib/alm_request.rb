@@ -13,21 +13,21 @@ module AlmRequest
   @@ALM_METRICS[:pmc_total] = "PMC Total"
   @@ALM_METRICS[:pmc_views] = "PMC views"
   @@ALM_METRICS[:pmc_pdf] = "PMC PDF Downloads"
-  @@ALM_METRICS[:crossref_citations] = "CrossRef"
-  @@ALM_METRICS[:scopus_citations] = "Scopus"
-  @@ALM_METRICS[:pmc_citations] = "PubMed Central"
+  @@ALM_METRICS[:crossref] = "CrossRef"
+  @@ALM_METRICS[:scopus] = "Scopus"
+  @@ALM_METRICS[:pubmed] = "PubMed Central"
   @@ALM_METRICS[:citeulike] = "CiteULike"
   @@ALM_METRICS[:mendeley] = "Mendeley"
   @@ALM_METRICS[:twitter] = "Twitter"
   @@ALM_METRICS[:facebook] = "Facebook"
   @@ALM_METRICS[:wikipedia] = "Wikipedia"
-  @@ALM_METRICS[:research_blogging] = "Research Blogging"
+  @@ALM_METRICS[:researchblogging] = "Research Blogging"
   @@ALM_METRICS[:nature] = "Nature Blogs"
   @@ALM_METRICS[:scienceseeker] = "Science Seeker"
   @@ALM_METRICS[:datacite] = "DataCite"
-  @@ALM_METRICS[:pmc_europe] = "PMC Europe Citations"
-  @@ALM_METRICS[:pmc_europe_data] = "PMC Europe Database Citations"
-  @@ALM_METRICS[:web_of_science] = "Web of Science"
+  @@ALM_METRICS[:pmceurope] = "PMC Europe Citations"
+  @@ALM_METRICS[:pmceuropedata] = "PMC Europe Database Citations"
+  @@ALM_METRICS[:wos] = "Web of Science"
   @@ALM_METRICS[:reddit] = "Reddit"
   @@ALM_METRICS[:wordpress] = "Wordpress.com"
   @@ALM_METRICS[:figshare] = "Figshare"
@@ -40,7 +40,6 @@ module AlmRequest
   def self.ALM_METRICS
     @@ALM_METRICS
   end
-
 
   # Retrieves and returns all ALM data for the given DOIs.  Multiple requests to ALM
   # may be made if the number of DOIs is large.  The returned list is the raw JSON
@@ -106,54 +105,53 @@ module AlmRequest
     dois = check_cache(dois, all_results, "alm")
 
     json = AlmRequest.get_raw_data(dois)
-    json.each do | article |
-      sources = article["sources"].map { | source | ([source["name"], source["metrics"]]) }
-      sources_dict = Hash[*sources.flatten(1)]
+    json.each do |article|
+      sources = article["sources"].map do |source|
+        [source["name"], source["metrics"]]
+      end.flatten(1)
+
+      sources_dict = Hash.new({}).merge(Hash[*sources])
 
       results = {}
+
+      totals = Hash[
+        %i(pubmed crossref scopus datacite pmceurope pmceuropedata
+          wos citeulike mendeley figshare nature researchblogging
+          scienceseeker facebook twitter wikipedia reddit wordpress
+          f1000
+        ).map do |source|
+          [source, get_source_total(sources_dict, source.to_s)]
+        end
+      ]
+
+      results.merge!(totals)
 
       results[:plos_html] = sources_dict["counter"]["html"].to_i
       results[:plos_pdf] = sources_dict["counter"]["pdf"].to_i
       results[:plos_xml] = sources_dict["counter"]["total"].to_i - (results[:plos_html] + results[:plos_pdf])
-      results[:plos_total] = sources_dict["counter"]["total"].to_i
+      results[:plos_total] = get_source_total(sources_dict, "counter")
 
       results[:pmc_views] = sources_dict["pmc"]["html"].to_i
       results[:pmc_pdf] = sources_dict["pmc"]["pdf"].to_i
       results[:pmc_total] = results[:pmc_views] + results[:pmc_pdf]
 
-      results[:total_usage] = results[:plos_html] + results[:plos_pdf] + results[:plos_xml] + results[:pmc_views] + results[:pmc_pdf]
+      results[:total_usage] = results[:plos_html] + results[:plos_pdf] +
+        results[:plos_xml] + results[:pmc_views] + results[:pmc_pdf]
+
       results[:viewed_data_present] = (results[:total_usage] > 0)
 
-      results[:pmc_citations] = get_source_total(sources_dict, "pubmed")
-      results[:crossref_citations] = get_source_total(sources_dict, "crossref")
-      results[:scopus_citations] = get_source_total(sources_dict, "scopus")
-      results[:datacite] = get_source_total(sources_dict, "datacite")
-      results[:pmc_europe] = get_source_total(sources_dict, "pmceurope")
-      results[:pmc_europe_data] = get_source_total(sources_dict, "pmceuropedata")
-      results[:web_of_science] = get_source_total(sources_dict, "wos")
-      results[:cited_data_present] = (results[:pmc_citations] + results[:crossref_citations] +
-          results[:scopus_citations] + results[:datacite] + results[:pmc_europe] +
-          results[:pmc_europe_data] + results[:web_of_science]) > 0
+      results[:cited_data_present] = (results[:pubmed] + results[:crossref] +
+        results[:scopus] + results[:datacite] + results[:pmceurope] +
+        results[:pmceuropedata] + results[:wos]) > 0
 
-      results[:citeulike] = get_source_total(sources_dict, "citeulike")
-      results[:mendeley] = get_source_total(sources_dict, "mendeley")
-      results[:figshare] = get_source_total(sources_dict, "figshare")
       results[:saved_data_present] = (results[:citeulike] + results[:mendeley] +
-          results[:figshare]) > 0
+        results[:figshare]) > 0
 
-      results[:nature] = get_source_total(sources_dict, "nature")
-      results[:research_blogging] = get_source_total(sources_dict, "researchblogging")
-      results[:scienceseeker] = get_source_total(sources_dict, "scienceseeker")
-      results[:facebook] = get_source_total(sources_dict, "facebook")
-      results[:twitter] = get_source_total(sources_dict, "twitter")
-      results[:wikipedia] = get_source_total(sources_dict, "wikipedia")
-      results[:reddit] = get_source_total(sources_dict, "reddit")
-      results[:wordpress] = get_source_total(sources_dict, "wordpress")
-      results[:discussed_data_present] = (results[:nature] + results[:research_blogging] +
-          results[:scienceseeker] + results[:facebook] + + results[:twitter] + results[:wikipedia] +
-          results[:reddit] + results[:wordpress]) > 0
+      results[:discussed_data_present] = (results[:nature] +
+        results[:researchblogging] + results[:scienceseeker] +
+        results[:facebook] + results[:twitter] + results[:wikipedia] +
+        results[:reddit] + results[:wordpress]) > 0
 
-      results[:f1000] = get_source_total(sources_dict, "f1000")
       results[:recommended_data_present] = results[:f1000] > 0
 
       all_results[article["doi"]] = results
