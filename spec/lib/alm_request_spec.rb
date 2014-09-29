@@ -41,7 +41,7 @@ describe AlmRequest do
       data['10.1371/journal.pone.0064652'][:viewed_data_present].should eq(true)
 
       data['10.1371/journal.pone.0064652'][:pubmed].should eq(0)
-      data['10.1371/journal.pone.0064652'][:crossref_.should eq(0)
+      data['10.1371/journal.pone.0064652'][:crossref].should eq(0)
       data['10.1371/journal.pone.0064652'][:scopus].should eq(0)
       data['10.1371/journal.pone.0064652'][:cited_data_present].should eq(false)
 
