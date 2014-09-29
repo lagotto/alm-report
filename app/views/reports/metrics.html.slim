@@ -1,0 +1,99 @@
+.content.wrapper.cf
+
+  = render "reports_nav"
+
+  .metrics-left-content
+    - if @show_metrics_data
+      p.text-light-normal.metrics-article-count
+        | #{@start_result} - #{@end_result} of #{@total_found} articles
+
+      - @dois.each do |doi|
+        .visualizations-list
+          span.list-numbers= doi.display_index
+          h3.metrics-article-title nona-link="" data-href="http://dx.doi.org/#{doi.doi}"
+            = doi.solr.title
+          - if doi.solr.authors
+            p.metrics-para
+              = doi.solr.authors
+          p.metrics-description
+            | Research Article
+            span.vertical-separator |
+            = doi.solr.published
+            span.vertical-separator |
+            = doi.solr.journal
+
+          p.metrics-description nona-link="" data-href="http://dx.doi.org/#{doi.doi}"
+            = doi.doi
+
+          - if doi.alm.blank?
+            .metrics-no-data-para This article data isn't available. Please check back later.
+          - else
+            a.show-all-alms-link
+              | Show all ALMs
+              span.arrow-down
+            .metrics-table-content
+              .metric-row-content
+                table.metrics-table class=("metric-without-data" if !doi.alm[:viewed_data_present])
+                  caption Viewed
+                  = render "alm_stat", :data => doi.alm, :stat => :plos_html
+                  = render "alm_stat", :data => doi.alm, :stat => :plos_pdf
+                  = render "alm_stat", :data => doi.alm, :stat => :plos_xml
+                  = render "alm_stat", :data => doi.alm, :stat => :pmc_views
+                  = render "alm_stat", :data => doi.alm, :stat => :pmc_pdf
+                  = render "alm_stat", :value => doi.alm[:total_usage], :label => "Total usage"
+
+                table.metrics-table class=("metric-without-data" if !doi.alm[:saved_data_present])
+                  caption Saved
+                  = render "alm_stat", :data => doi.alm, :stat => :citeulike
+                  = render "alm_stat", :data => doi.alm, :stat => :mendeley
+                  = render "alm_stat", :data => doi.alm, :stat => :figshare
+
+              .metric-row-content
+                table.metrics-table class=("metric-without-data" if !doi.alm[:discussed_data_present])
+                  caption Discussed
+                  = render "alm_stat", :data => doi.alm, :stat => :nature
+                  = render "alm_stat", :data => doi.alm, :stat => :research_blogging
+                  = render "alm_stat", :data => doi.alm, :stat => :scienceseeker
+                  = render "alm_stat", :data => doi.alm, :stat => :facebook
+                  = render "alm_stat", :data => doi.alm, :stat => :twitter
+                  = render "alm_stat", :data => doi.alm, :stat => :wikipedia
+                  = render "alm_stat", :data => doi.alm, :stat => :reddit
+                  = render "alm_stat", :data => doi.alm, :stat => :wordpress
+                  / TODO: comments.  get from ambra
+                  / TODO: trackbacks.  get from ambra DB
+
+                table.metrics-table class=("metric-without-data" if !doi.alm[:cited_data_present])
+                  caption Cited
+                  = render "alm_stat", :data => doi.alm, :stat => :pmc_citations
+                  = render "alm_stat", :data => doi.alm, :stat => :crossref_citations
+                  = render "alm_stat", :data => doi.alm, :stat => :scopus_citations
+                  = render "alm_stat", :data => doi.alm, :stat => :datacite
+                  = render "alm_stat", :data => doi.alm, :stat => :pmc_europe
+                  = render "alm_stat", :data => doi.alm, :stat => :pmc_europe_data
+                  = render "alm_stat", :data => doi.alm, :stat => :web_of_science
+
+              .metric-row-content
+                table.metrics-table class=("metric-without-data" if !doi.alm[:recommended_data_present])
+                  caption Recommended
+                  = render "alm_stat", :data => doi.alm, :stat => :f1000
+
+  .report-downloads
+    h2.text-light-normal Downloads
+    ul
+      li
+        = link_to({:controller => "reports", :action => "download_data", :id => @report, :format => :csv},
+          :html_options => {:id => "metrics-download-link"})
+          span.csv
+          span.file-name Metrics Data
+          span.arrow
+
+      li
+        = link_to({:controller => "reports", :action => "download_data", :id => @report, :format => :csv, :field => "doi"})
+          span.csv
+          span.file-name Your List of Article DOIs
+          span.arrow
+
+    = render "report_share"
+
+  - if @show_metrics_data
+    = render "pager", :results_per_page => 5

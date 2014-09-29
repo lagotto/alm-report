@@ -130,16 +130,8 @@ class ReportsController < ApplicationController
       @reader_data = mendeley_reader_data[:reader_loc_data]
       @reader_total = mendeley_reader_data[:reader_total]
 
-      render 'visualization.html.erb'
+      render 'visualization'
     else
-      @is_currents_only = true
-      @report.report_dois.each do |report_doi|
-        if !report_doi.is_currents_doi
-          @is_currents_only = false
-          break
-        end
-      end
-
       # this covers situations where a report contains many articles but very small
       # portion of the articles have alm data  (without alm data, viz page will look very weird)
       if solr_data.length >= APP_CONFIG["visualization_min_num_of_alm_data_points"]
@@ -156,7 +148,7 @@ class ReportsController < ApplicationController
       else
         @draw_viz = false
       end
-      render 'visualizations.html.erb'
+      render 'visualizations'
     end
   end
 
@@ -176,13 +168,14 @@ class ReportsController < ApplicationController
 
         # only try to retrieve the alm data if the article exists in solr
         alm = alm_data[doi.doi]
-
         if alm.nil?
           # if there isn't alm data for an article that exists in solr
           # alm had an error for that article or
           # the article is too new to have any alm data
           # either way, display an error message
         else
+
+
           doi.alm = alm
         end
       end

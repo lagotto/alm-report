@@ -15,11 +15,11 @@ module ChartData
         days = (Date.today - report_doi.solr["publication_date"]).to_i
         months = days / 30
 
-        usage = report_doi.alm[:total_usage]
+        usage = report_doi.alm.fetch(:total_usage, {})
         article_usage_citations_age_data << [report_doi.solr["title"], months, usage,
-            report_doi.solr["cross_published_journal_name"][0], report_doi.alm[:scopus_citations]]
+            report_doi.solr["cross_published_journal_name"][0], report_doi.alm.fetch(:scopus_citations, {})]
         article_usage_mendeley_age_data << [report_doi.solr["title"], months, usage,
-            report_doi.solr["cross_published_journal_name"][0], report_doi.alm[:mendeley]]
+            report_doi.solr["cross_published_journal_name"][0], report_doi.alm.fetch(:mendeley, {})]
       end
     end
 
@@ -60,7 +60,7 @@ module ChartData
 
     # loop through subjects
     subject_area_data.each do | subject_area, report_dois |
-      total_usage = report_dois.inject(0) { | sum, report_doi | sum + report_doi.alm[:total_usage] if (!report_doi.alm.nil?) }
+      total_usage = report_dois.inject(0) { | sum, report_doi | sum + report_doi.alm.fetch(:total_usage, {}) if (!report_doi.alm.nil?) }
       if (!total_usage.nil?)
         article_usage_citation_subject_area_data << [subject_area, placeholder_subject, report_dois.size, total_usage]
       end
@@ -230,22 +230,28 @@ module ChartData
 
     article_citation_data = []
 
-    if (report.report_dois[0].alm[:crossref][:total] == 0 &&
-      report.report_dois[0].alm[:pubmed][:total] == 0 &&
-      report.report_dois[0].alm[:scopus][:total] == 0)
+    if (report.report_dois[0].alm.fetch(:crossref, {})[:total] == 0 &&
+      report.report_dois[0].alm.fetch(:pubmed, {})[:total] == 0 &&
+      report.report_dois[0].alm.fetch(:scopus, {})[:total] == 0)
 
       return article_citation_data
     end
 
-    crossref_history_data = process_history_data(report.report_dois[0].alm[:crossref][:histories])
-    pubmed_history_data = process_history_data(report.report_dois[0].alm[:pubmed][:histories])
-    scopus_history_data = process_history_data(report.report_dois[0].alm[:scopus][:histories])
+    crossref_history_data = process_history_data(
+      report.report_dois[0].alm.fetch(:crossref, {})[:histories]
+    )
+    pubmed_history_data = process_history_data(
+      report.report_dois[0].alm.fetch(:pubmed, {})[:histories]
+    )
+    scopus_history_data = process_history_data(
+      report.report_dois[0].alm.fetch(:scopus, {})[:histories]
+    )
 
     # check that we have history data
     return [] if crossref_history_data.empty? && pubmed_history_data.empty? && scopus_history_data.empty?
 
     # starting date is the publication date
-    data_date = Date.parse(report.report_dois[0].alm[:publication_date])
+    data_date = Date.parse(report.report_dois[0].alm.fetch(:publication_date, {}))
     current_date = DateTime.now.to_date
 
     prev_crossref_data = 0
@@ -289,27 +295,27 @@ module ChartData
 
     total_data = 0
 
-    citeulike = report.report_dois[0].alm[:citeulike]
+    citeulike = report.report_dois[0].alm.fetch(:citeulike, {})
     citeulike_data = process_social_data(citeulike[:events], "post_time")
     social_data << {:data => citeulike_data, :column_name => "CiteULike", :column_key => "citeulike"}
     total_data = total_data + citeulike[:total]
 
-    research_blogging = report.report_dois[0].alm[:researchblogging]
+    research_blogging = report.report_dois[0].alm.fetch(:researchblogging, {})
     research_blogging_data = process_social_data(research_blogging[:events], "published_date")
     social_data << {:data => research_blogging_data, :column_name => "Research Blogging", :column_key => "research_blogging"}
     total_data = total_data + research_blogging[:total]
 
-    nature = report.report_dois[0].alm[:nature]
+    nature = report.report_dois[0].alm.fetch(:nature, {})
     nature_data = process_social_data(nature[:events], "published_at")
     social_data << {:data => nature_data, :column_name => "Nature", :column_key => "nature"}
     total_data = total_data + nature[:total]
 
-    science_seeker = report.report_dois[0].alm[:scienceseeker]
+    science_seeker = report.report_dois[0].alm.fetch(:scienceseeker, {})
     science_seeker_data = process_social_data(science_seeker[:events], "updated")
     social_data << {:data => science_seeker_data, :column_name => "Science Seeker", :column_key => "science_seeker"}
     total_data = total_data + science_seeker[:total]
 
-    twitter = report.report_dois[0].alm[:twitter]
+    twitter = report.report_dois[0].alm.fetch(:twitter, {})
     twitter_data = process_social_data(twitter[:events], "created_at")
     social_data << {:data => twitter_data, :column_name => "Twitter", :column_key => "twitter"}
     total_data = total_data + twitter[:total]
@@ -319,7 +325,7 @@ module ChartData
     end
 
     # start at article publication date
-    data_date = Date.parse(report.report_dois[0].alm[:publication_date])
+    data_date = Date.parse(report.report_dois[0].alm.fetch(:publication_date, {}))
     current_date = DateTime.now.to_date
 
     social_scatter = []
@@ -389,7 +395,7 @@ module ChartData
 
   # Gather Mendeley reader information for geo chart
   def self.generate_data_for_mendeley_reader_chart(report)
-    mendeley = report.report_dois[0].alm[:mendeley][:events]
+    mendeley = report.report_dois[0].alm.fetch(:mendeley, {})[:events]
 
     reader_data = []
     reader_total = 0
