@@ -27,6 +27,7 @@ group :development do
 end
 
 group :test do
+  gem 'capybara-screenshot'
   gem "simplecov", require: false
   gem 'timecop'
   gem 'poltergeist'
