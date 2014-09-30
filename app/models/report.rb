@@ -1,12 +1,9 @@
 require 'csv'
 
 class Report < ActiveRecord::Base
-  attr_accessible :user_id
-
   # TODO: figure out what we want the default sort order to be.
   # doi is likely not a good solution.
-  has_many :report_dois, :order => 'sort_order'
-
+  has_many :report_dois, -> { order(:sort_order) }
 
   # Creates a child ReportDoi object for each DOI passed in in the input array.
   # Sort order is determined by the position in the array.  This object must have
@@ -29,7 +26,6 @@ class Report < ActiveRecord::Base
     # sql[-2] = ";"
     # self.connection.execute(sql)
   end
-
 
   # Sets the @sorted_report_dates field.
   # Precondition: load_articles_from_solr has already been called.
