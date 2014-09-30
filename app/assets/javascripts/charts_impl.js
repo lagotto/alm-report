@@ -41,19 +41,19 @@ function getBubbleChartOptions() {
 
 function drawArticleUsageCitationsAge() {
   var chart = new google.visualization.BubbleChart(document.getElementById('article_usage_and_citations_age_div'));
-  var data = google.visualization.arrayToDataTable(getArticleUsageCitationsAgeData());
+  var data = google.visualization.arrayToDataTable(getArticleUsageCitationsAge());
   chart.draw(data, getBubbleChartOptions());
 }
 
 function drawArticleUsageMendeleyAge() {
   var chart = new google.visualization.BubbleChart(document.getElementById('article_usage_and_mendeley_age_div'));
-  var data = google.visualization.arrayToDataTable(getArticleUsageMendeleyAgeData());
+  var data = google.visualization.arrayToDataTable(getArticleUsageMendeleyAge());
   chart.draw(data, getBubbleChartOptions());
 }
 
 function drawArticleUsageCitationSubjectArea() {
   var chart = new google.visualization.TreeMap(document.getElementById('article_subject_div'));
-  var data = google.visualization.arrayToDataTable(getArticleUsageCitationSubjectAreaData());
+  var data = google.visualization.arrayToDataTable(getArticleUsageCitationSubjectArea());
 
   var options = {
     minColor: '#000000',
@@ -72,8 +72,9 @@ function drawArticleUsageCitationSubjectArea() {
 }
 
 function drawArticleLocation() {
-  var raw_data = getArticleLocationData();
+  var raw_data = getArticleLocation();
   var data = new google.visualization.DataTable();
+
 
   // Determine if we're in lat/lng mode, or just getting addresses passed to us.
   if (raw_data[0].length == 6) {
@@ -116,7 +117,7 @@ function drawArticleLocation() {
 
 function drawArticleUsageAge() {
 
-  var chartData = getArticleUsageData();
+  var chartData = getArticleUsageAge();
   if (chartData.length > 0) {
     var data = new google.visualization.DataTable();
     data.addColumn('number', 'Months');
@@ -149,7 +150,7 @@ function drawArticleUsageAge() {
 
 function drawArticleCitationAge() {
 
-  var chartData = getArticleCitationData();
+  var chartData = getArticleCitationAge();
   if (chartData.length > 0) {
     var data = new google.visualization.DataTable();
     data.addColumn('number', 'Months');
@@ -182,10 +183,10 @@ function drawArticleCitationAge() {
 
 function drawArticleSocialScatter() {
 
-  var chartData = getSocialScatterData();
+  var chartData = getArticleSocialScatter();
   if (chartData.length > 0) {
 
-    var header = getSocialScatterHeader();
+    var header = getArticleSocialScatterHeader();
     var data = new google.visualization.DataTable();
 
     data.addColumn('number', 'Months');
@@ -217,8 +218,8 @@ function drawArticleSocialScatter() {
 }
 
 
-function drawArticleMendeleyData() {
-  var chartData = getMendeleyReaderData();
+function drawArticleMendeley() {
+  var chartData = getArticleMendeley();
   if (chartData.length > 0) {
     var data = google.visualization.arrayToDataTable(chartData);
     var options = {};
@@ -232,22 +233,29 @@ function drawArticleMendeleyData() {
 function drawReportGraphs() {
   if (haveDataToDrawViz()) {
     if (drawVizForOne()) {
-      drawArticleUsageAge();
-      drawArticleCitationAge();
-      drawArticleSocialScatter();
-      drawArticleMendeleyData();
+      checkDataAndDraw(["ArticleUsageAge", "ArticleCitationAge",
+        "ArticleSocialScatter", "ArticleMendeley"])
 
     } else {
-      drawArticleUsageCitationsAge();
-      drawArticleUsageMendeleyAge();
-      drawArticleUsageCitationSubjectArea();
-      drawArticleLocation();
+      checkDataAndDraw(["ArticleUsageCitationsAge",
+        "ArticleUsageMendeleyAge",
+        "ArticleUsageCitationSubjectArea",
+        "ArticleLocation"])
     }
-
   } else {
     $("#error-message-div").append("<div>The metrics for one or more of the articles requested are not available at this time. Please check back later.</div>")
       .show();
   }
+}
+
+function checkDataAndDraw(visualizations) {
+    visualizations.forEach(function (visualization) {
+    dataFn = "get" + visualization;
+    data = window[dataFn]();
+    if(data[0] != null) {
+      window["draw" + visualization]();
+    }
+  });
 }
 
 google.setOnLoadCallback(drawReportGraphs);

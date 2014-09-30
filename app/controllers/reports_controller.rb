@@ -56,16 +56,16 @@ class ReportsController < ApplicationController
 
     @show_metrics_data = true
     if @report.report_dois.length > 0
-      solr_data, alm_data = paging_logic.call()
+      @solr_data, @alm_data = paging_logic.call()
       i = @start_result
-      dois_to_delete = manage_report_data(@dois, solr_data, alm_data, i)
+      dois_to_delete = manage_report_data(@dois, i)
       if (!dois_to_delete.empty?)
         purge_bad_dois(dois_to_delete)
 
         # We need to re-do paging logic since the number of articles has changed.
-        solr_data, alm_data = paging_logic.call()
+        @solr_data, @alm_data = paging_logic.call()
         i = @start_result
-        manage_report_data(@dois, solr_data, alm_data, i)
+        manage_report_data(@dois, i)
       end
     else
       @show_metrics_data = false
@@ -100,13 +100,13 @@ class ReportsController < ApplicationController
     end
   end
 
-  def manage_report_data(report_dois, solr_data, alm_data, display_start_index = 1)
+  def manage_report_data(report_dois, display_start_index = 1)
 
     i = display_start_index
     dois_to_delete = []
 
     report_dois.each do |doi|
-      solr = solr_data[doi.doi]
+      solr = @solr_data[doi.doi]
 
       if solr.nil?
         dois_to_delete << doi.id
@@ -114,7 +114,7 @@ class ReportsController < ApplicationController
         doi.solr = solr
 
         # only try to retrieve the alm data if the article exists in solr
-        alm = alm_data[doi.doi]
+        alm = @alm_data[doi.doi]
         if alm.nil?
           # if there isn't alm data for an article that exists in solr
           # alm had an error for that article or
@@ -153,16 +153,16 @@ class ReportsController < ApplicationController
   private
 
   def prepare_visualization_data
-    solr_data = Hash[@report.report_dois.map do |report_doi|
+    @solr_data = Hash[@report.report_dois.map do |report_doi|
       [report_doi.doi, SearchResult.from_cache(report_doi.doi)]
     end]
 
-    dois_to_delete = manage_report_data(@report.report_dois, solr_data, @alm_data)
+    dois_to_delete = manage_report_data(@report.report_dois)
 
     if dois_to_delete.present?
       purge_bad_dois(dois_to_delete)
       # TODO fix sort order
-      manage_report_data(@report.report_dois, solr_data, alm_data)
+      manage_report_data(@report.report_dois)
     end
 
     if @report.has_alm?
@@ -202,7 +202,7 @@ class ReportsController < ApplicationController
 
     # for when a report contains many articles but very small portion of the
     # articles have alm data (without it viz page will look very weird)
-    if solr_data.length >= APP_CONFIG["visualization_min_num_of_alm_data_points"]
+    if @solr_data.length >= APP_CONFIG["visualization_min_num_of_alm_data_points"]
       bubble_data = ChartData.generate_data_for_bubble_charts(@report)
       @article_usage_citations_age_data = bubble_data[:citation_data]
       @article_usage_mendeley_age_data = bubble_data[:mendeley_data]
@@ -218,6 +218,6 @@ class ReportsController < ApplicationController
     else
       @draw_viz = false
     end
-    render "single_documents_visualizations"
+    render "multiple_documents_visualizations"
   end
 end

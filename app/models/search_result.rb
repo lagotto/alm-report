@@ -2,7 +2,7 @@ class SearchResult
   attr_accessor :checked
   attr_reader :affiliates, :article_type, :cross_published_journal_name,
               :data, :financial_disclosure, :id, :pmid, :publication_date,
-              :subjects, :title, :type, :publisher
+              :subjects, :title, :type, :publisher, :journal
 
   # CrossRef types
   # "proceedings","reference-book","journal-issue","proceedings-article",
@@ -52,7 +52,7 @@ class SearchResult
     @affiliates = @data["affiliate"]
     @article_type = @data["article_type"]
     @authors = @data["author_display"]
-    @journal = @data["cross_published_journal_name"]
+    @journal = @data["cross_published_journal_name"].try(:flatten).try(:at, 0)
     @financial_disclosure = @data["financial_disclosure"]
     @pmid = @data["pmid"]
     @publication_date = @data["publication_date"]
@@ -79,10 +79,6 @@ class SearchResult
 
   def authors
     @authors.join(", ") if @authors
-  end
-
-  def journal
-    @journal
   end
 
   # CrossRef

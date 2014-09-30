@@ -1,0 +1,99 @@
+.content.wrapper.cf
+  = render "reports_nav"
+
+  .visualizations-container
+    - if @draw_viz
+      - if @article_usage_citations_age_data.present?
+        .visualizations-list
+          .reports-header-div
+            span.list-numbers 1
+            h2.text-light-normal Article Usage and Citations as a function of Age
+          #article_usage_and_citations_age_div
+          p.info
+            ' Total usage includes page views and downloads from PLOS and PMC.
+            | Bubble size correlates with Scopus citations and bubble color with the PLOS journal.
+          p
+            ' SOURCE: #{@report.report_dois.length} published articles from
+            ' #{@report.get_earliest_report_date.strftime("%B %d, %Y")}
+            | to #{@report.get_latest_report_date.strftime("%B %d, %Y")}
+
+      - if @article_usage_mendeley_age_data.present?
+        .visualizations-list
+          .reports-header-div
+            span.list-numbers 2
+            h2.text-light-normal Article Usage and Mendeley Bookmarks as a Function of Time
+          #article_usage_and_mendeley_age_div
+            p.info
+              Total usage includes page views and downloads from PLOS and PMC.
+              Bubble size correlates with Mendeley bookmarks and bubble color with the PLOS journal.
+            p
+              ' SOURCE: #{@report.report_dois.length} published articles from
+              ' #{@report.get_earliest_report_date.strftime("%B %d, %Y")}
+              | to #{@report.get_latest_report_date.strftime("%B %d, %Y")}
+
+      - if @article_usage_citation_subject_area_data.present?
+        .visualizations-list
+          .reports-header-div
+            span.list-numbers 3
+            h2.text-light-normal Article Usage by Subject Area
+          #article_subject_div
+            p.info
+              Rectangle size correlates with the number of articles associated with the subject area and the color intensity with total usage.
+            p
+              ' SOURCE: #{@report.report_dois.length} published articles from
+              ' #{@report.get_earliest_report_date.strftime("%B %d, %Y")}
+              | to #{@report.get_latest_report_date.strftime("%B %d, %Y")}
+
+      - if @article_locations_data.present?
+        .visualizations-list
+          .reports-header-div
+            span.list-numbers 4
+            h2.text-light-normal Research Articles by Location
+          #article_location_div
+            p.info
+              Geolocation of #{@total_authors_data} authors for #{@report.report_dois.length} articles.
+              Bubble size and color correlates with the number of authors in that location.
+            p
+              ' SOURCE: #{@report.report_dois.length} published articles from
+              ' #{@report.get_earliest_report_date.strftime("%B %d, %Y")}
+              | to #{@report.get_latest_report_date.strftime("%B %d, %Y")}
+
+
+  .report-downloads
+    h2.text-light-normal Print
+    ul
+      li
+      a#download_viz
+        span.png
+        span.file-name Visualizations
+        span.arrow
+
+    = render "report_share"
+
+javascript:
+  function haveDataToDrawViz() {
+    return #{{ @draw_viz }};
+  }
+
+  function drawVizForOne() {
+    return false;
+  }
+
+  function getArticleUsageCitationsAge() {
+      return #{{ raw @article_usage_citations_age_data }};
+  }
+
+  function getArticleUsageMendeleyAge() {
+      return #{{ raw @article_usage_mendeley_age_data }};
+  }
+
+  function getArticleUsageCitationSubjectArea() {
+    return #{{ raw @article_usage_citation_subject_area_data }};
+  }
+
+  function getArticleLocation() {
+
+    return #{{ raw @article_locations_data }};
+  }
+
+= javascript_include_tag "charts"
