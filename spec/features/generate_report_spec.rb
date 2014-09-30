@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'generate report', :type => :feature do
   if Search.plos?
-    before :each do
+    before do
       stub_request(:get,
         "http://api.plos.org/search?facet=true&facet.field=cross_published_journal_key&facet.mincount=1&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
       ).to_return(File.open('spec/fixtures/solr_request_get_journal_name_key.raw'))
@@ -77,11 +77,10 @@ describe 'generate report', :type => :feature do
       expect(page).to have_css('#article_usage_and_citations_age_div svg')
     end
   elsif Search.crossref?
-    before :each do
+    before do
       stub_request(
         :get,
-        "http://api.crossref.org/works?query=A%20Future%20Vision%20for%20PLOS" \
-        "%20Computational%20Biology&rows=25&offset=0"
+        %r{http://api.crossref.org/works.*offset=0}
       ).to_return(File.open("spec/fixtures/api_crossref_future_vision.raw"))
 
     end
@@ -127,8 +126,7 @@ describe 'generate report', :type => :feature do
 
       stub_request(
         :get,
-        "http://api.crossref.org/works?query=A%20Future%20Vision%20for%20PLOS" \
-        "%20Computational%20Biology&rows=25&offset=50"
+        %r{http://api.crossref.org/works.*offset=50}
       ).to_return(File.open("spec/fixtures/api_crossref_future_vision_page_3.raw"))
 
       visit "/"

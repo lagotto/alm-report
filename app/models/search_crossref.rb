@@ -1,7 +1,7 @@
 class SearchCrossref
   def initialize(query, opts = {})
     @query = query[:everything]
-    @filter = query[:filter]
+    @filter = [query[:filter], "from-pub-date:2013-01-01"].compact.join(",")
     @page = query[:current_page] || 1
     @rows = APP_CONFIG["results_per_page"]
   end

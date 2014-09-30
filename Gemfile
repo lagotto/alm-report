@@ -32,7 +32,7 @@ group :test do
   gem 'timecop'
   gem 'poltergeist'
   gem 'capybara'
-  gem "webmock", "~> 1.17.2"
+  gem "webmock"
   gem "codeclimate-test-reporter", require: false
 end
 

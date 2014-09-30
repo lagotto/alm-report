@@ -6,6 +6,7 @@
         => "#{@start_result} - #{@end_result} of #{number_with_delimiter(@total_found, :delimiter => ',')} results for"
       - else
         ' No results found for
+
       - if params.has_key?("unformattedQueryId")
         span.keyword= params["unformattedQueryId"]
         - if params.has_key?("filterJournals")
@@ -33,7 +34,8 @@
           span
             ' journals:
             span.journals= params[:cross_published_journal_name]
-
+        - if Search.crossref?
+          span Due to limited availability of ALM data, search results are limited to items published after Jan 1st 2013.
     - if @total_found > 0
       ul
         li.select-all-articles-link select all

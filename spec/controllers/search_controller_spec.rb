@@ -5,7 +5,7 @@ describe SearchController do
     it "renders the index template" do
       stub_request(
         :get,
-        "http://api.crossref.org/works?offset=0&rows=25&query=cancer"
+        %r{http://api.crossref.org/works.*}
       ).to_return(File.open("spec/fixtures/api_crossref_cancer.raw"))
 
       stub_request(

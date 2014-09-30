@@ -7,7 +7,7 @@ api_urls = {
     "financial_disclosure&fq%5B%5D=doc_type:full&" \
     "fq%5B%5D=!article_type_facet:%22Issue%20Image%22&" \
     "&hl=false&q=everything:cancer&rows=25&wt=json",
-  crossref: "http://api.crossref.org/works?query=cancer&offset=0&rows=25"
+  crossref: %r{http://api.crossref.org/works}
 }
 
 describe Search do
@@ -23,6 +23,7 @@ describe Search do
 
   it "queries CrossRef's API if search is set to CrossRef" do
     APP_CONFIG["search"] = "crossref"
+
     stub = stub_request(:get, api_urls[:crossref]).
       to_return(File.open("spec/fixtures/api_crossref_cancer.raw"))
 
