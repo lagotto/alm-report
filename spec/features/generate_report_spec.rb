@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'generate report', :type => :feature do
   if Search.plos?

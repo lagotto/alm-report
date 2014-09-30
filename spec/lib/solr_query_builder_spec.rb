@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'solr/solr_query_builder'
 
 def build_query_test_once(params, expected)

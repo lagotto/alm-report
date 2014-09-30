@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "static pages", :type => :routing do
   it "routes about page" do
