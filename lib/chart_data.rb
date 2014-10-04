@@ -1,75 +1,51 @@
-
-require "set"
-
 module ChartData
 
-  # Populates @article_usage_citations_age_data and @article_usage_mendeley_age_data, used from
-  # javascript to generate the bubble charts.
-  def self.generate_data_for_bubble_charts(report)
-    article_usage_citations_age_data = []
-    article_usage_mendeley_age_data = []
-    article_usage_citations_age_data << ["Title", "Months", "Total Usage", "Journal", "Scopus"]
-    article_usage_mendeley_age_data << ["Title", "Months", "Total Usage", "Journal", "Mendeley"]
+  def self.bubble_charts(report)
+    common = %w(Title Months Total\ Usage Journal)
+    citation_data = [] << common + ["Scopus"]
+    mendeley_data = [] << common + ["Mendeley"]
+
     report.report_dois.each do |report_doi|
       if report_doi.alm.present?
         days = (Date.today - report_doi.solr.publication_date).to_i
         months = days / 30
 
         usage = report_doi.alm.fetch(:total_usage, {})
-        article_usage_citations_age_data << [report_doi.solr.title, months, usage,
-            report_doi.solr.journal, report_doi.alm.fetch(:scopus, {})]
-        article_usage_mendeley_age_data << [report_doi.solr.title, months, usage,
-            report_doi.solr.journal, report_doi.alm.fetch(:mendeley, {})]
+        data = [report_doi.solr.title, months, usage, report_doi.solr.journal]
+        citation_data << data + [report_doi.alm.fetch(:scopus, {})]
+        mendeley_data << data + [report_doi.alm.fetch(:mendeley, {})]
       end
     end
 
-    return {:citation_data => article_usage_citations_age_data, :mendeley_data => article_usage_mendeley_age_data}
+    {citation_data: citation_data, mendeley_data: mendeley_data}
   end
 
-  # generate data for subject area treemap graph
-  def self.generate_data_for_subject_area_chart(report)
-    article_usage_citation_subject_area_data = []
-
-    placeholder_subject = 'subject'
-
-    article_usage_citation_subject_area_data << ['Subject Area', '', '# of articles', 'Total Usage']
-    article_usage_citation_subject_area_data << [placeholder_subject, '', 0, 0]
-
-    subject_area_data = {}
-
-    report.report_dois.each do | report_doi |
-      # get the subject area
-      report_doi.solr.subjects.each do | subject_area_full |
-        subject_areas = subject_area_full.split('/')
-        # Example subject from PLOS' Solr:
-        # "/Social sciences/Linguistics/Speech"
-        # Example subject from CrossRef's API:
-        # "Molecular Biology"
-        subject_area = subject_areas[2] || subject_areas[0]
-        if subject_area
-          subject_area_data[subject_area] ||= []
-          # associate article to the subject area
-          subject_area_data[subject_area] << report_doi
-        end
-      end
-    end
-
-    # loop through subjects
-    subject_area_data.each do | subject_area, report_dois |
+  def self.subject_area_chart(report)
+    subject_area_data = Hash[report.report_dois.map do |report_doi|
+      subjects = report_doi.solr.subjects.map do |subject|
+        subject = subject.split('/')
+        # Example subject from:
+        # PLOS' Solr: "/Social sciences/Linguistics/Speech"
+        # CrossRef's API: "Molecular Biology"
+        subject = subject[2] || subject[0]
+        [subject, report_doi] if subject
+      end.
+        compact
+    end.
+      flatten(1).
+      group_by(&:first).
+      map{ |subject, dois| [subject, dois.map(&:last).uniq] }
+    ].map do |subject_area, report_dois|
       total_usage = report_dois.map { |r| r.alm.fetch(:total_usage, 0) }.sum
       if total_usage
-        article_usage_citation_subject_area_data << [
-          subject_area,
-          placeholder_subject,
-          report_dois.size,
-          total_usage
-        ]
+        [subject_area, "Subject", report_dois.size, total_usage]
       end
     end
-
-    return article_usage_citation_subject_area_data
+    subject_area_data.unshift(
+      ["Subject Area", "Parent", "# of articles", "Total Usage"],
+      ["Subject", nil, 0, 0]
+    )
   end
-
 
   # Generates tooltip text for markers on the article locations chart,
   # based on the author affiliations.  Returns a tuple of the first

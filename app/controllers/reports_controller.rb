@@ -203,12 +203,12 @@ class ReportsController < ApplicationController
     # for when a report contains many articles but very small portion of the
     # articles have alm data (without it viz page will look very weird)
     if @solr_data.length >= APP_CONFIG["visualization_min_num_of_alm_data_points"]
-      bubble_data = ChartData.generate_data_for_bubble_charts(@report)
+      bubble_data = ChartData.bubble_charts(@report)
       @article_usage_citations_age_data = bubble_data[:citation_data]
       @article_usage_mendeley_age_data = bubble_data[:mendeley_data]
 
       @article_usage_citation_subject_area_data = ChartData.
-        generate_data_for_subject_area_chart(@report)
+        subject_area_chart(@report)
 
       loc_data = ChartData.
         generate_data_for_articles_by_location_chart(@report)

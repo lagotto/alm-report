@@ -72,7 +72,7 @@
 
 javascript:
   function haveDataToDrawViz() {
-    return #{{ @draw_viz }};
+    return #{ @draw_viz.to_json };
   }
 
   function drawVizForOne() {
@@ -80,20 +80,20 @@ javascript:
   }
 
   function getArticleUsageCitationsAge() {
-      return #{{ raw @article_usage_citations_age_data }};
+      return #{{ @article_usage_citations_age_data.to_json }};
   }
 
   function getArticleUsageMendeleyAge() {
-      return #{{ raw @article_usage_mendeley_age_data }};
+      return #{{ @article_usage_mendeley_age_data.to_json }};
   }
 
   function getArticleUsageCitationSubjectArea() {
-    return #{{ raw @article_usage_citation_subject_area_data }};
+    return #{{ @article_usage_citation_subject_area_data.to_json }};
   }
 
   function getArticleLocation() {
 
-    return #{{ raw @article_locations_data }};
+    return #{{ @article_locations_data.to_json }};
   }
 
 = javascript_include_tag "charts"
