@@ -5,9 +5,9 @@ class HomeController < ApplicationController
     @title = "Homepage"
 
     if Search.plos?
-      @journals = SolrRequest.get_journal_name_key
       # Add a "All Journals" entry
-      @journals.unshift([SolrRequest::ALL_JOURNALS, SolrRequest::ALL_JOURNALS])
+      @journals = [SolrRequest::ALL_JOURNALS]
+      @journals.push *SolrRequest.get_journal_name_key
     end
   end
 

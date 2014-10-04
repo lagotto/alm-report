@@ -17,7 +17,7 @@ class SolrRequest
   include Performance
   SOLR_TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
-  FILTER = "fq[]=doc_type:full&fq[]=!article_type_facet:#{URI::encode("\"Issue Image\"")}"
+  FILTER = "fq=doc_type:full&fq=!article_type_facet:#{URI::encode("\"Issue Image\"")}"
 
   # The fields we want solr to return for each article by default.
   FL = "id,pmid,publication_date,received_date,accepted_date,title," \
@@ -89,34 +89,12 @@ class SolrRequest
     return docs, json["response"]["numFound"]
   end
 
-  # The goal is to mimic advanced search journal filter on the ambra side (journal site)
+  # The goal is to mimic advanced search filter on the PLOS (journal) side
   # 1. use fq (filter query) with cross_published_journal_key field
-  # 2. display the journal names that are tied to the cross_published_journal_key field on the front end
-  # There wasn't a way to tie cross_published_journal_key field values to cross_published_journal_name values
-  # easily without matching them up by hand
+  # 2. display the journal names that are tied to the
+  #    cross_published_journal_key field on the front end
   def self.get_journal_name_key
-    params = {
-      q: "*:*",
-      facet: "true",
-      rows: 0,
-      wt: "json",
-      "facet.field" => "cross_published_journal_key",
-      "facet.mincount" => 1
-    }
-
-    url = "#{APP_CONFIG["solr_url"]}?#{params.to_param}&#{FILTER}"
-    json = send_query(url)
-
-    keys = Hash[
-      *json["facet_counts"]["facet_fields"]["cross_published_journal_key"]
-    ].keys
-
-    if APP_CONFIG["journals"].present?
-      journals = keys.map do |key|
-        name = APP_CONFIG["journals"][key]
-        [key, name] if name
-      end.compact
-    end
+    APP_CONFIG["journals"].values
   end
 
   # Logic for creating a limit on the publication_date for a query.  All params are strings.

@@ -34,7 +34,11 @@
         = text_field_tag(:subject, nil, :class => "subject-autocomplete")
       .input-holder
         = label_tag(:cross_published_journal_name, "Journal")
-        = select_tag(:cross_published_journal_name, options_for_select(@journals), :class => "styled")
+        = select_tag( \
+            :cross_published_journal_name, \
+            options_for_select(@journals), \
+            :class => "styled" \
+          )
       .input-holder
         = label_tag(:financial_disclosure, "Funder name or funding number")
         = text_field_tag(:financial_disclosure)

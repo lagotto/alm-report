@@ -7,10 +7,10 @@
       - else
         ' No results found for
 
-      - if params.has_key?("unformattedQueryId")
-        span.keyword= params["unformattedQueryId"]
-        - if params.has_key?("filterJournals")
-          span.journals journals: #{@filter_journal_names.join(" or ")}
+      - if params.has_key?(:unformattedQueryId)
+        span.keyword= params[:unformattedQueryId]
+        - if params.has_key?(:filterJournals)
+          span.journals journals: #{params[:filterJournals].join(" or ")}
         - else
           span.journals journals: All Journals
       - else

@@ -9,7 +9,7 @@ describe SolrRequest do
 
     q = pmids.map {|pmid| "pmid:\"#{pmid}\""}.join(" OR ")
 
-    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:#{URI::encode("\"Issue Image\"")}&fl=id,publication_date,pmid&wt=json&facet=false&rows=#{pmids.size}"
+    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq=doc_type:full&fq=!article_type_facet:#{URI::encode("\"Issue Image\"")}&fl=id,publication_date,pmid&wt=json&facet=false&rows=#{pmids.size}"
 
     body = File.read("#{fixture_path}solr_pmid_validation.json")
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
@@ -57,7 +57,7 @@ describe SolrRequest do
     ]
 
     q = dois.map { | doi | "id:\"#{doi}\"" }.join(" OR ")
-    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20Image%22&fl=id&wt=json&facet=false&rows=#{dois.size}"
+    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&fl=id&wt=json&facet=false&rows=#{dois.size}"
     body = File.read("#{fixture_path}solr_validate_dois.json")
     stub_request(:get, url).to_return(:body => body, :status => 200)
 
@@ -78,8 +78,8 @@ describe SolrRequest do
     ]
 
     q = dois.map { |doi| "id:\"#{doi}\"" }.join(" OR ")
-    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq%5B%5D=doc_type:full" \
-        "&fq%5B%5D=!article_type_facet:%22Issue%20Image%22" \
+    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq=doc_type:full" \
+        "&fq=!article_type_facet:%22Issue%20Image%22" \
         "&fl=id,pmid,publication_date,received_date,accepted_date,title," \
         "cross_published_journal_name,author_display,editor_display,article_type,affiliate," \
         "subject,financial_disclosure&wt=json&facet=false&rows=#{dois.size}"
@@ -114,7 +114,7 @@ describe SolrRequest do
 
   it "gets journal name and journal key information" do
 
-    url = "http://api.plos.org/search?facet=true&facet.field=cross_published_journal_key&facet.mincount=1&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
+    url = "http://api.plos.org/search?facet=true&facet.field=cross_published_journal_key&facet.mincount=1&fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
     body = File.read("#{fixture_path}solr_journal_keys.json")
     stub_request(:get, url).to_return(:body => body, :status => 200)
 
@@ -139,7 +139,7 @@ describe SolrRequest do
 
     url = "http://api.plos.org/search?q=affiliate:%22University%20of%20California%22%20AND%20" \
         "author:Garmay%20AND%20everything:word%20AND%20subject:%22Gene%20regulation%22&" \
-        "fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20Image%22&" \
+        "fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&" \
         "fl=id,pmid,publication_date,received_date,accepted_date,title," \
         "cross_published_journal_name,author_display,editor_display,article_type,affiliate," \
         "subject,financial_disclosure&wt=json&facet=false&rows=25&hl=false"
@@ -193,7 +193,7 @@ describe SolrRequest do
 
   it "can use a custom field list (fl)" do
     url = "http://api.plos.org/search?facet=false&fl=id,pmid,publication_date" \
-          "&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20" \
+          "&fq=doc_type:full&fq=!article_type_facet:%22Issue%20" \
           "Image%22&hl=false&q=everything:biology&rows=25&wt=json"
 
     fl = "id,pmid,publication_date"

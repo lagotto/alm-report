@@ -7,8 +7,8 @@ describe HomeController do
         :get,
         "http://api.plos.org/search?facet=true&facet.field=" \
         "cross_published_journal_key&facet.mincount=1&" \
-        "fq%5B%5D=doc_type:full&" \
-        "fq%5B%5D=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
+        "fq=doc_type:full&" \
+        "fq=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
       ).to_return(
         File.open('spec/fixtures/solr_request_get_journal_name_key.raw')
       )

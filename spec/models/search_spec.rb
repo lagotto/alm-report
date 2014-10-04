@@ -4,8 +4,8 @@ api_urls = {
   plos: "http://api.plos.org/search?facet=false&fl=id,pmid,publication_date," \
     "received_date,accepted_date,title,cross_published_journal_name," \
     "author_display,editor_display,article_type,affiliate,subject," \
-    "financial_disclosure&fq%5B%5D=doc_type:full&" \
-    "fq%5B%5D=!article_type_facet:%22Issue%20Image%22&" \
+    "financial_disclosure&fq=doc_type:full&" \
+    "fq=!article_type_facet:%22Issue%20Image%22&" \
     "&hl=false&q=everything:cancer&rows=25&wt=json",
   crossref: %r{http://api.crossref.org/works}
 }

@@ -41,7 +41,8 @@ class SolrQueryBuilder
     end
     if @params.has_key?(:filterJournals)
       filter_journals = @params[:filterJournals]
-      @query["fq[]"] = filter_journals.map do |filter_journal|
+      @query["fq"] = filter_journals.map do |filter_journal|
+        filter_journal = APP_CONFIG["journals"].invert[filter_journal]
         "cross_published_journal_key:#{filter_journal}"
       end.join(" OR ")
     end

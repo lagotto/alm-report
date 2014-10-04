@@ -73,13 +73,13 @@
         li.options
           fieldset#fsJournalOpt
           ul
-            - @journals.each do |key, name|
+            - @journals.each do |name|
               li
-                input(id="filterJournals_#{key}" name="filterJournals[]" value="#{key}" type="checkbox"
+                input(id="filterJournals_#{name}" name="filterJournals[]" value="#{name}" type="checkbox"
                   title="Select #{name}" alt="Select Journal #{name} Check Box"
-                  checked=("checked" if params["filterJournals"] && params["filterJournals"].include?(key)))
+                  checked=("checked" if params["filterJournals"] && params["filterJournals"].include?(name)))
                   | &nbsp;
-                label for="filterJournals_#{key}" #{name}
+                label for="filterJournals_#{name}" #{name}
 
   .aside.aside-container
     h2.text-light-normal Find Specific Articles
