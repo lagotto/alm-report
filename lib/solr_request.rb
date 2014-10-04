@@ -46,7 +46,7 @@ class SolrRequest
   WHITELIST = [
     :everything, :author, :author_country, :institution, :publication_days_ago,
     :datepicker1, :datepicker2, :subject, :cross_published_journal_name,
-    :financial_disclosure, :title
+    :financial_disclosure, :title, :publication_date
   ]
 
   # Creates a solr request.  The query (q param in the solr request) will be based on

@@ -148,4 +148,22 @@ describe SolrQueryBuilder do
     qb = SolrQueryBuilder.new(params)
     qb.build.should eq("everything:testing")
   end
+
+  it "doesn't ignore publication_date parameter (regression test for issue #50)" do
+    params = {
+      everything: "cancer",
+      author: "",
+      author_country: "",
+      institution: "",
+      subject: "",
+      cross_published_journal_name: "All Journals",
+      financial_disclosure: "",
+      publication_date: "[2014-09-03T14:01:32Z TO 2014-10-03T14:01:32Z]"
+    }
+    qb = SolrQueryBuilder.new(params)
+    qb.build.should eq(
+      "everything:cancer AND publication_date:[2014-09-03T14:01:32Z TO " \
+      "2014-10-03T14:01:32Z]"
+    )
+  end
 end
