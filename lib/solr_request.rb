@@ -15,6 +15,7 @@ end
 # but that was not necessary.
 class SolrRequest
   include Performance
+
   SOLR_TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
   FILTER = "fq=doc_type:full&fq=!article_type_facet:#{URI::encode("\"Issue Image\"")}"
@@ -102,39 +103,6 @@ class SolrRequest
   #    cross_published_journal_key field on the front end
   def self.get_journals
     APP_CONFIG["journals"]
-  end
-
-  # Logic for creating a limit on the publication_date for a query.  All params are strings.
-  # Legal values for days_ago are "-1", "0", or a positive integer.  If -1, the method
-  # returns (nil, nil) (no date range specified).  If 0, the values of start_date and end_date
-  # are used to construct the returned range.  If positive, the range extends from
-  # (today - days_ago) to today.  start_date and end_date, if present, should be strings in the
-  # format %m-%d-%Y.
-  def self.parse_date_range(days_ago, start_date, end_date)
-    days_ago = days_ago.to_i
-    end_time = Time.new
-    if days_ago == -1  # All time; default.  Nothing to do.
-      return nil, nil
-
-    elsif days_ago == 0  # Custom date range
-      start_time = Date.strptime(start_date, "%m-%d-%Y")
-      end_time = DateTime.strptime(end_date + " 23:59:59", "%m-%d-%Y %H:%M:%S")
-
-    else  # days_ago specifies start date; end date now
-      start_time = end_time - (3600 * 24 * days_ago)
-    end
-    return start_time, end_time
-  end
-
-  # Returns a legal value constraining the publication_date solr field for the given start and
-  # end DateTimes.  Returns nil if either of the arguments are nil.
-  def self.build_date_range(start_date, end_date)
-    if start_date.nil? || end_date.nil?
-      return nil
-    else
-      return "[#{start_date.strftime(SOLR_TIMESTAMP_FORMAT)} " \
-          "TO #{end_date.strftime(SOLR_TIMESTAMP_FORMAT)}]"
-    end
   end
 
   # There are a handful of special cases where we want to display a "massaged"
@@ -249,14 +217,14 @@ class SolrRequest
 
   def metadata
     metadata = {}
-    if @params[:publication_date].present?
-      metadata[:publication_date] = @params[:publication_date][1..-2].
+    if @query_builder.params[:publication_date].present?
+      metadata[:publication_date] = query_builder.params[:publication_date][1..-2].
         split(" TO ").map{ |date| DateTime.parse(date) }
     end
     metadata
   end
 
   def query_builder
-    SolrQueryBuilder.new(@params, @fl)
+    @query_builder ||= SolrQueryBuilder.new(@params, @fl)
   end
 end

@@ -174,4 +174,47 @@ describe SolrQueryBuilder do
       "2014-10-03T14:01:32Z]"
     )
   end
+
+  it "parses date range -1 (all time)" do
+    params = {
+      publication_days_ago: "-1"
+    }
+    qb = SolrQueryBuilder.new(params)
+    qb.build
+
+    assert_nil(qb.start_time)
+    assert_nil(qb.end_time)
+    assert_nil(qb.params[:publication_date])
+  end
+
+  it "parses a specific date range and build the correct string" do
+    params = {
+      publication_days_ago: "0",
+      datepicker1: "09-15-2012",
+      datepicker2: "02-28-2013"
+    }
+
+    qb = SolrQueryBuilder.new(params)
+    qb.build
+
+    assert_equal("[2012-09-15T00:00:00Z TO 2013-02-28T23:59:59Z]",
+        qb.params[:publication_date])
+  end
+
+  it "publication_days_ago" do
+    Timecop.travel(Date.strptime("2013-03-01", "%Y-%m-%d").to_time)
+    params = {
+      publication_days_ago: "30"
+    }
+
+    qb = SolrQueryBuilder.new(params)
+    qb.build
+
+    assert_equal("[2013-01-30T00:00:00Z TO 2013-03-01T00:00:00Z]",
+        qb.params[:publication_date])
+
+    Timecop.return
+
+    # TODO: test end day before start day and other error cases.
+  end
 end

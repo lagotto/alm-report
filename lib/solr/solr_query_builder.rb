@@ -1,7 +1,7 @@
 require_relative '../solr_request'
 
 class SolrQueryBuilder
-  attr_reader :page_block, :query
+  attr_reader :page_block, :query, :params, :end_time, :start_time
 
   def initialize(params, fl = nil)
     @params = params.dup
@@ -23,7 +23,7 @@ class SolrQueryBuilder
     clean_params
     build_filter_journals
     build_affiliate_param
-
+    build_date_range
     @query[:q] = @params.sort_by { |k, _| k }.select do |k, _|
       SolrRequest::QUERY_PARAMS.include?(k.to_sym)
     end.map do |k, v|
@@ -132,6 +132,43 @@ class SolrQueryBuilder
       @query[:q] = "*:*"
     end
     @query.to_param
+  end
+
+  private
+
+  # Logic for creating a limit on the publication_date for a query. All params
+  # are strings. Legal values for days_ago are "-1", "0", or a positive integer.
+  # If -1, the method returns (nil, nil) (no date range specified). If 0, the
+  # values of start_date and end_date are used to construct the returned range.
+  # If positive, the range extends from (today - days_ago) to today. start_date
+  # and end_date, if present, should be strings in the format %m-%d-%Y.
+  def parse_date_range
+    return unless @params[:publication_days_ago].present?
+
+    days_ago = @params[:publication_days_ago].to_i
+    start_date = @params[:datepicker1]
+    end_date = @params[:datepicker2]
+
+    @end_time = Time.new
+    if days_ago == -1  # All time; default.  Nothing to do.
+      @start_time, @end_time = nil, nil
+    elsif days_ago == 0  # Custom date range
+      @start_time = Date.strptime(start_date, "%m-%d-%Y")
+      @end_time = DateTime.strptime(end_date + " 23:59:59", "%m-%d-%Y %H:%M:%S")
+    else  # days_ago specifies start date; end date now
+      @start_time = end_time - (3600 * 24 * days_ago)
+    end
+  end
+
+  # Returns a legal value constraining the publication_date for the given start
+  # and end DateTimes. Returns nil if either of the arguments are nil.
+  def build_date_range
+    parse_date_range
+    if @start_time && @end_time
+      times = [@start_time.strftime(SolrRequest::SOLR_TIMESTAMP_FORMAT),
+        @end_time.strftime(SolrRequest::SOLR_TIMESTAMP_FORMAT)]
+      @params[:publication_date] = "[#{times.join(" TO ")}]"
+    end
   end
 
   def clean_params
