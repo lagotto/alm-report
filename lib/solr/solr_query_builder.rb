@@ -1,7 +1,7 @@
 require_relative '../solr_request'
 
 class SolrQueryBuilder
-  attr_reader :page_block
+  attr_reader :page_block, :query
 
   def initialize(params, fl = nil)
     @params = params
@@ -21,6 +21,8 @@ class SolrQueryBuilder
   # before use.
   def build
     clean_params
+    build_filter_journals
+    @params.delete :filterJournals
     build_affiliate_param
 
     @query[:q] = @params.sort_by { |k, _| k }.map do |k, v|
@@ -30,21 +32,16 @@ class SolrQueryBuilder
       "#{k}:#{v}"
     end.join(" AND ")
 
-    Rails.logger.info("Solr query: #{query}")
-    query
+    Rails.logger.info("Solr query: #{@query}")
+    @query
   end
 
   # Returns the portion of Solr URL with the query parameter & journal filter
   def build_advanced
+    build_filter_journals
+
     if @params.has_key?(:unformattedQueryId)
       @query[:q] = @params[:unformattedQueryId].strip
-    end
-    if @params.has_key?(:filterJournals)
-      filter_journals = @params[:filterJournals]
-      @query["fq"] = filter_journals.map do |filter_journal|
-        filter_journal = APP_CONFIG["journals"].invert[filter_journal]
-        "cross_published_journal_key:#{filter_journal}"
-      end.join(" OR ")
     end
     @query
   end
@@ -110,30 +107,27 @@ class SolrQueryBuilder
   end
 
   def url
-    q = if !@params.has_key?(:unformattedQueryId)
-      # execute home page search
-      build
-      "q=#{URI.encode(query)}"
-    else
-      # advanced search query
+    # :unformattedQueryId comes from advanced search
+    if @params.has_key?(:unformattedQueryId)
       build_advanced
-      advanced_query
+    else
+      build
     end
-    "#{APP_CONFIG["solr_url"]}?#{q}#{common_params}#{sort}&hl=false"
+
+    "#{APP_CONFIG["solr_url"]}?#{query_param}#{common_params}#{sort}&hl=false"
   end
 
   private
 
-  def query
-    if @query[:q].present?
-      @query[:q]
-    else
-      # if the user hasn't entered in anything, search for everything
-      "*:*"
+  def build_filter_journals
+    if @params.has_key?(:filterJournals)
+      @query[:fq] = @params[:filterJournals].map do |filter_journal|
+        "cross_published_journal_key:#{filter_journal}"
+      end.join(" OR ")
     end
   end
 
-  def advanced_query
+  def query_param
     unless @query[:q].present?
       @query[:q] = "*:*"
     end
@@ -143,13 +137,12 @@ class SolrQueryBuilder
   def clean_params
     # Strip out empty and only keep whitelisted params
     @params.delete_if do |k, v|
-      v.blank? ||
-        !SolrRequest::WHITELIST.include?(k.to_sym)
+      v.blank? || !SolrRequest::WHITELIST.include?(k.to_sym)
     end
 
     # Strip out the placeholder "all journals" journal value.
     @params.delete_if do |k, v|
-      [k.to_s, v] == ["cross_published_journal_name", SolrRequest::ALL_JOURNALS]
+      [k.to_s, v] == ["filterJournals", [SolrRequest::ALL_JOURNALS]]
     end
   end
 end

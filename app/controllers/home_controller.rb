@@ -6,8 +6,8 @@ class HomeController < ApplicationController
 
     if Search.plos?
       # Add a "All Journals" entry
-      @journals = [SolrRequest::ALL_JOURNALS]
-      @journals.push *SolrRequest.get_journal_name_key
+      @journals = { SolrRequest::ALL_JOURNALS => SolrRequest::ALL_JOURNALS }
+      @journals.merge! SolrRequest.get_journals.invert
     end
   end
 

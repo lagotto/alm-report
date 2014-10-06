@@ -28,7 +28,7 @@ describe SearchController do
         datepicker1: "",
         datepicker2: "",
         subject: "",
-        cross_published_journal_name: "All Journals",
+        filterJournals: ["All Journals"],
         financial_disclosure: "",
         commit: "Search",
         x: "Y"

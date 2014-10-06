@@ -118,20 +118,20 @@ describe SolrRequest do
     body = File.read("#{fixture_path}solr_journal_keys.json")
     stub_request(:get, url).to_return(:body => body, :status => 200)
 
-    data = SolrRequest.get_journal_name_key
+    data = SolrRequest.get_journals
 
     data.size.should eq(8)
 
-    journals = [
-      ["PLoSONE", "PLOS ONE"],
-      ["PLoSGenetics", "PLOS Genetics"],
-      ["PLoSPathogens", "PLOS Pathogens"],
-      ["PLoSCompBiol", "PLOS Computational Biology"],
-      ["PLoSBiology", "PLOS Biology"],
-      ["PLoSNTD", "PLOS Neglected Tropical Diseases"],
-      ["PLoSMedicine", "PLOS Medicine"],
-      ["PLoSCollections", "PLOS Collections"],
-    ]
+    journals = {
+      "PLoSBiology" => "PLOS Biology",
+      "PLoSCollections" => "PLOS Collections",
+      "PLoSCompBiol" => "PLOS Computational Biology",
+      "PLoSGenetics" => "PLOS Genetics",
+      "PLoSMedicine" => "PLOS Medicine",
+      "PLoSNTD" => "PLOS Neglected Tropical Diseases",
+      "PLoSONE" => "PLOS ONE",
+      "PLoSPathogens" => "PLOS Pathogens"
+    }
     data.should eq(journals)
   end
 
@@ -152,7 +152,7 @@ describe SolrRequest do
       :author_country=>"",
       :institution=>"University of California",
       :subject=>"Gene regulation",
-      :cross_published_journal_name=>"All Journals",
+      :filterJournals=>["All Journals"],
       :financial_disclosure=>""
     }
 

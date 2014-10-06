@@ -6,31 +6,27 @@
         => "#{@start_result} - #{@end_result} of #{number_with_delimiter(@total_found, :delimiter => ',')} results for"
       - else
         ' No results found for
-
       - if params.has_key?(:unformattedQueryId)
         span.keyword= params[:unformattedQueryId]
-        - if params.has_key?(:filterJournals)
-          span.journals journals: #{params[:filterJournals].join(" or ")}
-        - else
-          span.journals journals: All Journals
+        = render 'journals'
       - else
         - if !params[:everything].nil? && params[:everything].length > 0
           ' keyword:
-
           span.keyword= params[:everything]
         - if !params[:author].nil? && params[:author].length > 0
-          | author:
+          ' author:
           span.author-name= params[:author]
         - if !params[:author_country].nil? &&params[:author_country].length > 0
-          | author country:
+          ' author country:
           span.author-country= params[:author_country]
         - if !@start_date.nil? && !@end_date.nil?
           span
-          | publication date:
+          ' publication date:
           span.publication-date>= @start_date.strftime("%m-%d-%Y")
           ' to
           span.publication-date= @end_date.strftime("%m-%d-%Y")
         - if Search.plos?
+          = render 'journals'
           span
             ' journals:
             span.journals= params[:cross_published_journal_name]

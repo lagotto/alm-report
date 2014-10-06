@@ -35,9 +35,9 @@
       .input-holder
         = label_tag(:cross_published_journal_name, "Journal")
         = select_tag( \
-            :cross_published_journal_name, \
+            "filterJournals[]", \
             options_for_select(@journals), \
-            :class => "styled" \
+            class: "styled" \
           )
       .input-holder
         = label_tag(:financial_disclosure, "Funder name or funding number")

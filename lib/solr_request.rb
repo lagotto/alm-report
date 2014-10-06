@@ -46,7 +46,7 @@ class SolrRequest
   WHITELIST = [
     :everything, :author, :author_country, :institution, :publication_days_ago,
     :datepicker1, :datepicker2, :subject, :cross_published_journal_name,
-    :financial_disclosure, :title, :publication_date
+    :financial_disclosure, :title, :publication_date, :filterJournals
   ]
 
   # Creates a solr request.  The query (q param in the solr request) will be based on
@@ -93,8 +93,8 @@ class SolrRequest
   # 1. use fq (filter query) with cross_published_journal_key field
   # 2. display the journal names that are tied to the
   #    cross_published_journal_key field on the front end
-  def self.get_journal_name_key
-    APP_CONFIG["journals"].values
+  def self.get_journals
+    APP_CONFIG["journals"]
   end
 
   # Logic for creating a limit on the publication_date for a query.  All params are strings.
