@@ -1,9 +1,9 @@
 AlmReport::Application.routes.draw do
 
-  root :to => "home#index"
-
-  get "/search" => "search#index"
+  root :to => "search#index"
   get "/search/advanced" => "search#index", advanced: true
+
+  get "/search" => "search#show"
   get "/preview" => "preview#index"
 
   match "/update-session" => "home#update_session"

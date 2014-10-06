@@ -1,8 +1,15 @@
 require 'spec_helper'
 
 describe SearchController do
-  describe "GET index" do
-    it "renders the index template" do
+  describe 'GET index' do
+    it 'renders the index template' do
+      get :index
+      expect(response).to render_template("simple")
+    end
+  end
+
+  describe "GET show" do
+    it "renders the show template" do
       stub_request(
         :get,
         %r{http://api.crossref.org/works.*}
@@ -18,7 +25,7 @@ describe SearchController do
         "&hl=false&q=everything:cancer&rows=25&wt=json"
 
       ).to_return(File.open("spec/fixtures/api_plos_cancer_search.raw"))
-      get :"index", {
+      get :show, {
         utf8: "✓",
         everything: "cancer",
         author: "",
@@ -33,7 +40,7 @@ describe SearchController do
         commit: "Search",
         x: "Y"
       }
-      expect(response).to render_template("simple")
+      expect(response).to render_template("show")
     end
   end
 
@@ -50,8 +57,8 @@ describe SearchController do
       end
     end
 
-    describe "GET index from advanced search" do
-      it "renders the index template" do
+    describe "GET show from advanced search" do
+      it "renders the show template" do
         url = "http://api.plos.org/search?facet=false&fl=id,pmid," \
           "publication_date,received_date,accepted_date,title," \
           "cross_published_journal_name,author_display,editor_display," \
@@ -63,7 +70,7 @@ describe SearchController do
         stub_request(:get, url).
           to_return(File.open('spec/fixtures/api_plos_biology_advanced.raw'))
 
-        get :index, {
+        get :show, {
           queryFieldId: "everything",
           queryTermId: "",
           startDateAsStringId: "",
@@ -75,7 +82,7 @@ describe SearchController do
           utf8: "✓"
         }
 
-        expect(response).to render_template("simple")
+        expect(response).to render_template("show")
       end
     end
   end

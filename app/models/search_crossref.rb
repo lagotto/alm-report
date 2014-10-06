@@ -15,7 +15,8 @@ class SearchCrossref
 
     total_results = response.body["message"]["total-results"]
 
-    return results, total_results
+    metadata = {}
+    return results, total_results, metadata
   end
 
   def request

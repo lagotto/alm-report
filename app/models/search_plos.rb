@@ -11,6 +11,8 @@ class SearchPlos
     q.query
   end
 
+  private
+
   def parse_dates
     start_date, end_date = SolrRequest.parse_date_range(
       @query.delete(:publication_days_ago),
@@ -23,6 +25,6 @@ class SearchPlos
 
   def clean_query
     @query[:publication_days_ago] ||= -1
-    @query.except!(:utf8, :commit, :controller, :action)
+    @query.except! %i(utf8 commit controller action)
   end
 end

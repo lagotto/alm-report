@@ -1,16 +1,4 @@
 class HomeController < ApplicationController
-
-  def index
-    @tab = :select_articles
-    @title = "Homepage"
-
-    if Search.plos?
-      # Add a "All Journals" entry
-      @journals = { SolrRequest::ALL_JOURNALS => SolrRequest::ALL_JOURNALS }
-      @journals.merge! SolrRequest.get_journals.invert
-    end
-  end
-
   # Update session via ajax call
   def update_session
     initial_count = @cart.size

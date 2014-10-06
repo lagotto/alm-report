@@ -4,7 +4,7 @@ class SolrQueryBuilder
   attr_reader :page_block, :query
 
   def initialize(params, fl = nil)
-    @params = params
+    @params = params.dup
     @sort = @params[:sort]
 
     @fl = fl || SolrRequest::FL
@@ -22,11 +22,12 @@ class SolrQueryBuilder
   def build
     clean_params
     build_filter_journals
-    @params.delete :filterJournals
     build_affiliate_param
 
-    @query[:q] = @params.sort_by { |k, _| k }.map do |k, v|
-      unless %i(affiliate publication_date).include?(k) # Pre-formatted
+    @query[:q] = @params.sort_by { |k, _| k }.select do |k, _|
+      SolrRequest::QUERY_PARAMS.include?(k.to_sym)
+    end.map do |k, v|
+      unless %w(affiliate publication_date).include?(k.to_s) # Pre-formatted
         v = quote_if_spaces(v)
       end
       "#{k}:#{v}"
@@ -61,7 +62,7 @@ class SolrQueryBuilder
   # "virtual" params as a side-effect.
 
   def build_affiliate_param
-    parts = [@params.delete(:author_country), @params.delete(:institution)]
+    parts = [@params[:author_country], @params[:institution]]
     parts = parts.compact.map do |part|
       quote_if_spaces(part)
     end
@@ -79,12 +80,12 @@ class SolrQueryBuilder
   # the rows and start parameters.  These can be passed in directly to the
   # constructor, or calculated based on the current_page param, if it's present.
   def build_page_block
-    rows = @params.delete(:rows)
+    rows = @params[:rows]
     page_size = rows.nil? ? APP_CONFIG["results_per_page"] : rows
     result = "rows=#{page_size}"
-    start = @params.delete(:start)
+    start = @params[:start]
     if start.nil?
-      page = @params.delete(:current_page)
+      page = @params[:current_page]
       page = page.nil? ? "1" : page
       page = page.to_i - 1
       if page > 0
@@ -113,7 +114,6 @@ class SolrQueryBuilder
     else
       build
     end
-
     "#{APP_CONFIG["solr_url"]}?#{query_param}#{common_params}#{sort}&hl=false"
   end
 

@@ -1,17 +1,15 @@
 class SearchController < ApplicationController
-  before_filter :journals
+  before_filter { journals if Search.plos? }
 
   def index
     params[:advanced] ? advanced : simple
   end
 
-  private
-
-  def simple
+  def show
     @tab = :select_articles
     @title = "Add Articles"
 
-    @results, @total_found = Search.find(params)
+    @results, @total_found, @metadata = Search.find(params)
 
     if @cart.items.present?
       @results.each do |result|
@@ -20,6 +18,14 @@ class SearchController < ApplicationController
     end
 
     set_paging_vars(params[:current_page])
+  end
+
+  private
+
+  def simple
+    @tab = :select_articles
+    @title = "Simple Search"
+
     render "simple"
   end
 
@@ -30,7 +36,15 @@ class SearchController < ApplicationController
     render "advanced"
   end
 
+  # PLOS
+
   def journals
-    @journals = SolrRequest.get_journals
+    @journals = if params[:advanced]
+      SolrRequest.get_journals
+    else
+      # Add a "All Journals" entry
+      { SolrRequest::ALL_JOURNALS => SolrRequest::ALL_JOURNALS }.
+        merge(SolrRequest.get_journals.invert)
+    end
   end
 end

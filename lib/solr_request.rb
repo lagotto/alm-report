@@ -43,11 +43,18 @@ class SolrRequest
     "Most tweeted" => "alm_twitterCount desc",
   }
 
-  WHITELIST = [
-    :everything, :author, :author_country, :institution, :publication_days_ago,
-    :datepicker1, :datepicker2, :subject, :cross_published_journal_name,
-    :financial_disclosure, :title, :publication_date, :filterJournals
+  QUERY_PARAMS = [
+    :everything, :author, :affiliate, :subject,
+    :cross_published_journal_name, :financial_disclosure, :title,
+    :publication_date
   ]
+
+  PROCESS_PARAMS = [
+    :publication_days_ago, :datepicker1, :datepicker2, :filterJournals,
+    :current_page, :author_country, :institution
+  ]
+
+  WHITELIST = QUERY_PARAMS + PROCESS_PARAMS
 
   # Creates a solr request.  The query (q param in the solr request) will be based on
   # the values of the params passed in, so these should all be valid entries in the PLOS schema.
@@ -86,7 +93,7 @@ class SolrRequest
     url = query_builder.url
     json = SolrRequest.send_query(url)
     docs = SolrRequest.parse_docs(json)
-    return docs, json["response"]["numFound"]
+    return docs, json["response"]["numFound"], metadata
   end
 
   # The goal is to mimic advanced search filter on the PLOS (journal) side
@@ -239,6 +246,15 @@ class SolrRequest
   end
 
   private
+
+  def metadata
+    metadata = {}
+    if @params[:publication_date].present?
+      metadata[:publication_date] = @params[:publication_date][1..-2].
+        split(" TO ").map{ |date| DateTime.parse(date) }
+    end
+    metadata
+  end
 
   def query_builder
     SolrQueryBuilder.new(@params, @fl)

@@ -1,22 +1,6 @@
 require 'spec_helper'
 
 describe HomeController do
-  describe 'GET index' do
-    it 'renders the index template' do
-      stub_request(
-        :get,
-        "http://api.plos.org/search?facet=true&facet.field=" \
-        "cross_published_journal_key&facet.mincount=1&" \
-        "fq=doc_type:full&" \
-        "fq=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
-      ).to_return(
-        File.open('spec/fixtures/solr_request_get_journal_name_key.raw')
-      )
-      get :index
-      expect(response).to render_template('index')
-    end
-  end
-
   describe "GET update_session" do
     let(:article_ids) { ["10.1371/journal.pone.0010031",
                          "10.1371/journal.pmed.0010065",
