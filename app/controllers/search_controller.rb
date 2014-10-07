@@ -24,7 +24,6 @@ class SearchController < ApplicationController
 
   def simple
     @tab = :select_articles
-    @title = "Simple Search"
 
     render "simple"
   end

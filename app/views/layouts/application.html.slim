@@ -4,7 +4,8 @@ html.no-js lang="en"
     meta charset="utf-8"
     meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"
 
-    title #{@title} | ALM Reports
+    = render "layouts/title"
+    = render "layouts/favicon"
 
     = stylesheet
     = stylesheet_link_tag "print", :media => 'print'
@@ -12,7 +13,6 @@ html.no-js lang="en"
     <!--[if lt IE 9]>
       = javascript_include_tag "html5shiv"
     <![endif]-->
-
 
     = font
 
