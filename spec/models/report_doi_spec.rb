@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe Report do
+describe ReportDoi do
   it "builds subject string" do
-    data = [
+    subject = [
       "/Biology and life sciences/Genetics/Genomics/Genome analysis/Genomic libraries",
       "/Biology and life sciences/Organisms/Animals/Invertebrates/Arthropoda/Insects/Drosophila/Drosophila melanogaster",
       "/Biology and life sciences/Evolutionary biology/Organismal evolution",
@@ -16,13 +16,16 @@ describe Report do
       "/Biology and life sciences/Genetics/Genomics/Animal genomics/Invertebrate genomics",
       "/Research and analysis methods/Model organisms/Animal models/Drosophila melanogaster",
       "/Biology and life sciences/Computational biology/Genome evolution",
-      "/Biology and life sciences/Microbiology/Bacteriology/Bacterial genomics"]
+      "/Biology and life sciences/Microbiology/Bacteriology/Bacterial genomics"
+    ]
 
-      Report.build_subject_string(data).
-        should eq(
-          "Bacterial genomics,Drosophila melanogaster,Genome evolution," \
-          "Genomic libraries,Homozygosity,Invertebrate genomics," \
-          "Organismal evolution,Sequence analysis"
-        )
+    report_doi = ReportDoi.new
+    report_doi.solr = {}
+    report_doi.solr["subject"] = subject
+    report_doi.send(:subject_string).should eq(
+      "Bacterial genomics,Drosophila melanogaster,Genome evolution," \
+      "Genomic libraries,Homozygosity,Invertebrate genomics," \
+      "Organismal evolution,Sequence analysis"
+    )
   end
 end
