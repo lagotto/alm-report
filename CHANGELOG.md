@@ -1,3 +1,9 @@
+# 2.0.2
+
+ALM Reports 2.0.2 was released on October 6, 2014.
+
+This is a bugfix release that addresses an issue (issue #50) whereby publication date filtering was not taken into account.
+
 # 2.0.1
 
 ALM Reports 2.0.1 was released on September 20, 2014.
