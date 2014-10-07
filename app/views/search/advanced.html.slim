@@ -1,0 +1,111 @@
+.content.wrapper.cf
+  = form_tag search_path, method: :get, class: "advanced-form"
+
+    h2.text-light-normal
+      ' Construct Your Search
+      = link_to "Simple Search", search_path
+
+    .input-holder
+      = select_tag "queryFieldId", options_for_select({ \
+        "----- Popular -----" => 'divider', \
+        "All Fields" => 'everything', \
+        "Title" => 'title', \
+        "Author" => 'author', \
+        "Abstract" => 'abstract', \
+        "Subject" => 'subject', \
+        "Publication Date" => 'publication_date', \
+        "----- Other -----" => 'divider', \
+        "Accepted Date" => 'accepted_date', \
+        "Article DOI (Digital Object Identifier)" => 'id', \
+        "Article Type" => 'article_type', \
+        "Author Affiliations" => 'affiliate', \
+        "Competing Interest Statement" => 'competing_interest', \
+        "Conclusions" => 'conclusions', \
+        "Editor" => 'editor', \
+        "eNumber" => 'elocation_id', \
+        "Figure & Table Captions" => 'figure_table_caption', \
+        "Financial Disclosure Statement" => 'financial_disclosure', \
+        "Introduction" => 'introduction', \
+        "Issue Number" => 'issue', \
+        "Materials and Methods" => 'materials_and_methods', \
+        "Received Date" => 'received_date', \
+        "References" => 'reference', \
+        "Results and Discussion" => 'results_and_discussion', \
+        "Supporting Information" => 'supporting_information', \
+        "Trial Registration" => 'trial_registration', \
+        "Volume Number" => 'volume' \
+      }, disabled: 'divider'), title: "Search Field"
+
+      #queryTermDivBlockId
+        = text_field_tag "queryTermId", nil, placeholder: "Enter search terms", title: "Search Terms"
+
+      #startAndEndDateDivBlockId class="date-input-fields" style="display:none;"
+        = text_field_tag 'startDateAsStringId', nil, placeholder: "MM-DD-YYYY"
+        span<> to
+        = text_field_tag 'endDateAsStringId', nil, placeholder: "MM-DD-YYYY"
+
+    #queryConjunction
+      label Add to your search with:
+      = button_tag "and", type: 'button', id: "queryConjunctionAndId",  value: 'AND', title: "AND", class: "button-hover-dark-black small-btn"
+      = button_tag "or", type: 'button', id: "queryConjunctionOrId",  value: 'OR', title: "OR", class: "button-hover-dark-black small-btn"
+      = button_tag "not", type: 'button', id: "queryConjunctionNotId",  value: 'NOT', title: "NOT", class: "button-hover-dark-black small-btn"
+
+
+    div
+      = text_area_tag 'unformattedQueryId', params["unformattedQueryId"], title: "Query"
+
+    .btnwrap
+      = submit_tag "Search", class: "button-hover-dark-black submit-btn", id: "advancedQueryButtonId"
+      input type="button" name="clearUnformattedQueryButton" id="clearUnformattedQueryButtonId" value="Clear Query" title="Clear Query" class="reset-btn"
+
+    .input-holder.filter-journals
+      ol
+        li
+          label
+            input(id="journalsOpt_all" type="radio" name="journalOpt" value="all" title="Search All Journals"
+              checked=("checked" unless params["filterJournals"].present?))
+            | Search all journals
+        li
+          label
+            input(id="journalsOpt_slct" type="radio" name="journalOpt" value="some" title="Search Selected Journals"
+              checked=("checked" if params["filterJournals"].present?))
+            | Only search in the following journals:
+        li.options
+          fieldset#fsJournalOpt
+          ul
+            - @journals.each do |key, name|
+              li
+                input(id="filterJournals_#{key}" name="filterJournals[]" value="#{key}" type="checkbox"
+                  title="Select #{name}" alt="Select Journal #{name} Check Box"
+                  checked=("checked" if params["filterJournals"] && params["filterJournals"].include?(key)))
+                  | &nbsp;
+                label for="filterJournals_#{key}" #{name}
+
+  .aside.aside-container
+    h2.text-light-normal Find Specific Articles
+    a.button-hover-dark-black href="/id/" By DOI/PMID
+    a.button-hover-dark-black href="/upload" Upload File
+
+    .help-block
+      h3 Instructions
+      ol
+        li Choose a field to search from the picklist.
+        li Enter search term(s).
+        li Click the AND OR or NOT buttons to add terms to the search box.
+        li Repeat steps as necessary.
+        li Select journals below, if desired.
+        li Click Search to run your query.
+
+      h3 Special Characters
+      ul
+        li The following characters have special meanings to the query engine: <strong> ! &amp; " ' ^ + - | ( ) [ ] { } \ : </strong>
+        li Therefore, all of these characters will be "escaped" by preceding each one with a backslash character
+        li The wildcard characters <strong>?</strong> and <strong>*</strong> are <i>not</i> escaped
+        li The tilde symbol <strong>~</strong> at the end of a single word term indicates a fuzzy search
+
+      h3 Special Words
+      ul
+        li
+          ' The upper-case words <strong>AND</strong>, <strong>OR</strong>, <strong>NOT</strong>
+          ' and <strong>TO</strong> have special meanings to the query engine, so these words
+          | will be changed to lower-case when they are used as searchable terms

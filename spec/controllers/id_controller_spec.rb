@@ -5,22 +5,11 @@ describe IdController do
     IdController.validate_doi(nil).should eq(nil)
     IdController.validate_doi("").should eq(nil)
     IdController.validate_doi("foo").should eq(nil)
-    IdController.validate_doi("info:doi/10.1371/journal.pone.003337").
-      should eq(nil)
-    IdController.validate_doi("0.1371/journal.pmed.1000077").should eq(nil)
-    IdController.validate_doi("10.1371/journal.pmed.100007").should eq(nil)
-    IdController.validate_doi("info:doi/10.1371/journal.ffoo.0033299").
-      should eq(nil)
-    IdController.validate_doi("info:doi/10.1371/journa.pmed.0010052").
-      should eq(nil)
-
     IdController.validate_doi("info:doi/10.1371/journal.pone.0049349").
       should eq("10.1371/journal.pone.0049349")
-
     IdController.validate_doi("10.1371/journal.pmed.1000077").
       should eq("10.1371/journal.pmed.1000077")
 
-    # Currents DOIs.  These are handled slightly differently.
     IdController.validate_doi(
       "10.1371/currents.dis.ad70cd1c8bc585e9470046cde334ee4b"
     ).should eq("10.1371/currents.dis.ad70cd1c8bc585e9470046cde334ee4b")
@@ -41,5 +30,20 @@ describe IdController do
     IdController.validate_doi("doi/10.1371/4fd1286980c08").
       should eq("10.1371/4fd1286980c08")
 
+    IdController.validate_doi("doi:10.1021/ac1014832").
+      should eq("10.1021/ac1014832")
+  end
+
+  it "POST #process_upload" do
+    stub_request(:get, /api.crossref.org\/works/).
+      to_return(File.open('spec/fixtures/api_crossref_single_doi.raw'))
+
+    stub_request(:get, /api.plos.org.*pmid:.*/).
+      to_return(File.open('spec/fixtures/solr_pmids.raw'))
+
+    file = fixture_file_upload "sample_upload_file.csv", "text/plain"
+    post :process_upload, :"upload-file-field" => file
+
+    response.redirect_url.should eq('http://test.host/preview')
   end
 end

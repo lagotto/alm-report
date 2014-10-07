@@ -1,25 +1,30 @@
 require 'spec_helper'
 
 describe Cart do
-  let(:session_data) { { "10.1371/journal.pone.0010031" => 1410868245 } }
+  let(:item_ids) { ["10.1371/journal.pone.0010031"] }
+  let(:search_result) { SearchResult.from_cache(item_ids.first) }
+  subject { Cart.new(item_ids) }
 
-  subject { Cart.new(session_data) }
+  before do
+    stub_request(:get, /api.crossref.org\/works/).
+      to_return(File.open('spec/fixtures/api_crossref_single_doi.raw'))
+  end
 
   it "[]" do
-    expect(subject["10.1371/journal.pone.0010031"]).to eq(1410868245)
+    expect(subject["10.1371/journal.pone.0010031"]).to eq(search_result)
   end
 
   it "[]=" do
-    expect(subject["10.1371/journal.pone.0010031"] = 1410868258)
-      .to eq(1410868258)
+    expect(subject["10.1371/journal.pone.0010031"] = search_result)
+      .to eq(search_result)
   end
 
   it "delete" do
-    expect(subject.delete("10.1371/journal.pone.0010031")).to eq(1410868245)
+    expect(subject.delete("10.1371/journal.pone.0010031")).to eq(search_result)
   end
 
   it "clone" do
-    expect(subject.clone).to eq("10.1371/journal.pone.0010031" => 1410868245)
+    expect(subject.clone).to eq("10.1371/journal.pone.0010031" => search_result)
   end
 
   it "size" do
@@ -35,24 +40,19 @@ describe Cart do
     expect(subject.empty?).to be true
   end
 
-  it "merge! add" do
-    subject.merge!("10.1371/journal.pmed.0008763" => 1410868258)
-    expect(subject.dois).to eq("10.1371/journal.pone.0010031"=>1410868245,
-      "10.1371/journal.pmed.0008763"=>1410868258)
+  it "add" do
+    subject.add(["10.1371/journal.pmed.0008763"])
+    expect(subject.dois).
+      to eq(["10.1371/journal.pone.0010031", "10.1371/journal.pmed.0008763"])
   end
 
-  it "merge! update" do
-    subject.merge!("10.1371/journal.pone.0010031" => 1410868258)
-    expect(subject.dois).to eq("10.1371/journal.pone.0010031" => 1410868258)
-  end
-
-  it "except!" do
-    subject.except!("10.1371/journal.pone.0010031")
+  it "remove" do
+    subject.remove("10.1371/journal.pone.0010031")
     expect(subject.dois).to be_empty
   end
 
-  it "except! array" do
-    subject.except!(["10.1371/journal.pone.0010031", "10.1371/journal.pmed.0008763"])
+  it "remove multiple" do
+    subject.remove(["10.1371/journal.pone.0010031", "10.1371/journal.pmed.0008763"])
     expect(subject.dois).to be_empty
   end
 

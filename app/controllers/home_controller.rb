@@ -1,80 +1,5 @@
-
-# TODO: separate out the methods into multiple Controller classes, if necessary.
-# Right now this is the entire app except for the report page.
 class HomeController < ApplicationController
-  def index
-    @tab = :select_articles
-    @title = "Homepage"
-
-    journals = SolrRequest.get_journal_name_key
-    journals.collect! { | journal | [journal[:journal_name], journal[:journal_name]] }
-
-    # Add a fake entry for "all journals"
-    @journals = journals.unshift([SolrRequest::ALL_JOURNALS, SolrRequest::ALL_JOURNALS])
-  end
-
-  # Performs a solr search based on the parameters passed into an action.
-  # Returns a tuple of (solr documents, total results found).  If argument fl
-  # is none-nil, it specifies what results fields we want to retrieve from solr.
-  def search_from_params(fl=nil)
-
-    # Strip out form params not relevant to solr.
-    solr_params = {}
-    params.keys.each do |key|
-      if !["utf8", "commit", "controller", "action"].include?(key.to_s)
-        solr_params[key.to_sym] = params[key]
-      end
-    end
-
-    if (solr_params[:publication_days_ago].nil?)
-      # default value
-      solr_params[:publication_days_ago] = -1
-    end
-
-    @start_date, @end_date = SolrRequest.parse_date_range(solr_params.delete(:publication_days_ago),
-        solr_params.delete(:datepicker1), solr_params.delete(:datepicker2))
-    date_range = SolrRequest.build_date_range(@start_date, @end_date)
-    if !date_range.nil?
-      solr_params[:publication_date] = date_range
-    end
-    q = SolrRequest.new(solr_params, fl)
-    q.query
-  end
-  private :search_from_params
-
-  def add_articles
-    @tab = :select_articles
-    @title = "Add Articles"
-
-    @docs, @total_found = search_from_params
-
-    if !params["unformattedQueryId"].nil?
-      # search executed from the advanced search page
-      # convert the journal key to journal name
-      @filter_journal_names = []
-      if !params["filterJournals"].nil?
-        if APP_CONFIG["journals"].present?
-          params["filterJournals"].each do | journal_key |
-            journal_name = APP_CONFIG["journals"][journal_key]
-            @filter_journal_names << journal_name if journal_name.present?
-          end
-        end
-      end
-
-    end
-
-    # make sure that the articles that have been checked previously are checked
-    # when we render the page
-    if @cart.dois.present?
-      @docs.each { |doc| doc[:doc_checked] = true \
-        if (@cart.dois.has_key?(doc["id"])) }
-    end
-
-    set_paging_vars(params[:current_page])
-  end
-
   # Update session via ajax call
-  # params[:article_ids] is of the form "10.1371/journal.pone.0052192|12345678";
   def update_session
     initial_count = @cart.size
 
@@ -82,12 +7,11 @@ class HomeController < ApplicationController
     return render json: { status: "limit", delta: 0 } \
       unless initial_count < APP_CONFIG["article_limit"]
 
-    # generate hash in format doi => timestamp, observe article_limit
-    article_ids = parse_article_keys(params[:article_ids], initial_count)
+    article_ids = params[:article_ids]
 
     case params[:mode]
-    when "SAVE" then @cart.merge!(article_ids)
-    when "REMOVE" then @cart.except!(article_ids.keys)
+    when "ADD" then @cart.add(article_ids)
+    when "REMOVE" then @cart.remove(article_ids)
     end
 
     render json: { status: "success", delta: @cart.size - initial_count }
@@ -132,7 +56,7 @@ class HomeController < ApplicationController
     begin
       rows = [page_size, limit - params[:start] + 1].min
       params[:rows] = rows
-      docs, _ = search_from_params("id,publication_date")
+      docs, _ = Search.find(params, fl: "id,publication_date")
       results += docs
       params[:start] = params[:start] + rows
     end while params[:start] <= limit
@@ -178,31 +102,6 @@ class HomeController < ApplicationController
   # Action that clears any DOIs in the session and redirects to home.
   def start_over
     @cart.clear
-    redirect_to :action => :index
-  end
-
-  def preview_list
-    @tab = :preview_list
-    @title = "Preview List"
-    @total_found = @cart.size
-    dois = @cart.clone
-    set_paging_vars(params[:current_page])
-
-    # Convert to array, sorted in descending order by timestamp, then throw away the timestamps.
-    dois = dois.sort_by{|doi, timestamp| -timestamp}.collect{|x| x[0]}
-    dois = dois[(@start_result) - 1..(@end_result - 1)]
-    @docs = []
-
-    data = BackendService.get_article_data_for_list_display(dois)
-    dois.each do |doi|
-      @docs << data[doi]
-    end
-  end
-
-  def advanced
-    @tab = :select_articles
-    @title = "Advanced Search"
-
-    @journals = SolrRequest.get_journal_name_key
+    redirect_to root_path
   end
 end

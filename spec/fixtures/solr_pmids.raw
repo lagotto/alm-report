@@ -1,0 +1,93 @@
+HTTP/1.1 200 OK
+Date: Tue, 23 Sep 2014 12:51:20 GMT
+Server: Apache-Coyote/1.1
+Last-Modified: Tue, 23 Sep 2014 12:50:56 GMT
+ETag: "NzBlMTY0MDAwMDAwMDAwMFNvbHI="
+Content-Type: application/json;charset=UTF-8
+Connection: close
+Transfer-Encoding: chunked
+Set-Cookie: Coyote-2-9514450c=9514451d:0; path=/
+
+{
+"response": {
+"numFound": 1,
+"start": 0,
+"docs": [
+{
+"id": "10.1371/journal.pmed.0020124",
+"pmid": "20552018",
+"counter_total_month": 16115,
+"journal": "PLoS Medicine",
+"publication_date": "2005-08-30T00:00:00Z",
+"article_type": "Essay",
+"author_display": [
+"John P. A. Ioannidis"
+],
+"abstract": [
+"Summary: There is increasing concern that most current published research findings are false. The probability that a research claim is true may depend on study power and bias, the number of other studies on the same question, and, importantly, the ratio of true to no relationships among the relationships probed in each scientific field. In this framework, a research finding is less likely to be true when the studies conducted in a field are smaller; when effect sizes are smaller; when there is a greater number and lesser preselection of tested relationships; where there is greater flexibility in designs, definitions, outcomes, and analytical modes; when there is greater financial and other interest and prejudice; and when more teams are involved in a scientific field in chase of statistical significance. Simulations show that for most study designs and settings, it is more likely for a research claim to be false than true. Moreover, for many current scientific fields, claimed research findings may often be simply accurate measures of the prevailing bias. In this essay, I discuss the implications of these problems for the conduct and interpretation of research. \n        Published research findings are sometimes refuted by subsequent evidence, says Ioannidis, with ensuing confusion and disappointment.\n      "
+],
+"title_display": "Why Most Published Research Findings Are False"
+},
+{
+"id": "10.1371/journal.ppat.1000805",
+"pmid": "20436915",
+"counter_total_month": 16115,
+"journal": "PLoS Medicine",
+"publication_date": "2005-08-30T00:00:00Z",
+"article_type": "Essay",
+"author_display": [
+"John P. A. Ioannidis"
+],
+"abstract": [
+"Summary: There is increasing concern that most current published research findings are false. The probability that a research claim is true may depend on study power and bias, the number of other studies on the same question, and, importantly, the ratio of true to no relationships among the relationships probed in each scientific field. In this framework, a research finding is less likely to be true when the studies conducted in a field are smaller; when effect sizes are smaller; when there is a greater number and lesser preselection of tested relationships; where there is greater flexibility in designs, definitions, outcomes, and analytical modes; when there is greater financial and other interest and prejudice; and when more teams are involved in a scientific field in chase of statistical significance. Simulations show that for most study designs and settings, it is more likely for a research claim to be false than true. Moreover, for many current scientific fields, claimed research findings may often be simply accurate measures of the prevailing bias. In this essay, I discuss the implications of these problems for the conduct and interpretation of research. \n        Published research findings are sometimes refuted by subsequent evidence, says Ioannidis, with ensuing confusion and disappointment.\n      "
+],
+"title_display": "Why Most Published Research Findings Are False"
+},
+{
+"id": "10.1371/journal.pone.0009729",
+"pmid": "20436906",
+"counter_total_month": 16115,
+"journal": "PLoS Medicine",
+"publication_date": "2005-08-30T00:00:00Z",
+"article_type": "Essay",
+"author_display": [
+"John P. A. Ioannidis"
+],
+"abstract": [
+"Summary: There is increasing concern that most current published research findings are false. The probability that a research claim is true may depend on study power and bias, the number of other studies on the same question, and, importantly, the ratio of true to no relationships among the relationships probed in each scientific field. In this framework, a research finding is less likely to be true when the studies conducted in a field are smaller; when effect sizes are smaller; when there is a greater number and lesser preselection of tested relationships; where there is greater flexibility in designs, definitions, outcomes, and analytical modes; when there is greater financial and other interest and prejudice; and when more teams are involved in a scientific field in chase of statistical significance. Simulations show that for most study designs and settings, it is more likely for a research claim to be false than true. Moreover, for many current scientific fields, claimed research findings may often be simply accurate measures of the prevailing bias. In this essay, I discuss the implications of these problems for the conduct and interpretation of research. \n        Published research findings are sometimes refuted by subsequent evidence, says Ioannidis, with ensuing confusion and disappointment.\n      "
+],
+"title_display": "Why Most Published Research Findings Are False"
+},
+{
+"id": "10.1371/journal.pone.0010418",
+"pmid": "20436680",
+"counter_total_month": 16115,
+"journal": "PLoS Medicine",
+"publication_date": "2005-08-30T00:00:00Z",
+"article_type": "Essay",
+"author_display": [
+"John P. A. Ioannidis"
+],
+"abstract": [
+"Summary: There is increasing concern that most current published research findings are false. The probability that a research claim is true may depend on study power and bias, the number of other studies on the same question, and, importantly, the ratio of true to no relationships among the relationships probed in each scientific field. In this framework, a research finding is less likely to be true when the studies conducted in a field are smaller; when effect sizes are smaller; when there is a greater number and lesser preselection of tested relationships; where there is greater flexibility in designs, definitions, outcomes, and analytical modes; when there is greater financial and other interest and prejudice; and when more teams are involved in a scientific field in chase of statistical significance. Simulations show that for most study designs and settings, it is more likely for a research claim to be false than true. Moreover, for many current scientific fields, claimed research findings may often be simply accurate measures of the prevailing bias. In this essay, I discuss the implications of these problems for the conduct and interpretation of research. \n        Published research findings are sometimes refuted by subsequent evidence, says Ioannidis, with ensuing confusion and disappointment.\n      "
+],
+"title_display": "Why Most Published Research Findings Are False"
+},
+{
+"id": "10.1371/journal.pone.0010643",
+"pmid": "20224736",
+"counter_total_month": 16115,
+"journal": "PLoS Medicine",
+"publication_date": "2005-08-30T00:00:00Z",
+"article_type": "Essay",
+"author_display": [
+"John P. A. Ioannidis"
+],
+"abstract": [
+"Summary: There is increasing concern that most current published research findings are false. The probability that a research claim is true may depend on study power and bias, the number of other studies on the same question, and, importantly, the ratio of true to no relationships among the relationships probed in each scientific field. In this framework, a research finding is less likely to be true when the studies conducted in a field are smaller; when effect sizes are smaller; when there is a greater number and lesser preselection of tested relationships; where there is greater flexibility in designs, definitions, outcomes, and analytical modes; when there is greater financial and other interest and prejudice; and when more teams are involved in a scientific field in chase of statistical significance. Simulations show that for most study designs and settings, it is more likely for a research claim to be false than true. Moreover, for many current scientific fields, claimed research findings may often be simply accurate measures of the prevailing bias. In this essay, I discuss the implications of these problems for the conduct and interpretation of research. \n        Published research findings are sometimes refuted by subsequent evidence, says Ioannidis, with ensuing confusion and disappointment.\n      "
+],
+"title_display": "Why Most Published Research Findings Are False"
+}
+]
+}
+}

@@ -3,22 +3,19 @@ class ReportsController < ApplicationController
   # Creates a new report based on the DOIs stored in the session,
   # and redirects to display it.
   def generate
-    dois = @cart.clone
-
+    dois = @cart.items.keys
     # start again if we find no dois
-    return redirect_to(controller: "home",
-                       action: "advanced",
-                       unformattedQueryId: params[:unformattedQueryId],
-                       filterJournals: params[:filterJournals]) if dois.blank?
+    if dois.blank?
+      return redirect_to(search_advanced_path,
+                         unformattedQueryId: params[:unformattedQueryId],
+                         filterJournals: params[:filterJournals])
+    end
 
     @report = Report.new
     if !@report.save
       raise "Error saving report"
     end
 
-    # Convert to array, sorted in descending order by timestamp,
-    # then throw away the timestamps.
-    dois = dois.sort_by{|doi, timestamp| -timestamp}.collect{|x| x[0]}
     @report.add_all_dois(dois)
     if @report.save
       redirect_to :action => "metrics", :id => @report.id
@@ -26,7 +23,6 @@ class ReportsController < ApplicationController
       # TODO
     end
   end
-
 
   # Loads a report based on the report_id, and sets some other common variables
   # used by the reports pages.
@@ -41,7 +37,6 @@ class ReportsController < ApplicationController
     end
   end
 
-
   def metrics
     load_report(params[:id])
     @report_sub_tab = :metrics
@@ -55,28 +50,27 @@ class ReportsController < ApplicationController
       # to limit what we have to load from solr and ALM.
       @dois = @report.report_dois[(@start_result) - 1..(@end_result - 1)]
       alm_data = AlmRequest.get_data_for_articles(@dois)
-      solr_data = BackendService.get_article_data_for_list_display(@dois)
+      solr_data = Cart.new(@dois.map(&:doi))
       [solr_data, alm_data]
     }
 
     @show_metrics_data = true
     if @report.report_dois.length > 0
-      solr_data, alm_data = paging_logic.call()
+      @solr_data, @alm_data = paging_logic.call()
       i = @start_result
-      dois_to_delete = manage_report_data(@dois, solr_data, alm_data, i)
+      dois_to_delete = manage_report_data(@dois, i)
       if (!dois_to_delete.empty?)
         purge_bad_dois(dois_to_delete)
 
         # We need to re-do paging logic since the number of articles has changed.
-        solr_data, alm_data = paging_logic.call()
+        @solr_data, @alm_data = paging_logic.call()
         i = @start_result
-        manage_report_data(@dois, solr_data, alm_data, i)
+        manage_report_data(@dois, i)
       end
     else
       @show_metrics_data = false
     end
   end
-
 
   # Permanently removes the given DOIs from a report.
   def purge_bad_dois(dois_to_delete)
@@ -87,88 +81,32 @@ class ReportsController < ApplicationController
     @report.reload
   end
 
-
   def visualizations
-    load_report(params[:id])
-    if @report.report_dois.length > APP_CONFIG["viz_limit"]
-      raise "Visualizations not enabled for more than #{APP_CONFIG["viz_limit"]} reports"
-    end
     @report_sub_tab = :visualizations
     @title = "Report Visualizations"
 
+    load_report(params[:id])
+
+    if @report.report_dois.length > APP_CONFIG["viz_limit"]
+      return flash[:error] = "Visualizations not enabled for more than " \
+        "#{APP_CONFIG["viz_limit"]} reports"
+    end
+
     # deteremine if the report contains only one article
-    one_article_report = false
-    if (@report.report_dois.length == 1)
-      one_article_report = true
-      alm_data = AlmRequest.get_data_for_one_article(@report.report_dois)
+    if @report.report_dois.length == 1
+      single_document_visualizations
     else
-      alm_data = AlmRequest.get_data_for_viz(@report.report_dois)
-    end
-
-    solr_data = BackendService.get_article_data_for_list_display(@report.report_dois)
-
-    dois_to_delete = manage_report_data(@report.report_dois, solr_data, alm_data)
-
-    if (!dois_to_delete.empty?)
-      purge_bad_dois(dois_to_delete)
-
-      # TODO fix sort order
-
-      manage_report_data(@report.report_dois, solr_data, alm_data)
-    end
-
-    @draw_viz = true
-    if (one_article_report && @report.report_dois.length == 1)
-      #render single article report
-      @article_usage_data = ChartData.generate_data_for_usage_chart(@report)
-      @article_citation_data = ChartData.generate_data_for_citation_chart(@report)
-
-      social_scatter_data = ChartData.generate_data_for_social_data_chart(@report)
-      @social_scatter_header = social_scatter_data[:column_header]
-      @social_scatter = social_scatter_data[:data]
-
-      mendeley_reader_data = ChartData.generate_data_for_mendeley_reader_chart(@report)
-      @reader_data = mendeley_reader_data[:reader_loc_data]
-      @reader_total = mendeley_reader_data[:reader_total]
-
-      render 'visualization.html.erb'
-    else
-      @is_currents_only = true
-      @report.report_dois.each do |report_doi|
-        if !report_doi.is_currents_doi
-          @is_currents_only = false
-          break
-        end
-      end
-
-      # this covers situations where a report contains many articles but very small
-      # portion of the articles have alm data  (without alm data, viz page will look very weird)
-      if solr_data.length >= APP_CONFIG["visualization_min_num_of_alm_data_points"]
-
-        bubble_data = ChartData.generate_data_for_bubble_charts(@report)
-        @article_usage_citations_age_data = bubble_data[:citation_data]
-        @article_usage_mendeley_age_data = bubble_data[:mendeley_data]
-
-        @article_usage_citation_subject_area_data = ChartData.generate_data_for_subject_area_chart(@report)
-
-        loc_data = ChartData.generate_data_for_articles_by_location_chart(@report)
-        @total_authors_data = loc_data[:total_authors_data]
-        @article_locations_data = loc_data[:locations_data]
-      else
-        @draw_viz = false
-      end
-      render 'visualizations.html.erb'
+      multiple_documents_visualizations
     end
   end
 
-
-  def manage_report_data(report_dois, solr_data, alm_data, display_start_index = 1)
+  def manage_report_data(report_dois, display_start_index = 1)
 
     i = display_start_index
     dois_to_delete = []
 
     report_dois.each do |doi|
-      solr = solr_data[doi.doi]
+      solr = @solr_data[doi.doi]
 
       if solr.nil?
         dois_to_delete << doi.id
@@ -176,8 +114,7 @@ class ReportsController < ApplicationController
         doi.solr = solr
 
         # only try to retrieve the alm data if the article exists in solr
-        alm = alm_data[doi.doi]
-
+        alm = @alm_data[doi.doi]
         if alm.nil?
           # if there isn't alm data for an article that exists in solr
           # alm had an error for that article or
@@ -198,7 +135,6 @@ class ReportsController < ApplicationController
 
   end
 
-
   # handles download data links
   def download_data
     load_report(params[:id])
@@ -214,4 +150,74 @@ class ReportsController < ApplicationController
     end
   end
 
+  private
+
+  def prepare_visualization_data
+    @solr_data = Hash[@report.report_dois.map do |report_doi|
+      [report_doi.doi, SearchResult.from_cache(report_doi.doi)]
+    end]
+
+    dois_to_delete = manage_report_data(@report.report_dois)
+
+    if dois_to_delete.present?
+      purge_bad_dois(dois_to_delete)
+      # TODO fix sort order
+      manage_report_data(@report.report_dois)
+    end
+
+    if @report.has_alm?
+      @draw_viz = true
+    else
+      @draw_viz = false
+      return
+    end
+  end
+
+  def single_document_visualizations
+    @alm_data = AlmRequest.get_data_for_one_article(@report.report_dois)
+    prepare_visualization_data
+
+    #render single article report
+    @article_usage_data = ChartData.
+      generate_data_for_usage_chart(@report)
+
+    @article_citation_data = ChartData.
+      generate_data_for_citation_chart(@report)
+
+    social_scatter_data = ChartData.
+      generate_data_for_social_data_chart(@report)
+    @social_scatter_header = social_scatter_data[:column_header]
+    @social_scatter = social_scatter_data[:data]
+
+    mendeley_reader_data = ChartData.
+      generate_data_for_mendeley_reader_chart(@report)
+    @reader_data = mendeley_reader_data[:reader_loc_data]
+    @reader_total = mendeley_reader_data[:reader_total]
+    render "single_document_visualizations"
+  end
+
+  def multiple_documents_visualizations
+    @alm_data = AlmRequest.get_data_for_articles(@report.report_dois)
+    prepare_visualization_data
+
+    # for when a report contains many articles but very small portion of the
+    # articles have alm data (without it viz page will look very weird)
+    if @solr_data.length >= APP_CONFIG["visualization_min_num_of_alm_data_points"]
+      bubble_data = ChartData.bubble_charts(@report)
+      @article_usage_citations_age_data = bubble_data[:citation_data]
+      @article_usage_mendeley_age_data = bubble_data[:mendeley_data]
+
+      @article_usage_citation_subject_area_data = ChartData.
+        subject_area_chart(@report)
+
+      loc_data = ChartData.
+        generate_data_for_articles_by_location_chart(@report)
+
+      @total_authors_data = loc_data[:total_authors_data]
+      @article_locations_data = loc_data[:locations_data]
+    else
+      @draw_viz = false
+    end
+    render "multiple_documents_visualizations"
+  end
 end

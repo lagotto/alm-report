@@ -1,0 +1,16 @@
+.content.wrapper.cf
+  .preview-list
+    = form_tag(preview_path, method: :get, class: "preview-form")
+      h2.text-light-normal Review your list of articles
+      p= "#{@start_result} - #{@end_result} of #{@total_found} articles"
+
+      ul
+        li.unselect-all-articles-link Clear All
+
+      p.select-articles-message.text-light-normal.invisible
+        span#select-articles-message-text
+        span#select-all-articles-message-text
+
+      - @all_checked = true
+      = render "search/article_list"
+  = render "right_nav", :current_page => :preview_list

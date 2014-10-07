@@ -15,6 +15,7 @@ end
 # but that was not necessary.
 class SolrRequest
   include Performance
+
   SOLR_TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
   FILTER = "fq=doc_type:full&fq=!article_type_facet:#{URI::encode("\"Issue Image\"")}"
@@ -43,11 +44,18 @@ class SolrRequest
     "Most tweeted" => "alm_twitterCount desc",
   }
 
-  WHITELIST = [
-    :everything, :author, :author_country, :institution, :publication_days_ago,
-    :datepicker1, :datepicker2, :subject, :cross_published_journal_name,
-    :financial_disclosure, :title, :publication_date
+  QUERY_PARAMS = [
+    :everything, :author, :affiliate, :subject,
+    :cross_published_journal_name, :financial_disclosure, :title,
+    :publication_date
   ]
+
+  PROCESS_PARAMS = [
+    :publication_days_ago, :datepicker1, :datepicker2, :filterJournals,
+    :current_page, :author_country, :institution
+  ]
+
+  WHITELIST = QUERY_PARAMS + PROCESS_PARAMS
 
   # Creates a solr request.  The query (q param in the solr request) will be based on
   # the values of the params passed in, so these should all be valid entries in the PLOS schema.
@@ -61,6 +69,7 @@ class SolrRequest
   def self.send_query(url)
     start_time = Time.now
     resp = Net::HTTP.get_response(URI.parse(url))
+
     end_time = Time.now
     Rails.logger.debug "SOLR Request took #{end_time - start_time} seconds\n#{url}"
 
@@ -73,10 +82,10 @@ class SolrRequest
   # Returns a list of JSON entities for article results given a json response from solr.
   def self.parse_docs(json)
     docs = json["response"]["docs"]
-    docs.each do |doc|
+    docs.map do |doc|
       doc = fix_data(doc)
+      SearchResult.new(doc, :plos)
     end
-    return docs
   end
 
   # Performs a single solr search, based on the parameters set on this object.
@@ -85,71 +94,15 @@ class SolrRequest
     url = query_builder.url
     json = SolrRequest.send_query(url)
     docs = SolrRequest.parse_docs(json)
-    return docs, json["response"]["numFound"]
+    return docs, json["response"]["numFound"], metadata
   end
 
-  # The goal is to mimic advanced search journal filter on the ambra side (journal site)
+  # The goal is to mimic advanced search filter on the PLOS (journal) side
   # 1. use fq (filter query) with cross_published_journal_key field
-  # 2. display the journal names that are tied to the cross_published_journal_key field on the front end
-  # There wasn't a way to tie cross_published_journal_key field values to cross_published_journal_name values
-  # easily without matching them up by hand
-  def self.get_journal_name_key
-    params = {}
-    params[:q] = "*:*"
-    params[:facet] = "true"
-    params["facet.field"] = "cross_published_journal_key"
-    params["facet.mincount"] = 1
-    params[:rows] = 0
-    params[:wt] = "json"
-
-    url = "#{APP_CONFIG["solr_url"]}?#{params.to_param}&#{FILTER}"
-    json = send_query(url)
-
-    journal_keys = json["facet_counts"]["facet_fields"]["cross_published_journal_key"]
-    journal_keys = journal_keys.values_at(* journal_keys.each_index.select {|i| i.even?})
-
-    journals = []
-    if (!APP_CONFIG["journals"].nil? && APP_CONFIG["journals"].size > 0)
-      journal_keys.each do | journal_key |
-        journal_name = APP_CONFIG["journals"][journal_key]
-        journals << {:journal_name => APP_CONFIG["journals"][journal_key], :journal_key => journal_key} if !journal_name.nil?
-      end
-    end
-
-    return journals
-  end
-
-  # Logic for creating a limit on the publication_date for a query.  All params are strings.
-  # Legal values for days_ago are "-1", "0", or a positive integer.  If -1, the method
-  # returns (nil, nil) (no date range specified).  If 0, the values of start_date and end_date
-  # are used to construct the returned range.  If positive, the range extends from
-  # (today - days_ago) to today.  start_date and end_date, if present, should be strings in the
-  # format %m-%d-%Y.
-  def self.parse_date_range(days_ago, start_date, end_date)
-    days_ago = days_ago.to_i
-    end_time = Time.new
-    if days_ago == -1  # All time; default.  Nothing to do.
-      return nil, nil
-
-    elsif days_ago == 0  # Custom date range
-      start_time = Date.strptime(start_date, "%m-%d-%Y")
-      end_time = DateTime.strptime(end_date + " 23:59:59", "%m-%d-%Y %H:%M:%S")
-
-    else  # days_ago specifies start date; end date now
-      start_time = end_time - (3600 * 24 * days_ago)
-    end
-    return start_time, end_time
-  end
-
-  # Returns a legal value constraining the publication_date solr field for the given start and
-  # end DateTimes.  Returns nil if either of the arguments are nil.
-  def self.build_date_range(start_date, end_date)
-    if start_date.nil? || end_date.nil?
-      return nil
-    else
-      return "[#{start_date.strftime(SOLR_TIMESTAMP_FORMAT)} " \
-          "TO #{end_date.strftime(SOLR_TIMESTAMP_FORMAT)}]"
-    end
+  # 2. display the journal names that are tied to the
+  #    cross_published_journal_key field on the front end
+  def self.get_journals
+    APP_CONFIG["journals"]
   end
 
   # There are a handful of special cases where we want to display a "massaged"
@@ -234,13 +187,6 @@ class SolrRequest
     end
   end
 
-  # Retrieves alm data from solr for a given list of DOIs
-  def self.get_data_for_viz(report_dois)
-    measure(report_dois) do
-      SolrRequest.get_data_helper(report_dois, nil, FL_METRIC_DATA)
-    end
-  end
-
   def self.validate_dois(report_dois)
     measure(report_dois) do
       SolrRequest.get_data_helper(report_dois, nil, FL_VALIDATE_ID)
@@ -251,6 +197,7 @@ class SolrRequest
   # Returns a hash of PMID => solr doc, with only id, pmid, and publication_date defined
   # in the solr docs.
   def self.query_by_pmids(pmids)
+    return unless pmids.present?
     q = pmids.map {|pmid| "pmid:\"#{pmid}\""}.join(" OR ")
     url = "#{APP_CONFIG["solr_url"]}?q=#{URI::encode(q)}&#{FILTER}" \
         "&fl=id,publication_date,pmid&wt=json&facet=false&rows=#{pmids.length}"
@@ -261,14 +208,23 @@ class SolrRequest
       if doc["publication_date"]
         doc["publication_date"] = Date.strptime(doc["publication_date"], SOLR_TIMESTAMP_FORMAT)
       end
-      results[doc["pmid"].to_i] = doc
+      results[doc["pmid"].to_i] = SearchResult.new(doc, :plos)
     end
     results
   end
 
   private
 
+  def metadata
+    metadata = {}
+    if @query_builder.params[:publication_date].present?
+      metadata[:publication_date] = query_builder.params[:publication_date][1..-2].
+        split(" TO ").map{ |date| DateTime.parse(date) }
+    end
+    metadata
+  end
+
   def query_builder
-    SolrQueryBuilder.new(@params, @fl)
+    @query_builder ||= SolrQueryBuilder.new(@params, @fl)
   end
 end

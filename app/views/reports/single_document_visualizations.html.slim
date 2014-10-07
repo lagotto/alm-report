@@ -1,0 +1,88 @@
+div.content.wrapper.cf
+  = render "reports_nav"
+
+  - graph_number = 0
+
+  div.visualizations-container
+    - if @article_usage_data.present?
+      - graph_number = graph_number + 1
+      div.visualizations-list
+        div.reports-header-div
+          span.list-numbers= graph_number
+          h2.text-light-normal Article Usage as a function of Age
+
+        #article_usage_div
+        p.info Total usage includes page views and downloads from PLOS and PMC.
+
+    - if !@article_citation_data.empty?
+      - graph_number = graph_number + 1
+      div.visualizations-list
+        div.reports-header-div
+          span.list-numbers= graph_number
+          h2.text-light-normal Article Citations as a function of Age
+        #article_citation_div
+        p.info Cumulative citations from each of the citation indices.
+
+    - if !@social_scatter.empty?
+      - graph_number = graph_number + 1
+      div.visualizations-list
+        div.reports-header-div
+          span.list-numbers= graph_number
+          h2.text-light-normal Discussion Activity as a function of Age
+        #social_scatter_div
+        p.info Activity across blogs, news media, social media, and other online content sources. Those with no activity are not displayed.
+
+    - if @reader_total > 0
+      - graph_number = graph_number + 1
+      div.visualizations-list
+        div.reports-header-div
+          span.list-numbers= graph_number
+          h2.text-light-normal Mendeley Bookmarks by Location
+        #article_mendeley_readers_div
+        p.info Geolocation of #{@reader_total} individuals who have saved the article in Mendeley.
+
+    - if graph_number == 0
+      div.visualizations-list
+        .metrics-no-data-para There isn't enough data to show these visualizations.
+
+  div.report-downloads
+    h2.text-light-normal Print
+    ul
+      li
+        a#download_viz
+          span.png
+          span.file-name Visualizations
+          span.arrow
+
+    = render "report_share"
+
+javascript:
+  function haveDataToDrawViz() {
+    return #{{ @draw_viz }};
+
+  }
+
+  function drawVizForOne() {
+    return true;
+  }
+
+  function getArticleUsageAge() {
+    return #{{ @article_usage_data }};
+  }
+
+  function getArticleCitationAge() {
+    return #{{ @article_citation_data }};
+  }
+
+  function getArticleSocialScatterHeader() {
+    return #{{ @social_scatter_header.to_json }};
+  }
+  function getArticleSocialScatter() {
+    return #{{ @social_scatter.to_json }};
+  }
+
+  function getArticleMendeley() {
+   return  #{{ @reader_data }};
+  }
+
+= javascript_include_tag "charts"

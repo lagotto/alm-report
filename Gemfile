@@ -14,6 +14,8 @@ gem 'jquery-ui-rails', '~> 5.0.0'
 gem 'slim-rails'
 gem 'exception_notification', '~> 4.0.1'
 gem 'httparty', '~> 0.13.1'
+gem 'faraday'
+gem 'faraday_middleware'
 
 group :development do
   gem 'rubocop'
@@ -25,11 +27,12 @@ group :development do
 end
 
 group :test do
+  gem 'capybara-screenshot'
+  gem "simplecov", require: false
   gem 'timecop'
   gem 'poltergeist'
   gem 'capybara'
-  gem "webmock", "~> 1.17.2"
-  gem "minitest", "~> 4.4.0"
+  gem "webmock"
   gem "codeclimate-test-reporter", require: false
 end
 

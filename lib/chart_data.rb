@@ -1,74 +1,51 @@
-
-require "set"
-
 module ChartData
 
-  # Populates @article_usage_citations_age_data and @article_usage_mendeley_age_data, used from
-  # javascript to generate the bubble charts.
-  def self.generate_data_for_bubble_charts(report)
-    article_usage_citations_age_data = []
-    article_usage_mendeley_age_data = []
-    article_usage_citations_age_data << ["Title", "Months", "Total Usage", "Journal", "Scopus"]
-    article_usage_mendeley_age_data << ["Title", "Months", "Total Usage", "Journal", "Mendeley"]
+  def self.bubble_charts(report)
+    common = %w(Title Months Total\ Usage Journal)
+    citation_data = [] << common + ["Scopus"]
+    mendeley_data = [] << common + ["Mendeley"]
+
     report.report_dois.each do |report_doi|
-      if (!report_doi.alm.nil?)
-        days = (Date.today - report_doi.solr["publication_date"]).to_i
+      if report_doi.alm.present?
+        days = (Date.today - report_doi.solr.publication_date).to_i
         months = days / 30
 
-        usage = report_doi.alm[:total_usage]
-        article_usage_citations_age_data << [report_doi.solr["title"], months, usage,
-            report_doi.solr["cross_published_journal_name"][0], report_doi.alm[:scopus_citations]]
-        article_usage_mendeley_age_data << [report_doi.solr["title"], months, usage,
-            report_doi.solr["cross_published_journal_name"][0], report_doi.alm[:mendeley]]
+        usage = report_doi.alm.fetch(:total_usage, {})
+        data = [report_doi.solr.title, months, usage, report_doi.solr.journal]
+        citation_data << data + [report_doi.alm.fetch(:scopus, {})]
+        mendeley_data << data + [report_doi.alm.fetch(:mendeley, {})]
       end
     end
 
-    return {:citation_data => article_usage_citations_age_data, :mendeley_data => article_usage_mendeley_age_data}
+    {citation_data: citation_data, mendeley_data: mendeley_data}
   end
 
-  # generate data for subject area treemap graph
-  def self.generate_data_for_subject_area_chart(report)
-    article_usage_citation_subject_area_data = []
-
-    placeholder_subject = 'subject'
-
-    article_usage_citation_subject_area_data << ['Subject Area', '', '# of articles', 'Total Usage']
-    article_usage_citation_subject_area_data << [placeholder_subject, '', 0, 0]
-
-    subject_area_data = {}
-
-    report.report_dois.each do | report_doi |
-      # get the subject area
-      if !report_doi.solr["subject"].nil?
-        # collect the second level subject areas
-        # we are looking for unique list of second level subject areas
-        # (if they have different parent (different 1st level subject area term),
-        #  we are treating them as the same thing)
-        report_doi.solr["subject"].each do | subject_area_full |
-          subject_areas = subject_area_full.split('/')
-          subject_area = subject_areas[2]
-          if !subject_area.nil?
-            if subject_area_data[subject_area].nil?
-              subject_area_data[subject_area] = []
-            end
-            # associate article to the subject area
-            subject_area_data[subject_area] << report_doi
-          end
-        end
+  def self.subject_area_chart(report)
+    subject_area_data = Hash[report.report_dois.map do |report_doi|
+      subjects = report_doi.solr.subjects.map do |subject|
+        subject = subject.split('/')
+        # Example subject from:
+        # PLOS' Solr: "/Social sciences/Linguistics/Speech"
+        # CrossRef's API: "Molecular Biology"
+        subject = subject[2] || subject[0]
+        [subject, report_doi] if subject
+      end.
+        compact
+    end.
+      flatten(1).
+      group_by(&:first).
+      map{ |subject, dois| [subject, dois.map(&:last).uniq] }
+    ].map do |subject_area, report_dois|
+      total_usage = report_dois.map { |r| r.alm.fetch(:total_usage, 0) }.sum
+      if total_usage
+        [subject_area, "Subject", report_dois.size, total_usage]
       end
     end
-
-    # loop through subjects
-    subject_area_data.each do | subject_area, report_dois |
-      total_usage = report_dois.inject(0) { | sum, report_doi | sum + report_doi.alm[:total_usage] if (!report_doi.alm.nil?) }
-      if (!total_usage.nil?)
-        article_usage_citation_subject_area_data << [subject_area, placeholder_subject, report_dois.size, total_usage]
-      end
-    end
-
-    return article_usage_citation_subject_area_data
+    subject_area_data.unshift(
+      ["Subject Area", "Parent", "# of articles", "Total Usage"],
+      ["Subject", nil, 0, 0]
+    )
   end
-
 
   # Generates tooltip text for markers on the article locations chart,
   # based on the author affiliations.  Returns a tuple of the first
@@ -104,14 +81,14 @@ module ChartData
     report.report_dois.each do | report_doi |
       solr_data = report_doi.solr
 
-      if (!solr_data["author_display"].nil?)
-        total_authors_data = total_authors_data + solr_data["author_display"].length
+      if solr_data.authors
+        total_authors_data = total_authors_data + solr_data.authors.length
       end
 
-      if (!solr_data["affiliate"].nil?)
-        solr_data["affiliate"].each do | affiliate |
+      if solr_data.affiliates
+        solr_data.affiliates.each do | affiliate |
           fields = GeocodeRequest.parse_location_from_affiliate(affiliate)
-          if !fields.nil?
+          if fields
             count, institutions = address_to_count_and_inst[fields[0]]
             count += 1
             institutions << fields[1]
@@ -230,22 +207,28 @@ module ChartData
 
     article_citation_data = []
 
-    if (report.report_dois[0].alm[:crossref][:total] == 0 &&
-      report.report_dois[0].alm[:pubmed][:total] == 0 &&
-      report.report_dois[0].alm[:scopus][:total] == 0)
+    if (report.report_dois[0].alm.fetch(:crossref, {})[:total] == 0 &&
+      report.report_dois[0].alm.fetch(:pubmed, {})[:total] == 0 &&
+      report.report_dois[0].alm.fetch(:scopus, {})[:total] == 0)
 
       return article_citation_data
     end
 
-    crossref_history_data = process_history_data(report.report_dois[0].alm[:crossref][:histories])
-    pubmed_history_data = process_history_data(report.report_dois[0].alm[:pubmed][:histories])
-    scopus_history_data = process_history_data(report.report_dois[0].alm[:scopus][:histories])
+    crossref_history_data = process_history_data(
+      report.report_dois[0].alm.fetch(:crossref, {})[:histories]
+    )
+    pubmed_history_data = process_history_data(
+      report.report_dois[0].alm.fetch(:pubmed, {})[:histories]
+    )
+    scopus_history_data = process_history_data(
+      report.report_dois[0].alm.fetch(:scopus, {})[:histories]
+    )
 
     # check that we have history data
     return [] if crossref_history_data.empty? && pubmed_history_data.empty? && scopus_history_data.empty?
 
     # starting date is the publication date
-    data_date = Date.parse(report.report_dois[0].alm[:publication_date])
+    data_date = Date.parse(report.report_dois[0].alm.fetch(:publication_date, {}))
     current_date = DateTime.now.to_date
 
     prev_crossref_data = 0
@@ -284,42 +267,37 @@ module ChartData
 
   # Generate data for single article social media chart
   def self.generate_data_for_social_data_chart(report)
-
     social_data = []
 
     total_data = 0
 
-    citeulike = report.report_dois[0].alm[:citeulike]
-    citeulike_data = process_social_data(citeulike[:events], "post_time")
-    social_data << {:data => citeulike_data, :column_name => "CiteULike", :column_key => "citeulike"}
-    total_data = total_data + citeulike[:total]
+    sources = {
+     citeulike: "post_time",
+     researchblogging: "published_date",
+     nature: "published_at",
+     scienceseeker: "updated",
+     twitter: "created_at"
+    }
 
-    research_blogging = report.report_dois[0].alm[:researchblogging]
-    research_blogging_data = process_social_data(research_blogging[:events], "published_date")
-    social_data << {:data => research_blogging_data, :column_name => "Research Blogging", :column_key => "research_blogging"}
-    total_data = total_data + research_blogging[:total]
-
-    nature = report.report_dois[0].alm[:nature]
-    nature_data = process_social_data(nature[:events], "published_at")
-    social_data << {:data => nature_data, :column_name => "Nature", :column_key => "nature"}
-    total_data = total_data + nature[:total]
-
-    science_seeker = report.report_dois[0].alm[:scienceseeker]
-    science_seeker_data = process_social_data(science_seeker[:events], "updated")
-    social_data << {:data => science_seeker_data, :column_name => "Science Seeker", :column_key => "science_seeker"}
-    total_data = total_data + science_seeker[:total]
-
-    twitter = report.report_dois[0].alm[:twitter]
-    twitter_data = process_social_data(twitter[:events], "created_at")
-    social_data << {:data => twitter_data, :column_name => "Twitter", :column_key => "twitter"}
-    total_data = total_data + twitter[:total]
+    sources.each do |source, key|
+      source = report.report_dois[0].alm.fetch(source, {})
+      if source[:events].present?
+        data = process_social_data(source[:events], key)
+        social_data << {
+          :data => data,
+          :column_name => AlmRequest.ALM_METRICS[source],
+          :column_key => source
+        }
+        total_data += source[:total]
+      end
+    end
 
     if (total_data == 0)
       return {:column_header => [], :data => []}
     end
 
     # start at article publication date
-    data_date = Date.parse(report.report_dois[0].alm[:publication_date])
+    data_date = Date.parse(report.report_dois[0].alm.fetch(:publication_date, {}))
     current_date = DateTime.now.to_date
 
     social_scatter = []
@@ -389,7 +367,7 @@ module ChartData
 
   # Gather Mendeley reader information for geo chart
   def self.generate_data_for_mendeley_reader_chart(report)
-    mendeley = report.report_dois[0].alm[:mendeley][:events]
+    mendeley = report.report_dois[0].alm.fetch(:mendeley, {})[:events]
 
     reader_data = []
     reader_total = 0

@@ -36,5 +36,5 @@ AlmReport::Application.configure do
   config.active_support.deprecation = :stderr
 
   # Use a different cache store in production
-  config.cache_store = :dalli_store, { :namespace => 'almreport' }
+  config.cache_store = :dalli_store, { namespace: "almreport" }
 end

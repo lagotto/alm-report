@@ -36,7 +36,7 @@ AlmReport::Application.configure do
   config.assets.debug = true
 
   # TODO TESTING!
-  config.cache_store = :dalli_store
+  config.cache_store = :dalli_store, { namespace: "almreport" }
 end
 
 BetterErrors::Middleware.allow_ip! "10.2.2.1"

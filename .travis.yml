@@ -4,7 +4,9 @@ rvm:
 
 env:
   matrix:
-    - DB=mysql
+    - DB=mysql MODE=plos SEARCH=plos
+    - DB=mysql MODE=default SEARCH=crossref
+    - DB=mysql MODE=default SEARCH=plos
     # - DB=postgresql
   global:
     secure: "agQGmJu7sSCjuBYu/Sbo4a3WoXA2C/BVPoIUneSR2+soFPeyrAFoHOa/EflxIt+uUEApXiodG+u2twFBf07yMVVojluzmONricmjh563gu6rKR9vhE5ZTUYIo3IHdi/w1OTd28uA0T0RpFcxLRbVg2lm5juxE+GjI+QmeROr4lY="

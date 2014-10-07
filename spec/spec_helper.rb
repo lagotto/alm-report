@@ -1,3 +1,8 @@
+require "simplecov"
+# SimpleCov.start do
+#   add_filter "/vendor/"
+# end
+
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
 
@@ -8,13 +13,19 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'webmock/rspec'
 require 'capybara/rspec'
+require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-WebMock.disable_net_connect!(allow: ['codeclimate.com'], allow_localhost: true)
+WebMock::Config.instance.query_values_notation = :flat_array
+WebMock.disable_net_connect!(
+  allow: ['codeclimate.com', '10.2.2.2'],
+  allow_localhost: true
+)
+
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, {

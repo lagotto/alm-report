@@ -1,0 +1,9 @@
+= form_tag("/update-session")
+  = csrf_meta_tag
+  - @results.each do |result|
+    - if Search.plos?
+      = render "search/search_result", r: result, all_checked: @all_checked
+    - elsif Search.crossref?
+      = render "search/search_result", r: result, all_checked: @all_checked
+
+= render "pager", :results_per_page => APP_CONFIG["results_per_page"]

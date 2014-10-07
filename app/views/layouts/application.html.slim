@@ -43,7 +43,7 @@ html.no-js lang="en"
                 span Edit List
               - else
                 a href="/reports/generate" View Report
-                a href="/preview-list" Edit List
+                = link_to "Edit List", preview_path
 
           - if @display_nav
             ul.breadcrumb

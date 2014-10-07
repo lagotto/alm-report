@@ -17,36 +17,13 @@ describe SolrRequest do
     data = SolrRequest.query_by_pmids(pmids)
     data.size.should eq(2)
 
-    data[23717645]["id"].should eq("10.1371/journal.pone.0064652")
-    data[23717645]["pmid"].should eq("23717645")
-    data[23717645]["publication_date"].should eq(Date.strptime("2013-05-23T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"))
+    data[23717645].id.should eq("10.1371/journal.pone.0064652")
+    data[23717645].pmid.should eq("23717645")
+    data[23717645].publication_date.should eq(Date.strptime("2013-05-23T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"))
 
-    data[16060722]["id"].should eq("10.1371/journal.pmed.0020124")
-    data[16060722]["pmid"].should eq("16060722")
-    data[16060722]["publication_date"].should eq(Date.strptime("2005-08-30T00:00:00Zdddddddddd", "%Y-%m-%dT%H:%M:%SZ"))
-  end
-
-  it "parses date ranges" do
-    start_date, end_date = SolrRequest.parse_date_range("-1", nil, nil)
-    assert_nil(start_date)
-    assert_nil(end_date)
-    assert_nil(SolrRequest.build_date_range(nil, nil))
-
-    start_date, end_date = SolrRequest.parse_date_range(
-      "0",
-      "09-15-2012",
-      "02-28-2013"
-    )
-    assert_equal("[2012-09-15T00:00:00Z TO 2013-02-28T23:59:59Z]",
-        SolrRequest.build_date_range(start_date, end_date))
-
-    Timecop.travel(Date.strptime("2013-03-01", "%Y-%m-%d").to_time)
-    start_date, end_date = SolrRequest.parse_date_range("30", nil, nil)
-    assert_equal("[2013-01-30T00:00:00Z TO 2013-03-01T00:00:00Z]",
-        SolrRequest.build_date_range(start_date, end_date))
-    Timecop.return
-
-    # TODO: test end day before start day and other error cases.
+    data[16060722].id.should eq("10.1371/journal.pmed.0020124")
+    data[16060722].pmid.should eq("16060722")
+    data[16060722].publication_date.should eq(Date.strptime("2005-08-30T00:00:00Zdddddddddd", "%Y-%m-%dT%H:%M:%SZ"))
   end
 
   it "validates dois" do
@@ -114,25 +91,42 @@ describe SolrRequest do
 
   it "gets journal name and journal key information" do
 
-    url = "http://api.plos.org/search?facet=true&facet.field=cross_published_journal_key&facet.mincount=1&fq=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
+    url = "http://api.plos.org/search?facet=true&facet.field=cross_published_journal_key&facet.mincount=1&fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
     body = File.read("#{fixture_path}solr_journal_keys.json")
     stub_request(:get, url).to_return(:body => body, :status => 200)
 
-    data = SolrRequest.get_journal_name_key
+    data = SolrRequest.get_journals
 
     data.size.should eq(8)
-    journals = [
-      { :journal_name => "PLOS ONE", :journal_key => "PLoSONE"},
-      { :journal_name => "PLOS Genetics", :journal_key => "PLoSGenetics"},
-      { :journal_name => "PLOS Pathogens", :journal_key => "PLoSPathogens"},
-      { :journal_name => "PLOS Computational Biology", :journal_key => "PLoSCompBiol"},
-      { :journal_name => "PLOS Biology", :journal_key => "PLoSBiology"},
-      { :journal_name => "PLOS Neglected Tropical Diseases", :journal_key => "PLoSNTD"},
-      { :journal_name => "PLOS Medicine", :journal_key => "PLoSMedicine"},
-      { :journal_name => "PLOS Collections", :journal_key => "PLoSCollections"}
-    ]
-    data.should eq(journals)
 
+    journals = {
+      "PLoSBiology" => "PLOS Biology",
+      "PLoSCollections" => "PLOS Collections",
+      "PLoSCompBiol" => "PLOS Computational Biology",
+      "PLoSGenetics" => "PLOS Genetics",
+      "PLoSMedicine" => "PLOS Medicine",
+      "PLoSNTD" => "PLOS Neglected Tropical Diseases",
+      "PLoSONE" => "PLOS ONE",
+      "PLoSPathogens" => "PLOS Pathogens"
+    }
+    data.should eq(journals)
+  end
+
+  it "returns processed publication_date" do
+    body = File.read("#{fixture_path}simple_search_result.json")
+    stub_request(:get, /api.plos.org/).to_return(body: body)
+
+    params = {
+      :everything =>"word",
+      :publication_days_ago => "0",
+      :datepicker1 => "05-07-2014",
+      :datepicker2 => "10-31-2014"
+    }
+
+    q = SolrRequest.new(params)
+    results, total_results, metadata = q.query
+    metadata[:publication_date][0].should eq(Date.strptime("05-07-2014", "%m-%d-%Y"))
+    metadata[:publication_date][1].should eq(DateTime.strptime("10-31-2014 23:59:59", "%m-%d-%Y %H:%M:%S"))
   end
 
   it "query for articles using simple search" do
@@ -152,53 +146,49 @@ describe SolrRequest do
       :author_country=>"",
       :institution=>"University of California",
       :subject=>"Gene regulation",
-      :cross_published_journal_name=>"All Journals",
+      :filterJournals=>["All Journals"],
       :financial_disclosure=>""
     }
 
     q = SolrRequest.new(params, nil)
-    data = q.query
+    results, total_results = q.query
 
-    data.size.should eq(2)
-
-    data[0].should eq([
-      {
-        "id" => "10.1371/journal.pone.0006901",
-        "cross_published_journal_name" => ["PLOS ONE"],
-        "pmid" => "19730735",
-        "subject" => [
-          "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis",
-          "/Biology and life sciences/Genetics/Genomics/Genome analysis/Genomic databases",
-          "/Computer and information sciences/Information technology/Databases/Genomic databases",
-          "/Biology and life sciences/Biochemistry/DNA/DNA sequences",
-          "/Biology and life sciences/Biochemistry/Proteins/DNA-binding proteins/Transcription factors",
-          "/Computer and information sciences/Information technology/Databases/Database and informatics methods/Database searching/Sequence similarity searching",
-          "/Research and analysis methods/Database and informatics methods/Database searching/Sequence similarity searching",
-          "/Biology and life sciences/Genetics/Genomics/Animal genomics/Invertebrate genomics",
-          "/Biology and life sciences/Genetics/Gene expression/Gene regulation/Transcription factors",
-          "/Biology and life sciences/Computational biology/Genome analysis/Genomic databases",
-          "/Biology and life sciences/Biochemistry/Proteins/Regulatory proteins/Transcription factors",
-          "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence motif analysis",
-          "/Biology and life sciences/Genetics/Gene expression/Gene regulation", "/Biology and life sciences/Genetics/DNA/DNA sequences"
-        ],
-        "publication_date" => Date.strptime("2009-09-04T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"),
-        "article_type" => "Research Article",
-        "author_display" => ["Garmay Leung", "Michael B. Eisen"],
-        "affiliate" => [
-          "University of California Berkeley and University of California San Francisco Joint Graduate Group in Bioengineering, University of California, Berkeley, California, United States of America",
-          "Department of Molecular and Cell Biology, University of California, Berkeley, California, United States of America",
-          "Howard Hughes Medical Institute, University of California, Berkeley, California, United States of America"
-        ],
-        "title" => "Identifying Cis-Regulatory Sequences by Word Profile Similarity"
-      }
-    ])
-    data[1].should eq(1)
+    results[0].data.should eq({
+      "id" => "10.1371/journal.pone.0006901",
+      "cross_published_journal_name" => ["PLOS ONE"],
+      "pmid" => "19730735",
+      "subject" => [
+        "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis",
+        "/Biology and life sciences/Genetics/Genomics/Genome analysis/Genomic databases",
+        "/Computer and information sciences/Information technology/Databases/Genomic databases",
+        "/Biology and life sciences/Biochemistry/DNA/DNA sequences",
+        "/Biology and life sciences/Biochemistry/Proteins/DNA-binding proteins/Transcription factors",
+        "/Computer and information sciences/Information technology/Databases/Database and informatics methods/Database searching/Sequence similarity searching",
+        "/Research and analysis methods/Database and informatics methods/Database searching/Sequence similarity searching",
+        "/Biology and life sciences/Genetics/Genomics/Animal genomics/Invertebrate genomics",
+        "/Biology and life sciences/Genetics/Gene expression/Gene regulation/Transcription factors",
+        "/Biology and life sciences/Computational biology/Genome analysis/Genomic databases",
+        "/Biology and life sciences/Biochemistry/Proteins/Regulatory proteins/Transcription factors",
+        "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence motif analysis",
+        "/Biology and life sciences/Genetics/Gene expression/Gene regulation", "/Biology and life sciences/Genetics/DNA/DNA sequences"
+      ],
+      "publication_date" => Date.strptime("2009-09-04T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"),
+      "article_type" => "Research Article",
+      "author_display" => ["Garmay Leung", "Michael B. Eisen"],
+      "affiliate" => [
+        "University of California Berkeley and University of California San Francisco Joint Graduate Group in Bioengineering, University of California, Berkeley, California, United States of America",
+        "Department of Molecular and Cell Biology, University of California, Berkeley, California, United States of America",
+        "Howard Hughes Medical Institute, University of California, Berkeley, California, United States of America"
+      ],
+      "title" => "Identifying Cis-Regulatory Sequences by Word Profile Similarity"
+    })
+    total_results.should eq(1)
   end
 
   it "can use a custom field list (fl)" do
     url = "http://api.plos.org/search?facet=false&fl=id,pmid,publication_date" \
-          "&fq=!article_type_facet:%22Issue%20Image%22&hl=false" \
-          "&q=everything:biology&rows=25&wt=json"
+          "&fq=doc_type:full&fq=!article_type_facet:%22Issue%20" \
+          "Image%22&hl=false&q=everything:biology&rows=25&wt=json"
 
     fl = "id,pmid,publication_date"
 
@@ -209,6 +199,6 @@ describe SolrRequest do
     data = request.query
 
     # We should get the requested fields in the result
-    data[0].first.keys.should eq(fl.split(','))
+    data[0].first.data.keys.should eq(fl.split(','))
   end
 end

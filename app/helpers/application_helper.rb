@@ -1,4 +1,7 @@
 module ApplicationHelper
+  def superhumanize(thing)
+    thing.to_s.gsub("-", "_").humanize
+  end
 
   def switch(template)
     controller.prepend_view_path(["app/views/#{controller.controller_name}/",

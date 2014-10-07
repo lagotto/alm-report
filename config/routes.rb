@@ -1,14 +1,16 @@
 AlmReport::Application.routes.draw do
 
-  root :to => "home#index"
+  root :to => "search#index"
+  get "/search/advanced" => "search#index", advanced: true
 
-  match "/add-articles" => "home#add_articles"
+  get "/search" => "search#show"
+  get "/preview" => "preview#index"
+
   match "/update-session" => "home#update_session"
   match "/select-all-search-results" => "home#select_all_search_results"
   match "/start-over" => "home#start_over"
-  match "/preview-list" => "home#preview_list"
   match "/get-article-count" => "home#get_article_count"
-  match "/advanced" => "home#advanced"
+
 
   match "/reports/generate" => "reports#generate"
   match '/reports/:action/:id', :controller => "reports"
