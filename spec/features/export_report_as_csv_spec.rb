@@ -54,11 +54,6 @@ describe "export report as csv", :type => :feature do
 
       preview
 
-      expect(page).to have_content "A Future Vision for PLOS Computational Biology"
-      expect(page).to have_content "New Methods Section in PLOS Computational Biology"
-      expect(page).not_to have_content "Correction: A Biophysical Model of the Mitochondrial Respiratory System and Oxidative Phosphorylation"
-      click_button "Create Report"
-
       get_csv
     end
   elsif Search.crossref?
@@ -87,10 +82,6 @@ describe "export report as csv", :type => :feature do
       all(".article-info.cf")[12].find("input.check-save-article").click
 
       preview
-
-      expect(page).to have_content "A Future Vision for PLOS Computational Biology"
-      expect(page).to have_content "New Methods Section in PLOS Computational Biology"
-      expect(page).not_to have_content "What Do I Want from the Publisher of the Future?"
 
       get_csv
     end

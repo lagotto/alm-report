@@ -20,8 +20,9 @@ describe ReportDoi do
     ]
 
     report_doi = ReportDoi.new
-    report_doi.solr = {}
-    report_doi.solr["subject"] = subject
+    report_doi.solr = Struct.new(:subjects).new(
+      subject
+    )
     report_doi.send(:subject_string).should eq(
       "Bacterial genomics,Drosophila melanogaster,Genome evolution," \
       "Genomic libraries,Homozygosity,Invertebrate genomics," \
