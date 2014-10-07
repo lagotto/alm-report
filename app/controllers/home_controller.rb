@@ -102,6 +102,6 @@ class HomeController < ApplicationController
   # Action that clears any DOIs in the session and redirects to home.
   def start_over
     @cart.clear
-    redirect_to :action => :index
+    redirect_to root_path
   end
 end
