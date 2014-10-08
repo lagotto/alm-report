@@ -89,10 +89,9 @@ class HomeController < ApplicationController
         return
       end
       docs.each do |doc|
-        @cart[doc["id"]] = doc["publication_date"].strftime("%s").to_i
+        @cart[doc.id] = doc
       end
     end
-
     payload = {:status => status, :delta => @cart.size - initial_count}
     respond_to do |format|
       format.json { render :json => payload}

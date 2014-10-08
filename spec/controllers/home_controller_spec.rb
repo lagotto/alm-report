@@ -58,4 +58,18 @@ describe HomeController do
         .to be_empty
     end
   end
+
+  describe "select_all_search_results" do
+    it "adds all results to Cart", vcr: true do
+      request.accept = "application/json"
+      post :select_all_search_results, {
+        everything: "biology"
+      }
+
+      response.status.should eq(200)
+
+      get :get_article_count
+      response.body.should eq(APP_CONFIG["article_limit"].to_s)
+    end
+  end
 end
