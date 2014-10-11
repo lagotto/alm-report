@@ -57,6 +57,7 @@ class HomeController < ApplicationController
       rows = [page_size, limit - params[:start] + 1].min
       params[:rows] = rows
       docs, _ = Search.find(params, fl: "id,publication_date")
+      break if docs.empty?
       results += docs
       params[:start] = params[:start] + rows
     end while params[:start] <= limit
