@@ -54,7 +54,7 @@ class HomeController < ApplicationController
     results = []
     for page in 1 .. (limit / params[:rows])
       params[:current_page] = page
-      docs, _ = Search.find(params, fl: "id,publication_date")
+      docs, _ = Search.find(params)
       break if docs.empty?
       results += docs
     end
