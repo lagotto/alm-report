@@ -60,7 +60,10 @@ describe HomeController do
   end
 
   describe "select_all_search_results" do
-    it "adds all results to Cart", vcr: true do
+    it "adds all results to Cart", vcr: {
+      cassette_name: "select_all_search_results/adds_all_results_to_Cart_" +
+        APP_CONFIG["search"]
+    } do
       request.accept = "application/json"
       post :select_all_search_results, {
         everything: "biology"

@@ -50,17 +50,14 @@ class HomeController < ApplicationController
 
     # solr usually returns 500s if you try to retreive all 1000 articles at once,
     # so we do paging here (with a larger page size than in the UI).
-    params[:start] = 1
-    page_size = 200
+    params[:rows] = 200
     results = []
-    begin
-      rows = [page_size, limit - params[:start] + 1].min
-      params[:rows] = rows
+    for page in 1 .. (limit / params[:rows])
+      params[:current_page] = page
       docs, _ = Search.find(params, fl: "id,publication_date")
       break if docs.empty?
       results += docs
-      params[:start] = params[:start] + rows
-    end while params[:start] <= limit
+    end
     results
   end
   private :get_all_results
