@@ -90,9 +90,9 @@ describe SolrQueryBuilder do
     build_page_block_test_once({}, "rows=25")
     # Page 1 is the default
     build_page_block_test_once({ current_page: "1" }, "rows=25")
-    build_page_block_test_once({ current_page: "2" }, "rows=25&start=26")
-    build_page_block_test_once({ current_page: "3" }, "rows=25&start=51")
-    build_page_block_test_once({ current_page: "4" }, "rows=25&start=76")
+    build_page_block_test_once({ current_page: "2" }, "rows=25&start=25")
+    build_page_block_test_once({ current_page: "3" }, "rows=25&start=50")
+    build_page_block_test_once({ current_page: "4" }, "rows=25&start=75")
   end
 
   it "rows params override default paging" do
@@ -108,7 +108,7 @@ describe SolrQueryBuilder do
 
     params = { everything: "bad", title: "business", current_page: 2, rows: 475 }
     qb = SolrQueryBuilder.new(params)
-    qb.page_block.should eq("rows=475&start=476")
+    qb.page_block.should eq("rows=475&start=475")
     qb.build
     qb.query[:q].should eq("everything:bad AND title:business")
   end

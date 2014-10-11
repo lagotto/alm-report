@@ -30,8 +30,7 @@ class SearchCrossref
   end
 
   def offset
-    @page = @page.to_i - 1
-    @rows * @page + (@page > 0 ? 1 : 0)
+    @rows * (@page.to_i - 1)
   end
 
   def self.get(url, params = nil)

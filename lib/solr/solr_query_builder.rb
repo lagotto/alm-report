@@ -87,7 +87,7 @@ class SolrQueryBuilder
 
     page = page.to_i - 1
     if page > 0
-      result << "&start=#{page * rows + 1}"
+      result << "&start=#{page * rows}"
     end
     result
   end
