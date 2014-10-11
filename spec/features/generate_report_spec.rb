@@ -126,7 +126,7 @@ describe 'generate report', :type => :feature do
 
       stub_request(
         :get,
-        %r{http://api.crossref.org/works.*offset=51}
+        %r{http://api.crossref.org/works.*offset=50}
       ).to_return(File.open("spec/fixtures/api_crossref_future_vision_page_3.raw"))
 
       visit "/"
