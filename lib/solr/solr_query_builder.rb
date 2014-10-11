@@ -80,19 +80,14 @@ class SolrQueryBuilder
   # the rows and start parameters.  These can be passed in directly to the
   # constructor, or calculated based on the current_page param, if it's present.
   def build_page_block
-    rows = @params[:rows]
-    page_size = rows.nil? ? APP_CONFIG["results_per_page"] : rows
-    result = "rows=#{page_size}"
-    start = @params[:start]
-    if start.nil?
-      page = @params[:current_page]
-      page = page.nil? ? "1" : page
-      page = page.to_i - 1
-      if page > 0
-        result << "&start=#{page * APP_CONFIG["results_per_page"] + 1}"
-      end
-    else  # start is specified
-      result << "&start=#{start}"
+    rows = @params[:rows] || APP_CONFIG["results_per_page"]
+    page = @params[:current_page] || "1"
+
+    result = "rows=#{rows}"
+
+    page = page.to_i - 1
+    if page > 0
+      result << "&start=#{page * rows + 1}"
     end
     result
   end
@@ -109,11 +104,7 @@ class SolrQueryBuilder
 
   def url
     # :unformattedQueryId comes from advanced search
-    if @params.has_key?(:unformattedQueryId)
-      build_advanced
-    else
-      build
-    end
+    @params.has_key?(:unformattedQueryId) ? build_advanced : build
     "#{APP_CONFIG["solr_url"]}?#{query_param}#{common_params}#{sort}&hl=false"
   end
 

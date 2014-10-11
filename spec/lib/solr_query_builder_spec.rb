@@ -95,9 +95,7 @@ describe SolrQueryBuilder do
     build_page_block_test_once({ current_page: "4" }, "rows=25&start=76")
   end
 
-  it "start and rows params override default paging" do
-    build_page_block_test_once({ start: 17 }, "rows=25&start=17")
-    build_page_block_test_once({ start: 100, rows: 200 }, "rows=200&start=100")
+  it "rows params override default paging" do
     build_page_block_test_once({ rows: 500 }, "rows=500")
   end
 
@@ -108,9 +106,9 @@ describe SolrQueryBuilder do
     qb.build
     qb.query[:q].should eq("everything:hi AND title:bye")
 
-    params = { everything: "bad", title: "business", start: 41, rows: 475 }
+    params = { everything: "bad", title: "business", current_page: 2, rows: 475 }
     qb = SolrQueryBuilder.new(params)
-    qb.page_block.should eq("rows=475&start=41")
+    qb.page_block.should eq("rows=475&start=476")
     qb.build
     qb.query[:q].should eq("everything:bad AND title:business")
   end

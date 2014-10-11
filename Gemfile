@@ -34,6 +34,7 @@ group :test do
   gem 'capybara'
   gem "webmock"
   gem "codeclimate-test-reporter", require: false
+  gem "vcr"
 end
 
 group :test, :development do

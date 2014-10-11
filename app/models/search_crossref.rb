@@ -3,7 +3,7 @@ class SearchCrossref
     @query = query[:everything]
     @filter = [query[:filter], "from-pub-date:2013-01-01"].compact.join(",")
     @page = query[:current_page] || 1
-    @rows = APP_CONFIG["results_per_page"]
+    @rows = query[:rows] || APP_CONFIG["results_per_page"]
   end
 
   def run
@@ -30,7 +30,8 @@ class SearchCrossref
   end
 
   def offset
-    @rows * (@page.to_i - 1)
+    @page = @page.to_i - 1
+    @rows * @page + (@page > 0 ? 1 : 0)
   end
 
   def self.get(url, params = nil)
