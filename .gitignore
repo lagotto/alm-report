@@ -25,7 +25,6 @@ capybara-*.html
 /coverage/
 /data/
 /spec/tmp/*
-/spec/cassettes
 /config/database.yml
 /config/settings.yml
 /config/deploy/production.rb
