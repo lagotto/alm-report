@@ -765,7 +765,9 @@ if (jQuery.fn.uniform) {
 jQuery(function(d, $){
   $('#search_results_sort_order_select').change(function() {
     var sort_param = this.options[this.selectedIndex].value;
-    window.location.href = window.location.href + "&sort=" + encodeURIComponent(sort_param);
+    var query = queryString.parse(location.search);
+    query.sort = sort_param;
+    location.search = queryString.stringify(query);
   });
 }(document, jQuery));
 

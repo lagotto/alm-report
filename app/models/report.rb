@@ -12,9 +12,6 @@ class Report < ActiveRecord::Base
   # Sort order is determined by the position in the array.  This object must have
   # already been saved to the DB before this method is called.
   def add_all_dois(dois)
-
-    # Since reports can have many DOIs, for performance we do a batch insert.
-    # Active Record won't do this on its own.
     report_dois = dois.map.with_index do |doi, index|
       {
         doi: doi,
@@ -22,7 +19,8 @@ class Report < ActiveRecord::Base
       }
     end
     self.report_dois.create(report_dois)
-
+    # Since reports can have many DOIs, for performance we do a batch insert.
+    # Active Record won't do this on its own.
     # TEMP DISABLE, PRETTY BAD.
     # sql = "INSERT report_dois(doi, report_id, sort_order, created_at, updated_at) VALUES "
     # dois.each_with_index {|doi, i| sql << "('#{doi}', #{self.id}, #{i}, NOW(), NOW()), "}

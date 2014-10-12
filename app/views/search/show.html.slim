@@ -42,11 +42,13 @@
         span.add-select-label Sort by
         = select_tag( \
           :sort, \
-          options_for_select(SolrRequest::SORTS.to_a, params[:sort]), \
+          options_for_select( \
+            (Search.plos? ? SolrRequest : SearchCrossref)::SORTS.to_a, \
+            params[:sort] \
+          ), \
           class: "styled", \
           id: "search_results_sort_order_select" \
         )
-
     p.select-articles-message.text-light-normal.invisible
       span#select-articles-message-text
       span#select-all-articles-message-text

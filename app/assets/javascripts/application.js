@@ -15,5 +15,6 @@
 //= require jquery-ui
 //= require jquery.placeholder
 //= require jquery.uniform
+//= require query-string
 //= require script
 //= require advancedSearch
