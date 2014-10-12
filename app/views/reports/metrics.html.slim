@@ -10,7 +10,7 @@
       - @dois.each do |doi|
         .visualizations-list
           span.list-numbers= doi.display_index
-          h3.metrics-article-title nona-link="" data-href="http://dx.doi.org/#{doi.doi}"
+          h3.metrics-article-title.nona-link data-href="http://dx.doi.org/#{doi.doi}"
             = doi.solr.title
           - if doi.solr.authors
             p.metrics-para
@@ -22,7 +22,7 @@
             span.vertical-separator |
             = doi.solr.journal
 
-          p.metrics-description nona-link="" data-href="http://dx.doi.org/#{doi.doi}"
+          p.metrics-description.nona-link data-href="http://dx.doi.org/#{doi.doi}"
             = doi.doi
 
           - if doi.alm.blank?
