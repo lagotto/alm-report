@@ -18,7 +18,7 @@
         = label_tag(:institution)
         = text_field_tag(:institution)
       .input-holder
-        = label_tag(:publication_days_ago, "Publication date")
+        = label_tag(:publication_days_ago, "Publication Date")
         = select_tag(:publication_days_ago, \
             options_for_select( \
                 [["All Time", -1], \
@@ -34,13 +34,11 @@
         = text_field_tag(:subject, nil, :class => "subject-autocomplete")
       .input-holder
         = label_tag(:cross_published_journal_name, "Journal")
-        = select_tag( \
-            "filterJournals[]", \
-            options_for_select(@journals), \
-            class: "styled" \
+        = collection_select( \
+            "filterJournals", "", @journals, :first, :last, class: "styled" \
           )
       .input-holder
-        = label_tag(:financial_disclosure, "Funder name or funding number")
+        = label_tag(:financial_disclosure, "Funder Name or Funding Number")
         = text_field_tag(:financial_disclosure)
     .input-holder
       = submit_tag "Search", :class => "button-hover-dark-black submit-btn"

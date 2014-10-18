@@ -43,7 +43,7 @@ class SearchController < ApplicationController
     else
       # Add a "All Journals" entry
       { SolrRequest::ALL_JOURNALS => SolrRequest::ALL_JOURNALS }.
-        merge(SolrRequest.get_journals.invert)
+        merge(SolrRequest.get_journals)
     end
   end
 end
