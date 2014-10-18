@@ -389,18 +389,7 @@ jQuery(function(d, $){
       // *all* of the articles from the search, not just those on the current page.
       // (Subject to the article limit.)
       selectAllSearchResults : function(e) {
-        var url_params = window.location.search.substr(1);  // Remove leading "?"
-
-        // Convert to dict for ajax call.
-        var data = {};
-        var pairs = url_params.split("&");
-        for (i in pairs) {
-          var split = pairs[i].split("=");
-
-          // We need to convert "+" to " ", which none of the stock javascript functions
-          // seem to handle correctly.  See http://unixpapa.com/js/querystring.html
-          data[split[0]] = decodeURIComponent(split[1].replace(/\+/g, " "));
-        }
+        var data = queryString.parse(window.location.search);
 
         $("#gray-out-screen").css({
           opacity: 0.7,
