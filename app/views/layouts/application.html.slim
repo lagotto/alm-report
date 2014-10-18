@@ -42,7 +42,8 @@ html.no-js lang="en"
                 span View Report
                 span Edit List
               - else
-                a href="/reports/generate" View Report
+                - if @tab != :view_report
+                  a href="/reports/generate" View Report
                 = link_to "Edit List", preview_path
 
           - if @display_nav
