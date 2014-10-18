@@ -1,3 +1,17 @@
+# 2.1.0
+
+ALM Reports 2.1.0 was released on October 18, 2014.
+
+This release contains a major refactor of the search functionality, which now supports searching through CrossRef’s API, as well as PLOS’s API. Additionally, it is now possible to use any ALM v3 API (e.g. http://det.labs.crossref.org or http://alm.plos.org) as a metrics source. For more information, check out [Configuring ALM and search backends](https://github.com/articlemetrics/alm-report/blob/master/docs/development.md#configuring-alm-and-search-backends)
+
+Besides these two major changes, several issues were addressed:
+
+- "Select all articles" functionality (#58, #84)
+- Incorrect added articles counter (#65)
+- Preview page display issues (#66)
+- Sorting functionality (#59)
+- Several small issues (#56, #60, #64, #67, #80, #81)
+
 # 2.0.2
 
 ALM Reports 2.0.2 was released on October 6, 2014.
