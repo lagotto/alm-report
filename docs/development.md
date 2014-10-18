@@ -103,6 +103,21 @@ cd /var/www/alm-report
 
 This uses the private SSH key provided by you in the `Vagrantfile` (the default insecure key for local installations using VirtualBox is `~/.vagrant.d/insecure_private_key`). The `vagrant` user has sudo privileges. The MySQL password is stored at `config/database.yml`, and is auto-generated during the installation. The database servers can be reached from the virtual machine or via port forwarding (configured in `Vagrantfile`). Vagrant syncs the folder on the host containing the checked out ALM git repo with the folder `/var/www/alm-report/current` on the guest.
 
+## Configuring ALM and search backends
+
+It’s possible to use different ALM (any ALM v3 API) and search backends (CrossRef or PLOS) since release 2.1. For example, if you would like to use CrossRef's API for searching, and CrossRef’s ALM API for metrics, you would configure your `config/settings.yml` file like so:
+
+```
+...
+search: crossref
+alm:
+  url: http://det.labs.crossref.org
+  api_key: # your ALM API key
+...
+```
+
+For an example, check out [settings.yml.example](https://github.com/articlemetrics/alm-report/blob/master/config/settings.yml.example).
+
 ## Accessing the application
 
 By default, the configured IP during development of the Rails application is [10.2.2.2](http://10.2.2.2). When you want to access it, go to [http://10.2.2.2](http://10.2.2.2) in your browser.
