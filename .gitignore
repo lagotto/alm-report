@@ -30,6 +30,7 @@ capybara-*.html
 /config/deploy/production.rb
 /config/data_bags/*
 /vendor/cookbooks/*/.git
+/vendor/assets/bower_components
 **.orig
 rerun.txt
 pickle-email-*.html

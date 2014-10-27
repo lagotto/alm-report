@@ -8,7 +8,7 @@
           .reports-header-div
             span.list-numbers 1
             h2.text-light-normal Article Usage and Citations as a function of Age
-          #article_usage_and_citations_age_div
+          #chart
           p.info
             ' Total usage includes page views and downloads from PLOS and PMC.
             | Bubble size correlates with Scopus citations and bubble color with the PLOS journal.
@@ -78,6 +78,45 @@ javascript:
   function drawVizForOne() {
     return false;
   }
+
+  $.ajax({
+    url: "/reports/data?id=84",
+    success: function(data) {
+      var preparedData = _.map(data["data"], function (d) {
+        function monthDiff(d1, d2) {
+            months = (d2.getFullYear() - d1.getFullYear()) * 12;
+            months -= d1.getMonth() + 1;
+            months += d2.getMonth();
+            return months <= 0 ? 0 : months;
+        }
+
+        var date = new (Function.prototype.bind.apply(
+            Date, [null].concat(d["issued"]["date-parts"])
+        ))
+
+        var months = monthDiff(date, new Date())
+
+        return {
+            citations: d["cited"],
+            months: months,
+            views: d["viewed"],
+            tooltip: d["title"],
+            url: d["canonical_url"],
+            journal: d["title"]
+        }
+      });
+
+      // And then configure the chart.
+      BubbleChart.create($("#chart")[0], {
+          width: 500,
+          height: 400,
+          x: "months",
+          y: "views",
+          radius: "citations",
+          category: "journal"
+      }, preparedData);
+    }
+  });
 
   function getArticleUsageCitationsAge() {
       return #{{ @article_usage_citations_age_data.to_json }};

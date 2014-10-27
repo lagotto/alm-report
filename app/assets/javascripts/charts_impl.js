@@ -237,8 +237,7 @@ function drawReportGraphs() {
         "ArticleSocialScatter", "ArticleMendeley"])
 
     } else {
-      checkDataAndDraw(["ArticleUsageCitationsAge",
-        "ArticleUsageMendeleyAge",
+      checkDataAndDraw(["ArticleUsageMendeleyAge",
         "ArticleUsageCitationSubjectArea",
         "ArticleLocation"])
     }

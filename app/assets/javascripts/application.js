@@ -18,3 +18,4 @@
 //= require query-string
 //= require script
 //= require advancedSearch
+//= require bubble/app/scripts/bubble_chart
