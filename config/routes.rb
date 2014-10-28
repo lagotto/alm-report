@@ -6,28 +6,27 @@ AlmReport::Application.routes.draw do
   get "/search" => "search#show"
   get "/preview" => "preview#index"
 
-  match "/update-session" => "home#update_session"
-  match "/select-all-search-results" => "home#select_all_search_results"
-  match "/start-over" => "home#start_over"
-  match "/get-article-count" => "home#get_article_count"
+  post "/update-session" => "home#update_session"
+  post "/select-all-search-results" => "home#select_all_search_results"
+  get "/start-over" => "home#start_over"
+  get "/get-article-count" => "home#get_article_count"
 
+  get "/reports/generate" => "reports#generate"
+  get '/reports/:action/:id', :controller => "reports"
 
-  match "/reports/generate" => "reports#generate"
-  match '/reports/:action/:id', :controller => "reports"
+  get "/id" => "id#index", :via => :get
+  get "/id" => "id#save", :via => :post
 
-  match "/id" => "id#index", :via => :get
-  match "/id" => "id#save", :via => :post
+  get "/upload" => "id#upload", :via => :get
+  get "/upload" => "id#process_upload", :via => :post
 
-  match "/upload" => "id#upload", :via => :get
-  match "/upload" => "id#process_upload", :via => :post
-
-  match "/about" => "static_pages#about"
-  match "/samples" => "static_pages#samples"
+  get "/about" => "static_pages#about"
+  get "/samples" => "static_pages#samples"
 
   # Any other routes are handled here, as ActionDispatch prevents RoutingError
   # from hitting ApplicationController::rescue_action).  See
   # https://github.com/rails/rails/issues/671
   # BE SURE TO KEEP THIS AS THE LAST LINE!
-  match "*path", :to => "application#routing_error"
+  get "*path", :to => "application#routing_error"
 
 end

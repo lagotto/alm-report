@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Cart do
   let(:item_ids) { ["10.1371/journal.pone.0010031"] }
