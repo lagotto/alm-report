@@ -247,6 +247,7 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    vcr (2.9.3)
     webmock (1.19.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -287,4 +288,5 @@ DEPENDENCIES
   therubyracer
   timecop
   uglifier
+  vcr
   webmock

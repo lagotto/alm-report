@@ -1,9 +1,22 @@
 class SearchCrossref
+
+  SORTS = {
+    "Relevance" => "",
+    "Date, newest first" => "published desc",
+    "Date, oldest first" => "published asc",
+  }
+
   def initialize(query, opts = {})
     @query = query[:everything]
-    @filter = [query[:filter], "from-pub-date:2013-01-01"].compact.join(",")
+
+    @filter = [
+      query[:filter],
+      "from-pub-date:2011",
+      "until-pub-date:#{DateTime.now.year}"
+    ].compact.join(",")
     @page = query[:current_page] || 1
-    @rows = APP_CONFIG["results_per_page"]
+    @rows = query[:rows] || APP_CONFIG["results_per_page"]
+    @sort, @order = query[:sort].try(:split)
   end
 
   def run
@@ -15,7 +28,8 @@ class SearchCrossref
 
     total_results = response.body["message"]["total-results"]
 
-    return results, total_results
+    metadata = {}
+    return results, total_results, metadata
   end
 
   def request
@@ -25,6 +39,7 @@ class SearchCrossref
     }
     request.merge!({ query: @query }) if @query.present?
     request.merge!({ filter: @filter }) if @filter.present?
+    request.merge!({ sort: @sort, order: @order }) if @sort && @order
     request
   end
 

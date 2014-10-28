@@ -1,22 +1,6 @@
 require 'rails_helper'
 
 describe HomeController do
-  describe 'GET index' do
-    it 'renders the index template' do
-      stub_request(
-        :get,
-        "http://api.plos.org/search?facet=true&facet.field=" \
-        "cross_published_journal_key&facet.mincount=1&" \
-        "fq%5B%5D=doc_type:full&" \
-        "fq%5B%5D=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
-      ).to_return(
-        File.open('spec/fixtures/solr_request_get_journal_name_key.raw')
-      )
-      get :index
-      expect(response).to render_template('index')
-    end
-  end
-
   describe "GET update_session" do
     let(:article_ids) { ["10.1371/journal.pone.0010031",
                          "10.1371/journal.pmed.0010065",
@@ -72,6 +56,23 @@ describe HomeController do
       expect(subject.parse_article_keys(article_ids,
                                         APP_CONFIG["article_limit"]))
         .to be_empty
+    end
+  end
+
+  describe "select_all_search_results" do
+    it "adds all results to Cart", vcr: {
+      cassette_name: "select_all_search_results/adds_all_results_to_Cart_" +
+        APP_CONFIG["search"]
+    } do
+      request.accept = "application/json"
+      post :select_all_search_results, {
+        everything: "biology"
+      }
+
+      response.status.should eq(200)
+
+      get :get_article_count
+      response.body.should eq(APP_CONFIG["article_limit"].to_s)
     end
   end
 end

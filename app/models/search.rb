@@ -1,5 +1,3 @@
-require 'pry'
-
 class Search
   def self.find(query, opts = {})
     if plos?

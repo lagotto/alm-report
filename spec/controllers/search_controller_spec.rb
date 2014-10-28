@@ -1,8 +1,15 @@
 require 'rails_helper'
 
 describe SearchController do
-  describe "GET index" do
-    it "renders the index template" do
+  describe 'GET index' do
+    it 'renders the index template' do
+      get :index
+      expect(response).to render_template("simple")
+    end
+  end
+
+  describe "GET show" do
+    it "renders the show template" do
       stub_request(
         :get,
         %r{http://api.crossref.org/works.*}
@@ -13,12 +20,12 @@ describe SearchController do
         "http://api.plos.org/search?facet=false&fl=id,pmid,publication_date," \
         "received_date,accepted_date,title,cross_published_journal_name," \
         "author_display,editor_display,article_type,affiliate,subject," \
-        "financial_disclosure&fq%5B%5D=doc_type:full&" \
-        "fq%5B%5D=!article_type_facet:%22Issue%20Image%22" \
+        "financial_disclosure&fq=doc_type:full&" \
+        "fq=!article_type_facet:%22Issue%20Image%22" \
         "&hl=false&q=everything:cancer&rows=25&wt=json"
 
       ).to_return(File.open("spec/fixtures/api_plos_cancer_search.raw"))
-      get :"index", {
+      get :show, {
         utf8: "✓",
         everything: "cancer",
         author: "",
@@ -28,12 +35,12 @@ describe SearchController do
         datepicker1: "",
         datepicker2: "",
         subject: "",
-        cross_published_journal_name: "All Journals",
+        filterJournals: ["All Journals"],
         financial_disclosure: "",
         commit: "Search",
         x: "Y"
       }
-      expect(response).to render_template("simple")
+      expect(response).to render_template("show")
     end
   end
 
@@ -42,7 +49,7 @@ describe SearchController do
     describe "GET /search/advanced" do
       it "renders the advanced template" do
         stub_request(:get,
-          "http://api.plos.org/search?facet=true&facet.field=cross_published_journal_key&facet.mincount=1&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
+          "http://api.plos.org/search?facet=true&facet.field=cross_published_journal_key&facet.mincount=1&fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
         ).to_return(File.open('spec/fixtures/solr_request_get_journal_name_key.raw'))
 
         get :index, advanced: true
@@ -50,20 +57,20 @@ describe SearchController do
       end
     end
 
-    describe "GET index from advanced search" do
-      it "renders the index template" do
+    describe "GET show from advanced search" do
+      it "renders the show template" do
         url = "http://api.plos.org/search?facet=false&fl=id,pmid," \
           "publication_date,received_date,accepted_date,title," \
           "cross_published_journal_name,author_display,editor_display," \
           "article_type,affiliate,subject,financial_disclosure&" \
-          "fq%5B%5D=cross_published_journal_key:PLoSCompBiol&" \
-          "fq%5B%5D=doc_type:full&" \
-          "fq%5B%5D=!article_type_facet:%22Issue%20Image%22&hl=false" \
+          "fq=cross_published_journal_key:PLoSCompBiol&" \
+          "fq=doc_type:full&" \
+          "fq=!article_type_facet:%22Issue%20Image%22&hl=false" \
           "&q=everything:biology&rows=25&wt=json"
         stub_request(:get, url).
           to_return(File.open('spec/fixtures/api_plos_biology_advanced.raw'))
 
-        get :index, {
+        get :show, {
           queryFieldId: "everything",
           queryTermId: "",
           startDateAsStringId: "",
@@ -75,7 +82,7 @@ describe SearchController do
           utf8: "✓"
         }
 
-        expect(response).to render_template("simple")
+        expect(response).to render_template("show")
       end
     end
   end

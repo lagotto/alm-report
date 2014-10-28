@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
 
   def display_nav
     @display_nav = false
-  end  
+  end
 
   def about
     @title = "About"

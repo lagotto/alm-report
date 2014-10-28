@@ -1,16 +1,4 @@
 class HomeController < ApplicationController
-
-  def index
-    @tab = :select_articles
-    @title = "Homepage"
-
-    if Search.plos?
-      @journals = SolrRequest.get_journal_name_key
-      # Add a "All Journals" entry
-      @journals.unshift([SolrRequest::ALL_JOURNALS, SolrRequest::ALL_JOURNALS])
-    end
-  end
-
   # Update session via ajax call
   def update_session
     initial_count = @cart.size
@@ -49,8 +37,6 @@ class HomeController < ApplicationController
 
   # Queries solr for the results used by select_all_search_results.
   def get_all_results
-    page = params.delete(:current_page)
-
     # For efficiency, we want to query solr for the smallest number of results.
     # However, this is difficult because the user may have already selected
     # some articles from various pages of the search results, and there is no
@@ -59,19 +45,17 @@ class HomeController < ApplicationController
     # various pathological cases such as the user having checked every other
     # search result.
     limit = APP_CONFIG["article_limit"] * 2
-
+    params[:rows] = rows = 200
     # solr usually returns 500s if you try to retreive all 1000 articles at once,
     # so we do paging here (with a larger page size than in the UI).
-    params[:start] = 1
-    page_size = 200
+
     results = []
-    begin
-      rows = [page_size, limit - params[:start] + 1].min
-      params[:rows] = rows
-      docs, _ = Search.find(params, fl: "id,publication_date")
+    for page in 1 .. (limit / rows)
+      params[:current_page] = page
+      docs, _ = Search.find(params)
       results += docs
-      params[:start] = params[:start] + rows
-    end while params[:start] <= limit
+      break if docs.size < rows
+    end
     results
   end
   private :get_all_results
@@ -101,10 +85,9 @@ class HomeController < ApplicationController
         return
       end
       docs.each do |doc|
-        @cart[doc["id"]] = doc["publication_date"].strftime("%s").to_i
+        @cart[doc.id] = doc
       end
     end
-
     payload = {:status => status, :delta => @cart.size - initial_count}
     respond_to do |format|
       format.json { render :json => payload}
@@ -114,6 +97,6 @@ class HomeController < ApplicationController
   # Action that clears any DOIs in the session and redirects to home.
   def start_over
     @cart.clear
-    redirect_to :action => :index
+    redirect_to root_path
   end
 end

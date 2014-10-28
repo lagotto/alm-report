@@ -1,7 +1,6 @@
 require "spec_helper"
 
 describe PreviewController do
-  let(:item_ids) { ["10.1371/journal.pone.0010031"] }
   let(:cart) { Cart.new(item_ids) }
 
   before do
@@ -11,14 +10,31 @@ describe PreviewController do
   end
 
   describe "GET index" do
-    it "renders the index template" do
-      get :index
-      expect(response).to render_template("index")
+    context "single result" do
+      let(:item_ids) { ["10.1371/journal.pone.0010031"] }
+
+
+      it "renders the index template" do
+        get :index
+        expect(response).to render_template("index")
+      end
+
+      it "assigns results variables from Cart" do
+        get :index
+        expect(assigns(:results)).to match_array cart.items.values
+      end
     end
 
-    it "assigns results variables from Cart" do
-      get :index
-      expect(assigns(:results)).to match_array cart.items.values
+    context "many results" do
+      let(:item_ids) { 200.times.map { |i| "10.1371/journal.pone.#{i}" }}
+
+      it "paginates results" do
+        get :index
+        expect(assigns(:results).size).to eq(APP_CONFIG["results_per_page"])
+
+        get :index, current_page: 2
+        expect(assigns(:results).size).to eq(APP_CONFIG["results_per_page"])
+      end
     end
   end
 end

@@ -21,6 +21,7 @@ require 'capybara/poltergeist'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+WebMock::Config.instance.query_values_notation = :flat_array
 WebMock.disable_net_connect!(
   allow: ['codeclimate.com', '10.2.2.2'],
   allow_localhost: true
@@ -33,6 +34,14 @@ Capybara.register_driver :poltergeist do |app|
 end
 
 Capybara.javascript_driver = :poltergeist
+
+VCR.configure do |c|
+  c.cassette_library_dir = "spec/cassettes"
+  c.hook_into :webmock
+  c.ignore_localhost = true
+  c.ignore_hosts 'codeclimate.com'
+  c.configure_rspec_metadata!
+end
 
 RSpec.configure do |config|
   # ## Mock Framework

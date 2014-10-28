@@ -9,7 +9,7 @@ describe SolrRequest do
 
     q = pmids.map {|pmid| "pmid:\"#{pmid}\""}.join(" OR ")
 
-    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:#{URI::encode("\"Issue Image\"")}&fl=id,publication_date,pmid&wt=json&facet=false&rows=#{pmids.size}"
+    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq=doc_type:full&fq=!article_type_facet:#{URI::encode("\"Issue Image\"")}&fl=id,publication_date,pmid&wt=json&facet=false&rows=#{pmids.size}"
 
     body = File.read("#{fixture_path}solr_pmid_validation.json")
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
@@ -26,29 +26,6 @@ describe SolrRequest do
     data[16060722].publication_date.should eq(Date.strptime("2005-08-30T00:00:00Zdddddddddd", "%Y-%m-%dT%H:%M:%SZ"))
   end
 
-  it "parses date ranges" do
-    start_date, end_date = SolrRequest.parse_date_range("-1", nil, nil)
-    assert_nil(start_date)
-    assert_nil(end_date)
-    assert_nil(SolrRequest.build_date_range(nil, nil))
-
-    start_date, end_date = SolrRequest.parse_date_range(
-      "0",
-      "09-15-2012",
-      "02-28-2013"
-    )
-    assert_equal("[2012-09-15T00:00:00Z TO 2013-02-28T23:59:59Z]",
-        SolrRequest.build_date_range(start_date, end_date))
-
-    Timecop.travel(Date.strptime("2013-03-01", "%Y-%m-%d").to_time)
-    start_date, end_date = SolrRequest.parse_date_range("30", nil, nil)
-    assert_equal("[2013-01-30T00:00:00Z TO 2013-03-01T00:00:00Z]",
-        SolrRequest.build_date_range(start_date, end_date))
-    Timecop.return
-
-    # TODO: test end day before start day and other error cases.
-  end
-
   it "validates dois" do
     dois = [
       '10.1371/journal.pone.0064652',
@@ -57,7 +34,7 @@ describe SolrRequest do
     ]
 
     q = dois.map { | doi | "id:\"#{doi}\"" }.join(" OR ")
-    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20Image%22&fl=id&wt=json&facet=false&rows=#{dois.size}"
+    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&fl=id&wt=json&facet=false&rows=#{dois.size}"
     body = File.read("#{fixture_path}solr_validate_dois.json")
     stub_request(:get, url).to_return(:body => body, :status => 200)
 
@@ -78,8 +55,8 @@ describe SolrRequest do
     ]
 
     q = dois.map { |doi| "id:\"#{doi}\"" }.join(" OR ")
-    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq%5B%5D=doc_type:full" \
-        "&fq%5B%5D=!article_type_facet:%22Issue%20Image%22" \
+    url = "http://api.plos.org/search?q=#{URI::encode(q)}&fq=doc_type:full" \
+        "&fq=!article_type_facet:%22Issue%20Image%22" \
         "&fl=id,pmid,publication_date,received_date,accepted_date,title," \
         "cross_published_journal_name,author_display,editor_display,article_type,affiliate," \
         "subject,financial_disclosure&wt=json&facet=false&rows=#{dois.size}"
@@ -114,32 +91,49 @@ describe SolrRequest do
 
   it "gets journal name and journal key information" do
 
-    url = "http://api.plos.org/search?facet=true&facet.field=cross_published_journal_key&facet.mincount=1&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
+    url = "http://api.plos.org/search?facet=true&facet.field=cross_published_journal_key&facet.mincount=1&fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&q=*:*&rows=0&wt=json"
     body = File.read("#{fixture_path}solr_journal_keys.json")
     stub_request(:get, url).to_return(:body => body, :status => 200)
 
-    data = SolrRequest.get_journal_name_key
+    data = SolrRequest.get_journals
 
     data.size.should eq(8)
 
-    journals = [
-      ["PLoSONE", "PLOS ONE"],
-      ["PLoSGenetics", "PLOS Genetics"],
-      ["PLoSPathogens", "PLOS Pathogens"],
-      ["PLoSCompBiol", "PLOS Computational Biology"],
-      ["PLoSBiology", "PLOS Biology"],
-      ["PLoSNTD", "PLOS Neglected Tropical Diseases"],
-      ["PLoSMedicine", "PLOS Medicine"],
-      ["PLoSCollections", "PLOS Collections"],
-    ]
+    journals = {
+      "PLoSBiology" => "PLOS Biology",
+      "PLoSCollections" => "PLOS Collections",
+      "PLoSCompBiol" => "PLOS Computational Biology",
+      "PLoSGenetics" => "PLOS Genetics",
+      "PLoSMedicine" => "PLOS Medicine",
+      "PLoSNTD" => "PLOS Neglected Tropical Diseases",
+      "PLoSONE" => "PLOS ONE",
+      "PLoSPathogens" => "PLOS Pathogens"
+    }
     data.should eq(journals)
+  end
+
+  it "returns processed publication_date" do
+    body = File.read("#{fixture_path}simple_search_result.json")
+    stub_request(:get, /api.plos.org/).to_return(body: body)
+
+    params = {
+      :everything =>"word",
+      :publication_days_ago => "0",
+      :datepicker1 => "05-07-2014",
+      :datepicker2 => "10-31-2014"
+    }
+
+    q = SolrRequest.new(params)
+    results, total_results, metadata = q.query
+    metadata[:publication_date][0].should eq(Date.strptime("05-07-2014", "%m-%d-%Y"))
+    metadata[:publication_date][1].should eq(DateTime.strptime("10-31-2014 23:59:59", "%m-%d-%Y %H:%M:%S"))
   end
 
   it "query for articles using simple search" do
 
     url = "http://api.plos.org/search?q=affiliate:%22University%20of%20California%22%20AND%20" \
         "author:Garmay%20AND%20everything:word%20AND%20subject:%22Gene%20regulation%22&" \
-        "fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20Image%22&" \
+        "fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&" \
         "fl=id,pmid,publication_date,received_date,accepted_date,title," \
         "cross_published_journal_name,author_display,editor_display,article_type,affiliate," \
         "subject,financial_disclosure&wt=json&facet=false&rows=25&hl=false"
@@ -152,7 +146,7 @@ describe SolrRequest do
       :author_country=>"",
       :institution=>"University of California",
       :subject=>"Gene regulation",
-      :cross_published_journal_name=>"All Journals",
+      :filterJournals=>["All Journals"],
       :financial_disclosure=>""
     }
 
@@ -193,7 +187,7 @@ describe SolrRequest do
 
   it "can use a custom field list (fl)" do
     url = "http://api.plos.org/search?facet=false&fl=id,pmid,publication_date" \
-          "&fq%5B%5D=doc_type:full&fq%5B%5D=!article_type_facet:%22Issue%20" \
+          "&fq=doc_type:full&fq=!article_type_facet:%22Issue%20" \
           "Image%22&hl=false&q=everything:biology&rows=25&wt=json"
 
     fl = "id,pmid,publication_date"
