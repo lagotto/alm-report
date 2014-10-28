@@ -1,0 +1,64 @@
+.bubble {
+  stroke: #000;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.label {
+  fill: #777;
+}
+
+.year.label {
+  font: 500 196px "Helvetica Neue";
+  fill: #ddd;
+}
+
+.year.label.active {
+  fill: #aaa;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+  cursor: ew-resize;
+}
+
+.tooltip {
+  margin-bottom: 10px;
+  line-height: 1.6;
+  font-weight: bold;
+  padding: 12px;
+  max-width: 25%;
+  background: rgba(244, 244, 244, 0.8);
+  color: #000;
+  pointer-events: none;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.tooltip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(244, 244, 244, 0.8);
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Northward tooltips */
+.tooltip.n:after {
+  content: "\25BC";
+  margin: -2px 0 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
+
+text {
+  font: 10px sans-serif;
+}

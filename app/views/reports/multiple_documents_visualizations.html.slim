@@ -8,7 +8,7 @@
           .reports-header-div
             span.list-numbers 1
             h2.text-light-normal Article Usage and Citations as a function of Age
-          #chart
+          #citations
           p.info
             ' Total usage includes page views and downloads from PLOS and PMC.
             | Bubble size correlates with Scopus citations and bubble color with the PLOS journal.
@@ -21,11 +21,11 @@
         .visualizations-list
           .reports-header-div
             span.list-numbers 2
-            h2.text-light-normal Article Usage and Mendeley Bookmarks as a Function of Time
-          #article_usage_and_mendeley_age_div
+            h2.text-light-normal Article Usage and Bookmarks as a Function of Time
+          #saved
             p.info
               Total usage includes page views and downloads from PLOS and PMC.
-              Bubble size correlates with Mendeley bookmarks and bubble color with the PLOS journal.
+              Bubble size correlates with bookmarks and bubble color with the PLOS journal.
             p
               ' SOURCE: #{@report.report_dois.length} published articles from
               ' #{@report.get_earliest_report_date.strftime("%B %d, %Y")}
@@ -70,69 +70,6 @@
 
     = render "report_share"
 
-javascript:
-  function haveDataToDrawViz() {
-    return #{ @draw_viz.to_json };
-  }
-
-  function drawVizForOne() {
-    return false;
-  }
-
-  $.ajax({
-    url: "/reports/data?id=84",
-    success: function(data) {
-      var preparedData = _.map(data["data"], function (d) {
-        function monthDiff(d1, d2) {
-            months = (d2.getFullYear() - d1.getFullYear()) * 12;
-            months -= d1.getMonth() + 1;
-            months += d2.getMonth();
-            return months <= 0 ? 0 : months;
-        }
-
-        var date = new (Function.prototype.bind.apply(
-            Date, [null].concat(d["issued"]["date-parts"])
-        ))
-
-        var months = monthDiff(date, new Date())
-
-        return {
-            citations: d["cited"],
-            months: months,
-            views: d["viewed"],
-            tooltip: d["title"],
-            url: d["canonical_url"],
-            journal: d["title"]
-        }
-      });
-
-      // And then configure the chart.
-      BubbleChart.create($("#chart")[0], {
-          width: 500,
-          height: 400,
-          x: "months",
-          y: "views",
-          radius: "citations",
-          category: "journal"
-      }, preparedData);
-    }
-  });
-
-  function getArticleUsageCitationsAge() {
-      return #{{ @article_usage_citations_age_data.to_json }};
-  }
-
-  function getArticleUsageMendeleyAge() {
-      return #{{ @article_usage_mendeley_age_data.to_json }};
-  }
-
-  function getArticleUsageCitationSubjectArea() {
-    return #{{ @article_usage_citation_subject_area_data.to_json }};
-  }
-
-  function getArticleLocation() {
-
-    return #{{ @article_locations_data.to_json }};
-  }
-
-= javascript_include_tag "charts"
+- content_for :javascript do
+  = javascript_include_tag "multiple_documents_visualizations"
+  = javascript_include_tag "charts"

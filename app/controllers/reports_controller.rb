@@ -1,25 +1,4 @@
 class ReportsController < ApplicationController
-  # API
-  def data
-    @report = Report.find(params[:id])
-
-    request = {
-      api_key: APP_CONFIG["alm"]["api_key"],
-      ids: @report.report_dois.map(&:doi).join(",")
-    }
-
-    conn = Faraday.new(url: "http://alm.plos.org") do |faraday|
-      faraday.request  :url_encoded
-      faraday.response :logger
-      faraday.response :json
-      faraday.adapter  Faraday.default_adapter
-    end
-
-    response = conn.get("/api/v5/articles", request)
-
-    render json: response.body
-  end
-
   # Creates a new report based on the DOIs stored in the session,
   # and redirects to display it.
   def generate

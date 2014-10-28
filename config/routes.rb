@@ -11,7 +11,6 @@ AlmReport::Application.routes.draw do
   match "/start-over" => "home#start_over"
   match "/get-article-count" => "home#get_article_count"
 
-  get "/reports/data" => "reports#data"
   match "/reports/generate" => "reports#generate"
   match '/reports/:action/:id', :controller => "reports"
 
@@ -24,10 +23,13 @@ AlmReport::Application.routes.draw do
   match "/about" => "static_pages#about"
   match "/samples" => "static_pages#samples"
 
+  scope "/api" do
+    get "report_alm" => "api#report_alm"
+  end
+
   # Any other routes are handled here, as ActionDispatch prevents RoutingError
   # from hitting ApplicationController::rescue_action).  See
   # https://github.com/rails/rails/issues/671
   # BE SURE TO KEEP THIS AS THE LAST LINE!
   match "*path", :to => "application#routing_error"
-
 end
