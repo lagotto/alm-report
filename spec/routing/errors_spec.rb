@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "errors", :type => :routing do
   it "should catch routing errors" do

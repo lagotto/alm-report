@@ -6,3 +6,4 @@
 # no regular words or you'll be exposed to dictionary attacks.
 
 AlmReport::Application.config.secret_token = APP_CONFIG['secret_token']
+AlmReport::Application.config.secret_key_base = APP_CONFIG['secret_token']

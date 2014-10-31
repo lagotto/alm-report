@@ -2,11 +2,8 @@ require "set"
 
 # Stores the latitude and longitude for a given address in the DB.
 class Geocode < ActiveRecord::Base
-  attr_accessible :address, :latitude, :longitude
-  
-  
   @@CACHE_PREFIX = "geocodes.address."
-  
+
   # Map of variations of certain countries' names, to the value that we
   # have stored in the geocodes table.
   @@COUNTRY_SYNONYMS = {
@@ -17,8 +14,8 @@ class Geocode < ActiveRecord::Base
       :"republic of panama" => "panama",
       :"the netherlands" => "netherlands",
       }
-      
-      
+
+
   # Checks to see if any of the addresses are in the rails cache.  Returns a tuple
   # of a list of geocodes found in the cache, and a list of addresses not found.
   def self.check_cache(addresses)
@@ -34,15 +31,15 @@ class Geocode < ActiveRecord::Base
     end
     [results, not_in_cache]
   end
-  
-  
+
+
   # Adds the geocodes to the rails cache.
   def self.add_to_cache(geos)
     geos.each {|geo| Rails.cache.write("#{@@CACHE_PREFIX}#{geo.address.downcase}", geo,
         :expires_in => 1.day)}
   end
-  
-  
+
+
   # Performs a batch query against the addresses field of the geocodes table.
   #
   # Input: a map where the keys are the addresses that will be queried, and
@@ -65,8 +62,8 @@ class Geocode < ActiveRecord::Base
     end
     [results, orig_addresses]
   end
-  
-  
+
+
   # Attempts to load geocodes for all of the given addresses.  Batch queries
   # are used for efficiency.  Several queries may be issued, from most specific
   # (the entire address) to least specific (just the country), depending on
@@ -74,7 +71,7 @@ class Geocode < ActiveRecord::Base
   # from input address to geocode object (not all input addresses may be present
   # in the output, if they were not found).
   def self.load_from_addresses(addrs)
-    
+
     # Copy the addresses into a set.  We will delete them from this set as
     # they are found in the DB.
     addresses = Set.new(addrs.map{|a| a.downcase})
@@ -139,5 +136,5 @@ class Geocode < ActiveRecord::Base
     end
     [geocodes, addresses.to_a]
   end
-  
+
 end
