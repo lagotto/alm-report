@@ -1,6 +1,12 @@
 .content.wrapper.cf
   = render "reports_nav"
-  .visualizations-container
-    h1 Hello
+
+  #alm-report
+
+  script type="text/x-handlebars"
+    .visualizations-container
+      | {{outlet}}
+
+
 - content_for :javascript do
   = javascript_include_tag "alm_report"

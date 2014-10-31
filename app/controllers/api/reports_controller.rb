@@ -21,12 +21,11 @@ class Api::ReportsController < ApplicationController
 
     # Ember-friendly JSON formatting
     alm["id"] = @report.id
-    result = {report: alm}
-    result["items"] = alm.delete("data").map do |result|
+    alm["items"] = alm.delete("data").map do |result|
       result["id"] = result["doi"]
       result.update(journal: SearchResult.from_cache(result["doi"]).journal)
     end
 
-    render json: result
+    render json: {report: alm}
   end
 end
