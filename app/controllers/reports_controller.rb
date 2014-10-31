@@ -90,13 +90,6 @@ class ReportsController < ApplicationController
       return flash[:error] = "Visualizations not enabled for more than " \
         "#{APP_CONFIG["viz_limit"]} reports"
     end
-
-    # deteremine if the report contains only one article
-    if @report.report_dois.length == 1
-      single_document_visualizations
-    else
-      multiple_documents_visualizations
-    end
   end
 
   def manage_report_data(report_dois, display_start_index = 1)

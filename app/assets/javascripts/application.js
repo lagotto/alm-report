@@ -19,3 +19,9 @@
 //= require script
 //= require advancedSearch
 //= require bubble/app/scripts/bubble_chart
+//= require jquery
+//= require_self
+
+// for more details see: http://emberjs.com/guides/application/
+
+

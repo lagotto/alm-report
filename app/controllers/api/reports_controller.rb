@@ -1,6 +1,8 @@
-class ApiController < ApplicationController
+class Api::ReportsController < ApplicationController
+  respond_to :json
+
   # API
-  def report_alm
+  def show
     @report = Report.find(params[:id])
 
     request = {
@@ -17,10 +19,14 @@ class ApiController < ApplicationController
 
     alm = conn.get("/api/v5/articles", request).body
 
-    alm["data"] = alm["data"].map do |result|
+    # Ember-friendly JSON formatting
+    alm["id"] = @report.id
+    result = {report: alm}
+    result["items"] = alm.delete("data").map do |result|
+      result["id"] = result["doi"]
       result.update(journal: SearchResult.from_cache(result["doi"]).journal)
     end
 
-    render json: alm
+    render json: result
   end
 end

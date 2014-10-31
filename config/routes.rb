@@ -11,8 +11,12 @@ AlmReport::Application.routes.draw do
   get "/start-over" => "home#start_over"
   get "/get-article-count" => "home#get_article_count"
 
-  get "/reports/generate" => "reports#generate"
-  get '/reports/:action/:id', :controller => "reports"
+  scope "reports" do
+    get "generate" => "reports#generate"
+    get "metrics/:id" => "reports#metrics", as: :metrics
+    get "visualizations/:id" => "reports#visualizations", as: :visualizations
+    get "download_data/:id" => "reports#download_data", as: :download
+  end
 
   get "/id" => "id#index", :via => :get
   get "/id" => "id#save", :via => :post
@@ -23,7 +27,7 @@ AlmReport::Application.routes.draw do
   get "/about" => "static_pages#about"
   get "/samples" => "static_pages#samples"
 
-  scope "/api" do
-    get "report_alm" => "api#report_alm"
+  namespace :api do
+    resources :reports
   end
 end
