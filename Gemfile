@@ -17,6 +17,9 @@ gem "faraday"
 gem "faraday_middleware"
 gem "bower-rails"
 
+gem "ember-rails"
+gem "ember-source", "1.8.0"
+
 group :development do
   gem "rubocop"
   gem "pry-rails"
