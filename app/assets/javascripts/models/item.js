@@ -4,7 +4,7 @@ AlmReport.Item = DS.Model.extend({
   journal: DS.attr('string'),
   issued: DS.attr(),
   published: function () {
-    return new Date(this.get('issued')['date-parts'])
+    return new Date(this.get('issued')['date-parts'].join())
   }.property('issued'),
   canonical_url: DS.attr('string'),
   pmid: DS.attr('string'),
@@ -13,5 +13,6 @@ AlmReport.Item = DS.Model.extend({
   viewed: DS.attr('number'),
   saved: DS.attr('number'),
   discussed: DS.attr('number'),
-  cited: DS.attr('number')
+  cited: DS.attr('number'),
+  sources: DS.attr()
 });

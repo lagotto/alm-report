@@ -1,5 +1,11 @@
 AlmReport.BubbleChartComponent = Ember.Component.extend({
-  tagName: 'svg',
+  tagName: 'div',
+  axes: [ 'mendeley', 'scopus', 'nature', 'citeulike', 'pmc' ],
+  axis: 'mendeley',
+
+  axisChanged: function() {
+    this.update();
+  }.observes('axis'),
 
   prepareData: function(data, column) {
     return data.map( function (d) {
@@ -14,7 +20,7 @@ AlmReport.BubbleChartComponent = Ember.Component.extend({
           Date, [null].concat(d.get('issued')['date-parts'])
       ))
 
-      var months = monthDiff(date, new Date());
+      var months = monthDiff(d.get('published'), new Date());
 
       var result = {
           months: months,
@@ -24,23 +30,41 @@ AlmReport.BubbleChartComponent = Ember.Component.extend({
           journal: d.get('journal')
       }
 
-      result[column] = d.get(column);
+      result[column] = _.find(d.get('sources'), function (source) {
+        return source.name === column
+      }).metrics.total;
       return result;
     });
   },
 
-  draw: function(){
-    var preparedData = this.get('prepareData')(this.get('items'), 'cited');
+  update: function () {
+    var preparedData = this.get('prepareData')(this.get('items'), this.get('axis'));
 
-    // And then configure the chart.
-    BubbleChart.create(this.element, {
-      width: 500,
-      height: 400,
+    this.get('chart').update({
+      width: this.get('width'),
+      height: this.get('height'),
       x: "months",
       y: "views",
-      radius: "cited",
+      radius: this.get('axis'),
       category: "journal"
     }, preparedData);
+  },
+
+  draw: function () {
+    var preparedData = this.get('prepareData')(this.get('items'), this.get('axis'));
+
+    var chart = new BubbleChart;
+
+    chart = chart.create(this.element, {
+      width: this.get('width'),
+      height: this.get('height'),
+      x: "months",
+      y: "views",
+      radius: this.get('axis'),
+      category: "journal"
+    }, preparedData);
+
+    this.set('chart', chart);
   },
 
   didInsertElement: function(){
