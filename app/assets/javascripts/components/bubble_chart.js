@@ -1,7 +1,29 @@
 AlmReport.BubbleChartComponent = Ember.Component.extend({
   tagName: 'div',
-  axes: [ 'mendeley', 'scopus', 'nature', 'citeulike', 'pmc' ],
+  axes: [
+    {key: 'mendeley', display: 'Mendeley'},
+    {key: 'scopus', display: 'Scopus'},
+    {key: 'nature', display: 'Nature'},
+    {key: 'citeulike', display: 'CiteULike'},
+    {key: 'pmc', display: 'PMC'}
+  ],
   axis: 'mendeley',
+
+  size: function () {
+    return this.get('items').content.length
+  }.property('items'),
+
+  minDate: function () {
+    return _.min(this.get('items').toArray(), function (i) {
+      return i.get('published')
+    }).get('published').toLocaleString('si').slice(0,10)
+  }.property('items'),
+
+  maxDate: function () {
+    return _.max(this.get('items').toArray(), function (i) {
+      return i.get('published')
+    }).get('published').toLocaleString('si').slice(0,10)
+  }.property('items'),
 
   axisChanged: function() {
     this.update();
@@ -10,24 +32,21 @@ AlmReport.BubbleChartComponent = Ember.Component.extend({
   prepareData: function(data, column) {
     return data.map( function (d) {
       function monthDiff(d1, d2) {
-          months = (d2.getFullYear() - d1.getFullYear()) * 12;
-          months -= d1.getMonth() + 1;
-          months += d2.getMonth();
-          return months <= 0 ? 0 : months;
+        months = (d2.getFullYear() - d1.getFullYear()) * 12;
+        months -= d1.getMonth() + 1;
+        months += d2.getMonth();
+        return months <= 0 ? 0 : months;
       }
-
-      var date = new (Function.prototype.bind.apply(
-          Date, [null].concat(d.get('issued')['date-parts'])
-      ))
 
       var months = monthDiff(d.get('published'), new Date());
 
       var result = {
-          months: months,
-          views: d.get('viewed'),
-          tooltip: d.get('title'),
-          url: d.get('canonical_url'),
-          journal: d.get('journal')
+        months: months,
+        views: d.get('viewed'),
+        tooltip: d.get('title'),
+        url: d.get('canonical_url'),
+        journal: d.get('journal'),
+        title: d.get('title')
       }
 
       result[column] = _.find(d.get('sources'), function (source) {
@@ -46,7 +65,8 @@ AlmReport.BubbleChartComponent = Ember.Component.extend({
       x: "months",
       y: "views",
       radius: this.get('axis'),
-      category: "journal"
+      category: "journal",
+      tooltip: "title"
     }, preparedData);
   },
 
@@ -55,13 +75,14 @@ AlmReport.BubbleChartComponent = Ember.Component.extend({
 
     var chart = new BubbleChart;
 
-    chart = chart.create(this.element, {
+    chart.create(this.$('.chart')[0], {
       width: this.get('width'),
       height: this.get('height'),
       x: "months",
       y: "views",
       radius: this.get('axis'),
-      category: "journal"
+      category: "journal",
+      tooltip: "title"
     }, preparedData);
 
     this.set('chart', chart);

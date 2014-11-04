@@ -1,3 +1,6 @@
-<%= image_tag 'mrbubble.png', width: 100 %>
+<% image_tag 'mrbubble.png', width: 100 %>
 
-{{view "select" content=axes value=axis}}
+<div class="chart"></div>
+
+<p class="info">Select your source: {{view "select" content=axes value=axis optionValuePath="content.key" optionLabelPath="content.display"}}</p>
+<p>SOURCE: {{size}} published articles from {{minDate}} to {{maxDate}}</p>
