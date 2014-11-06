@@ -43,7 +43,6 @@ AlmReport.BubbleChartComponent = Ember.Component.extend({
       var result = {
         months: months,
         views: d.get('viewed'),
-        tooltip: d.get('title'),
         url: d.get('canonical_url'),
         journal: d.get('journal'),
         title: d.get('title')
