@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   # Render pretty 404 and 500 pages in production
   unless Rails.application.config.consider_all_requests_local
     rescue_from ActiveRecord::RecordNotFound,
-                ActionController::RoutingError,
                 ActionController::UnknownController,
                 AbstractController::ActionNotFound,
                 ActionController::MethodNotAllowed, :with => :page_not_found
