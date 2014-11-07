@@ -13,7 +13,7 @@
 }
 
 .ajax_spinner {
-  background: url(/assets/select_all_loader.gif) no-repeat 0 0;
+  background: image-url('select_all_loader.gif') no-repeat 0 0;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -35,7 +35,7 @@
 }
 
 #error-message-div {
-  background: #f0d5d8 url(/assets/warning.png) no-repeat 35px 10px;
+  background: #f0d5d8 image-url('warning.png') no-repeat 35px 10px;
   color: #e4324f;
   padding: 15px 30px 15px 80px;
   width: 850px;
