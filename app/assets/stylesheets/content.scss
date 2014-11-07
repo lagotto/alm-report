@@ -88,7 +88,7 @@ select {
   top: 42px;
   left: -4px;
   overflow: hidden;
-  background: url(/assets/sprite.png) -187px -399px no-repeat;
+  background-image: image-url('sprite.png') -187px -399px no-repeat;
   font-size: 18px;
   color: #333;
 }
@@ -222,35 +222,35 @@ select {
   width: 26px;
   height: 26px;
   margin: 23px 14px 0 17px;
-  background: url(/assets/sprite.png) -299px -142px;
+  background-image: image-url('sprite.png') -299px -142px;
 }
 
 .top-bookmarked {
   width: 12px;
   height: 31px;
   margin: 20px 12px 0 18px;
-  background: url(/assets/sprite.png) -326px -142px;
+  background-image: image-url('sprite.png') -326px -142px;
 }
 
 .top-tweets {
   width: 26px;
   height: 22px;
   margin: 24px 14px 0 17px;
-  background: url(/assets/sprite.png) -340px -142px;
+  background-image: image-url('sprite.png') -340px -142px;
 }
 
 .top-cited {
   width: 22px;
   height: 22px;
   margin: 25px 16px 0 18px;
-  background: url(/assets/sprite.png) -367px -142px;
+  background-image: image-url('sprite.png') -367px -142px;
 }
 
 .top-shares {
   width: 30px;
   height: 30px;
   margin: 21px 11px 0 15px;
-  background: url(/assets/sprite.png) -390px -142px;
+  background-image: image-url('sprite.png') -390px -142px;
 }
 
 /* 5.4. Sample reports block
@@ -561,7 +561,7 @@ input[type="checkbox"] {
   margin: 0 0 0 1px;
   display: inline-block;
   vertical-align: middle;
-  background: url(/assets/sprite.png) no-repeat -124px -142px;
+  background-image: image-url('sprite.png') no-repeat -124px -142px;
 }
 
 .article-info .updating {
@@ -610,7 +610,7 @@ input[type="checkbox"] {
   padding: 8px 0 0 16px;
   top: 0;
   left: 69px;
-  background: url(/assets/sprite.png) -647px -399px no-repeat;
+  background-image: image-url('sprite.png') -647px -399px no-repeat;
   color: #333;
 }
 
@@ -638,7 +638,7 @@ input[type="checkbox"] {
 
 .previous {
   margin: 0 199px 0 0;
-  background: url(/assets/sprite.png) no-repeat -249px -142px;
+  background-image: image-url('sprite.png') no-repeat -249px -142px;
 }
 
 span.previous {
@@ -663,7 +663,7 @@ span.previous {
 
 .next {
   margin: 0 0 0 200px;
-  background: url(/assets/sprite.png) no-repeat -274px -142px;
+  background-image: image-url('sprite.png') no-repeat -274px -142px;
 }
 
 span.next {
@@ -695,7 +695,7 @@ span.next {
   position: absolute;
   top: 17px;
   right: 12px;
-  background: url(/assets/sprite.png) -50px -142px no-repeat;
+  background-image: image-url('sprite.png') -50px -142px no-repeat;
 }
 
 .right-list-btn {
@@ -759,7 +759,7 @@ span.next {
   margin: 15px 15px 0 0;
   float: right;
   text-indent: -9999px;
-  background: url(/assets/sprite.png) -223px -142px;
+  background-image: image-url('sprite.png') -223px -142px;
   cursor: pointer;
 }
 
@@ -903,14 +903,14 @@ span.next {
 
 .view-report.metrics-view-report {
   height: 123px;
-  background: url(/assets/sprite.png) 0 -602px;
+  background-image: image-url('sprite.png') 0 -602px;
 }
 
 .metrics-chart-view {
   width: 25px;
   height: 24px;
   margin: 47px 12px 0 0;
-  background: url(/assets/sprite.png) -68px -141px;
+  background-image: image-url('sprite.png') -68px -141px;
 }
 
 .view-report .metrics-chart-view + span {
@@ -924,7 +924,7 @@ span.next {
   width: 20px;
   height: 18px;
   margin: 49px 12px 0 80px;
-  background: url(/assets/sprite.png) 0px -141px;
+  background-image: image-url('sprite.png') 0px -141px;
 }
 
 .metrics-icon-active + span {
@@ -1037,7 +1037,7 @@ span.next {
   margin: 0 0 0 10px;
   padding: 0 0 1px;
   display: inline-block;
-  background: url(/assets/sprite.png) -617px -141px no-repeat;
+  background-image: image-url('sprite.png') -617px -141px no-repeat;
 }
 
 .visualizations-list a span.arrow-up {
@@ -1046,7 +1046,7 @@ span.next {
   margin: 0 0 0 10px;
   padding: 0 0 1px;
   display: inline-block;
-  background: url(/assets/sprite.png) -627px -141px no-repeat;
+  background-image: image-url('sprite.png') -627px -141px no-repeat;
 }
 
 .visualizations-list .metrics-table-content {
@@ -1126,7 +1126,7 @@ caption {
   width: 100%;
   height: 123px;
   display: inline-block;
-  background: url(/assets/sprite.png) 0 -478px;
+  background-image: image-url('sprite.png') 0 -478px;
 }
 
 .view-report span {
@@ -1300,7 +1300,7 @@ caption {
   height:46px;
   margin: 29px 15px 0 18px;
   float: left;
-  background: url(/assets/sprite.png) -459px -141px;
+  background-image: image-url('sprite.png') -459px -141px;
 }
 
 .report-downloads .png {
@@ -1308,7 +1308,7 @@ caption {
   height:46px;
   margin: 29px 15px 0 18px;
   float: left;
-  background: url(/assets/sprite.png) -498px -141px;
+  background-image: image-url('sprite.png') -498px -141px;
 }
 
 .report-downloads .file-name {
@@ -1341,7 +1341,7 @@ caption {
   position: absolute;
   top: 44%;
   right: 34px;
-  background: url(/assets/sprite.png) -537px -142px;
+  background-image: image-url('sprite.png') -537px -142px;
 }
 
 /* the visualization download link isn't a real link (doesn't have href attr)
@@ -1429,7 +1429,7 @@ caption {
 
 .share-box .google-plus-logo {
   margin: 5px 0 0 18px;
-  background: url(/assets/sprite.png) no-repeat scroll -549px -142px transparent;
+  background-image: image-url('sprite.png') no-repeat scroll -549px -142px transparent;
 }
 
 .share-box .google-plus-logo,
@@ -1447,17 +1447,17 @@ caption {
 
 .share-box .facebook-logo {
   margin: 9px 1px 0 18px;
-  background: url(/assets/sprite.png) no-repeat scroll -566px -142px transparent;
+  background-image: image-url('sprite.png') no-repeat scroll -566px -142px transparent;
 }
 
 .share-box .twitter-logo {
   margin: 9px 1px 0 18px;
-  background: url(/assets/sprite.png) no-repeat scroll -583px -142px transparent;
+  background-image: image-url('sprite.png') no-repeat scroll -583px -142px transparent;
 }
 
 .share-box .email-logo {
   margin: 9px 1px 0 18px;
-  background: url(/assets/sprite.png) no-repeat scroll -600px -142px transparent;
+  background-image: image-url('sprite.png') no-repeat scroll -600px -142px transparent;
 }
 
 /* 5.15. Page: Upload-file
