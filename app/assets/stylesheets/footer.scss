@@ -231,7 +231,7 @@ div.selector {
   height: 45px;
   padding: 0 0 0 16px;
   font-size: 18px;
-  background-image: image-url('sprite.png') -192px -399px no-repeat;
+  background: image-url('sprite.png') -192px -399px no-repeat;
 }
 
 div.selector.focus,
@@ -283,7 +283,7 @@ div.selector select {
   height: 36px;
   padding: 0 0 0 16px;
   font-size: 18px;
-  background-image: image-url('sprite.png') -647px -399px no-repeat;
+  background: image-url('sprite.png') -647px -399px no-repeat;
 }
 
 .add-select-box-holder div.selector span {
