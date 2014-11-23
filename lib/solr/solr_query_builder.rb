@@ -27,7 +27,7 @@ class SolrQueryBuilder
     @query[:q] = @params.sort_by { |k, _| k }.select do |k, _|
       SolrRequest::QUERY_PARAMS.include?(k.to_sym)
     end.map do |k, v|
-      unless %w(affiliate publication_date).include?(k.to_s) # Pre-formatted
+      unless %w(affiliate publication_date id).include?(k.to_s) # Pre-formatted
         v = quote_if_spaces(v)
       end
       "#{k}:#{v}"

@@ -47,7 +47,7 @@ class SolrRequest
   QUERY_PARAMS = [
     :everything, :author, :affiliate, :subject,
     :cross_published_journal_name, :financial_disclosure, :title,
-    :publication_date
+    :publication_date, :id
   ]
 
   PROCESS_PARAMS = [
