@@ -2,19 +2,18 @@ require "set"
 
 # Stores the latitude and longitude for a given address in the DB.
 class Geocode < ActiveRecord::Base
-  @@CACHE_PREFIX = "geocodes.address."
+  CACHE_PREFIX = "geocodes.address."
 
   # Map of variations of certain countries' names, to the value that we
   # have stored in the geocodes table.
-  @@COUNTRY_SYNONYMS = {
-      :brasil => "brazil",
-      :"people's republic of china" => "china",
-      :"peoples' republic of china" => "china",
-      :"pr china" => "china",
-      :"republic of panama" => "panama",
-      :"the netherlands" => "netherlands",
+  COUNTRY_SYNONYMS = {
+      "brasil" => "brazil",
+      "people's republic of china" => "china",
+      "peoples' republic of china" => "china",
+      "pr china" => "china",
+      "republic of panama" => "panama",
+      "the netherlands" => "netherlands",
       }
-
 
   # Checks to see if any of the addresses are in the rails cache.  Returns a tuple
   # of a list of geocodes found in the cache, and a list of addresses not found.
@@ -22,7 +21,7 @@ class Geocode < ActiveRecord::Base
     results = []
     not_in_cache = []
     addresses.each do |a|
-      cached = Rails.cache.read("#{@@CACHE_PREFIX}#{a}")
+      cached = Rails.cache.read("#{CACHE_PREFIX}#{a}")
       if cached.nil?
         not_in_cache << a
       else
@@ -32,13 +31,11 @@ class Geocode < ActiveRecord::Base
     [results, not_in_cache]
   end
 
-
   # Adds the geocodes to the rails cache.
   def self.add_to_cache(geos)
-    geos.each {|geo| Rails.cache.write("#{@@CACHE_PREFIX}#{geo.address.downcase}", geo,
+    geos.each {|geo| Rails.cache.write("#{CACHE_PREFIX}#{geo.address.downcase}", geo,
         :expires_in => 1.day)}
   end
-
 
   # Performs a batch query against the addresses field of the geocodes table.
   #
@@ -48,21 +45,18 @@ class Geocode < ActiveRecord::Base
   # Output: a tuple of a map from address to geocode object, and a list of the
   #     original addresses that were found.
   def self.load_from_addresses_impl(addresses)
-    geos, not_in_cache = check_cache(addresses.keys.clone)
+    geos, not_in_cache = check_cache(addresses)
     if geos.length < addresses.length
       db_geos = Geocode.where(:address => not_in_cache)
       add_to_cache(db_geos)
       geos += db_geos
     end
     results = {}
-    orig_addresses = []
     geos.each do |geo|
-      results[geo.address] = geo
-      orig_addresses << addresses[geo.address.downcase]
+      results[geo.address.downcase] = geo
     end
-    [results, orig_addresses]
+    results
   end
-
 
   # Attempts to load geocodes for all of the given addresses.  Batch queries
   # are used for efficiency.  Several queries may be issued, from most specific
@@ -70,71 +64,33 @@ class Geocode < ActiveRecord::Base
   # whether we find the address at the previous stage.  Returns a map
   # from input address to geocode object (not all input addresses may be present
   # in the output, if they were not found).
-  def self.load_from_addresses(addrs)
-
-    # Copy the addresses into a set.  We will delete them from this set as
-    # they are found in the DB.
-    addresses = Set.new(addrs.map{|a| a.downcase})
-
-    # 1. Use the entire address
-    address_map = {}
-    addresses.each {|a| address_map[a] = a}
-    geocodes, orig_addresses = load_from_addresses_impl(address_map)
-    orig_addresses.each {|i| addresses.delete(i)}
-    if addresses.length > 0
-
-      # 2. Substitute country synonyms we know we have in the DB.
-      substitutions = {}
-      addresses.each do |address|
-        fields = address.split(",")
-        country = fields[-1].strip.downcase
-        if !@@COUNTRY_SYNONYMS[country.to_sym].nil?
-          country = @@COUNTRY_SYNONYMS[country.to_sym]
-          substitutions["#{fields[-2].strip()}, #{country}"] = address
+  def self.load_from_addresses(addresses)
+    processed = addresses.map do |address|
+      address.downcase!
+      variations = COUNTRY_SYNONYMS.map do |synonym, canonical|
+        # Address can be in multiple forms:
+        # City, Province, Country
+        # City, Country
+        if address =~ /((?<=, )#{synonym}\Z)|\A#{synonym}\Z/
+          address.sub(synonym, canonical)
         end
-      end
-      if substitutions.length > 0
-        found, orig_addresses = load_from_addresses_impl(substitutions)
-        geocodes.merge!(found)
-        orig_addresses.each {|i| addresses.delete(i)}
-      end
-      if addresses.length > 0
-
-        # 3. Sometimes, addresses for countries where we normally get
-        # "City, Province, Country" only have "City, Country".
-        substitutions = {}
-        addresses.each do |address|
-          fields = address.split(",")
-          if fields.length == 3
-            country = fields[-1].strip.downcase
-            country = @@COUNTRY_SYNONYMS[country.to_sym].nil? ? country : @@COUNTRY_SYNONYMS[country.to_sym]
-            substitutions["#{fields[1].strip()}, #{country}"] = address
-          end
-        end
-        if substitutions.length > 0
-          found, orig_addresses = load_from_addresses_impl(substitutions)
-          geocodes.merge!(found)
-          orig_addresses.each {|i| addresses.delete(i)}
-        end
-      end
-      if addresses.length > 0
-
-        # 4. If all else fails, just attempt to geocode the country.
-        substitutions = {}
-        addresses.each do |address|
-          fields = address.split(",")
-          country = fields[-1].strip.downcase
-          country = @@COUNTRY_SYNONYMS[country.to_sym].nil? ? country : @@COUNTRY_SYNONYMS[country.to_sym]
-          substitutions[country] = address
-        end
-        if substitutions.length > 0
-          found, orig_addresses = load_from_addresses_impl(substitutions)
-          geocodes.merge!(found)
-          orig_addresses.each {|i| addresses.delete(i)}
-        end
-      end
+      end.compact
+      variations.push(address) if variations.empty?
+      variations.push(address[/(?<=, ).*\Z/])
+      [address, Hash[*variations.compact.map { |f| [f, nil]}.flatten]]
     end
-    [geocodes, addresses.to_a]
-  end
 
+    processed = Hash[processed]
+    geocodes = load_from_addresses_impl(processed.values.reduce(:merge).keys)
+
+    processed.map do |address, variations|
+      # Try to find the most specific address first.
+      variations = variations.keys.sort_by { |v| v.count(",") }.reverse
+
+      variation = variations.find do |variation|
+        geocodes[variation]
+      end
+      { address => geocodes[variation] } if variation
+    end.compact.reduce(:merge)
+  end
 end
