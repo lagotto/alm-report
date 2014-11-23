@@ -27,7 +27,7 @@ class ReportDoi < ActiveRecord::Base
       solr.publication_date,
       solr.title,
       solr.authors,
-      solr.affiliates.try(:join, "; "),
+      solr.affiliations.try(:join, "; "),
       # Here be ALM data
       solr.journal,
       solr.article_type,

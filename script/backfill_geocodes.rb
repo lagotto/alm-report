@@ -78,8 +78,8 @@ get_dois(ARGV[0]) do |dois|
   solr = SolrRequest.get_data_for_articles(dois)
   dois.each do |doi|
     if !solr[doi].nil? && !solr[doi]["affiliate"].nil? && solr[doi]["affiliate"].length > 0
-      solr[doi]["affiliate"].each do |affiliate|
-        location = GeocodeRequest.parse_location_from_affiliate(affiliate)
+      solr[doi]["affiliate"].each do |affiliation|
+        location = Geocode.parse_location_from_affiliation(affiliation)
         if !location.nil?
           locations_to_count[location] += 1
         end
