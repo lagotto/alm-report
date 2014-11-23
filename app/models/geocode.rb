@@ -15,6 +15,14 @@ class Geocode < ActiveRecord::Base
       "the netherlands" => "netherlands",
       }
 
+  # Contains countries where we have affiliate data of the form "City, Province, Country".
+  # For all other countries the affiliate is in the form "City, Country".
+  COUNTRIES_WITH_PROVINCES = Set.new([
+    "Australia",
+    "Canada",
+    "United States of America",
+  ])
+
   # Checks to see if any of the addresses are in the rails cache.  Returns a tuple
   # of a list of geocodes found in the cache, and a list of addresses not found.
   def self.check_cache(addresses)
@@ -93,4 +101,20 @@ class Geocode < ActiveRecord::Base
       { address => geocodes[variation] } if variation
     end.compact.reduce(:merge)
   end
+
+  # Parses the author affiliates field in the article XML to retrieve the
+  # location of the author. Returns a tuple of location and the institution name
+  # (the latter just being everything found before the location), or nil if the
+  # affiliate cannot be parsed.
+  def self.parse_location_from_affiliation(affiliation)
+    fields = affiliation.split(",")
+    fields.map { |location| location.strip! }
+    if fields.length >= 3
+      offset = COUNTRIES_WITH_PROVINCES.include?(fields[-1]) ? 3 : 2
+      return [fields[-offset, offset].join(", "), fields[0, fields.length - offset].join(", ")]
+    else
+      nil
+    end
+  end
+
 end
