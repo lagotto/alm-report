@@ -14,5 +14,6 @@ AlmReport.Item = DS.Model.extend({
   saved: DS.attr('number'),
   discussed: DS.attr('number'),
   cited: DS.attr('number'),
+  subjects: DS.attr(),
   sources: DS.attr()
 });

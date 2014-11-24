@@ -66,7 +66,7 @@ class Report < ActiveRecord::Base
       s = search_results[0].find{|s| s.id == result["id"] }
       result["affiliations"] = s.affiliations
       result["journal"] = s.journal
-      result["subject"] = s.subjects.map{|k| k.gsub(/\A\/|\/\Z/, '').split(/\//)}
+      result["subjects"] = s.subjects.map{|k| k.gsub(/\A\/|\/\Z/, '').split(/\//)}
       result
     end
     alm

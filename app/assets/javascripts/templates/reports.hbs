@@ -1,12 +1,22 @@
 <div class="visualizations-list">
   <div class="reports-header-div">
-    <span class="list-numbers">1</span>
-    <h2 class="text-light-normal">Article Usage as a Function of Age</h2>
-    <br>
     {{#if single}}
-      {{ line-chart items=items width=870 height=400 }}
+      <div class="visualizations-list">
+        <span class="list-numbers">1</span>
+        <h2 class="text-light-normal">Article Usage as a Function of Age</h2>
+        {{ line-chart items=items width=870 height=400 }}
+      </div>
     {{else}}
-      {{ bubble-chart items=items width=870 height=400}}
+      <div class="visualizations-list">
+        <span class="list-numbers">1</span>
+        <h2 class="text-light-normal">Article Usage as a Function of Age</h2>
+        {{ bubble-chart items=items width=870 height=400}}
+      </div>
+      <div class="visualizations-list">
+        <span class="list-numbers">2</span>
+        <h2 class="text-light-normal">Article Usage by Subject Area</h2>
+        {{ sunburst-chart items=items width=870 height=570}}
+      </div>
     {{/if}}
     <br>
   </div>

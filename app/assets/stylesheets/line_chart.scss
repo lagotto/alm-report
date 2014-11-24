@@ -1,18 +1,20 @@
-.series0 {
-  stroke: red;
-}
+.line.chart {
+  .series0 {
+    stroke: red;
+  }
 
-.series1 {
-  stroke: green;
-}
+  .series1 {
+    stroke: green;
+  }
 
-.year.label {
-  font: 500 196px "Helvetica Neue";
-  fill: #ddd;
-}
+  .year.label {
+    font: 500 196px "Helvetica Neue";
+    fill: #ddd;
+  }
 
-.line {
-  fill: none;
-  // stroke: steelblue;
-  stroke-width: 1.5px;
+  .line {
+    fill: none;
+    // stroke: steelblue;
+    stroke-width: 1.5px;
+  }
 }

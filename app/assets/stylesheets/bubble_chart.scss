@@ -1,24 +1,30 @@
-.bubble {
-  stroke: #000;
-}
+.bubble.chart {
+  .bubble {
+    stroke: #000;
+  }
 
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
+  .axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
 
-.label {
-  fill: #777;
-}
+  .label {
+    fill: #777;
+  }
 
-.year.label {
-  font: 500 196px "Helvetica Neue";
-  fill: #ddd;
-}
+  .year.label {
+    font: 500 196px "Helvetica Neue";
+    fill: #ddd;
+  }
 
-.year.label.active {
-  fill: #aaa;
+  .year.label.active {
+    fill: #aaa;
+  }
+
+  text {
+    font: 10px sans-serif;
+  }
 }
 
 .overlay {
@@ -85,8 +91,4 @@
   margin: -4px 0 0 -1px;
   top: 50%;
   left: 100%;
-}
-
-text {
-  font: 10px sans-serif;
 }
