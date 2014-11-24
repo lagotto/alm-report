@@ -20,6 +20,8 @@
 //= require advancedSearch
 //= require d3-tip/index
 //= require bubble/app/scripts/bubble_chart
+//= require sunburst/app/scripts/sunburst_chart
+//= require line/app/scripts/line_chart
 //= require jquery
 //= require_self
 

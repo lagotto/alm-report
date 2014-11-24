@@ -1,6 +1,8 @@
 {
   "name": "dsl-generated dependencies",
   "dependencies": {
-    "bubble": "git://github.com/articlemetrics/bubble"
+    "bubble": "git://github.com/articlemetrics/bubble",
+    "line": "git://github.com/articlemetrics/line",
+    "sunburst": "git://github.com/articlemetrics/sunburst"
   }
 }

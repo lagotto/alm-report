@@ -1,1 +1,3 @@
 asset "bubble", github: "articlemetrics/bubble"
+asset "line", github: "articlemetrics/line"
+asset "sunburst", github: "articlemetrics/sunburst"

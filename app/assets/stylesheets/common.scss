@@ -51,7 +51,8 @@
     </svg>") no-repeat;
 }
 
-@import 'jquery-ui-dp';
-@import 'uniform.default';
-@import 'style';
+@import "jquery-ui-dp";
+@import "uniform.default";
+@import "style";
 @import "bubble_chart";
+@import "line_chart";
