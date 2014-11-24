@@ -43,7 +43,7 @@
         = select_tag( \
           :sort, \
           options_for_select( \
-            (Search.plos? ? SolrRequest : SearchCrossref)::SORTS.to_a, \
+            (Search.plos? ? Solr::Request : SearchCrossref)::SORTS.to_a, \
             params[:sort] \
           ), \
           class: "styled", \

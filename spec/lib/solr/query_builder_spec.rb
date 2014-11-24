@@ -1,19 +1,19 @@
 require 'rails_helper'
-require 'solr/solr_query_builder'
+require 'solr/query_builder'
 
 def build_query_test_once(params, expected, opts = nil)
-  qb = SolrQueryBuilder.new(params)
+  qb = Solr::QueryBuilder.new(params)
   qb.build
   qb.query[:q].should eq(expected)
   qb.query[opts.keys[0]].should eq(opts.values[0]) if opts
 end
 
 def build_page_block_test_once(params, expected)
-  qb = SolrQueryBuilder.new(params)
+  qb = Solr::QueryBuilder.new(params)
   qb.page_block.should eq(expected)
 end
 
-describe SolrQueryBuilder do
+describe Solr::QueryBuilder do
   it "can build simple queries" do
     build_query_test_once({ everything: "everyFoo" }, "everything:everyFoo")
 
@@ -101,20 +101,20 @@ describe SolrQueryBuilder do
 
   it "doesn't have interactions between build_page_block and build" do
     params = { everything: "hi", title: "bye" }
-    qb = SolrQueryBuilder.new(params)
+    qb = Solr::QueryBuilder.new(params)
     qb.page_block.should eq("rows=25")
     qb.build
     qb.query[:q].should eq("everything:hi AND title:bye")
 
     params = { everything: "bad", title: "business", current_page: 2, rows: 475 }
-    qb = SolrQueryBuilder.new(params)
+    qb = Solr::QueryBuilder.new(params)
     qb.page_block.should eq("rows=475&start=475")
     qb.build
     qb.query[:q].should eq("everything:bad AND title:business")
   end
 
   it "generates the correct URL for a query" do
-    qb = SolrQueryBuilder.new(everything: "everyTitle", title: "titleFoo")
+    qb = Solr::QueryBuilder.new(everything: "everyTitle", title: "titleFoo")
     qb.build
     url = "http://api.plos.org/search?q=everything%3AeveryTitle+AND+title%3A" \
       "titleFoo&fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&" \
@@ -133,14 +133,14 @@ describe SolrQueryBuilder do
 
   it "ignores all sorts that are not whitelisted" do
     sort = "sum(malformed,"
-    qb = SolrQueryBuilder.new(everything: "testing", sort: sort)
+    qb = Solr::QueryBuilder.new(everything: "testing", sort: sort)
     qb.build
     qb.sort.should eq(nil)
   end
 
   it "takes whitelisted sorts into account" do
     sort = "publication_date desc"
-    qb = SolrQueryBuilder.new(everything: "testing", sort: sort)
+    qb = Solr::QueryBuilder.new(everything: "testing", sort: sort)
     qb.build
     qb.sort.should eq("&sort=publication_date%20desc")
   end
@@ -149,7 +149,7 @@ describe SolrQueryBuilder do
     params = ActiveSupport::HashWithIndifferentAccess.new(
       "everything" => "testing"
     )
-    qb = SolrQueryBuilder.new(params)
+    qb = Solr::QueryBuilder.new(params)
     qb.build
     qb.query[:q].should eq("everything:testing")
   end
@@ -165,7 +165,7 @@ describe SolrQueryBuilder do
       financial_disclosure: "",
       publication_date: "[2014-09-03T14:01:32Z TO 2014-10-03T14:01:32Z]"
     }
-    qb = SolrQueryBuilder.new(params)
+    qb = Solr::QueryBuilder.new(params)
     qb.build
     qb.query[:q].should eq(
       "everything:cancer AND publication_date:[2014-09-03T14:01:32Z TO " \
@@ -177,7 +177,7 @@ describe SolrQueryBuilder do
     params = {
       publication_days_ago: "-1"
     }
-    qb = SolrQueryBuilder.new(params)
+    qb = Solr::QueryBuilder.new(params)
     qb.build
 
     assert_nil(qb.start_time)
@@ -192,7 +192,7 @@ describe SolrQueryBuilder do
       datepicker2: "02-28-2013"
     }
 
-    qb = SolrQueryBuilder.new(params)
+    qb = Solr::QueryBuilder.new(params)
     qb.build
 
     assert_equal("[2012-09-15T00:00:00Z TO 2013-02-28T23:59:59Z]",
@@ -205,7 +205,7 @@ describe SolrQueryBuilder do
       publication_days_ago: "30"
     }
 
-    qb = SolrQueryBuilder.new(params)
+    qb = Solr::QueryBuilder.new(params)
     qb.build
 
     assert_equal("[2013-01-30T00:00:00Z TO 2013-03-01T00:00:00Z]",

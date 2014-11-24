@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'solr_request'
 # require "date"
 
-describe SolrRequest do
+describe Solr::Request do
   it "queries by pubmed ids" do
 
     pmids = [23717645, 16060722, 12345678901234567890]
@@ -14,7 +14,7 @@ describe SolrRequest do
     body = File.read("#{fixture_path}solr_pmid_validation.json")
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
 
-    data = SolrRequest.query_by_pmids(pmids)
+    data = Solr::Request.query_by_pmids(pmids)
     data.size.should eq(2)
 
     data[23717645].id.should eq("10.1371/journal.pone.0064652")
@@ -38,7 +38,7 @@ describe SolrRequest do
     body = File.read("#{fixture_path}solr_validate_dois.json")
     stub_request(:get, url).to_return(:body => body, :status => 200)
 
-    data = SolrRequest.validate_dois(dois)
+    data = Solr::Request.validate_dois(dois)
     data.size.should eq(2)
 
     data["10.1371/journal.pone.0064652"]["id"].should eq("10.1371/journal.pone.0064652")
@@ -63,7 +63,7 @@ describe SolrRequest do
     body = File.read("#{fixture_path}solr_get_data_for_articles.json")
     stub_request(:get, url).to_return(:body => body, :status => 200)
 
-    data = SolrRequest.get_data_for_articles(dois)
+    data = Solr::Request.get_data_for_articles(dois)
 
     data.size.should eq(2)
 
@@ -95,7 +95,7 @@ describe SolrRequest do
     body = File.read("#{fixture_path}solr_journal_keys.json")
     stub_request(:get, url).to_return(:body => body, :status => 200)
 
-    data = SolrRequest.get_journals
+    data = Solr::Request.get_journals
 
     data.size.should eq(8)
 
@@ -123,7 +123,7 @@ describe SolrRequest do
       :datepicker2 => "10-31-2014"
     }
 
-    q = SolrRequest.new(params)
+    q = Solr::Request.new(params)
     results, total_results, metadata = q.query
     metadata[:publication_date][0].should eq(Date.strptime("05-07-2014", "%m-%d-%Y"))
     metadata[:publication_date][1].should eq(DateTime.strptime("10-31-2014 23:59:59", "%m-%d-%Y %H:%M:%S"))
@@ -150,7 +150,7 @@ describe SolrRequest do
       :financial_disclosure=>""
     }
 
-    q = SolrRequest.new(params, nil)
+    q = Solr::Request.new(params, nil)
     results, total_results = q.query
 
     results[0].data.should eq({
@@ -195,7 +195,7 @@ describe SolrRequest do
     fixture = File.open("#{fixture_path}solr_custom_field_list.raw")
     stub_request(:get, url).to_return(fixture)
 
-    request = SolrRequest.new({everything: 'biology'}, fl)
+    request = Solr::Request.new({everything: 'biology'}, fl)
     data = request.query
 
     # We should get the requested fields in the result
