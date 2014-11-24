@@ -6,7 +6,7 @@ This partial accepts the following parameters:
   value: the value to render
   label: label to go along with the value
   href: if defined, label will be rendered as a link pointing at this URL
-  
+
 If the above two parameters are undefined, data will be rendered from these
 parameters:
 
@@ -15,7 +15,7 @@ parameters:
 %>
 <%
   value ||= data[stat]
-  label ||= AlmRequest.ALM_METRICS[stat]
+  label ||= AlmRequest::ALM_METRICS[stat]
 %>
 <tr class="<%= 'metric-without-data' if !(!value.nil? && value > 0) %>">
   <%
