@@ -1,16 +1,20 @@
-.bubble.chart {
-  .bubble {
-    stroke: #000;
-  }
-
+.chart {
   .axis path, .axis line {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
   }
-
   .label {
     fill: #777;
+  }
+  text {
+    font: 10px sans-serif;
+  }
+}
+
+.bubble.chart {
+  .bubble {
+    stroke: #000;
   }
 
   .year.label {
@@ -20,10 +24,6 @@
 
   .year.label.active {
     fill: #aaa;
-  }
-
-  text {
-    font: 10px sans-serif;
   }
 }
 
