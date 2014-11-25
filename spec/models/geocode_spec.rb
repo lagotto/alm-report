@@ -3,15 +3,15 @@ require "pry"
 
 describe Geocode do
   def parse_assert(expect, affil)
-    location, institute = GeocodeRequest.parse_location_from_affiliate(affil)
+    location, institute = Geocode.parse_location_from_affiliation(affil)
     location.should eq(expect[0])
     institute.should eq(expect[1])
   end
 
-  it "parses location from affiliate" do
-    GeocodeRequest.parse_location_from_affiliate("").should eq(nil)
-    GeocodeRequest.parse_location_from_affiliate("foo").should eq(nil)
-    GeocodeRequest.parse_location_from_affiliate("foo,bar").should eq(nil)
+  it "parses location from affiliation" do
+    Geocode.parse_location_from_affiliation("").should eq(nil)
+    Geocode.parse_location_from_affiliation("foo").should eq(nil)
+    Geocode.parse_location_from_affiliation("foo,bar").should eq(nil)
 
     parse_assert([
       "Waimanalo, Hawaii, United States of America",

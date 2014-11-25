@@ -1,6 +1,6 @@
-require "spec_helper"
+require "rails_helper"
 
-describe ApiController do
+describe Api::ReportsController do
   describe "GET report_alm", vcr: true do
     it "gets data from the ALM API and CrossRef API" do
       @report = Report.new
@@ -10,11 +10,12 @@ describe ApiController do
       @report.report_dois = [report_doi]
       @report.save
 
-      get :report_alm, id: @report.id
+      get :show, id: @report.id
 
       data = JSON.parse(response.body)
-      data["data"].size.should eq 1
-      data["data"][0]["journal"].should eq "PLoS Comput Biol"
+      expect(data["report"]["items"].size).to eq 1
+      expect(data["report"]["items"][0]["journal"]).to eq \
+        "PLOS Computational Biology"
     end
   end
 end

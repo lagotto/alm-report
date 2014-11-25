@@ -13,18 +13,14 @@ AlmReport.LineChartComponent = Ember.Component.extend({
 
     html: function () {
         return _(this.get('data')).map(function (d) {
-            var date = new (Function.prototype.bind.apply(
-                Date, [null].concat([d.year, d.month])
-            ))
+            var date = new Date(d.year, d.month)
             return { time: date, views: d.html }
         }).value()
     }.property('data'),
 
     pdf: function () {
         return _(this.get('data')).map(function (d) {
-            var date = new (Function.prototype.bind.apply(
-                Date, [null].concat([d.year, d.month])
-            ))
+            var date = new Date(d.year, d.month)
             return { time: date, views: d.pdf }
         }).value()
     }.property('data'),

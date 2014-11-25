@@ -83,6 +83,7 @@ class SearchResult
       affiliations = @affiliations.map do |a|
         fields = Geocode.parse_location_from_affiliation(a)
         {
+          full: a,
           address: fields[0],
           institution: fields[1]
         }

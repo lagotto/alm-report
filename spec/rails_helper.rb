@@ -29,7 +29,8 @@ WebMock.disable_net_connect!(
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, {
-    timeout: 180
+    timeout: 180,
+    inspector: true
   })
 end
 

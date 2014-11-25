@@ -35,9 +35,12 @@ module AlmRequest
   }
 
   def self.get_v5(dois)
-     request = {
+    # results = {}
+    # check_cache(dois, results, "alm_v5")
+
+    request = {
       api_key: APP_CONFIG["alm"]["api_key"],
-      ids: dois.join(",")
+      ids: dois.sort.join(",")
     }
 
     conn = Faraday.new(url: APP_CONFIG["alm"]["url"]) do |faraday|
@@ -47,7 +50,8 @@ module AlmRequest
       faraday.adapter  Faraday.default_adapter
     end
 
-    conn.get("/api/v5/articles", request).body
+    response = conn.get("/api/v5/articles", request).body
+
   end
 
   # Retrieves and returns all ALM data for the given DOIs.  Multiple requests to ALM
@@ -96,7 +100,7 @@ module AlmRequest
   def self.check_cache(dois, cache_results, cache_suffix)
     dois.delete_if  do | doi |
       results = Rails.cache.read("#{doi}.#{cache_suffix}")
-      if !results.nil?
+      if results
         cache_results[doi] = results
         true
       end
