@@ -1,5 +1,3 @@
-require "set"
-
 # Stores the latitude and longitude for a given address in the DB.
 class Geocode < ActiveRecord::Base
   CACHE_PREFIX = "geocodes.address."
@@ -17,11 +15,11 @@ class Geocode < ActiveRecord::Base
 
   # Contains countries where we have affiliate data of the form "City, Province, Country".
   # For all other countries the affiliate is in the form "City, Country".
-  COUNTRIES_WITH_PROVINCES = Set.new([
+  COUNTRIES_WITH_PROVINCES = [
     "Australia",
     "Canada",
     "United States of America",
-  ])
+  ]
 
   # Checks to see if any of the addresses are in the rails cache.  Returns a tuple
   # of a list of geocodes found in the cache, and a list of addresses not found.

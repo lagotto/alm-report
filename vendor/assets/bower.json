@@ -3,6 +3,10 @@
   "dependencies": {
     "bubble": "git://github.com/articlemetrics/bubble",
     "line": "git://github.com/articlemetrics/line",
-    "sunburst": "git://github.com/articlemetrics/sunburst"
+    "sunburst": "git://github.com/articlemetrics/sunburst",
+    "datamaps": "latest"
+  },
+  "resolutions": {
+    "d3": "3.4"
   }
 }

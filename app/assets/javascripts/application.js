@@ -23,6 +23,7 @@
 //= require bubble/app/scripts/bubble_chart
 //= require sunburst/app/scripts/sunburst_chart
 //= require line/app/scripts/line_chart
+//= require datamaps/dist/datamaps.world
 //= require jquery
 //= require_self
 

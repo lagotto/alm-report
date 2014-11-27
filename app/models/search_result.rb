@@ -82,20 +82,31 @@ class SearchResult
     if @affiliations
       affiliations = @affiliations.map do |a|
         fields = Geocode.parse_location_from_affiliation(a)
-        {
-          full: a,
-          address: fields[0],
-          institution: fields[1]
-        }
-      end
+        if fields
+          {
+            full: a,
+            address: fields[0],
+            institution: fields[1]
+          }
+        else
+          nil
+        end
+      end.compact
+
       locations = Geocode.load_from_addresses(
-        affiliations.map{ |a| a[:address] }
+        affiliations.map{ |a| a[:address] }.uniq
       )
-      affiliations.map do |a|
-        location = locations.find do |address, location|
-          address == a[:address]
-        end[1]
-        a.update(location: {lat: location.latitude, lng: location.longitude})
+
+      if locations
+        affiliations.map do |a|
+          location = locations.find do |address, location|
+            address == a[:address]
+          end
+          if location
+            location = location[1]
+            a.update(location: {lat: location.latitude, lng: location.longitude})
+          end
+        end
       end
     end
   end

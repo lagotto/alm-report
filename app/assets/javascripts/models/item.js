@@ -4,7 +4,7 @@ AlmReport.Item = DS.Model.extend({
   journal: DS.attr('string'),
   issued: DS.attr(),
   published: function () {
-    var parts = this.get('issued')['date-parts']
+    var parts = this.get('issued')['date-parts'][0]
     return new Date(
       parts[0],
       parts[1],
@@ -20,5 +20,6 @@ AlmReport.Item = DS.Model.extend({
   discussed: DS.attr('number'),
   cited: DS.attr('number'),
   subjects: DS.attr(),
-  sources: DS.attr()
+  sources: DS.attr(),
+  affiliations: DS.attr()
 });
