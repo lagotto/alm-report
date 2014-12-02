@@ -14,7 +14,7 @@
 .home-form,
 .advanced-form {
   width: 500px;
-  margin: 70px 0 50px 103px;
+  margin: 70px 0 50px 50px;
   float: left;
 }
 
@@ -157,7 +157,7 @@ select {
 }
 
 .aside-container.aside {
-  margin: 70px 19px 0 0;
+  margin: 70px 50px 0 0;
 }
 
 .aside-container.aside a {
@@ -179,7 +179,7 @@ select {
    ========================================================================== */
 
 .articles-list {
-  margin: 90px 0 0 36px;
+  margin: 90px 0 0 50px;
 }
 
 .articles-list div {
@@ -189,7 +189,7 @@ select {
 }
 
 .articles-list div a {
-  width: 173px;
+  width: 202px;
   height: 71px;
   margin: 0 6px 0 0;
   border-radius: 4px;
@@ -197,14 +197,6 @@ select {
   background: $background;
   font-size: 14px;
   font-weight: bold;
-}
-
-.articles-list div a + a {
-  width: 172px;
-}
-
-.articles-list div a + a + a {
-  width: 173px;
 }
 
 .articles-list div a:hover {
@@ -257,14 +249,18 @@ select {
    ========================================================================== */
 
 .sample-reports {
-  margin: 70px 0 0 36px;
+  margin: 70px 0 0 50px;
   padding-bottom: 50px;
-}
 
-.sample-reports a {
-  width: 216px;
-  margin: 39px 8px 0 0;
-  float: left;
+  a {
+    width: 266px;
+    margin: 39px 8px 0 0;
+    float: left;
+  }
+
+  a:last-child {
+    width: 216px;
+  }
 }
 
 .sample-reports a:hover img + span,
@@ -441,7 +437,7 @@ select {
 
 .article-lists {
   width: 635px;
-  margin: 45px 0 0 38px;
+  margin: 45px 0 0 50px;
   position: relative;
   float: left;
   min-height: 290px;
@@ -957,142 +953,179 @@ span.next {
 }
 
 .visualizations-list {
-  margin: 48px 0 4px 35px;
   display: inline-block;
   position: relative;
+
+  &:not(:first-child) {
+    margin-top: 48px;
+  }
+
+  .vertical-separator {
+    display: inline;
+    margin: 0 2px;
+    font-size: 12px;
+  }
+
+  .metrics-para {
+    width: 612px;
+    display: inline-block;
+    line-height: 19px;
+    color: #666;
+    font-size: 14px;
+    padding: 0 0 14px;
+    border: none;
+  }
+
+  .list-numbers {
+    min-width: 20px;
+    height: 22px;
+    margin: 0;
+    padding: 4px 2px 0 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 17px;
+    background-color: #000;
+    border-radius: 4px;
+  }
+
+  .metrics-description {
+    margin: 0 0 0 43px;
+    padding: 0;
+    color: #333;
+    font-size: 12px;
+    line-height: 15px;
+    border: none;
+  }
+
+  .metrics-no-data-para {
+    width: 612px;
+    display: inline-block;
+    line-height: 19px;
+    color: #e53350;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 14px 0 14px 0;
+    margin: 0 0 0 43px;
+  }
+
+  a {
+    width: 160px;
+    margin: 21px 0 0 43px;
+    display: inline-block;
+    color: #369;
+    font-size: 14px;
+  }
+
+  a:hover {
+    cursor: pointer;
+  }
+
+  a span.arrow-down {
+    width: 11px;
+    height: 7px;
+    margin: 0 0 0 10px;
+    padding: 0 0 1px;
+    display: inline-block;
+    background: image-url('sprite.png') -617px -141px no-repeat;
+  }
+
+  a span.arrow-up {
+    width: 11px;
+    height: 7px;
+    margin: 0 0 0 10px;
+    padding: 0 0 1px;
+    display: inline-block;
+    background: image-url('sprite.png') -627px -141px no-repeat;
+  }
+
+  .metrics-table-content {
+    width: 620px;
+    margin: 7px 0 0 14px;
+    display: inline-block;
+  }
+
+  .metric-row-content{
+    width: 620px;
+    float: left;
+  }
+
+  .metrics-table {
+    width: 289px;
+    margin: 0 0 0 20px;
+    padding: 0 0 33px;
+    font-weight: normal;
+    border-spacing: 0 4px;
+    font-size: 14px;
+    float: left;
+  }
+
+  .metrics-table.plos-table {
+    float: right;
+  }
+
+  td span{
+    width: auto;
+    margin: 0;
+    padding: 0 0 0 8px;
+    display: inline;
+  }
+
+  .metrics-table td:first-child {
+    padding: 0 0 2px 8px;
+  }
+
+  table th {
+    padding: 0 0 0 8px;
+    text-align: left;
+  }
+
+  table .metrics-list-value {
+    padding: 0 10px 0 0;
+    text-align: right;
+  }
+
+  h2 {
+    width: 800px;
+    margin: 0 0 0 43px;
+    float: left;
+    font-size: 26px;
+    line-height: 24px;
+  }
+
+  img {
+    margin: 31px 0 0 37px;
+  }
+
+  .info {
+    margin: 24px 0 0 44px;
+    padding: 0;
+    border-top: none;
+    line-height: 17px;
+    color: #4d4d4d;
+  }
+
+  p {
+    width: 602px;
+    margin: 9px 0 0 43px;
+    padding: 10px 0 0 1px;
+    border-top: 1px solid #e4e4e4;
+    font-size: 14px;
+    color: #9c9c9c;
+  }
 }
 
-.visualizations-list .vertical-separator {
-  display: inline;
-  margin: 0 2px;
-  font-size: 12px;
-}
-
-.visualizations-list .metrics-para {
-  width: 612px;
-  display: inline-block;
-  line-height: 19px;
-  color: #666;
-  font-size: 14px;
-  padding: 0 0 14px;
-  border: none;
-}
-
-.visualizations-list .list-numbers {
-  min-width: 20px;
-  height: 22px;
-  margin: 0;
-  padding: 4px 2px 0 3px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: #fff;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 17px;
-  background-color: #000;
-  border-radius: 4px;
-}
-
-.visualizations-list .metrics-description {
-  margin: 0 0 0 43px;
-  padding: 0;
-  color: #333;
-  font-size: 12px;
-  line-height: 15px;
-  border: none;
-}
-
-.visualizations-list .metrics-no-data-para {
-  width: 612px;
-  display: inline-block;
-  line-height: 19px;
-  color: #e53350;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 14px 0 14px 0;
-  margin: 0 0 0 43px;
-}
-
-.visualizations-list a {
-  width: 160px;
-  margin: 21px 0 0 43px;
-  display: inline-block;
-  color: #369;
-  font-size: 14px;
-}
-
-.visualizations-list a:hover {
-  cursor: pointer;
+.visualizations-container {
+  margin: 1em;
+  min-height: 560px;
 }
 
 .aside-container ul a:hover {
   text-decoration: underline;
-}
-
-.visualizations-list a span.arrow-down {
-  width: 11px;
-  height: 7px;
-  margin: 0 0 0 10px;
-  padding: 0 0 1px;
-  display: inline-block;
-  background: image-url('sprite.png') -617px -141px no-repeat;
-}
-
-.visualizations-list a span.arrow-up {
-  width: 11px;
-  height: 7px;
-  margin: 0 0 0 10px;
-  padding: 0 0 1px;
-  display: inline-block;
-  background: image-url('sprite.png') -627px -141px no-repeat;
-}
-
-.visualizations-list .metrics-table-content {
-  width: 620px;
-  margin: 7px 0 0 14px;
-  display: inline-block;
-}
-
-.visualizations-list .metric-row-content{
-  width: 620px;
-  float: left;
-}
-
-.visualizations-list .metrics-table {
-  width: 289px;
-  margin: 0 0 0 20px;
-  padding: 0 0 33px;
-  font-weight: normal;
-  border-spacing: 0 4px;
-  font-size: 14px;
-  float: left;
-}
-
-.visualizations-list .metrics-table.plos-table {
-  float: right;
-}
-
-.visualizations-list td span{
-  width: auto;
-  margin: 0;
-  padding: 0 0 0 8px;
-  display: inline;
-}
-
-.visualizations-list .metrics-table td:first-child {
-  padding: 0 0 2px 8px;
-}
-
-.visualizations-list table th {
-  padding: 0 0 0 8px;
-  text-align: left;
-}
-
-.visualizations-list table .metrics-list-value {
-  padding: 0 10px 0 0;
-  text-align: right;
 }
 
 caption {
@@ -1225,49 +1258,6 @@ caption {
   height: 30px;
   margin: 3px 0 0;
   padding: 14px 0 0 57px;
-}
-
-/*
-  the width used to be 650 but changed to 705 so that
-  download visualization functionality can generate pretty image of the graphs
-*/
-.visualizations-container {
-  width: 705px;
-  float: left;
-  min-height: 560px;
-}
-
-.visualizations-container .visualizations-list:last-child {
-  margin: 55px 0 240px 35px;
-}
-
-.visualizations-list h2 {
-  width: 800px;
-  margin: 0 0 0 43px;
-  float: left;
-  font-size: 26px;
-  line-height: 24px;
-}
-
-.visualizations-list img {
-  margin: 31px 0 0 37px;
-}
-
-.visualizations-list .info {
-  margin: 24px 0 0 44px;
-  padding: 0;
-  border-top: none;
-  line-height: 17px;
-  color: #4d4d4d;
-}
-
-.visualizations-list p {
-  width: 602px;
-  margin: 9px 0 0 43px;
-  padding: 10px 0 0 1px;
-  border-top: 1px solid #e4e4e4;
-  font-size: 14px;
-  color: #9c9c9c;
 }
 
 /* 5.14. Report download block
