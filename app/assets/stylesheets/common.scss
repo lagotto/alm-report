@@ -1,3 +1,7 @@
+// Derived colors derived from other colors
+$subheader_background: lighten($breadcrumb_background_first, 50);
+
+
 @mixin font_normal($family: $font_family, $weight: normal) {
   font-style: normal;
   font-weight: $weight;

@@ -403,18 +403,17 @@ select {
 
 .preview-list {
   width: 628px;
-  margin: 45px 0 0 38px;
+  margin: 45px 0 0 50px;
   position: relative;
   display: inline-block;
   min-height: 330px;
 }
 
 .preview-form h2 {
-  margin: 0 0 18px 41px;
+  margin: 0 0 18px 0;
 }
 
 .preview-form p {
-  margin: 0 0 0 41px;
   color: #333;
 }
 
@@ -444,12 +443,11 @@ select {
 }
 
 .article-lists h2 {
-  margin: 0 0 18px 42px;
+  margin: 0 0 18px 0;
 }
 
 .article-lists p {
   width: 570px;
-  margin: 0 0 0 41px;
   line-height: 18px;
   color: #333;
 }
@@ -469,7 +467,7 @@ select {
 }
 
 .article-lists ul {
-  margin: 44px 0 0 41px;
+  margin: 44px 0 0 0;
   float: left;
 }
 
@@ -496,7 +494,7 @@ select {
 
 .article-info {
   width: inherit;
-  margin: 0 0 22px 42px;
+  margin: 0 0 22px 22px;
   position: relative;
 }
 
@@ -527,7 +525,7 @@ input[type="checkbox"] {
 .article-info input[type="checkbox"] {
   position: absolute;
   top: 0;
-  left: -36px;
+  left: -25px;
 }
 
 .article-info a {
@@ -897,16 +895,15 @@ span.next {
 /* 5.12. Report.metrics
    ========================================================================== */
 
+
 .view-report.metrics-view-report {
   height: 123px;
-  background: image-url('sprite.png') 0 -602px;
 }
 
 .metrics-chart-view {
   width: 25px;
   height: 24px;
   margin: 47px 12px 0 0;
-  background: image-url('sprite.png') -68px -141px;
 }
 
 .view-report .metrics-chart-view + span {
@@ -1120,7 +1117,7 @@ span.next {
 }
 
 .visualizations-container {
-  margin: 1em;
+  margin: 50px;
   min-height: 560px;
 }
 
@@ -1157,9 +1154,10 @@ caption {
 
 .view-report {
   width: 100%;
-  height: 123px;
+  height: 113px;
+
   display: inline-block;
-  background: image-url('sprite.png') 0 -478px;
+  background-color: $subheader_background;
 }
 
 .view-report span {
@@ -1169,7 +1167,7 @@ caption {
 .metrics-icon {
   width: 110px;
   height: 20px;
-  margin: 46px 100px 0 81px;
+  margin: 46px 100px 0 50px;
   padding: 0 0 0 31px;
   float: left;
   @include metrics-icon($body_text_color);
