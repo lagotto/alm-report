@@ -80,7 +80,7 @@ class SolrQueryBuilder
   # the rows and start parameters.  These can be passed in directly to the
   # constructor, or calculated based on the current_page param, if it's present.
   def build_page_block
-    rows = @params[:rows] || ENV["PER_PAGE"]
+    rows = @params[:rows] || ENV["PER_PAGE"].to_i
     page = @params[:current_page] || "1"
 
     result = "rows=#{rows}"

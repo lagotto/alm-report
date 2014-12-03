@@ -47,7 +47,7 @@ module AlmRequest
   def self.get_raw_data(dois)
     json = []
     while dois.length > 0 do
-      subset_dois = dois.slice!(0, ENV["ALM_MAX_ARTICLES_PER_REQUEST"])
+      subset_dois = dois.slice!(0, ENV["ALM_MAX_ARTICLES_PER_REQUEST"].to_i)
       params = {}
       params[:ids] = subset_dois.join(",")
 
