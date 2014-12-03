@@ -15,7 +15,7 @@ begin
 
   # load ENV variables from file specified by DOTENV
   # use .env with DOTENV=default
-  filename = ENV["DOTENV"] == "default" ? ".env" : ".env.#{ENV['DOTENV']}"
+  filename = ENV["DOTENV"] == "default" ? ".env" : ".env.#{ENV["DOTENV"]}"
   Dotenv.load! File.expand_path("../../#{filename}", __FILE__)
 rescue Errno::ENOENT
   $stderr.puts "Please create #{filename} file, or use DOTENV=example for example configuration"

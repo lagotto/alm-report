@@ -7,7 +7,7 @@ begin
 
   # load ENV variables from file specified by DOTENV
   # use .env with DOTENV=default
-  filename = ENV["DOTENV"] == "default" ? ".env" : ".env.#{ENV['DOTENV']}"
+  filename = ENV["DOTENV"] == "default" ? ".env" : ".env.#{ENV["DOTENV"]}"
 
   fail Errno::ENOENT unless File.exist?(File.expand_path("../../#{filename}", __FILE__))
 
@@ -16,8 +16,8 @@ begin
   Dotenv.load! filename
 
   # make sure ENV variables required for capistrano are set
-  fail ArgumentError if ENV['SERVERS'].to_s.empty? ||
-                        ENV['DEPLOY_USER'].to_s.empty?
+  fail ArgumentError if ENV["SERVERS"].to_s.empty? ||
+                        ENV["DEPLOY_USER"].to_s.empty?
 rescue Errno::ENOENT
   $stderr.puts "Please create file .env in the Rails root folder"
   exit
@@ -29,7 +29,7 @@ rescue ArgumentError
   exit
 end
 
-set :default_env, { 'DOTENV' => ENV["DOTENV"] }
+set :default_env, { "DOTENV" => ENV["DOTENV"] }
 
 set :application, ENV["APPLICATION"]
 set :repo_url, 'https://github.com/articlemetrics/alm-report.git'

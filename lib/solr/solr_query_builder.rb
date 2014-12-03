@@ -105,7 +105,7 @@ class SolrQueryBuilder
   def url
     # :unformattedQueryId comes from advanced search
     @params.has_key?(:unformattedQueryId) ? build_advanced : build
-    "#{ENV['SOLR_URL']}?#{query_param}#{common_params}#{sort}&hl=false"
+    "#{ENV["SOLR_URL"]}?#{query_param}#{common_params}#{sort}&hl=false"
   end
 
   private

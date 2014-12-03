@@ -8,10 +8,10 @@ class Search
   end
 
   def self.plos?
-    ENV['SEARCH'] == 'plos'
+    ENV["SEARCH"] == "plos"
   end
 
   def self.crossref?
-    ENV['SEARCH'] == 'crossref'
+    ENV["SEARCH"] == "crossref"
   end
 end

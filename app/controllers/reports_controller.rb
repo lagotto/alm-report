@@ -87,9 +87,9 @@ class ReportsController < ApplicationController
 
     load_report(params[:id])
 
-    if @report.report_dois.length > ENV['VIZ_LIMIT']
+    if @report.report_dois.length > ENV["VIZ_LIMIT"]
       return flash[:error] = "Visualizations not enabled for more than " \
-        "#{ENV['VIZ_LIMIT']} reports"
+        "#{ENV["VIZ_LIMIT"]} reports"
     end
 
     # deteremine if the report contains only one article

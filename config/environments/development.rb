@@ -38,4 +38,4 @@ AlmReport::Application.configure do
   # config.action_view.raise_on_missing_translations = true
 end
 
-BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP'] if ENV['TRUSTED_IP']
+BetterErrors::Middleware.allow_ip! ENV["TRUSTED_IP"] if ENV["TRUSTED_IP"]

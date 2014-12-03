@@ -160,7 +160,7 @@ class SolrRequest
       subset_dois = dois.slice!(0, ENV["SOLR_MAX_DOIS_PER_REQUEST"])
       q = subset_dois.map { | doi | "id:\"#{doi}\"" }.join(" OR ")
 
-      url = "#{ENV['SOLR_URL']}?q=#{URI::encode(q)}&#{FILTER}&fl=#{fields_to_retrieve}" \
+      url = "#{ENV["SOLR_URL"]}?q=#{URI::encode(q)}&#{FILTER}&fl=#{fields_to_retrieve}" \
           "&wt=json&facet=false&rows=#{subset_dois.length}"
 
       json = SolrRequest.send_query(url)
@@ -199,7 +199,7 @@ class SolrRequest
   def self.query_by_pmids(pmids)
     return unless pmids.present?
     q = pmids.map {|pmid| "pmid:\"#{pmid}\""}.join(" OR ")
-    url = "#{ENV['SOLR_URL']}?q=#{URI::encode(q)}&#{FILTER}" \
+    url = "#{ENV["SOLR_URL"]}?q=#{URI::encode(q)}&#{FILTER}" \
         "&fl=id,publication_date,pmid&wt=json&facet=false&rows=#{pmids.length}"
     json = SolrRequest.send_query(url)
     docs = json["response"]["docs"]

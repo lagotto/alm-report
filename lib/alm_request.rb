@@ -267,7 +267,7 @@ module AlmRequest
   def self.get_alm_url(params)
     url = ""
     if (!params.nil? && params.length > 0)
-      url = "#{ENV['ALM_URL']}/api/v3/articles?api_key=#{ENV['API_KEY']}&#{params.to_param}"
+      url = "#{ENV["ALM_URL"]}/api/v3/articles?api_key=#{ENV["API_KEY"]}&#{params.to_param}"
     end
     return url
   end

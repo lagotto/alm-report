@@ -60,10 +60,10 @@
 div#gray-out-screen
 
 div#viz-limit-error-message style="display: none;"
-  | Although the ALM report data can contain up to #{ENV['ARTICLE_LIMIT']} articles, the maximum size for visualizations is #{ENV['VIZ_LIMIT']} articles.
+  | Although the ALM report data can contain up to #{ENV["ARTICLE_LIMIT"]} articles, the maximum size for visualizations is #{ENV["VIZ_LIMIT"]} articles.
 
 div#article-limit-error-message style="display: none;"
-  | The maximum report size is #{ENV['ARTICLE_LIMIT']} articles. Go to
+  | The maximum report size is #{ENV["ARTICLE_LIMIT"]} articles. Go to
   a<> href="/preview-list" Preview List
   | and remove articles before adding more to your selection.
 

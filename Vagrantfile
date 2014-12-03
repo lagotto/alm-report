@@ -39,7 +39,7 @@ def load_env
 
   # load ENV variables from file specified by DOTENV
   # use .env with DOTENV=default
-  filename = ENV["DOTENV"] == "default" ? ".env" : ".env.#{ENV['DOTENV']}"
+  filename = ENV["DOTENV"] == "default" ? ".env" : ".env.#{ENV["DOTENV"]}"
   Dotenv.load! File.expand_path("../#{filename}", __FILE__)
 rescue LoadError
   $stderr.puts "Please install dotenv plugin with \"vagrant plugin install dotenv\""
@@ -89,9 +89,9 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--memory", "1024"]
       unless Vagrant::Util::Platform.windows?
         # Disable default synced folder before bindfs tries to bind to it
-        override.vm.synced_folder ".", "/var/www/#{ENV['APPLICATION']}/current", disabled: true
+        override.vm.synced_folder ".", "/var/www/#{ENV["APPLICATION"]}/current", disabled: true
         override.vm.synced_folder ".", "/vagrant", id: "vagrant-root", nfs: true
-        override.bindfs.bind_folder "/vagrant", "/var/www/#{ENV['APPLICATION']}/current",
+        override.bindfs.bind_folder "/vagrant", "/var/www/#{ENV["APPLICATION"]}/current",
                                     :owner => "900",
                                     :group => "900",
                                     :"create-as-user" => true,
@@ -138,8 +138,8 @@ Vagrant.configure("2") do |config|
     end
 
     machine.vm.hostname = ENV.fetch('HOSTNAME')
-    machine.vm.network :private_network, ip: ENV.fetch('PRIVATE_IP', nil)
+    machine.vm.network :private_network, ip: ENV.fetch("PRIVATE_IP", nil)
     machine.vm.network :public_network
-    machine.vm.synced_folder ".", "/var/www/#{ENV['APPLICATION']}/current", id: "vagrant-root"
+    machine.vm.synced_folder ".", "/var/www/#{ENV["APPLICATION"]}/current", id: "vagrant-root"
   end
 end
