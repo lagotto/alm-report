@@ -63,8 +63,8 @@ html.no-js lang="en"
       = footer
 
     javascript:
-      var RESULTS_PER_PAGE = #{ENV["PER_PAGE"]}
-      var ARTICLE_LIMIT = #{ENV["ARTICLE_LIMIT"]}
-      var VIZ_LIMIT = #{ENV["VIZ_LIMIT"]}
+      var RESULTS_PER_PAGE = #{ENV["PER_PAGE"].to_i}
+      var ARTICLE_LIMIT = #{ENV["ARTICLE_LIMIT"].to_i}
+      var VIZ_LIMIT = #{ENV["VIZ_LIMIT"].to_i}
       #{ "var search_total_found = #{@total_found};" if !@total_found.nil? }
     = javascript_include_tag "application"

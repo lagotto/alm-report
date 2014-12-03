@@ -31,7 +31,7 @@ class Cart
   end
 
   def []=(x, val)
-    if size < ENV["ARTICLE_LIMIT"]
+    if size < ENV["ARTICLE_LIMIT"].to_i
       @items[x] = val
     end
   end

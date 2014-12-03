@@ -53,8 +53,7 @@ describe HomeController do
     end
 
     it "respects limit" do
-      expect(subject.parse_article_keys(article_ids,
-                                        ENV["ARTICLE_LIMIT"]))
+      expect(subject.parse_article_keys(article_ids, ENV["ARTICLE_LIMIT"].to_i))
         .to be_empty
     end
   end
