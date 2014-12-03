@@ -11,6 +11,7 @@
 *.rbc
 *.sassc
 .sass-cache
+.capistrano
 capybara-*.html
 .rspec
 /.bundle
