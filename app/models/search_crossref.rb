@@ -15,7 +15,7 @@ class SearchCrossref
       "until-pub-date:#{DateTime.now.year}"
     ].compact.join(",")
     @page = query[:current_page] || 1
-    @rows = query[:rows] || ENV["PER_PAGE"]
+    @rows = query[:rows] || ENV["PER_PAGE"].to_i
     @sort, @order = query[:sort].try(:split)
   end
 

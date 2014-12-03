@@ -44,7 +44,7 @@ class ReportsController < ApplicationController
 
     paging_logic = lambda {
       @total_found = @report.report_dois.length
-      set_paging_vars(params[:current_page], ENV["METRICS_PER_PAGE"])
+      set_paging_vars(params[:current_page], ENV["METRICS_PER_PAGE"].to_i)
 
       # Create a new array for display that is only the articles on the current page,
       # to limit what we have to load from solr and ALM.
@@ -87,9 +87,9 @@ class ReportsController < ApplicationController
 
     load_report(params[:id])
 
-    if @report.report_dois.length > ENV["VIZ_LIMIT"]
+    if @report.report_dois.length > ENV["VIZ_LIMIT"].to_i
       return flash[:error] = "Visualizations not enabled for more than " \
-        "#{ENV["VIZ_LIMIT"]} reports"
+        "#{ENV["VIZ_LIMIT"].to_i} reports"
     end
 
     # deteremine if the report contains only one article
@@ -202,7 +202,7 @@ class ReportsController < ApplicationController
 
     # for when a report contains many articles but very small portion of the
     # articles have alm data (without it viz page will look very weird)
-    if @solr_data.length >= ENV["MIN_DATA_POINTS"]
+    if @solr_data.length >= ENV["MIN_DATA_POINTS"].to_i
       bubble_data = ChartData.bubble_charts(@report)
       @article_usage_citations_age_data = bubble_data[:citation_data]
       @article_usage_mendeley_age_data = bubble_data[:mendeley_data]
