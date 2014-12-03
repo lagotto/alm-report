@@ -6,4 +6,4 @@
     - elsif Search.crossref?
       = render "search/search_result", r: result, all_checked: @all_checked
 
-= render "pager", :results_per_page => APP_CONFIG["results_per_page"]
+= render "pager", :results_per_page => ENV["PER_PAGE"]
