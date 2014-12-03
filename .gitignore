@@ -25,8 +25,6 @@ capybara-*.html
 /coverage/
 /data/
 /spec/tmp/*
-/config/database.yml
-/config/settings.yml
 /config/data_bags/*
 /vendor/cookbooks/*/.git
 **.orig
