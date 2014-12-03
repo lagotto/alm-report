@@ -1,13 +1,18 @@
 SITE
   remote: http://community.opscode.com/api/v1
   specs:
-    apt (2.5.3)
-    aws (2.4.0)
-    build-essential (2.0.6)
-    chef-sugar (2.2.0)
+    7-zip (1.0.2)
+      windows (>= 1.2.2)
+    apt (2.6.0)
+    ark (0.9.0)
+      7-zip (>= 0.0.0)
+      windows (>= 0.0.0)
+    aws (2.5.0)
+    build-essential (2.1.3)
+    chef-sugar (2.4.1)
     chef_handler (1.1.6)
-    chocolatey (0.1.0)
-      powershell (>= 0.0.0)
+    chocolatey (0.2.0)
+      windows (~> 1.31)
     database (2.3.0)
       aws (>= 0.0.0)
       mysql (>= 5.0.0)
@@ -18,40 +23,34 @@ SITE
       runit (~> 1.0)
       yum (~> 3.0)
       yum-epel (>= 0.0.0)
-    ms_dotnet2 (1.0.0)
-      windows (>= 0.0.0)
-    ms_dotnet4 (1.0.2)
-      windows (>= 0.0.0)
-    ms_dotnet45 (1.1.2)
-      windows (>= 0.0.0)
     mysql (5.4.4)
       yum-mysql-community (>= 0.0.0)
-    mysql-chef_gem (0.0.2)
+    mysql-chef_gem (0.0.5)
       build-essential (>= 0.0.0)
       mysql (>= 0.0.0)
+    nodejs (2.2.0)
+      apt (>= 0.0.0)
+      ark (>= 0.0.0)
+      build-essential (>= 0.0.0)
+      yum-epel (>= 0.0.0)
     openssl (2.0.0)
       chef-sugar (>= 0.0.0)
     phantomjs (1.0.3)
       build-essential (>= 0.0.0)
       chocolatey (>= 0.0.0)
-    postgresql (3.4.2)
+    postgresql (3.4.14)
       apt (>= 1.9.0)
       build-essential (>= 0.0.0)
       openssl (>= 0.0.0)
-    powershell (3.0.7)
-      ms_dotnet2 (>= 0.0.0)
-      ms_dotnet4 (>= 0.0.0)
-      ms_dotnet45 (>= 0.0.0)
-      windows (>= 1.2.8)
     runit (1.5.10)
       build-essential (>= 0.0.0)
       yum (~> 3.0)
       yum-epel (>= 0.0.0)
-    windows (1.34.2)
+    windows (1.34.8)
       chef_handler (>= 0.0.0)
     xfs (1.1.0)
-    yum (3.3.2)
-    yum-epel (0.5.1)
+    yum (3.5.1)
+    yum-epel (0.5.3)
       yum (~> 3.0)
     yum-mysql-community (0.1.10)
       yum (>= 3.0)
@@ -59,58 +58,67 @@ SITE
 GIT
   remote: git@github.com:articlemetrics/alm_report-cookbook.git
   ref: master
-  sha: e3843f2c9d81a90fc4ed9d2060ad46dd82fc3150
+  sha: e32f7789715fdf547d9b274bb6b550daf6c08ebf
   specs:
-    alm_report (0.5.8)
+    alm_report (0.6.0)
       apt (>= 0.0.0)
-      capistrano (~> 0.6.0)
+      capistrano (~> 0.7.0)
       database (>= 0.0.0)
+      dotenv (~> 0.1.0)
       memcached (>= 0.0.0)
       mysql (~> 5.4.3)
-      mysql_rails (~> 0.2.0)
-      passenger_nginx (~> 0.2.0)
-      phantomjs (~> 1.0.3)
-      ruby (~> 0.3.0)
+      mysql_rails (~> 0.3.0)
+      nodejs (>= 0.0.0)
+      passenger_nginx (~> 0.4.0)
+      ruby (~> 0.6.0)
 
 GIT
   remote: git@github.com:articlemetrics/capistrano-cookbook.git
   ref: master
-  sha: d17dff7d3fef0359f11d3c69ee66013ad59f555d
+  sha: 62ddb7b644f54614d3e52dd06a834e59df0b8903
   specs:
-    capistrano (0.6.5)
-      ruby (~> 0.3.0)
+    capistrano (0.7.5)
+      ruby (~> 0.6.0)
+
+GIT
+  remote: git@github.com:articlemetrics/dotenv-cookbook.git
+  ref: master
+  sha: 069ee5080bebea6c5049462d832503a14a340570
+  specs:
+    dotenv (0.1.7)
 
 GIT
   remote: git@github.com:articlemetrics/mysql_rails-cookbook.git
   ref: master
-  sha: 1f890904b9dcc4d206688b8afa599e04764863fc
+  sha: a37e3bedd0e86928146d757e78cad6891063e82e
   specs:
-    mysql_rails (0.2.3)
+    mysql_rails (0.3.8)
       database (>= 0.0.0)
       mysql (>= 0.0.0)
-      ruby (~> 0.3.0)
+      ruby (~> 0.6.0)
 
 GIT
   remote: git@github.com:articlemetrics/passenger_nginx-cookbook.git
   ref: master
-  sha: 6b1d24822d9c84e9b3117e22a53cb23c891d89d2
+  sha: 2354c9e62c5c1ae49c311b4e28581a5edb2fc682
   specs:
-    passenger_nginx (0.2.15)
-      apt (~> 2.5.3)
-      ruby (~> 0.3.0)
+    passenger_nginx (0.4.0)
+      apt (>= 0.0.0)
+      ruby (~> 0.6.0)
 
 GIT
   remote: git@github.com:articlemetrics/ruby-cookbook.git
   ref: master
-  sha: bf75f7445ec401696e10c8f4e346f86e9c2604a2
+  sha: 323293afd36ede76c8906a1b432d528b77c6df63
   specs:
-    ruby (0.3.5)
-      apt (~> 2.5.3)
+    ruby (0.6.3)
+      apt (>= 0.0.0)
 
 DEPENDENCIES
   alm_report (>= 0)
   capistrano (>= 0)
   database (~> 2.3.0)
+  dotenv (>= 0)
   memcached (>= 0)
   mysql (~> 5.4.3)
   mysql_rails (>= 0)
