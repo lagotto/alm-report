@@ -157,7 +157,11 @@ class SolrRequest
     end
 
     while dois.length > 0 do
-      subset_dois = dois.slice!(0, ENV["SOLR_MAX_DOIS_PER_REQUEST"])
+      # Maximum number of articles we query for in a single request from solr.
+      # If this is too high solr will return a 414 "Request-URI Too Large" error.
+      solr_max_dois = (ENV["SOLR_MAX_DOIS_PER_REQUEST"] || 100).to_i
+
+      subset_dois = dois.slice!(0, solr_max_dois)
       q = subset_dois.map { | doi | "id:\"#{doi}\"" }.join(" OR ")
 
       url = "#{ENV["SOLR_URL"]}?q=#{URI::encode(q)}&#{FILTER}&fl=#{fields_to_retrieve}" \

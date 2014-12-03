@@ -23,7 +23,12 @@ class GeocodeRequest
   # waited at least a certain amount, and sleeps if necessary to enforce that.
   def self.rate_limit
     interval = Time.now.to_f - @@last_query
-    wait = 1.0 / ENV["MAX_GEOCODE_QPS"]
+
+    # Maximum queries per second to send to Google for geocoding. The service
+    # will stop responding if we send them too fast.
+    max_geocode = ENV["MAX_GEOCODE_QPS"] || 1.0
+
+    wait = 1.0 / max_geocode
     if interval < wait
       Rails.logger.warn("QPS limit to geocoding service exceeded.  Sleeping before making request...")
       sleep(wait - interval)

@@ -202,7 +202,10 @@ class ReportsController < ApplicationController
 
     # for when a report contains many articles but very small portion of the
     # articles have alm data (without it viz page will look very weird)
-    if @solr_data.length >= ENV["MIN_DATA_POINTS"].to_i
+
+    min_data_points = (ENV["MIN_DATA_POINTS"] || 2).to_i
+
+    if @solr_data.length >= min_data_points
       bubble_data = ChartData.bubble_charts(@report)
       @article_usage_citations_age_data = bubble_data[:citation_data]
       @article_usage_mendeley_age_data = bubble_data[:mendeley_data]
