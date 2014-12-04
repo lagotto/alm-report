@@ -5,7 +5,7 @@ describe ReportsController do
     it "redirects to home for session without dois" do
       @cart = Cart.new
       get :generate
-      response.should redirect_to(search_advanced_path)
+      expect(response).to redirect_to(search_advanced_path)
     end
   end
 
@@ -34,7 +34,7 @@ describe ReportsController do
 
         get :download_data, format: "csv", id: @report.id
 
-        response.body.should eq(
+        expect(response.body).to eq(
           File.open("spec/fixtures/csv_export.csv").read
         )
       end
