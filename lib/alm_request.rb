@@ -40,8 +40,11 @@ module AlmRequest
 
     request = {
       api_key: APP_CONFIG["alm"]["api_key"],
-      ids: dois.sort.join(",")
+      ids: dois.sort.join(","),
     }
+
+    # Needed to get Mendeley countries data for visualization
+    request[:info] = "detail" if dois.length == 1
 
     conn = Faraday.new(url: APP_CONFIG["alm"]["url"]) do |faraday|
       faraday.request  :url_encoded
@@ -51,7 +54,6 @@ module AlmRequest
     end
 
     response = conn.get("/api/v5/articles", request).body
-
   end
 
   # Retrieves and returns all ALM data for the given DOIs.  Multiple requests to ALM
