@@ -3,7 +3,7 @@ module Cacheable
 
   module ClassMethods
     def cache(ids, opts = {}, &block)
-      base = "#{self.name}:#{caller_locations(1,1)[0].label}:"
+      base = self.name + ":"
 
       missing = ids.map { |id| base + id }
       found = Rails.cache.read_multi(*missing)
