@@ -1,36 +1,26 @@
+require "pry"
 module Cacheable
   extend ActiveSupport::Concern
 
-  included do
-    extend HelperMethods
-  end
+  module ClassMethods
+    def cache(ids, opts = {}, &block)
+      base = "#{self.name}:#{caller_locations(1,1)[0].label}:"
+      missing = ids.map { |id| base + id }
 
-  module HelperMethods
-    def cache(method_name, opts = {})
-      uncached_method = method(method_name)
-      key_base = "#{self.name}::#{method_name}"
+      found = Rails.cache.read_multi(*missing)
+      missing -= found.keys
 
-      self.instance_eval <<-CACHED
-        #{uncached_method.source.sub(method_name.to_s, "uncached_" + method_name.to_s)}
+      unless missing.empty?
+        results = yield(missing)
 
-        def #{method_name}(ids)
-          cached_results = ids.map do |id|
-            result = Rails.cache.fetch("#{key_base}::" + id)
-            if result
-              ids -= [id]
-            end
-            result
-          end.compact
+        results = results.map do |result|
+          Rails.cache.write(base + result.id, result)
+          # Make sure we only get requested
+          result if ids.include? result.id
+        end.compact
+      end
 
-          results = uncached_#{method_name}(ids)
-
-          results.each do |result|
-            Rails.cache.write("#{key_base}::" + result.id)
-          end
-
-          results += cached_results
-        end
-      CACHED
+      found.values + (results || [])
     end
   end
 end

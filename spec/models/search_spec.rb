@@ -30,9 +30,9 @@ describe Search do
     stub.should have_been_requested
   end
 
-  it "finds results by id" do
+  it "finds results by id", vcr: true do
     APP_CONFIG["search"] = "plos"
-    results = Search.find_by_ids([
+    ids = [
       "10.1371/annotation/1d6063be-ff28-4a65-a3a0-bcaf076eab4b",
       "10.1371/annotation/5cdf6105-2a52-497a-86b3-db8f4a4e439c",
       "10.1371/annotation/a8159928-d073-4b5b-8a50-c68c95b78681",
@@ -50,8 +50,16 @@ describe Search do
       "10.1371/journal.pone.0010031",
       "10.1371/journal.pone.0013696",
       "10.1371/journal.pone.0018776"
-    ])
+    ]
 
-    expect(results.empty?).to eq false
+    expect(Rails.cache).to receive(:read_multi).and_call_original
+    results = Search.find_by_ids(ids)
+    expect(results.size).to eq 17
+
+    expect(Rails.cache).to receive(:read_multi).and_call_original
+    expect(Search).not_to receive(:find)
+    results = Search.find_by_ids(ids)
+
+    expect(results.size).to eq 17
   end
 end

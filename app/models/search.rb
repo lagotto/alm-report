@@ -18,12 +18,13 @@ class Search
   end
 
   def self.find_by_ids(ids)
-    query = if plos?
-      { id: ids.join(" OR ") }
-    elsif crossref?
-      { filter: ids.map{|id| "doi:#{id}"}.join(",") }
+    cache(ids, expire: 1.day) do |ids|
+      query = if plos?
+        { id: ids.join(" OR ") }
+      elsif crossref?
+        { filter: ids.map{|id| "doi:#{id}"}.join(",") }
+      end
+      find(query).first
     end
-    find(query).first
   end
-  cache :find_by_ids, expire_in: 1.day
 end
