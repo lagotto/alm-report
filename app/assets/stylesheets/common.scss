@@ -59,6 +59,9 @@ $subheader_background: lighten($breadcrumb_background_first, 50);
 @import "uniform.default";
 @import "style";
 @import "spinner";
+
 @import "bubble_chart";
 @import "line_chart";
 @import "sunburst_chart";
+@import "datamap_chart";
+

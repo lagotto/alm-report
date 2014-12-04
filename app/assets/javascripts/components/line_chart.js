@@ -47,7 +47,10 @@ AlmReport.LineChartComponent = Ember.Component.extend({
             y: "views",
             lines: ["html", "pdf"],
             category: "journal",
-            tooltip: "title"
+            tooltip: "title",
+            colors: ['#fda328',
+                '#1447f2',
+                '#27dbf5']
         }, preparedData);
 
         this.set('chart', chart);
