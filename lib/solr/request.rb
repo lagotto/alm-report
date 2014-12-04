@@ -66,7 +66,7 @@ module Solr
       Rails.logger.debug "SOLR Request took #{end_time - start_time} seconds\n#{url}"
 
       if resp.code != "200"
-        raise SolrError, "Server returned #{resp.code}: " + resp.body
+        raise Error, "Server returned #{resp.code}: " + resp.body
       end
       return JSON.parse(resp.body)
     end
