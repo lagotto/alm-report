@@ -15,13 +15,11 @@ class SearchResult
   end
 
   def self.from_cache(id)
-    Rails.cache.fetch(id) do
-      from_crossref(id)
-    end
+    Search.find_by_ids([id]).first
   end
 
   def cache
-    Rails.cache.write(@id, self)
+    Rails.cache.write("Search:" + @id, self)
   end
 
   def initialize(data, source = nil)
