@@ -1,14 +1,9 @@
 require 'rails_helper'
 
-describe Cart do
+describe Cart, vcr: true do
   let(:item_ids) { ["10.1371/journal.pone.0010031"] }
   let(:search_result) { SearchResult.from_cache(item_ids.first) }
   subject { Cart.new(item_ids) }
-
-  before do
-    stub_request(:get, /api.crossref.org\/works/).
-      to_return(File.open('spec/fixtures/api_crossref_single_doi.raw'))
-  end
 
   it "[]" do
     expect(subject["10.1371/journal.pone.0010031"]).to eq(search_result)

@@ -1,11 +1,9 @@
 require "spec_helper"
 
-describe PreviewController do
+describe PreviewController, vcr: true do
   let(:cart) { Cart.new(item_ids) }
 
   before do
-    stub_request(:get, /api.crossref.org\/works/).
-      to_return(File.open("spec/fixtures/api_crossref_single_doi.raw"))
     allow_any_instance_of(Cart).to receive(:items).and_return(cart.items)
   end
 

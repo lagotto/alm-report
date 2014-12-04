@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe HomeController do
-  describe "GET update_session" do
+  describe "GET update_session", vcr: true do
     let(:article_ids) { ["10.1371/journal.pone.0010031",
                          "10.1371/journal.pmed.0010065",
                          "10.1371/journal.pone.0009584"] }
@@ -9,11 +9,6 @@ describe HomeController do
     let(:dois) { ["10.1371/journal.pone.0010031",
                   "10.1371/journal.pmed.0010065",
                   "10.1371/journal.pone.0009584" ] }
-
-    before do
-      stub_request(:get, /api.crossref.org\/works/).
-        to_return(File.open('spec/fixtures/api_crossref_single_doi.raw'))
-    end
 
     it "handles params" do
       post :update_session, { "article_ids" => article_ids, "mode" => "ADD" }

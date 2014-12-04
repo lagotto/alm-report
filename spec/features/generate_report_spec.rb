@@ -1,7 +1,6 @@
 require 'rails_helper'
-WebMock.allow_net_connect!
-VCR.turn_off!
-describe 'generate report', type: :feature, vcr: false do
+
+describe 'generate report', type: :feature, vcr: true do
   if Search.plos?
     it 'loads the visualization for a single article', js: true do
       visit '/'

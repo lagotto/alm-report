@@ -11,13 +11,13 @@ if Search.plos?
       select "PLOS ONE", from: "filterJournals_"
       click_button "Search"
       page.should have_content "journals: PLOS ONE"
-      page.should have_content "1 - 25 of 38 results"
+      page.should have_content "1 - 25 of 39 results"
       page.should have_content "for author: Eisen"
       expect(page).to have_button("Preview List (0)", disabled: true)
       find(".select-all-articles-link", text: "select all").click
-      click_link "Select the remaining 13 articles"
+      click_link "Select the remaining 14 articles"
       wait_for_ajax
-      expect(page).to have_button("Preview List (38)")
+      expect(page).to have_button("Preview List (39)")
     end
   end
 end

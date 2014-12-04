@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pone.0%20OR%2010.1371/journal.pone.1%20OR%2010.1371/journal.pone.2%20OR%2010.1371/journal.pone.3%20OR%2010.1371/journal.pone.4%20OR%2010.1371/journal.pone.5%20OR%2010.1371/journal.pone.6%20OR%2010.1371/journal.pone.7%20OR%2010.1371/journal.pone.8%20OR%2010.1371/journal.pone.9%20OR%2010.1371/journal.pone.10%20OR%2010.1371/journal.pone.11%20OR%2010.1371/journal.pone.12%20OR%2010.1371/journal.pone.13%20OR%2010.1371/journal.pone.14%20OR%2010.1371/journal.pone.15%20OR%2010.1371/journal.pone.16%20OR%2010.1371/journal.pone.17%20OR%2010.1371/journal.pone.18%20OR%2010.1371/journal.pone.19%20OR%2010.1371/journal.pone.20%20OR%2010.1371/journal.pone.21%20OR%2010.1371/journal.pone.22%20OR%2010.1371/journal.pone.23%20OR%2010.1371/journal.pone.24%20OR%2010.1371/journal.pone.25%20OR%2010.1371/journal.pone.26%20OR%2010.1371/journal.pone.27%20OR%2010.1371/journal.pone.28%20OR%2010.1371/journal.pone.29%20OR%2010.1371/journal.pone.30%20OR%2010.1371/journal.pone.31%20OR%2010.1371/journal.pone.32%20OR%2010.1371/journal.pone.33%20OR%2010.1371/journal.pone.34%20OR%2010.1371/journal.pone.35%20OR%2010.1371/journal.pone.36%20OR%2010.1371/journal.pone.37%20OR%2010.1371/journal.pone.38%20OR%2010.1371/journal.pone.39%20OR%2010.1371/journal.pone.40%20OR%2010.1371/journal.pone.41%20OR%2010.1371/journal.pone.42%20OR%2010.1371/journal.pone.43%20OR%2010.1371/journal.pone.44%20OR%2010.1371/journal.pone.45%20OR%2010.1371/journal.pone.46%20OR%2010.1371/journal.pone.47%20OR%2010.1371/journal.pone.48%20OR%2010.1371/journal.pone.49%20OR%2010.1371/journal.pone.50%20OR%2010.1371/journal.pone.51%20OR%2010.1371/journal.pone.52%20OR%2010.1371/journal.pone.53%20OR%2010.1371/journal.pone.54%20OR%2010.1371/journal.pone.55%20OR%2010.1371/journal.pone.56%20OR%2010.1371/journal.pone.57%20OR%2010.1371/journal.pone.58%20OR%2010.1371/journal.pone.59%20OR%2010.1371/journal.pone.60%20OR%2010.1371/journal.pone.61%20OR%2010.1371/journal.pone.62%20OR%2010.1371/journal.pone.63%20OR%2010.1371/journal.pone.64%20OR%2010.1371/journal.pone.65%20OR%2010.1371/journal.pone.66%20OR%2010.1371/journal.pone.67%20OR%2010.1371/journal.pone.68%20OR%2010.1371/journal.pone.69%20OR%2010.1371/journal.pone.70%20OR%2010.1371/journal.pone.71%20OR%2010.1371/journal.pone.72%20OR%2010.1371/journal.pone.73%20OR%2010.1371/journal.pone.74%20OR%2010.1371/journal.pone.75%20OR%2010.1371/journal.pone.76%20OR%2010.1371/journal.pone.77%20OR%2010.1371/journal.pone.78%20OR%2010.1371/journal.pone.79%20OR%2010.1371/journal.pone.80%20OR%2010.1371/journal.pone.81%20OR%2010.1371/journal.pone.82%20OR%2010.1371/journal.pone.83%20OR%2010.1371/journal.pone.84%20OR%2010.1371/journal.pone.85%20OR%2010.1371/journal.pone.86%20OR%2010.1371/journal.pone.87%20OR%2010.1371/journal.pone.88%20OR%2010.1371/journal.pone.89%20OR%2010.1371/journal.pone.90%20OR%2010.1371/journal.pone.91%20OR%2010.1371/journal.pone.92%20OR%2010.1371/journal.pone.93%20OR%2010.1371/journal.pone.94%20OR%2010.1371/journal.pone.95%20OR%2010.1371/journal.pone.96%20OR%2010.1371/journal.pone.97%20OR%2010.1371/journal.pone.98%20OR%2010.1371/journal.pone.99%20OR%2010.1371/journal.pone.100%20OR%2010.1371/journal.pone.101%20OR%2010.1371/journal.pone.102%20OR%2010.1371/journal.pone.103%20OR%2010.1371/journal.pone.104%20OR%2010.1371/journal.pone.105%20OR%2010.1371/journal.pone.106%20OR%2010.1371/journal.pone.107%20OR%2010.1371/journal.pone.108%20OR%2010.1371/journal.pone.109%20OR%2010.1371/journal.pone.110%20OR%2010.1371/journal.pone.111%20OR%2010.1371/journal.pone.112%20OR%2010.1371/journal.pone.113%20OR%2010.1371/journal.pone.114%20OR%2010.1371/journal.pone.115%20OR%2010.1371/journal.pone.116%20OR%2010.1371/journal.pone.117%20OR%2010.1371/journal.pone.118%20OR%2010.1371/journal.pone.119%20OR%2010.1371/journal.pone.120%20OR%2010.1371/journal.pone.121%20OR%2010.1371/journal.pone.122%20OR%2010.1371/journal.pone.123%20OR%2010.1371/journal.pone.124%20OR%2010.1371/journal.pone.125%20OR%2010.1371/journal.pone.126%20OR%2010.1371/journal.pone.127%20OR%2010.1371/journal.pone.128%20OR%2010.1371/journal.pone.129%20OR%2010.1371/journal.pone.130%20OR%2010.1371/journal.pone.131%20OR%2010.1371/journal.pone.132%20OR%2010.1371/journal.pone.133%20OR%2010.1371/journal.pone.134%20OR%2010.1371/journal.pone.135%20OR%2010.1371/journal.pone.136%20OR%2010.1371/journal.pone.137%20OR%2010.1371/journal.pone.138%20OR%2010.1371/journal.pone.139%20OR%2010.1371/journal.pone.140%20OR%2010.1371/journal.pone.141%20OR%2010.1371/journal.pone.142%20OR%2010.1371/journal.pone.143%20OR%2010.1371/journal.pone.144%20OR%2010.1371/journal.pone.145%20OR%2010.1371/journal.pone.146%20OR%2010.1371/journal.pone.147%20OR%2010.1371/journal.pone.148%20OR%2010.1371/journal.pone.149%20OR%2010.1371/journal.pone.150%20OR%2010.1371/journal.pone.151%20OR%2010.1371/journal.pone.152%20OR%2010.1371/journal.pone.153%20OR%2010.1371/journal.pone.154%20OR%2010.1371/journal.pone.155%20OR%2010.1371/journal.pone.156%20OR%2010.1371/journal.pone.157%20OR%2010.1371/journal.pone.158%20OR%2010.1371/journal.pone.159%20OR%2010.1371/journal.pone.160%20OR%2010.1371/journal.pone.161%20OR%2010.1371/journal.pone.162%20OR%2010.1371/journal.pone.163%20OR%2010.1371/journal.pone.164%20OR%2010.1371/journal.pone.165%20OR%2010.1371/journal.pone.166%20OR%2010.1371/journal.pone.167%20OR%2010.1371/journal.pone.168%20OR%2010.1371/journal.pone.169%20OR%2010.1371/journal.pone.170%20OR%2010.1371/journal.pone.171%20OR%2010.1371/journal.pone.172%20OR%2010.1371/journal.pone.173%20OR%2010.1371/journal.pone.174%20OR%2010.1371/journal.pone.175%20OR%2010.1371/journal.pone.176%20OR%2010.1371/journal.pone.177%20OR%2010.1371/journal.pone.178%20OR%2010.1371/journal.pone.179%20OR%2010.1371/journal.pone.180%20OR%2010.1371/journal.pone.181%20OR%2010.1371/journal.pone.182%20OR%2010.1371/journal.pone.183%20OR%2010.1371/journal.pone.184%20OR%2010.1371/journal.pone.185%20OR%2010.1371/journal.pone.186%20OR%2010.1371/journal.pone.187%20OR%2010.1371/journal.pone.188%20OR%2010.1371/journal.pone.189%20OR%2010.1371/journal.pone.190%20OR%2010.1371/journal.pone.191%20OR%2010.1371/journal.pone.192%20OR%2010.1371/journal.pone.193%20OR%2010.1371/journal.pone.194%20OR%2010.1371/journal.pone.195%20OR%2010.1371/journal.pone.196%20OR%2010.1371/journal.pone.197%20OR%2010.1371/journal.pone.198%20OR%2010.1371/journal.pone.199&rows=25&wt=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.plos.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 04 Dec 2014 22:04:01 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Last-Modified:
+      - Thu, 04 Dec 2014 22:03:33 GMT
+      Etag:
+      - '"YWI0NzYwMDAwMDAwMDAwMFNvbHI="'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Set-Cookie:
+      - Coyote-2-9514450c=9514451d:0; path=/
+    body:
+      encoding: UTF-8
+      string: |
+        {"response":{"numFound":0,"start":0,"docs":[]}}
+    http_version: 
+  recorded_at: Thu, 04 Dec 2014 22:04:05 GMT
+recorded_with: VCR 2.9.3
