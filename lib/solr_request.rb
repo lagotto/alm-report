@@ -102,7 +102,7 @@ class SolrRequest
   # 2. display the journal names that are tied to the
   #    cross_published_journal_key field on the front end
   def self.get_journals
-    ENV["JOURNALS"]
+    SearchPlos::JOURNALS
   end
 
   # There are a handful of special cases where we want to display a "massaged"
