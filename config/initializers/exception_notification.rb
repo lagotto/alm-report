@@ -34,10 +34,4 @@ ExceptionNotification.configure do |config|
   # }
 
   # Webhook notifier sends notifications over HTTP protocol. Requires 'httparty' gem.
-  # Use webhook only if we can post to ALM server
-  if APP_CONFIG['alm']['username'] && APP_CONFIG['alm']['password']
-    config.add_notifier :webhook, {
-      :url => "#{APP_CONFIG['alm']['url']}/api/v4/alerts"
-    }
-  end
 end

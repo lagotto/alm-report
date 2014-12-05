@@ -53,8 +53,7 @@ describe HomeController do
     end
 
     it "respects limit" do
-      expect(subject.parse_article_keys(article_ids,
-                                        APP_CONFIG["article_limit"]))
+      expect(subject.parse_article_keys(article_ids, ENV["ARTICLE_LIMIT"].to_i))
         .to be_empty
     end
   end
@@ -62,7 +61,7 @@ describe HomeController do
   describe "select_all_search_results" do
     it "adds all results to Cart", vcr: {
       cassette_name: "select_all_search_results/adds_all_results_to_Cart_" +
-        APP_CONFIG["search"]
+        ENV["SEARCH"]
     } do
       request.accept = "application/json"
       post :select_all_search_results, {
@@ -72,7 +71,7 @@ describe HomeController do
       response.status.should eq(200)
 
       get :get_article_count
-      response.body.should eq(APP_CONFIG["article_limit"].to_s)
+      response.body.should eq(ENV["ARTICLE_LIMIT"].to_s)
     end
   end
 end

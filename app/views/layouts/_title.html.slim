@@ -2,4 +2,4 @@ title
   - if @title
     => @title
     ' |
-  = APP_CONFIG["mode"] == "plos" ? "ALM Reports" : "Parascope"
+  = ENV["MODE"] == "plos" ? "ALM Reports" : "Parascope"

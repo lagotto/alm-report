@@ -38,11 +38,11 @@ describe "export report as csv", :type => :feature do
 
     it "downloads the csv", js: true do
       stub_request(:get,
-        %r{#{APP_CONFIG["alm"]["url"]}/api/v3/articles\?api_key=.*&ids=(?=.*10.1371/journal.pcbi.1002972)(?=.*)(?=.*10.1371/journal.pcbi.1002727).*(&info=history&source=crossref,pubmed,scopus)?$},
+        %r{#{ENV["ALM_URL"]}/api/v3/articles\?api_key=.*&ids=(?=.*10.1371/journal.pcbi.1002972)(?=.*)(?=.*10.1371/journal.pcbi.1002727).*(&info=history&source=crossref,pubmed,scopus)?$},
       ).to_return(File.open("spec/fixtures/alm_api_two_articles.raw"))
 
       stub_request(:get,
-        %r{#{APP_CONFIG["alm"]["url"]}/api/v3/articles\?api_key=.*&ids=10.1371/journal.pcbi.1002727&info=event&source=counter,pmc,citeulike,twitter,researchblogging,nature,scienceseeker,mendeley$},
+        %r{#{ENV["ALM_URL"]}/api/v3/articles\?api_key=.*&ids=10.1371/journal.pcbi.1002727&info=event&source=counter,pmc,citeulike,twitter,researchblogging,nature,scienceseeker,mendeley$},
       ).to_return(File.open("spec/fixtures/alm_api_journal.pcbi.102727.event.raw"))
 
       search("cancer")
@@ -66,7 +66,7 @@ describe "export report as csv", :type => :feature do
 
     it "downloads the csv", js: true do
       stub_request(:get,
-        %r{#{APP_CONFIG["alm"]["url"]}/api/v3/articles\?api_key=.*&ids=(?=.*10.1371/journal.pcbi.1002972)(?=.*)(?=.*10.1371/journal.pcbi.1002727).*(&info=history&source=crossref,pubmed,scopus)?$},
+        %r{#{ENV["ALM_URL"]}/api/v3/articles\?api_key=.*&ids=(?=.*10.1371/journal.pcbi.1002972)(?=.*)(?=.*10.1371/journal.pcbi.1002727).*(&info=history&source=crossref,pubmed,scopus)?$},
       ).to_return(File.open("spec/fixtures/alm_api_two_articles.raw"))
 
       stub_request(

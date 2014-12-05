@@ -52,9 +52,9 @@ class ApplicationController < ActionController::Base
 
   # prevent the user from moving forward if the article limit has been reached
   def article_limit_reached?
-    return false if @cart.size < APP_CONFIG["article_limit"]
+    return false if @cart.size < ENV["ARTICLE_LIMIT"].to_i
 
-    flash[:error] = "The maximum report size is #{APP_CONFIG["article_limit"]} " \
+    flash[:error] = "The maximum report size is #{ENV["ARTICLE_LIMIT"].to_i} " \
                     "articles. Go to <a href=\"#{preview_path}\">Preview List</a> " \
                     "and remove articles before adding more to your selection."
     true
@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
 
   # Sets fields used by the UI for results paging of articles.
   # A precondition of this method is that @total_found is set appropriately.
-  def set_paging_vars(current_page, results_per_page=APP_CONFIG["results_per_page"])
+  def set_paging_vars(current_page, results_per_page=ENV["PER_PAGE"].to_i)
     current_page = current_page.nil? ? "1" : current_page
     @start_result = (current_page.to_i - 1) * results_per_page + 1
     @end_result = @start_result + results_per_page - 1

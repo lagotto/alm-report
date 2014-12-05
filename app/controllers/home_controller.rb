@@ -5,7 +5,7 @@ class HomeController < ApplicationController
 
     # don't update session when article_limit reached
     return render json: { status: "limit", delta: 0 } \
-      unless initial_count < APP_CONFIG["article_limit"]
+      unless initial_count < ENV["ARTICLE_LIMIT"].to_i
 
     article_ids = params[:article_ids]
 
@@ -21,7 +21,7 @@ class HomeController < ApplicationController
   # i.e. a doi and timestamp separated by a '|' character. Returns a hash.
   # Hash is empty if params[:article_ids] is nil or limit reached
   def parse_article_keys(keys, count = 0)
-    limit = APP_CONFIG["article_limit"] - count
+    limit = ENV["ARTICLE_LIMIT"].to_i - count
     return {} unless limit > 0
 
     article_ids = Array(keys)[0...limit].reduce({}) do |hash, id|
@@ -44,7 +44,7 @@ class HomeController < ApplicationController
     # to do.  Using article_limit * 2 as our requested number of results handles
     # various pathological cases such as the user having checked every other
     # search result.
-    limit = APP_CONFIG["article_limit"] * 2
+    limit = ENV["ARTICLE_LIMIT"].to_i * 2
     params[:rows] = rows = 200
     # solr usually returns 500s if you try to retreive all 1000 articles at once,
     # so we do paging here (with a larger page size than in the UI).
@@ -69,7 +69,7 @@ class HomeController < ApplicationController
     # This is a little weird... if the user has no more capacity before the
     # article limit, return an error status, but if at least one article can
     # be added, return success.
-    if initial_count >= APP_CONFIG["article_limit"]
+    if initial_count >= ENV["ARTICLE_LIMIT"].to_i
       status = "limit"
     else
       status = "success"

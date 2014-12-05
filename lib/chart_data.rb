@@ -110,8 +110,16 @@ module ChartData
     # locations.  (The geocodes table now has over 300k cities, and in my
     # experience ones that aren't found there are usually typos.)
     fraction = found_in_db.length.to_f / address_to_count_and_inst.length.to_f
-    if fraction > APP_CONFIG["min_fraction_of_locations_to_use_geocodes"] \
-        && address_to_count_and_inst.length - found_in_db.length <= APP_CONFIG["max_unfound_locations_to_use_geocodes"]
+
+    # For the author locations chart, we prefer to use geocoded city info. If more
+    # than min_fraction_of_locations_to_use_geocodes locations are geocoded, we
+    # only show those, provided that the total number of non-geocoded locations is
+    # under max_unfound_locations_to_use_geocodes.
+    min_fraction = ENV["MIN_FRACTION_OF_LOCATIONS_TO_USE_GEOCODES"] || 0.9
+    max_unfound = ENV["MAX_UNFOUND_LOCATIONS_TO_USE_GEOCODES"] || 5
+
+    if fraction > min_fraction \
+        && address_to_count_and_inst.length - found_in_db.length <= max_unfound
       article_locations_data = []
       address_to_count_and_inst.each do |address, fields|
         count = fields[0]
