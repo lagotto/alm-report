@@ -15,7 +15,7 @@ services:
   - memcached
 
 before_script:
-  - cp .env.example .env
+  - cp .env.travis .env
   - mkdir -p tmp/pids
 
 script:
