@@ -69,7 +69,8 @@ class Report < ActiveRecord::Base
       result["subjects"] = s.subjects.map{|k| k.gsub(/\A\/|\/\Z/, '').split(/\//)}
       result
     end
-    alm
+
+    { report: alm }
   end
 
   def to_csv(options = {})

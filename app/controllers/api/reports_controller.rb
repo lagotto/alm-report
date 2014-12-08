@@ -4,6 +4,6 @@ class Api::ReportsController < ApplicationController
   # API
   def show
     @report = Report.find(params[:id])
-    render json: { report: @report }
+    render json: @report
   end
 end
