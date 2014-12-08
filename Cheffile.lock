@@ -23,8 +23,6 @@ SITE
       runit (~> 1.0)
       yum (~> 3.0)
       yum-epel (>= 0.0.0)
-    mysql (5.4.4)
-      yum-mysql-community (>= 0.0.0)
     mysql-chef_gem (0.0.5)
       build-essential (>= 0.0.0)
       mysql (>= 0.0.0)
@@ -56,23 +54,6 @@ SITE
       yum (>= 3.0)
 
 GIT
-  remote: git@github.com:articlemetrics/alm_report-cookbook.git
-  ref: master
-  sha: 2c1f64407f50868e8241d216970839dabb7fb13e
-  specs:
-    alm_report (0.6.4)
-      apt (>= 0.0.0)
-      capistrano (~> 0.7.0)
-      database (>= 0.0.0)
-      dotenv (~> 0.1.0)
-      memcached (>= 0.0.0)
-      mysql (~> 5.4.3)
-      mysql_rails (~> 0.3.0)
-      nodejs (>= 0.0.0)
-      passenger_nginx (~> 0.4.0)
-      ruby (~> 0.6.0)
-
-GIT
   remote: git@github.com:articlemetrics/capistrano-cookbook.git
   ref: master
   sha: 62ddb7b644f54614d3e52dd06a834e59df0b8903
@@ -86,16 +67,6 @@ GIT
   sha: 069ee5080bebea6c5049462d832503a14a340570
   specs:
     dotenv (0.1.7)
-
-GIT
-  remote: git@github.com:articlemetrics/mysql_rails-cookbook.git
-  ref: master
-  sha: a37e3bedd0e86928146d757e78cad6891063e82e
-  specs:
-    mysql_rails (0.3.8)
-      database (>= 0.0.0)
-      mysql (>= 0.0.0)
-      ruby (~> 0.6.0)
 
 GIT
   remote: git@github.com:articlemetrics/passenger_nginx-cookbook.git
@@ -114,13 +85,48 @@ GIT
     ruby (0.6.3)
       apt (>= 0.0.0)
 
+GIT
+  remote: git@github.com:jure/alm_report-cookbook.git
+  ref: master
+  sha: 8751fd47cc7f5b0a4254ad1fbd3c0c1c1fbbb003
+  specs:
+    alm_report (0.6.4)
+      apt (>= 0.0.0)
+      capistrano (~> 0.7.0)
+      database (>= 0.0.0)
+      dotenv (~> 0.1.0)
+      memcached (>= 0.0.0)
+      mysql (~> 5.5)
+      mysql_rails (~> 0.3.0)
+      nodejs (>= 0.0.0)
+      passenger_nginx (~> 0.4.0)
+      ruby (~> 0.6.0)
+
+GIT
+  remote: git@github.com:jure/mysql
+  ref: master
+  sha: 850aa16cc30cc692cdbc7e038eca33dd213a261d
+  specs:
+    mysql (5.6.1)
+      yum-mysql-community (>= 0.0.0)
+
+GIT
+  remote: git@github.com:jure/mysql_rails-cookbook.git
+  ref: master
+  sha: 0579e093ad8ecda48caa28e7d72225a79ff3e1b1
+  specs:
+    mysql_rails (0.3.8)
+      database (>= 0.0.0)
+      mysql (>= 0.0.0)
+      ruby (~> 0.6.0)
+
 DEPENDENCIES
   alm_report (>= 0)
   capistrano (>= 0)
   database (~> 2.3.0)
   dotenv (>= 0)
   memcached (>= 0)
-  mysql (~> 5.4.3)
+  mysql (>= 0)
   mysql_rails (>= 0)
   passenger_nginx (>= 0)
   phantomjs (>= 0)
