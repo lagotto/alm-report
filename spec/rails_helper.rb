@@ -76,6 +76,7 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:each) do |example|
+    Dotenv.load! ".env"
     Rails.cache.clear
   end
 end

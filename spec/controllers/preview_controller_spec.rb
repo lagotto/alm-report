@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe PreviewController, vcr: true do
   let(:cart) { Cart.new(item_ids) }
 
