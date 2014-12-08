@@ -20,7 +20,7 @@ html.no-js lang="en"
 
     javascript:
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-338393-1']);
+      _gaq.push(['_setAccount', '#{ ENV["GOOGLE_ANALYTICS"] }']);
       _gaq.push(['_trackPageview']);
       (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); }
       )();
@@ -70,7 +70,7 @@ html.no-js lang="en"
     = yield :javascript
 
     javascript:
-      var RESULTS_PER_PAGE = #{APP_CONFIG["results_per_page"]}
-      var ARTICLE_LIMIT = #{APP_CONFIG["article_limit"]}
-      var VIZ_LIMIT = #{APP_CONFIG["viz_limit"]}
+      var RESULTS_PER_PAGE = #{ENV["PER_PAGE"].to_i}
+      var ARTICLE_LIMIT = #{ENV["ARTICLE_LIMIT"].to_i}
+      var VIZ_LIMIT = #{ENV["VIZ_LIMIT"].to_i}
       #{ "var search_total_found = #{@total_found};" if !@total_found.nil? }

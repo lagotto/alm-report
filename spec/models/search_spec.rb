@@ -10,7 +10,7 @@ api_urls = {
 
 describe Search do
   it "queries PLOS's API if search is set to PLOS" do
-    APP_CONFIG["search"] = "plos"
+    ENV["SEARCH"] = "plos"
     stub = stub_request(:get, api_urls[:plos]).
       to_return(File.open("spec/fixtures/api_plos_cancer_search.raw"))
 
@@ -20,7 +20,7 @@ describe Search do
   end
 
   it "queries CrossRef's API if search is set to CrossRef" do
-    APP_CONFIG["search"] = "crossref"
+    ENV["SEARCH"] = "crossref"
 
     stub = stub_request(:get, api_urls[:crossref]).
       to_return(File.open("spec/fixtures/api_crossref_cancer.raw"))

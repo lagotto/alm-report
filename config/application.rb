@@ -9,6 +9,19 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+begin
+  # make sure DOTENV is set
+  ENV["DOTENV"] ||= "default"
+
+  # load ENV variables from file specified by DOTENV
+  # use .env with DOTENV=default
+  filename = ENV["DOTENV"] == "default" ? ".env" : ".env.#{ENV["DOTENV"]}"
+  Dotenv.load! File.expand_path("../../#{filename}", __FILE__)
+rescue Errno::ENOENT
+  $stderr.puts "Please create #{filename} file, or use DOTENV=example for example configuration"
+  exit
+end
+
 module AlmReport
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -18,12 +31,8 @@ module AlmReport
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths << Rails.root.join('lib')
 
-    # Only load the plugins named here, in the order given (default is alphabetical).
-    # :all can be used as a placeholder for all plugins not explicitly named.
-    # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
-
-    # Activate observers that should always be running.
-    # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+    # Configure the default encoding used in templates for Ruby.
+    config.encoding = "utf-8"
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

@@ -9,12 +9,9 @@ end
 
 # Interface to servers that return latitude and longitude for a street or city address.
 class GeocodeRequest
-
   GOOGLE_URL = "http://maps.googleapis.com/maps/api/geocode/json"
-
   # Unix timestamp of when the last query was sent.  Used by rate_limit.
   @last_query = 0.0
-
 
   # According to https://developers.google.com/maps/documentation/geocoding/
   # you can issue up to 2500 requests/day for free.  However, I've found that
@@ -23,7 +20,13 @@ class GeocodeRequest
   # waited at least a certain amount, and sleeps if necessary to enforce that.
   def self.rate_limit
     interval = Time.now.to_f - @last_query
-    wait = 1.0 / APP_CONFIG["max_geocode_qps"]
+
+    # Maximum queries per second to send to Google for geocoding. The service
+    # will stop responding if we send them too fast.
+    max_geocode = ENV["MAX_GEOCODE_QPS"] || 1.0
+
+    wait = 1.0 / max_geocode
+
     if interval < wait
       Rails.logger.warn("QPS limit to geocoding service exceeded.  Sleeping before making request...")
       sleep(wait - interval)
@@ -37,6 +40,7 @@ class GeocodeRequest
     rate_limit
 
     url = "#{GOOGLE_URL}?address=#{URI::encode(address)}&sensor=false"
+
     resp = Net::HTTP.get_response(URI.parse(url))
     @last_query = Time.now.to_f
     raise GeocodeError, "Server returned #{resp.code}: " + resp.body unless resp.code == "200"
@@ -50,6 +54,4 @@ class GeocodeRequest
     location = results[0]["geometry"]["location"]
     return [location["lat"], location["lng"]]
   end
-
-
 end

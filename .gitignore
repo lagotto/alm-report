@@ -11,6 +11,7 @@
 *.rbc
 *.sassc
 .sass-cache
+.capistrano
 capybara-*.html
 .rspec
 /.bundle
@@ -25,9 +26,6 @@ capybara-*.html
 /coverage/
 /data/
 /spec/tmp/*
-/config/database.yml
-/config/settings.yml
-/config/deploy/production.rb
 /config/data_bags/*
 /vendor/cookbooks/*/.git
 /vendor/assets/bower_components
@@ -35,8 +33,8 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 .vagrant*
-config.json
 /public/assets
 .idea/*
 optimise-db.txt
 /vendor/cookbooks
+.env

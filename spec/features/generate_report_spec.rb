@@ -18,7 +18,7 @@ describe 'generate report', type: :feature, vcr: true do
 
       expect(page).to have_content('Metrics Data')
       expect(page).to have_content('Visualizations')
-      #page.driver.debug
+
       click_link('Visualizations')
 
       expect(page).to have_css('.line.chart svg')

@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20140930134224) do
     t.string   "address"
     t.float    "latitude",   limit: 24
     t.float    "longitude",  limit: 24
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "geocodes", ["address"], name: "index_geocodes_on_address", unique: true, using: :btree
@@ -27,16 +27,16 @@ ActiveRecord::Schema.define(version: 20140930134224) do
     t.string   "doi",        limit: 64, null: false
     t.integer  "report_id"
     t.integer  "sort_order",            null: false
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "report_dois", ["doi"], name: "index_report_dois_on_doi", using: :btree
   add_index "report_dois", ["report_id"], name: "index_report_dois_on_report_id", using: :btree
 
   create_table "reports", force: true do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

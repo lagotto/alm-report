@@ -10,11 +10,11 @@ class Search
   end
 
   def self.plos?
-    APP_CONFIG['search'] == 'plos'
+    ENV["SEARCH"] == "plos"
   end
 
   def self.crossref?
-    APP_CONFIG['search'] == 'crossref'
+    ENV["SEARCH"] == "crossref"
   end
 
   def self.find_by_ids(ids)

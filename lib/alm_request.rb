@@ -62,7 +62,7 @@ module AlmRequest
   def self.get_raw_data(dois)
     json = []
     while dois.length > 0 do
-      subset_dois = dois.slice!(0, APP_CONFIG["alm_max_articles_per_request"])
+      subset_dois = dois.slice!(0, ENV["ALM_MAX_ARTICLES_PER_REQUEST"].to_i)
       params = {}
       params[:ids] = subset_dois.join(",")
 
@@ -282,7 +282,7 @@ module AlmRequest
   def self.get_alm_url(params)
     url = ""
     if (!params.nil? && params.length > 0)
-      url = "#{APP_CONFIG['alm']['url']}/api/v3/articles?api_key=#{APP_CONFIG['alm']['api_key']}&#{params.to_param}"
+      url = "#{ENV["ALM_URL"]}/api/v3/articles?api_key=#{ENV["ALM_API_KEY"]}&#{params.to_param}"
     end
     return url
   end

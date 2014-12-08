@@ -28,10 +28,10 @@ describe PreviewController, vcr: true do
 
       it "paginates results" do
         get :index
-        expect(assigns(:results).size).to eq(APP_CONFIG["results_per_page"])
+        expect(assigns(:results).size).to eq(ENV["PER_PAGE"].to_i)
 
         get :index, current_page: 2
-        expect(assigns(:results).size).to eq(APP_CONFIG["results_per_page"])
+        expect(assigns(:results).size).to eq(ENV["PER_PAGE"].to_i)
       end
     end
   end
