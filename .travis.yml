@@ -1,27 +1,21 @@
 language: ruby
 rvm:
-  - 2.1.2
-
+- 2.1.5
 env:
-  global:
-    secure: "agQGmJu7sSCjuBYu/Sbo4a3WoXA2C/BVPoIUneSR2+soFPeyrAFoHOa/EflxIt+uUEApXiodG+u2twFBf07yMVVojluzmONricmjh563gu6rKR9vhE5ZTUYIo3IHdi/w1OTd28uA0T0RpFcxLRbVg2lm5juxE+GjI+QmeROr4lY="
   matrix:
-    - DB=mysql MODE=plos SEARCH=plos
-    - DB=mysql MODE=default SEARCH=crossref
-    - DB=mysql MODE=default SEARCH=plos
-    # - DB=postgresql
-
+  - DB=mysql MODE=plos SEARCH=plos
+  - DB=mysql MODE=default SEARCH=crossref
+  - DB=mysql MODE=default SEARCH=plos
+  global:
+    secure: drRsnsZAyBEb99FBPXPl2GrIJ0QRNvT6BxVnDG/BVulW1DJIRM3rUQYJBPxJIRn+SyEUF5q/z7LYs1alxuTrj0DHeIMY5PGWpm/aQXvUQvQSj5CNfRNdQVWUwjs4xdmg4fJ9anz29CShBo2DfLWvMqWpwX2I/dh6IZQrWmdiI9o=
 services:
-  - memcached
-
+- memcached
 before_script:
-  - cp .env.travis .env
-  - mkdir -p tmp/pids
-
+- cp .env.travis .env
+- mkdir -p tmp/pids
 script:
-  - bundle exec rake db:setup RAILS_ENV=test
-  - bundle exec rspec
-
+- bundle exec rake db:setup RAILS_ENV=test
+- bundle exec rspec
 addons:
   code_climate:
     repo_token: 996e94d9a86097c853b5bd92197c07cca653d962528e10406f1e75d78517438c
