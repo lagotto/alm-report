@@ -149,7 +149,7 @@ module Solr
       end
 
       while dois.length > 0 do
-        subset_dois = dois.slice!(0, ENV["SOLR_MAX_DOIS"])
+        subset_dois = dois.slice!(0, ENV["SOLR_MAX_DOIS"].to_i)
         q = subset_dois.map { | doi | "id:\"#{doi}\"" }.join(" OR ")
 
         url = "#{ENV["SOLR_URL"]}?q=#{URI::encode(q)}&#{FILTER}&fl=#{fields_to_retrieve}" \
@@ -174,13 +174,13 @@ module Solr
 
     # Retrieves article related information from solr for a given list of DOIs.
     def self.get_data_for_articles(report_dois)
-      measure(report_dois) do
+      measure(dois: report_dois) do
         Request.get_data_helper(report_dois, "solr", FL)
       end
     end
 
     def self.validate_dois(report_dois)
-      measure(report_dois) do
+      measure(dois: report_dois) do
         Request.get_data_helper(report_dois, nil, FL_VALIDATE_ID)
       end
     end
