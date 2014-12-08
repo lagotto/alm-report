@@ -16,7 +16,6 @@ class Cart
     hash = Hash[items.map do |item|
       [item.id, item]
     end]
-
     @items.merge!(hash)
   end
 

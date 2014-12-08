@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Cart, vcr: true do
   let(:item_ids) { ["10.1371/journal.pone.0010031"] }
   let(:search_result) { SearchResult.from_cache(item_ids.first) }
@@ -36,9 +34,9 @@ describe Cart, vcr: true do
   end
 
   it "add" do
-    subject.add(["10.1371/journal.pmed.0008763"])
+    subject.add(["10.1371/journal.pmed.0040013"])
     expect(subject.dois).
-      to eq(["10.1371/journal.pone.0010031", "10.1371/journal.pmed.0008763"])
+      to eq(["10.1371/journal.pone.0010031", "10.1371/journal.pmed.0040013"])
   end
 
   it "remove" do
@@ -47,7 +45,7 @@ describe Cart, vcr: true do
   end
 
   it "remove multiple" do
-    subject.remove(["10.1371/journal.pone.0010031", "10.1371/journal.pmed.0008763"])
+    subject.remove(["10.1371/journal.pone.0010031", "10.1371/journal.pmed.0040013"])
     expect(subject.dois).to be_empty
   end
 
