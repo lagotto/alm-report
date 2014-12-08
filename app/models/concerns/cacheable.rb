@@ -9,7 +9,7 @@ module Cacheable
       found = Rails.cache.read_multi(*missing)
       missing -= found.keys
 
-      unless missing.empty?
+      if missing.present?
         results = yield(missing.map { |id| id[base.length..-1] })
 
         results = results.map do |result|
@@ -18,7 +18,10 @@ module Cacheable
         end.compact
       end
 
-      found.values + (results || [])
+      results ||= []
+      results += found.values
+
+      results.sort_by { |r| ids.index r.id }
     end
   end
 end

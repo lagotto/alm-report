@@ -13,8 +13,7 @@ class HomeController < ApplicationController
     when "ADD" then @cart.add(article_ids)
     when "REMOVE" then @cart.remove(article_ids)
     end
-
-    render json: { status: "success", delta: @cart.size - initial_count }
+    render json: { status: "success", delta: @cart.size - initial_count }.to_json
   end
 
   # Parse array of keys in the form "10.1371/journal.pone.0052192|12345678",
