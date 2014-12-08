@@ -31,7 +31,7 @@ describe Search do
   end
 
   it "finds results by id", vcr: true do
-    APP_CONFIG["search"] = "plos"
+    ENV["SEARCH"] = "plos"
     ids = [
       "10.1371/annotation/1d6063be-ff28-4a65-a3a0-bcaf076eab4b",
       "10.1371/annotation/5cdf6105-2a52-497a-86b3-db8f4a4e439c",

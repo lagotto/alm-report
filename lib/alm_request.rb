@@ -39,14 +39,14 @@ module AlmRequest
     # check_cache(dois, results, "alm_v5")
 
     request = {
-      api_key: APP_CONFIG["alm"]["api_key"],
+      api_key: ENV["ALM_API_KEY"],
       ids: dois.sort.join(","),
     }
 
     # Needed to get Mendeley countries data for visualization
     request[:info] = "detail" if dois.length == 1
 
-    conn = Faraday.new(url: APP_CONFIG["alm"]["url"]) do |faraday|
+    conn = Faraday.new(url: ENV["ALM_URL"]) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
       faraday.response :json

@@ -94,7 +94,7 @@ module Solr
     # 2. display the journal names that are tied to the
     #    cross_published_journal_key field on the front end
     def self.get_journals
-      APP_CONFIG["journals"]
+      SearchPlos::JOURNALS
     end
 
     # There are a handful of special cases where we want to display a "massaged"
@@ -149,10 +149,10 @@ module Solr
       end
 
       while dois.length > 0 do
-        subset_dois = dois.slice!(0, APP_CONFIG["solr_max_dois_per_request"])
+        subset_dois = dois.slice!(0, ENV["SOLR_MAX_DOIS"])
         q = subset_dois.map { | doi | "id:\"#{doi}\"" }.join(" OR ")
 
-        url = "#{APP_CONFIG["solr_url"]}?q=#{URI::encode(q)}&#{FILTER}&fl=#{fields_to_retrieve}" \
+        url = "#{ENV["SOLR_URL"]}?q=#{URI::encode(q)}&#{FILTER}&fl=#{fields_to_retrieve}" \
             "&wt=json&facet=false&rows=#{subset_dois.length}"
 
         json = Request.send_query(url)
@@ -191,7 +191,7 @@ module Solr
     def self.query_by_pmids(pmids)
       return unless pmids.present?
       q = pmids.map {|pmid| "pmid:\"#{pmid}\""}.join(" OR ")
-      url = "#{APP_CONFIG["solr_url"]}?q=#{URI::encode(q)}&#{FILTER}" \
+      url = "#{ENV["SOLR_URL"]}?q=#{URI::encode(q)}&#{FILTER}" \
           "&fl=id,publication_date,pmid&wt=json&facet=false&rows=#{pmids.length}"
       json = Request.send_query(url)
       docs = json["response"]["docs"]
