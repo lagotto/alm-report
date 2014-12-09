@@ -97,12 +97,14 @@ class SearchResult
 
       if locations
         affiliations.map do |a|
-          location = locations.find do |address, location|
-            address == a[:address]
+          located = locations.find do |address, location|
+            address == a[:address].downcase
           end
-          if location
-            location = location[1]
-            a.update(location: {lat: location.latitude, lng: location.longitude})
+          if located
+            a.update(location: {
+              lat: located[1].latitude,
+              lng: located[1].longitude
+            })
           end
         end
       end

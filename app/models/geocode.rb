@@ -72,7 +72,7 @@ class Geocode < ActiveRecord::Base
   # in the output, if they were not found).
   def self.load_from_addresses(addresses)
     processed = addresses.map do |address|
-      address.downcase!
+      address = address.downcase
       variations = COUNTRY_SYNONYMS.map do |synonym, canonical|
         # Address can be in multiple forms:
         # City, Province, Country
