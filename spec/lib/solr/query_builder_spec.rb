@@ -217,12 +217,19 @@ describe Solr::QueryBuilder do
   end
 
   it "adjusts the rows for multiple ids" do
-    params = {
-      ids: 103.times.map{ |i| i}
-    }
+    params = { ids: 103.times.map{ |i| i} }
 
     qb = Solr::QueryBuilder.new(params)
     qb.build
-    expect(qb.url).to include("rows=103")
+    expect(qb.url).to include("rows=206")
+  end
+
+  it "will allow supplied rows parameter to override" do
+    params = { everything: "biology", rows: 200 }
+
+    qb = Solr::QueryBuilder.new(params)
+    qb.build
+
+    expect(qb.url).to include("rows=200")
   end
 end

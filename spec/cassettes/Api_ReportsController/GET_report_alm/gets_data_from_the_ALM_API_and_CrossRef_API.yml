@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - nginx/1.6.0
       Date:
-      - Thu, 04 Dec 2014 22:01:02 GMT
+      - Tue, 09 Dec 2014 10:21:09 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -35,7 +35,7 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Last-Modified:
-      - Thu, 04 Dec 2014 09:05:00 GMT
+      - Tue, 09 Dec 2014 10:18:43 GMT
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -47,9 +47,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - 83f326ff-eb86-4094-8c2b-ae8dc17bbab3
+      - 8663f53c-1b1b-4f5a-a877-1e132f1d37a1
       X-Runtime:
-      - '0.030318'
+      - '0.113903'
       Set-Cookie:
       - Coyote-2-9514450b=9514452f:0; path=/
     body:
@@ -63,9 +63,9 @@ http_interactions:
         cGJpb2wub3JnL2FydGljbGUvaW5mbyUzQWRvaSUyRjEwLjEzNzElMkZqb3Vy
         bmFsLnBjYmkuMTAwMjcyNyIsInBtaWQiOiIyMzA1NTkxNyIsInBtY2lkIjoi
         MzQ2NDE4OSIsIm1lbmRlbGV5X3V1aWQiOiI4NDVkMmJiNi0yNDkwLTMxZGEt
-        YTBjMC03MjBmMzdjMTUxMWYiLCJ2aWV3ZWQiOjUwNzMsInNhdmVkIjoxNSwi
+        YTBjMC03MjBmMzdjMTUxMWYiLCJ2aWV3ZWQiOjUwNzUsInNhdmVkIjoxNSwi
         ZGlzY3Vzc2VkIjoyMiwiY2l0ZWQiOjAsInVwZGF0ZV9kYXRlIjoiMjAxNC0x
-        Mi0wNFQwOTowNTowMFoiLCJzb3VyY2VzIjpbeyJuYW1lIjoiY2l0ZXVsaWtl
+        Mi0wOVQxMDoxODo0M1oiLCJzb3VyY2VzIjpbeyJuYW1lIjoiY2l0ZXVsaWtl
         IiwiZGlzcGxheV9uYW1lIjoiQ2l0ZVVMaWtlIiwiZ3JvdXBfbmFtZSI6InNh
         dmVkIiwiZXZlbnRzX3VybCI6Imh0dHA6Ly93d3cuY2l0ZXVsaWtlLm9yZy9k
         b2kvMTAuMTM3MSUyRmpvdXJuYWwucGNiaS4xMDAyNzI3IiwiYnlfZGF5Ijpb
@@ -112,8 +112,8 @@ http_interactions:
         NzAyMzkxIn1dLCJldmVudHNfY3NsIjpbXX0seyJuYW1lIjoiY3Jvc3NyZWYi
         LCJkaXNwbGF5X25hbWUiOiJDcm9zc1JlZiIsImdyb3VwX25hbWUiOiJjaXRl
         ZCIsImV2ZW50c191cmwiOm51bGwsImJ5X2RheSI6W10sImJ5X21vbnRoIjpb
-        XSwiYnlfeWVhciI6W10sInVwZGF0ZV9kYXRlIjoiMjAxNC0xMS0wNFQyMzoy
-        NTowN1oiLCJtZXRyaWNzIjp7InBkZiI6bnVsbCwiaHRtbCI6bnVsbCwicmVh
+        XSwiYnlfeWVhciI6W10sInVwZGF0ZV9kYXRlIjoiMjAxNC0xMi0wN1QwMzo0
+        OToxN1oiLCJtZXRyaWNzIjp7InBkZiI6bnVsbCwiaHRtbCI6bnVsbCwicmVh
         ZGVycyI6bnVsbCwiY29tbWVudHMiOm51bGwsImxpa2VzIjpudWxsLCJ0b3Rh
         bCI6MH0sImV2ZW50cyI6W10sImV2ZW50c19jc2wiOltdfSx7Im5hbWUiOiJu
         YXR1cmUiLCJkaXNwbGF5X25hbWUiOiJOYXR1cmUiLCJncm91cF9uYW1lIjoi
@@ -165,13 +165,13 @@ http_interactions:
         OjE1LCJwZGYiOjB9LHsibW9udGgiOjksInllYXIiOjIwMTQsImh0bWwiOjI2
         LCJwZGYiOjN9LHsibW9udGgiOjEwLCJ5ZWFyIjoyMDE0LCJodG1sIjozMiwi
         cGRmIjo0fSx7Im1vbnRoIjoxMSwieWVhciI6MjAxNCwiaHRtbCI6MjQsInBk
-        ZiI6Mn0seyJtb250aCI6MTIsInllYXIiOjIwMTQsImh0bWwiOjIsInBkZiI6
+        ZiI6Mn0seyJtb250aCI6MTIsInllYXIiOjIwMTQsImh0bWwiOjQsInBkZiI6
         MH1dLCJieV95ZWFyIjpbeyJ5ZWFyIjoyMDEyLCJwZGYiOjIyOSwiaHRtbCI6
         MzIzN30seyJ5ZWFyIjoyMDEzLCJwZGYiOjQxLCJodG1sIjo5NjN9LHsieWVh
-        ciI6MjAxNCwicGRmIjoyMSwiaHRtbCI6MjkwfV0sInVwZGF0ZV9kYXRlIjoi
-        MjAxNC0xMi0wNFQwMDoxMzoxNVoiLCJtZXRyaWNzIjp7InBkZiI6MjkxLCJo
-        dG1sIjo0NDkwLCJyZWFkZXJzIjpudWxsLCJjb21tZW50cyI6bnVsbCwibGlr
-        ZXMiOm51bGwsInRvdGFsIjo0OTE4fSwiZXZlbnRzIjpbeyJtb250aCI6IjEw
+        ciI6MjAxNCwicGRmIjoyMSwiaHRtbCI6MjkyfV0sInVwZGF0ZV9kYXRlIjoi
+        MjAxNC0xMi0wOVQwMzoyNzoyM1oiLCJtZXRyaWNzIjp7InBkZiI6MjkxLCJo
+        dG1sIjo0NDkyLCJyZWFkZXJzIjpudWxsLCJjb21tZW50cyI6bnVsbCwibGlr
+        ZXMiOm51bGwsInRvdGFsIjo0OTIwfSwiZXZlbnRzIjpbeyJtb250aCI6IjEw
         IiwieWVhciI6IjIwMTIiLCJwZGZfdmlld3MiOiIxNzciLCJ4bWxfdmlld3Mi
         OiIzNSIsImh0bWxfdmlld3MiOiIyNTIwIn0seyJtb250aCI6IjExIiwieWVh
         ciI6IjIwMTIiLCJwZGZfdmlld3MiOiI0MyIsInhtbF92aWV3cyI6IjYiLCJo
@@ -218,7 +218,7 @@ http_interactions:
         bnRoIjoiMTEiLCJ5ZWFyIjoiMjAxNCIsInBkZl92aWV3cyI6IjIiLCJ4bWxf
         dmlld3MiOjAsImh0bWxfdmlld3MiOiIyNCJ9LHsibW9udGgiOiIxMiIsInll
         YXIiOiIyMDE0IiwicGRmX3ZpZXdzIjowLCJ4bWxfdmlld3MiOjAsImh0bWxf
-        dmlld3MiOiIyIn1dLCJldmVudHNfY3NsIjpbXX0seyJuYW1lIjoicmVzZWFy
+        dmlld3MiOiI0In1dLCJldmVudHNfY3NsIjpbXX0seyJuYW1lIjoicmVzZWFy
         Y2hibG9nZ2luZyIsImRpc3BsYXlfbmFtZSI6IlJlc2VhcmNoIEJsb2dnaW5n
         IiwiZ3JvdXBfbmFtZSI6ImRpc2N1c3NlZCIsImV2ZW50c191cmwiOm51bGws
         ImJ5X2RheSI6W10sImJ5X21vbnRoIjpbXSwiYnlfeWVhciI6W10sInVwZGF0
@@ -1029,8 +1029,8 @@ http_interactions:
         LCJncm91cF9uYW1lIjoiY2l0ZWQiLCJldmVudHNfdXJsIjoiaHR0cDovL2V1
         cm9wZXBtYy5vcmcvYWJzdHJhY3QvTUVELzIzMDU1OTE3I2ZyYWdtZW50LXJl
         bGF0ZWQtYmlvZW50aXRpZXMiLCJieV9kYXkiOltdLCJieV9tb250aCI6W10s
-        ImJ5X3llYXIiOltdLCJ1cGRhdGVfZGF0ZSI6IjIwMTQtMTEtMDVUMDQ6MDM6
-        MjBaIiwibWV0cmljcyI6eyJwZGYiOm51bGwsImh0bWwiOm51bGwsInJlYWRl
+        ImJ5X3llYXIiOltdLCJ1cGRhdGVfZGF0ZSI6IjIwMTQtMTItMDZUMDM6Mzc6
+        MDVaIiwibWV0cmljcyI6eyJwZGYiOm51bGwsImh0bWwiOm51bGwsInJlYWRl
         cnMiOm51bGwsImNvbW1lbnRzIjpudWxsLCJsaWtlcyI6bnVsbCwidG90YWwi
         OjB9LCJldmVudHMiOltdLCJldmVudHNfY3NsIjpbXX0seyJuYW1lIjoib3Bl
         bmVkaXRpb24iLCJkaXNwbGF5X25hbWUiOiJPcGVuRWRpdGlvbiIsImdyb3Vw
@@ -1079,7 +1079,7 @@ http_interactions:
         aXNwbGF5X25hbWUiOiJBcnRpY2xlIENvdmVyYWdlIEN1cmF0ZWQiLCJncm91
         cF9uYW1lIjoiZGlzY3Vzc2VkIiwiZXZlbnRzX3VybCI6bnVsbCwiYnlfZGF5
         IjpbXSwiYnlfbW9udGgiOltdLCJieV95ZWFyIjpbXSwidXBkYXRlX2RhdGUi
-        OiIyMDE0LTEyLTA0VDAwOjM2OjA5WiIsIm1ldHJpY3MiOnsicGRmIjpudWxs
+        OiIyMDE0LTEyLTA5VDEwOjE4OjQzWiIsIm1ldHJpY3MiOnsicGRmIjpudWxs
         LCJodG1sIjpudWxsLCJyZWFkZXJzIjpudWxsLCJjb21tZW50cyI6MCwibGlr
         ZXMiOm51bGwsInRvdGFsIjowfSwiZXZlbnRzIjpbXSwiZXZlbnRzX2NzbCI6
         W119LHsibmFtZSI6InBsb3NfY29tbWVudHMiLCJkaXNwbGF5X25hbWUiOiJK
@@ -1090,7 +1090,7 @@ http_interactions:
         bnVsbCwiY29tbWVudHMiOjAsImxpa2VzIjpudWxsLCJ0b3RhbCI6MH0sImV2
         ZW50cyI6W10sImV2ZW50c19jc2wiOltdfV19XX0=
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 22:01:06 GMT
+  recorded_at: Tue, 09 Dec 2014 10:21:10 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pcbi.1002727&rows=25&wt=json
@@ -1112,13 +1112,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Dec 2014 22:01:02 GMT
+      - Tue, 09 Dec 2014 10:21:10 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Thu, 04 Dec 2014 21:58:31 GMT
+      - Tue, 09 Dec 2014 10:21:02 GMT
       Etag:
-      - '"MTU0NzYwMDAwMDAwMDAwMFNvbHI="'
+      - '"OWRkNzEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -1126,11 +1126,11 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=95144522:0; path=/
+      - Coyote-2-9514450c=9514451d:0; path=/
     body:
       encoding: UTF-8
       string: |
         {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.pcbi.1002727","cross_published_journal_name":["PLOS Computational Biology"],"pmid":"23055917","subject":["/Biology and life sciences/Computational biology","/People and places/Population groupings/Professions/Biologists","/Ecology and environmental sciences/Ecology/Biodiversity","/Biology and life sciences/Ecology/Biodiversity","/Social sciences/Sociology/Families and family members/Human families"],"publication_date":"2012-10-04T00:00:00Z","article_type":"Editorial","author_display":["Ruth Nussinov"],"affiliate":["Basic Science Program, SAIC-Frederick, Inc., Center for Cancer Research Nanobiology Program, Frederick National Laboratory for Cancer Research, National Cancer Institute, Frederick, Maryland, United States of America","Sackler Institute of Molecular Medicine, Department of Human Genetics and Molecular Medicine, Sackler School of Medicine, Tel Aviv University, Tel Aviv, Israel"],"financial_disclosure":"The author received no specific funding for writing this article.","title":"A Future Vision for PLOS Computational Biology"}]}}
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 22:01:06 GMT
+  recorded_at: Tue, 09 Dec 2014 10:21:10 GMT
 recorded_with: VCR 2.9.3

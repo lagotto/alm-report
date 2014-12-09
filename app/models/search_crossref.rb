@@ -15,7 +15,7 @@ class SearchCrossref
       "until-pub-date:#{DateTime.now.year}"
     ].compact.join(",")
 
-    if @query[:ids]
+    if query[:ids]
       @filter += "," + @query[:ids].map{ |id| "doi:#{id}"}.join(",")
     end
 

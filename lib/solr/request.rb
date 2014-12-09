@@ -44,7 +44,7 @@ module Solr
 
     PROCESS_PARAMS = [
       :publication_days_ago, :datepicker1, :datepicker2, :filterJournals,
-      :current_page, :author_country, :institution, :ids
+      :current_page, :author_country, :institution, :ids, :rows
     ]
 
     WHITELIST = QUERY_PARAMS + PROCESS_PARAMS

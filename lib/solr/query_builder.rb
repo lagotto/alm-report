@@ -48,7 +48,8 @@ module Solr
     def build_ids
       ids = @params[:ids]
       if ids
-        @params[:rows] = ids.size
+        # https://developer.plos.org/jira/browse/BAU-2344
+        @params[:rows] = ids.size * 2 if ids.size > ENV["PER_PAGE"].to_i
         @params[:id] = ids.join(" OR ")
       end
     end

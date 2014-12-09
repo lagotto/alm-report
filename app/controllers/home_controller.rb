@@ -74,23 +74,18 @@ class HomeController < ApplicationController
       status = "success"
       begin
         docs = get_all_results
-      rescue SolrError
+      rescue Solr::Error
         logger.warn("Error querying solr: #{$!}")
 
         # Send a json response, instead of the rails 500 HTML page.
-        respond_to do |format|
-          format.json {render :json => {:status => "error"}, :status => 500}
-        end
+        render json: {status: "error"}.to_json, status: 500
         return
       end
       docs.each do |doc|
         @cart[doc.id] = doc
       end
     end
-    payload = {:status => status, :delta => @cart.size - initial_count}
-    respond_to do |format|
-      format.json { render :json => payload}
-    end
+    render json: {status: status, delta: @cart.size - initial_count}.to_json
   end
 
   # Action that clears any DOIs in the session and redirects to home.

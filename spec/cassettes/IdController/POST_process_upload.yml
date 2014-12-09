@@ -21,13 +21,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Dec 2014 22:01:21 GMT
+      - Tue, 09 Dec 2014 10:21:41 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Thu, 04 Dec 2014 21:58:31 GMT
+      - Tue, 09 Dec 2014 10:21:02 GMT
       Etag:
-      - '"MTU0NzYwMDAwMDAwMDAwMFNvbHI="'
+      - '"OWRkNzEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -35,13 +35,13 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=9514451d:0; path=/
+      - Coyote-2-9514450c=95144522:0; path=/
     body:
       encoding: UTF-8
       string: |
         {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.ppat.1000805","cross_published_journal_name":["PLOS Pathogens"],"pmid":"20300603","subject":["/Medicine and health sciences/Parasitic diseases","/Biology and life sciences/Cell biology/Cellular types/Animal cells/Immune cells/Granulomas","/Biology and life sciences/Cell biology/Cellular types/Animal cells/Immune cells/White blood cells/Macrophages","/Biology and life sciences/Organisms/Protozoans/Parasitic protozoans/Leishmania/Leishmania donovani","/Medicine and health sciences/Immunology/Immune cells/White blood cells/Macrophages","/Biology and life sciences/Developmental biology/Life cycles/Protozoan life cycles/Amastigotes","/Biology and life sciences/Microbiology/Protozoology/Protozoan life cycles/Amastigotes","/Biology and life sciences/Cell biology/Cellular structures and organelles/Nuclear bodies","/Biology and life sciences/Immunology/Immune system/Innate immune system/Antigen presentation","/Biology and life sciences/Cell biology/Cellular types/Animal cells/Immune cells/White blood cells/T cells","/Biology and life sciences/Cell biology/Cellular types/Animal cells/Blood cells/White blood cells/Macrophages","/Biology and life sciences/Cell biology/Cellular types/Animal cells/Blood cells/White blood cells/T cells","/Biology and life sciences/Immunology/Immune cells/Granulomas","/Biology and life sciences/Immunology/Immune cells/White blood cells/T cells","/Biology and life sciences/Immunology/Immune cells/White blood cells/Macrophages","/Medicine and health sciences/Immunology/Immune cells/White blood cells/T cells","/Medicine and health sciences/Immunology/Immune cells/Granulomas","/Medicine and health sciences/Immunology/Immune system/Innate immune system/Antigen presentation"],"publication_date":"2010-03-12T00:00:00Z","received_date":"2009-10-02T00:00:00Z","accepted_date":"2010-02-03T00:00:00Z","article_type":"Research Article","author_display":["Lynette Beattie","Adam Peltan","Asher Maroof","Alun Kirby","Najmeeyah Brown","Mark Coles","Deborah F. Smith","Paul M. Kaye"],"editor_display":["John M. Mansfield"],"affiliate":["Centre for Immunology and Infection, Hull York Medical School and Department of Biology, University of York, York, United Kingdom"],"financial_disclosure":"This work was supported by the Wellcome Trust (#077503 to DFS; #084534 to PMK and AK) and the U.K. Medical Research Council (G0400786 to PMK). The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.","title":"Dynamic Imaging of Experimental Leishmania donovani-Induced Hepatic Granulomas Detects Kupffer Cell-Restricted Antigen Presentation to Antigen-Specific CD8+ T Cells"}]}}
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 22:01:26 GMT
+  recorded_at: Tue, 09 Dec 2014 10:21:42 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pbio.1000296&rows=25&wt=json
@@ -63,13 +63,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Dec 2014 22:01:23 GMT
+      - Tue, 09 Dec 2014 10:21:41 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Thu, 04 Dec 2014 21:58:31 GMT
+      - Tue, 09 Dec 2014 10:21:02 GMT
       Etag:
-      - '"MTU0NzYwMDAwMDAwMDAwMFNvbHI="'
+      - '"OWRkNzEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -141,7 +141,7 @@ http_interactions:
         LUNhdGVuaW4gYW5kIFJlZ3VsYXRlcyBUSDIgRGlmZmVyZW50aWF0aW9uIGlu
         IFdudC1EZXBlbmRlbnQgTWFubmVyIn1dfX0K
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 22:01:26 GMT
+  recorded_at: Tue, 09 Dec 2014 10:21:43 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pone.0009729&rows=25&wt=json
@@ -163,13 +163,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Dec 2014 22:01:23 GMT
+      - Tue, 09 Dec 2014 10:21:42 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Thu, 04 Dec 2014 21:58:31 GMT
+      - Tue, 09 Dec 2014 10:21:02 GMT
       Etag:
-      - '"MTU0NzYwMDAwMDAwMDAwMFNvbHI="'
+      - '"OWRkNzEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -177,7 +177,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=9514451d:0; path=/
+      - Coyote-2-9514450c=95144521:0; path=/
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -252,7 +252,7 @@ http_interactions:
         ZXF1ZW5jZSBvZiBDdXByaWF2aWR1cyBuZWNhdG9yIEpNUDEzNCwgYSBWZXJz
         YXRpbGUgUG9sbHV0YW50IERlZ3JhZGVyIn1dfX0K
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 22:01:27 GMT
+  recorded_at: Tue, 09 Dec 2014 10:21:43 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pone.0010418&rows=25&wt=json
@@ -274,13 +274,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Dec 2014 22:01:24 GMT
+      - Tue, 09 Dec 2014 10:21:44 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Thu, 04 Dec 2014 21:58:31 GMT
+      - Tue, 09 Dec 2014 10:21:02 GMT
       Etag:
-      - '"MTU0NzYwMDAwMDAwMDAwMFNvbHI="'
+      - '"OWRkNzEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -288,7 +288,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=95144522:0; path=/
+      - Coyote-2-9514450c=95144521:0; path=/
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -349,7 +349,7 @@ http_interactions:
         eSBGb3JtYXRpb24g4oCTIEEgTW91c2UgTW9kZWwgZm9yIENlbmFuaS1MZW56
         IFN5bmRyb21lIn1dfX0K
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 22:01:28 GMT
+  recorded_at: Tue, 09 Dec 2014 10:21:44 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pone.0010643&rows=25&wt=json
@@ -371,13 +371,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Dec 2014 22:01:24 GMT
+      - Tue, 09 Dec 2014 10:21:44 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Thu, 04 Dec 2014 21:58:31 GMT
+      - Tue, 09 Dec 2014 10:21:02 GMT
       Etag:
-      - '"MTU0NzYwMDAwMDAwMDAwMFNvbHI="'
+      - '"OWRkNzEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -391,7 +391,7 @@ http_interactions:
       string: |
         {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.pone.0010643","cross_published_journal_name":["PLOS ONE"],"pmid":"20498714","subject":["/Medicine and health sciences/Anatomy/Digestive system/Mouth/Tongue","/Biology and life sciences/Cell biology/Cellular types/Animal cells/Epithelial cells/Keratinocytes","/Medicine and health sciences/Anatomy/Biological tissue/Epithelium/Epithelial cells","/Biology and life sciences/Physiology/Physiological processes/Tissue repair","/Biology and life sciences/Anatomy/Histology","/Medicine and health sciences/Physiology/Physiological processes/Tissue repair/Wound healing","/Medicine and health sciences/Anatomy/Biological tissue/Epithelium/Epithelial cells/Keratinocytes","/Medicine and health sciences/Physiology/Physiological processes/Tissue repair","/Biology and life sciences/Physiology/Physiological processes/Tissue repair/Wound healing","/Biology and life sciences/Anatomy/Biological tissue/Epithelium","/Medicine and health sciences/Anatomy/Histology","/Biology and life sciences/Cell biology/Cell motility/Cell migration","/Medicine and health sciences/Anatomy/Biological tissue/Epithelium","/Biology and life sciences/Anatomy/Digestive system/Mouth/Tongue","/Biology and life sciences/Developmental biology/Cell migration","/Biology and life sciences/Anatomy/Biological tissue/Epithelium/Epithelial cells","/Biology and life sciences/Cell biology/Cellular types/Animal cells/Epithelial cells","/Biology and life sciences/Anatomy/Biological tissue/Epithelium/Epithelial cells/Keratinocytes"],"publication_date":"2010-05-13T00:00:00Z","received_date":"2010-02-17T00:00:00Z","accepted_date":"2010-04-08T00:00:00Z","article_type":"Research Article","author_display":["Cristiane H. Squarize","Rogerio M. Castilho","Thomas H. Bugge","J. Silvio Gutkind"],"editor_display":["Maria G. Castro"],"affiliate":["Oral and Pharyngeal Cancer Branch, National Institute of Dental and Craniofacial Research, National Institutes of Health, Bethesda, Maryland, United States of America","Division of Oral Pathology/Medicine/Radiology, Department of Periodontics and Oral Medicine, University of Michigan School of Dentistry, Ann Arbor, Michigan, United States of America"],"financial_disclosure":"This research was supported by the Intramural Research Program of NIH, National Institute of Dental and Craniofacial Research. The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.","title":"Accelerated Wound Healing by mTOR Activation in Genetically Defined Mouse Models"}]}}
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 22:01:28 GMT
+  recorded_at: Tue, 09 Dec 2014 10:21:45 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pone.0010795&rows=25&wt=json
@@ -413,13 +413,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Dec 2014 22:01:25 GMT
+      - Tue, 09 Dec 2014 10:21:45 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Thu, 04 Dec 2014 21:58:31 GMT
+      - Tue, 09 Dec 2014 10:21:02 GMT
       Etag:
-      - '"MTU0NzYwMDAwMDAwMDAwMFNvbHI="'
+      - '"OWRkNzEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -427,13 +427,13 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=95144522:0; path=/
+      - Coyote-2-9514450c=95144521:0; path=/
     body:
       encoding: UTF-8
       string: |
         {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.pone.0010795","cross_published_journal_name":["PLOS ONE"],"pmid":"20532244","subject":["/Biology and life sciences/Molecular biology/Molecular biology techniques/Artificial gene amplification and extension/Polymerase chain reaction","/Medicine and health sciences/Pathology and laboratory medicine/Toxicology/Toxic agents/Toxins","/Biology and life sciences/Cell biology/Cellular structures and organelles/Cell membranes/Membrane proteins","/Biology and life sciences/Organisms/Bacteria/Gut bacteria/Clostridium perfringens","/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/DNA sequence analysis","/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis/DNA sequence analysis","/Biology and life sciences/Toxicology/Toxic agents/Toxins","/Biology and life sciences/Biochemistry/Proteins/Protein domains","/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence alignment","/Biology and life sciences/Genetics/Genetic loci","/Research and analysis methods/Molecular biology techniques/Artificial gene amplification and extension/Polymerase chain reaction","/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence alignment"],"publication_date":"2010-05-24T00:00:00Z","received_date":"2010-03-24T00:00:00Z","accepted_date":"2010-04-30T00:00:00Z","article_type":"Research Article","author_display":["Dion Lepp","Bryan Roxas","Valeria R. Parreira","Pradeep R. Marri","Everett L. Rosey","Joshua Gong","J. Glenn Songer","Gayatri Vedantam","John F. Prescott"],"editor_display":["Holger Bruggemann"],"affiliate":["Department of Pathobiology, University of Guelph, Guelph, Ontario, Canada","Guelph Food Research Centre, Agriculture and Agri-Food Canada, Guelph, Ontario, Canada","Department of Veterinary Science and Microbiology, University of Arizona, Tucson, Arizona, United States of America","BIO5 Institute, University of Arizona, Tucson, Arizona, United States of America","Veterinary Medicine Research and Development, Pfizer Animal Health, Kalamazoo, Michigan, United States of America","Southern Arizona VA Healthcare System, Tucson, Arizona, United States of America"],"financial_disclosure":"This work was funded by Agriculture and Agri-Food Canada (AAFC) A-base Fund (WBSE# F.1208.FC) (JG and DL), the Ontario Ministry of Agriculture, Food and Rural Affairs (OMAFRA) and the Poultry Industry Council (PIC) (JFP, VRP and DL), United States Department of Agriculture (USDA) grant no. 2007-35204-18362 and Pfizer Animal Health (JGS). Apart from the input provided by ELR in the conception of the research and review of the manuscript, the funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.","title":"Identification of Novel Pathogenicity Loci in Clostridium perfringens Strains That Cause Avian Necrotic Enteritis"}]}}
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 22:01:29 GMT
+  recorded_at: Tue, 09 Dec 2014 10:21:46 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pntd.0000594&rows=25&wt=json
@@ -455,13 +455,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Dec 2014 22:01:25 GMT
+      - Tue, 09 Dec 2014 10:21:45 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Thu, 04 Dec 2014 21:58:31 GMT
+      - Tue, 09 Dec 2014 10:21:02 GMT
       Etag:
-      - '"MTU0NzYwMDAwMDAwMDAwMFNvbHI="'
+      - '"OWRkNzEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -523,7 +523,7 @@ http_interactions:
         b3JjaW5lIEN5c3RpY2VyY29zaXMgaW4gQW5nw7NuaWEgRGlzdHJpY3QsIE1v
         emFtYmlxdWUifV19fQo=
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 22:01:29 GMT
+  recorded_at: Tue, 09 Dec 2014 10:21:46 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pone.0008822&rows=25&wt=json
@@ -545,13 +545,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Dec 2014 22:01:26 GMT
+      - Tue, 09 Dec 2014 10:21:46 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Thu, 04 Dec 2014 21:58:31 GMT
+      - Tue, 09 Dec 2014 10:21:02 GMT
       Etag:
-      - '"MTU0NzYwMDAwMDAwMDAwMFNvbHI="'
+      - '"OWRkNzEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -565,7 +565,7 @@ http_interactions:
       string: |
         {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.pone.0008822","cross_published_journal_name":["PLOS ONE"],"pmid":"20098675","subject":["/Research and analysis methods/Molecular biology techniques/Molecular biology assays and analysis techniques/Gene expression and vector techniques/Protein expression","/Biology and life sciences/Biochemistry/Proteins/Plasma proteins","/Biology and life sciences/Molecular biology/Molecular biology techniques/Molecular biology assays and analysis techniques/Gene expression and vector techniques/Protein expression","/Biology and life sciences/Physiology/Body fluids/Blood/Blood plasma","/Computer and information sciences/Network analysis/Protein interaction networks","/Biology and life sciences/Biochemistry/Proteins/Acute phase proteins","/Medicine and health sciences/Tropical diseases/Malaria","/Medicine and health sciences/Physiology/Body fluids/Blood/Blood plasma","/Biology and life sciences/Biochemistry/Proteins/Proteomes","/Medicine and health sciences/Anatomy/Body fluids/Blood/Blood plasma","/Medicine and health sciences/Parasitic diseases/Malaria","/Medicine and health sciences/Hematology/Blood/Blood plasma","/Biology and life sciences/Biochemistry/Proteomics/Protein interaction networks","/Medicine and health sciences/Hematology/Anemia","/Biology and life sciences/Anatomy/Body fluids/Blood/Blood plasma"],"publication_date":"2010-01-21T00:00:00Z","received_date":"2009-08-12T00:00:00Z","accepted_date":"2009-12-27T00:00:00Z","article_type":"Research Article","author_display":["David C. Simpson","Edward Kabyemela","Atis Muehlenbachs","Yuko Ogata","Theonest K. Mutabingwa","Patrick E. Duffy","Michal Fried"],"editor_display":["Georges Snounou"],"affiliate":["Seattle Biomedical Research Institute, Seattle, Washington, United States of America","MOMS Project, Seattle Biomedical Research Institute, Seattle, Washington, United States of America","Muheza Designated District Hospital, Muheza, Tanzania","National Institute for Medical Research, Dar es Salaam, Tanzania","University of Washington, Seattle, Washington, United States of America"],"financial_disclosure":"This work was supported by grants from the US National Institutes of Health (grants AI52059 to P.E.D and 1HD049641, R01HD058005 to M.F) and the Bill & Melinda Gates Foundation (grant 3035 to P.E.D). The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.","title":"Plasma Levels of Apoliporptoein A1 in Malaria-Exposed Primigravidae Are Associated with Severe Anemia"}]}}
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 22:01:30 GMT
+  recorded_at: Tue, 09 Dec 2014 10:21:47 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=false&fl=id,publication_date,pmid&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&q=pmid:%2220552018%22%20OR%20pmid:%2220436915%22%20OR%20pmid:%2220436906%22%20OR%20pmid:%2220436680%22%20OR%20pmid:%2220224736%22&rows=5&wt=json
@@ -587,13 +587,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Dec 2014 22:01:26 GMT
+      - Tue, 09 Dec 2014 10:21:46 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Thu, 04 Dec 2014 21:58:31 GMT
+      - Tue, 09 Dec 2014 10:21:02 GMT
       Etag:
-      - '"MTU0NzYwMDAwMDAwMDAwMFNvbHI="'
+      - '"OWRkNzEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -601,11 +601,11 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=95144521:0; path=/
+      - Coyote-2-9514450c=95144522:0; path=/
     body:
       encoding: UTF-8
       string: |
-        {"response":{"numFound":5,"start":0,"docs":[{"id":"10.1371/journal.pone.0010363","pmid":"20436906","publication_date":"2010-04-27T00:00:00Z"},{"id":"10.1371/journal.pone.0010356","pmid":"20436915","publication_date":"2010-04-27T00:00:00Z"},{"id":"10.1371/journal.pone.0011070","pmid":"20552018","publication_date":"2010-06-11T00:00:00Z"},{"id":"10.1371/journal.pone.0010310","pmid":"20436680","publication_date":"2010-04-26T00:00:00Z"},{"id":"10.1371/journal.pone.0009632","pmid":"20224736","publication_date":"2010-03-10T00:00:00Z"}]}}
+        {"response":{"numFound":5,"start":0,"docs":[{"id":"10.1371/journal.pone.0010356","pmid":"20436915","publication_date":"2010-04-27T00:00:00Z"},{"id":"10.1371/journal.pone.0010310","pmid":"20436680","publication_date":"2010-04-26T00:00:00Z"},{"id":"10.1371/journal.pone.0010363","pmid":"20436906","publication_date":"2010-04-27T00:00:00Z"},{"id":"10.1371/journal.pone.0011070","pmid":"20552018","publication_date":"2010-06-11T00:00:00Z"},{"id":"10.1371/journal.pone.0009632","pmid":"20224736","publication_date":"2010-03-10T00:00:00Z"}]}}
     http_version: 
-  recorded_at: Thu, 04 Dec 2014 22:01:30 GMT
+  recorded_at: Tue, 09 Dec 2014 10:21:47 GMT
 recorded_with: VCR 2.9.3
