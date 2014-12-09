@@ -10,7 +10,7 @@ end
 
 def build_page_block_test_once(params, expected)
   qb = Solr::QueryBuilder.new(params)
-  qb.page_block.should eq(expected)
+  qb.send(:page_block).should eq(expected)
 end
 
 describe Solr::QueryBuilder do
@@ -102,13 +102,13 @@ describe Solr::QueryBuilder do
   it "doesn't have interactions between build_page_block and build" do
     params = { everything: "hi", title: "bye" }
     qb = Solr::QueryBuilder.new(params)
-    qb.page_block.should eq("rows=25")
+    qb.send(:page_block).should eq("rows=25")
     qb.build
     qb.query[:q].should eq("everything:hi AND title:bye")
 
     params = { everything: "bad", title: "business", current_page: 2, rows: 475 }
     qb = Solr::QueryBuilder.new(params)
-    qb.page_block.should eq("rows=475&start=475")
+    qb.send(:page_block).should eq("rows=475&start=475")
     qb.build
     qb.query[:q].should eq("everything:bad AND title:business")
   end
@@ -135,14 +135,14 @@ describe Solr::QueryBuilder do
     sort = "sum(malformed,"
     qb = Solr::QueryBuilder.new(everything: "testing", sort: sort)
     qb.build
-    qb.sort.should eq(nil)
+    qb.send(:sort).should eq(nil)
   end
 
   it "takes whitelisted sorts into account" do
     sort = "publication_date desc"
     qb = Solr::QueryBuilder.new(everything: "testing", sort: sort)
     qb.build
-    qb.sort.should eq("&sort=publication_date%20desc")
+    qb.send(:sort).should eq("&sort=publication_date%20desc")
   end
 
   it "accepts HashWithIndifferentAccess as a parameter" do
@@ -214,5 +214,15 @@ describe Solr::QueryBuilder do
     Timecop.return
 
     # TODO: test end day before start day and other error cases.
+  end
+
+  it "adjusts the rows for multiple ids" do
+    params = {
+      ids: 103.times.map{ |i| i}
+    }
+
+    qb = Solr::QueryBuilder.new(params)
+    qb.build
+    expect(qb.url).to include("rows=103")
   end
 end

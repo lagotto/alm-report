@@ -7,7 +7,6 @@ module Solr
       @sort = @params[:sort]
 
       @fl = fl || Request::FL
-      @page_block = build_page_block
       @query = {}
     end
 
@@ -20,6 +19,7 @@ module Solr
     # before use.
     def build
       clean_params
+      build_ids
       build_filter_journals
       build_affiliate_param
       build_date_range
@@ -36,14 +36,21 @@ module Solr
       @query
     end
 
-    # Returns the portion of Solr URL with the query parameter & journal filter
-    def build_advanced
-      build_filter_journals
+    def url
+      # :unformattedQueryId comes from advanced search
+      @params.has_key?(:unformattedQueryId) ? build_advanced : build
+      "#{ENV["SOLR_URL"]}?#{query_param}#{common_params}#{sort}&hl=false"
+    end
 
-      if @params.has_key?(:unformattedQueryId)
-        @query[:q] = @params[:unformattedQueryId].strip
+
+    private
+
+    def build_ids
+      ids = @params[:ids]
+      if ids
+        @params[:rows] = ids.size
+        @params[:id] = ids.join(" OR ")
       end
-      @query
     end
 
     # Adds leading & trailing double-quotes to string if it contains whitespace.
@@ -54,12 +61,21 @@ module Solr
       s
     end
 
+    # Returns the portion of Solr URL with the query parameter & journal filter
+    def build_advanced
+      build_filter_journals
+
+      if @params.has_key?(:unformattedQueryId)
+        @query[:q] = @params[:unformattedQueryId].strip
+      end
+      @query
+    end
+
     # The search page uses two form fields, author_country and institution, that
     # are both implemented by mapping onto the same field in the solr schema:
     # affiliate. This method handles building the affiliate param based on the
     # other two (whether or not they are present). It will also delete the two
     # "virtual" params as a side-effect.
-
     def build_affiliate_param
       parts = [@params[:author_country], @params[:institution]]
       parts = parts.compact.map do |part|
@@ -78,7 +94,7 @@ module Solr
     # Returns the fragment of the URL having to do with paging; specifically,
     # the rows and start parameters.  These can be passed in directly to the
     # constructor, or calculated based on the current_page param, if it's present.
-    def build_page_block
+    def page_block
       rows = @params[:rows] || ENV["PER_PAGE"]
       page = @params[:current_page] || "1"
 
@@ -92,7 +108,7 @@ module Solr
     end
 
     def common_params
-      "&#{Request::FILTER}&#{fl}&wt=json&facet=false&#{@page_block}"
+      "&#{Request::FILTER}&#{fl}&wt=json&facet=false&#{page_block}"
     end
 
     def sort
@@ -100,14 +116,6 @@ module Solr
         "&sort=#{URI::encode(@sort)}"
       end
     end
-
-    def url
-      # :unformattedQueryId comes from advanced search
-      @params.has_key?(:unformattedQueryId) ? build_advanced : build
-      "#{ENV["SOLR_URL"]}?#{query_param}#{common_params}#{sort}&hl=false"
-    end
-
-    private
 
     def build_filter_journals
       if @params.has_key?(:filterJournals)
@@ -123,8 +131,6 @@ module Solr
       end
       @query.to_param
     end
-
-    private
 
     # Logic for creating a limit on the publication_date for a query. All params
     # are strings. Legal values for days_ago are "-1", "0", or a positive integer.

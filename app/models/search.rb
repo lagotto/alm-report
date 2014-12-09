@@ -19,12 +19,7 @@ class Search
 
   def self.find_by_ids(ids)
     cache(ids, expires_in: 1.day) do |ids|
-      query = if plos?
-        { id: ids.join(" OR ") }
-      elsif crossref?
-        { filter: ids.map{|id| "doi:#{id}"}.join(",") }
-      end
-      find(query).first
+      find({ids: ids}).first
     end
   end
 end
