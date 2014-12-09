@@ -75,8 +75,14 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  config.around(:each) do |example|
+    # Restore pristine ENV after each example
+    old_env = Hash[ENV_VARS.map { |var| [var, ENV[var]] }]
+    example.run
+    old_env.each { |k,v| ENV[k] = v }
+  end
+
   config.before(:each) do |example|
-    Dotenv.load! ".env"
     Rails.cache.clear
   end
 end

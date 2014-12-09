@@ -21,13 +21,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 09 Dec 2014 11:37:57 GMT
+      - Tue, 09 Dec 2014 13:03:16 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Tue, 09 Dec 2014 11:36:59 GMT
+      - Tue, 09 Dec 2014 13:01:20 GMT
       Etag:
-      - '"NWM0ZjEwMDAwMDAwMDAwMFNvbHI="'
+      - '"YTZlZjEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -35,7 +35,7 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=9514451d:0; path=/
+      - Coyote-2-9514450c=95144521:0; path=/
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -1090,7 +1090,7 @@ http_interactions:
         Q2FuY2VyLVNwZWNpZmljIFRyYW5zY3JpcHQgVmFyaWFudHMgYnkgU3VidHJh
         Y3RpdmUgVHJhbnNjcmlwdG9tZS1XaWRlIEFuYWx5c2lzIn1dfX0K
     http_version: 
-  recorded_at: Tue, 09 Dec 2014 11:37:59 GMT
+  recorded_at: Tue, 09 Dec 2014 13:03:18 GMT
 - request:
     method: get
     uri: http://alm.plos.org/api/v3/articles?api_key=<API_KEY>&ids=10.1371/journal.pone.0010031,10.1371/journal.pone.0013696
@@ -1114,7 +1114,7 @@ http_interactions:
       Server:
       - nginx/1.6.0
       Date:
-      - Tue, 09 Dec 2014 11:38:00 GMT
+      - Tue, 09 Dec 2014 13:03:19 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -1136,13 +1136,13 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Etag:
-      - '"bfad8339449d5740f013985499203a45"'
+      - '"a77dd8238d6f8b64305499d9b9d4a81d"'
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 5a916c31-df68-40ad-bfa5-bad35c47af04
+      - 28d74c7a-b738-4e42-bfb5-fd035593999a
       X-Runtime:
-      - '0.101844'
+      - '0.086272'
       Set-Cookie:
       - Coyote-2-9514450b=9514452f:0; path=/
     body:
@@ -1484,5 +1484,5 @@ http_interactions:
         OjAsImxpa2VzIjpudWxsLCJjaXRhdGlvbnMiOm51bGwsInRvdGFsIjowfSwi
         dXBkYXRlX2RhdGUiOiIyMDE0LTExLTA4VDIzOjQ4OjAzWiJ9XX1d
     http_version: 
-  recorded_at: Tue, 09 Dec 2014 11:38:00 GMT
+  recorded_at: Tue, 09 Dec 2014 13:03:20 GMT
 recorded_with: VCR 2.9.3

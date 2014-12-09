@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - nginx/1.6.0
       Date:
-      - Tue, 09 Dec 2014 10:21:09 GMT
+      - Tue, 09 Dec 2014 13:06:26 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -47,9 +47,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - 8663f53c-1b1b-4f5a-a877-1e132f1d37a1
+      - 30a9d3a4-f376-4c9b-9d9b-50c8ee51744f
       X-Runtime:
-      - '0.113903'
+      - '0.033400'
       Set-Cookie:
       - Coyote-2-9514450b=9514452f:0; path=/
     body:
@@ -1090,7 +1090,7 @@ http_interactions:
         bnVsbCwiY29tbWVudHMiOjAsImxpa2VzIjpudWxsLCJ0b3RhbCI6MH0sImV2
         ZW50cyI6W10sImV2ZW50c19jc2wiOltdfV19XX0=
     http_version: 
-  recorded_at: Tue, 09 Dec 2014 10:21:10 GMT
+  recorded_at: Tue, 09 Dec 2014 13:06:27 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pcbi.1002727&rows=25&wt=json
@@ -1112,13 +1112,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 09 Dec 2014 10:21:10 GMT
+      - Tue, 09 Dec 2014 13:06:28 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Tue, 09 Dec 2014 10:21:02 GMT
+      - Tue, 09 Dec 2014 13:06:17 GMT
       Etag:
-      - '"OWRkNzEwMDAwMDAwMDAwMFNvbHI="'
+      - '"MjllZjEwMDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -1126,11 +1126,11 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=9514451d:0; path=/
+      - Coyote-2-9514450c=95144522:0; path=/
     body:
       encoding: UTF-8
       string: |
         {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.pcbi.1002727","cross_published_journal_name":["PLOS Computational Biology"],"pmid":"23055917","subject":["/Biology and life sciences/Computational biology","/People and places/Population groupings/Professions/Biologists","/Ecology and environmental sciences/Ecology/Biodiversity","/Biology and life sciences/Ecology/Biodiversity","/Social sciences/Sociology/Families and family members/Human families"],"publication_date":"2012-10-04T00:00:00Z","article_type":"Editorial","author_display":["Ruth Nussinov"],"affiliate":["Basic Science Program, SAIC-Frederick, Inc., Center for Cancer Research Nanobiology Program, Frederick National Laboratory for Cancer Research, National Cancer Institute, Frederick, Maryland, United States of America","Sackler Institute of Molecular Medicine, Department of Human Genetics and Molecular Medicine, Sackler School of Medicine, Tel Aviv University, Tel Aviv, Israel"],"financial_disclosure":"The author received no specific funding for writing this article.","title":"A Future Vision for PLOS Computational Biology"}]}}
     http_version: 
-  recorded_at: Tue, 09 Dec 2014 10:21:10 GMT
+  recorded_at: Tue, 09 Dec 2014 13:06:29 GMT
 recorded_with: VCR 2.9.3
