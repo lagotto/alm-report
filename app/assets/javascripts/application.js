@@ -24,7 +24,6 @@
 //= require sunburst/app/scripts/sunburst_chart
 //= require line/app/scripts/line_chart
 //= require datamaps/dist/datamaps.world
-//= require jquery
 //= require_self
 
 // for more details see: http://emberjs.com/guides/application/
