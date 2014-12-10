@@ -14,6 +14,13 @@
     "tests"
   ],
   "dependencies": {
-    "sunburst": "git://github.com/articlemetrics/sunburst.git"
+    "sunburst": "git://github.com/articlemetrics/sunburst.git",
+    "bubble": "git://github.com/articlemetrics/bubble.git",
+    "line": "git://github.com/articlemetrics/line.git",
+    "d3-tip": "git://github.com/Caged/d3-tip.git",
+    "datamaps": "~0.3.4"
+  },
+  "resolutions": {
+    "d3": "3.4.13"
   }
 }
