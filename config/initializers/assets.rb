@@ -8,3 +8,5 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w(
   charts.js print.css html5shiv.js application.plos.css alm_report.js
 )
+
+Rails.application.config.assets.paths << Rails.root.join("vendor","assets","bower_components")
