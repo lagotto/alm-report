@@ -39,6 +39,19 @@ describe Cart, vcr: true do
       to eq(["10.1371/journal.pone.0010031", "10.1371/journal.pmed.0040013"])
   end
 
+  it "adds multiple and keeps order" do
+    add = [
+      "10.1371/journal.pmed.0040013",
+      "10.1371/journal.pone.0013696",
+      "10.1371/journal.pone.0111729",
+      "10.1371/journal.pone.0110348"
+    ]
+    subject.add(add)
+
+    expect(subject.dois).
+      to eq(item_ids + add)
+  end
+
   it "remove" do
     subject.remove("10.1371/journal.pone.0010031")
     expect(subject.dois).to be_empty
