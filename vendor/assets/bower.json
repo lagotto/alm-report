@@ -6,5 +6,8 @@
     "sunburst": "git://github.com/articlemetrics/sunburst",
     "datamaps": "latest",
     "d3-tip": "git://github.com/Caged/d3-tip"
+  },
+  "resolutions": {
+    "d3": "3.4.13"
   }
 }
