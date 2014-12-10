@@ -33,6 +33,7 @@ describe 'generate report', type: :feature, vcr: true do
       expect(page).to have_button('Preview List (0)', disabled: true)
 
       first('.article-info.cf').find('input.check-save-article').click
+      expect(page).to have_button('Preview List (1)')
       all('.article-info.cf')[5].find('input.check-save-article').click
       expect(page).to have_button('Preview List (2)')
       find_button('Preview List (2)').click

@@ -32,6 +32,7 @@ describe "export report as csv", type: :feature, vcr: true do
       expect(page).to have_button("Preview List (0)", disabled: true)
 
       first(".article-info.cf").find("input.check-save-article").click
+      expect(page).to have_button("Preview List (1)")
       all(".article-info.cf")[5].find("input.check-save-article").click
 
       preview

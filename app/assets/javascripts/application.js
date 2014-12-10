@@ -19,11 +19,11 @@
 //= require script
 //= require advancedSearch
 //= require es5_shim
-// require d3-tip/index
-// require bubble/app/scripts/bubble_chart
-// require sunburst/app/scripts/sunburst_chart
-// require line/app/scripts/line_chart
-// require datamaps/dist/datamaps.world
+//= require d3-tip/index
+//= require bubble/app/scripts/bubble_chart
+//= require sunburst/app/scripts/sunburst_chart
+//= require line/app/scripts/line_chart
+//= require datamaps/dist/datamaps.world
 //= require_self
 
 // for more details see: http://emberjs.com/guides/application/
