@@ -4,7 +4,6 @@ class PreviewController < ApplicationController
     @title = "Preview List"
     @total_found = items.size
     set_paging_vars(params[:current_page])
-
     @results = paginated_results
   end
 

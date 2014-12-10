@@ -85,13 +85,14 @@ describe 'generate report', type: :feature, vcr: true do
       first(".article-info.cf").find("input.check-save-article").click
       expect(page).to have_button("Preview List (1)")
       click_link("3")
-      all(".article-info.cf")[12].find("input.check-save-article").click
+
+      all(".article-info.cf")[2].find("input.check-save-article").click
 
       expect(page).to have_button("Preview List (2)")
       find_button("Preview List (2)").click
       expect(page).to have_content "A Future Vision for PLOS Computational Biology"
-      expect(page).to have_content "New Methods Section in PLOS Computational Biology"
-      expect(page).not_to have_content "What Do I Want from the Publisher of the Future?"
+      expect(page).to have_content "A Computational Model of Liver Iron Metabolism"
+      expect(page).not_to have_content "Computational and Statistical Analysis of Protein Mass Spectrometry Data"
       click_button "Create Report"
 
       expect(page).to have_content("Metrics Data")

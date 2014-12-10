@@ -181,10 +181,10 @@ class IdController < ApplicationController
 
     valid_dois.each do |doi|
       doc = SearchResult.from_cache(doi)
-      if doc.nil?
-        add_error.call(doi, "This paper could not be found")
-      else
+      if doc
         @cart[doc.id] = doc
+      else
+        add_error.call(doi, "This paper could not be found")
       end
     end
 

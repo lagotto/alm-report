@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Api::ReportsController do
   describe "GET report_alm", vcr: true do
-    it "gets data from the ALM API and CrossRef API" do
+    it "gets data from the ALM API and search API" do
       @report = Report.new
       report_doi = ReportDoi.new
       report_doi.doi = "10.1371/journal.pcbi.1002727"
@@ -14,8 +14,9 @@ describe Api::ReportsController do
 
       data = JSON.parse(response.body)
       expect(data["report"]["items"].size).to eq 1
-      expect(data["report"]["items"][0]["journal"]).to eq \
-        "PLOS Computational Biology"
+
+      expect(data["report"]["items"][0]["journal"].downcase).to eq \
+        "plos computational biology"
     end
   end
 end

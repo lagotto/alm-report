@@ -2,13 +2,21 @@ require 'rails_helper'
 
 describe HomeController do
   describe "GET update_session", vcr: true do
-    let(:article_ids) { ["10.1371/journal.pone.0010031",
-                         "10.1371/journal.pmed.0010065",
-                         "10.1371/journal.pone.0009584"] }
+    let(:article_ids) {
+      [
+        "10.1371/journal.pone.0113157",
+        "10.1371/journal.pone.0114307",
+        "10.1371/journal.pone.0114162"
+      ]
+    }
 
-    let(:dois) { ["10.1371/journal.pone.0010031",
-                  "10.1371/journal.pmed.0010065",
-                  "10.1371/journal.pone.0009584" ] }
+    let(:dois) {
+      [
+        "10.1371/journal.pone.0113157",
+        "10.1371/journal.pone.0114307",
+        "10.1371/journal.pone.0114162"
+      ]
+    }
 
     it "handles params" do
       post :update_session, { "article_ids" => article_ids, "mode" => "ADD" }

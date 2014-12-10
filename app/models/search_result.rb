@@ -124,9 +124,13 @@ class SearchResult
         "#{author["given"]} #{author["family"]}"
       end
     end
-    @journal = @data["container-title"][1] || @data["container-title"][0]
+    @journal = journal_crossref
     @url = @data["URL"]
     @publisher = @data["publisher"]
+  end
+
+  def journal_crossref
+    @data["container-title"].sort_by(&:length).last
   end
 
   def title_crossref

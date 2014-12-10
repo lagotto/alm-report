@@ -1,6 +1,6 @@
-describe SearchResult do
+describe SearchResult, vcr: true do
   if Search.plos?
-    it "correctly parses and geolocates affiliations", vcr: true do
+    it "correctly parses and geolocates affiliations" do
       result = Search.find_by_ids(["10.1371/journal.pone.0010031"]).first
       expect(result.affiliations).to eq [
         {
@@ -47,5 +47,11 @@ describe SearchResult do
         }
       ]
     end
+  end
+
+  it "gets the journal title with most information", vcr: true do
+    result = Search.find_by_ids(["10.1371/journal.pcbi.1002727"])[0]
+
+    expect(result.journal.downcase).to eq("plos computational biology")
   end
 end
