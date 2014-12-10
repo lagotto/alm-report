@@ -16,7 +16,7 @@ before_script:
 script:
 - bundle exec rake db:setup RAILS_ENV=test
 - npm install -g bower
-- bundle exec rake bower:install
+- bundle exec rake bower:install:deployment
 - bundle exec rspec
 addons:
   code_climate:
