@@ -28,7 +28,6 @@ group :development do
   gem "binding_of_caller"
   gem "capistrano-rails", require: false
   gem "capistrano-bundler", require: false
-  gem "capistrano-bower", require: false
 end
 
 group :test do
