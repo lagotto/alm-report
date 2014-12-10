@@ -4,9 +4,7 @@
     "bubble": "git://github.com/articlemetrics/bubble",
     "line": "git://github.com/articlemetrics/line",
     "sunburst": "git://github.com/articlemetrics/sunburst",
-    "datamaps": "latest"
-  },
-  "resolutions": {
-    "d3": "3.4"
+    "datamaps": "latest",
+    "d3-tip": "git://github.com/Caged/d3-tip"
   }
 }
