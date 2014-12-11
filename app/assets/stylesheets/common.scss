@@ -55,8 +55,12 @@ $subheader_background: lighten($breadcrumb_background_first, 50);
     </svg>") no-repeat;
 }
 
-@import "jquery-ui-dp";
-@import "uniform.default";
+// Skeleton, SCSSized
+@import "normalize";
+@import "skeleton";
+
+//@import "jquery-ui-dp";
+//@import "uniform.default";
 @import "style";
 @import "spinner";
 
@@ -65,3 +69,38 @@ $subheader_background: lighten($breadcrumb_background_first, 50);
 @import "sunburst_chart";
 @import "datamap_chart";
 
+body {
+  background: $main_background;
+}
+
+.section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  &.header, &.footer {
+    color: $header_text_color;
+    padding-bottom: 0;
+    background: $header_background;
+
+    a {
+      color: $header_text_color;
+    }
+
+    a:hover {
+      decoration: underline;
+    }
+  }
+
+  &.main {
+    background: $main_background;
+  }
+}
+
+/* For devices larger than 550px */
+@media (min-width: 550px) {
+  .container .one-fifth.column { width: 16.8%; }
+}
+
+.container {
+  max-width: 1140px;
+}

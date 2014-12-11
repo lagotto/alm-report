@@ -1,22 +1,32 @@
-section.sample-reports.cf
+section.sample-reports
   h2.text-light-normal Explore sample reports
+  .row
+    .three.columns
+      a.sample-reports-block-1 href="/search?filter=funder:100000957"
+        div.title
+          | Funder:
+          br
+          | Alzheimer's Association
+    .three.columns
+      a.sample-reports-block-2 href="/search?filter=publisher-name:Wiley-Blackwell"
+        = image_tag "home.sample.reports.img2.plos-alm.jpg", :height => '173', :width => '216', :alt => 'Sample Reports Funder'
+        div.title
+          | Publisher:
+          br
+          | Wiley-Blackwell
+    .three.columns
+      a.sample-reports-block-3 href="/search?filter=category-name:Molecular Biology"
+        = image_tag "home.sample.reports.img3.plos-alm.jpg", :height => '173', :width => '216', :alt => 'Sample Reports Funder'
+        div.title
+          | Subject Area:
+          br
+          | Molecular Biology
+    .three.columns
+      a.sample-reports-block-4 href='/search?everything="Michael B. Eisen"'
+        = image_tag "home.sample.reports.img4.plos-alm.jpg", :height => '173', :width => '216', :alt => 'Sample Reports Funder'
+        div.title
+          | Author:
+          br
+          | Michael B. Eisen
 
-  a.sample-reports-block-1 href="/search?filter=funder:100000957"
-    = image_tag "home.sample.reports.img1.plos-alm.jpg", :height => "173", :width => "216", :alt => "Sample Reports Funder"
-    span Funder:
-    span Alzheimer"s Association
 
-  a.sample-reports-block-2 href="/search?filter=publisher-name:Wiley-Blackwell"
-    = image_tag "home.sample.reports.img2.plos-alm.jpg", :height => "173", :width => "216", :alt => "Sample Reports Publisher"
-    span Publisher:
-    span Wiley-Blackwell
-
-  a.sample-reports-block-3 href="/search?filter=category-name:Molecular Biology"
-    = image_tag "home.sample.reports.img3.plos-alm.jpg", :height => "173", :width => "216", :alt => "Sample Reports Category"
-    span Subject Area:
-    span Molecular Biology
-
-  a.sample-reports-block-4 href='/search?everything="Michael B. Eisen"'
-    = image_tag "home.sample.reports.img4.plos-alm.jpg", :height => "173", :width => "216", :alt => "Sample Reports Author"
-    span Author:
-    span Michael B. Eisen

@@ -58,43 +58,20 @@ footer.nav-area {
   color: $footer_text_color;
 }
 
-.links-holder {
-  width: 460px;
-  margin: 18px 0 0 44px;
-  display: inline-block;
-}
-
-.links-holder h2 {
-  width: 50%;
-  padding: 0 0 5px 0;
-  display: inline-block;
+footer {
   font-size: 12px;
-  font-weight: bold;
-  color: $header_text_color;
-}
-
-.links-holder li {
-  width: 100%;
-  display: inline-block;
-  font-size: 12px;
-}
-
-.journal-links {
-  width: 236px;
-}
-
-.journal-links a {
   color: $footer_text_color;
-}
 
-.external-links {
-  width: 180px;
-  position: relative;
-  top: -25px;
-  font-weight: bold;
-  vertical-align: top;
-}
+  h2 {
+    font-size: 12px;
+    font-weight: bold;
+    color: $header_text_color;
+  }
 
+  .external-links {
+    font-weight: bold;
+  }
+}
 
 /* override the jquery datepicker defaults */
 .ui-datepicker {
@@ -226,98 +203,98 @@ div.uploader.disabled span.filename {
 
 /* Select selector */
 
-div.selector {
-  width: 439px !important;
-  height: 45px;
-  padding: 0 0 0 16px;
-  font-size: 18px;
-  background: image-url('sprite.png') -192px -399px no-repeat;
-}
+// div.selector {
+//   width: 439px !important;
+//   height: 45px;
+//   padding: 0 0 0 16px;
+//   font-size: 18px;
+//   background: image-url('sprite.png') -192px -399px no-repeat;
+// }
 
-div.selector.focus,
-div.selector.hover,
-div.selector:hover {
-  background-position: -192px -399px;
-}
+// div.selector.focus,
+// div.selector.hover,
+// div.selector:hover {
+//   background-position: -192px -399px;
+// }
 
-div.selector.focus:active,
-div.selector.focus.active,
-div.selector:hover:active,
-div.selector.active:hover {
-  background-position: -192px -399px;
-}
+// div.selector.focus:active,
+// div.selector.focus.active,
+// div.selector:hover:active,
+// div.selector.active:hover {
+//   background-position: -192px -399px;
+// }
 
-div.selector span {
-  width: 100%;
-  height: 45px;
-  padding-right: 25px;
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  background-position: right 0;
-  line-height: 45px;
-  vertical-align: middle;
-  cursor: pointer;
-  color: #333;
-  text-overflow: ellipsis;
-}
+// div.selector span {
+//   width: 100%;
+//   height: 45px;
+//   padding-right: 25px;
+//   display: block;
+//   overflow: hidden;
+//   white-space: nowrap;
+//   background-position: right 0;
+//   line-height: 45px;
+//   vertical-align: middle;
+//   cursor: pointer;
+//   color: #333;
+//   text-overflow: ellipsis;
+// }
 
-div.selector select {
-  width: 450px;
-  height: 45px;
-  display: inline-block;
-  position: relative;
-  top: -47px;
-  left: -16px;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  -moz-opacity: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 18px;
-}
+// div.selector select {
+//   width: 450px;
+//   height: 45px;
+//   display: inline-block;
+//   position: relative;
+//   top: -47px;
+//   left: -16px;
+//   opacity: 0;
+//   filter: alpha(opacity=0);
+//   -moz-opacity: 0;
+//   border: none;
+//   background: none;
+//   cursor: pointer;
+//   font-size: 18px;
+// }
 
-.add-select-box-holder div.selector {
-  width: 260px !important;
-  height: 36px;
-  padding: 0 0 0 16px;
-  font-size: 18px;
-  background: image-url('sprite.png') -647px -399px no-repeat;
-}
+// .add-select-box-holder div.selector {
+//   width: 260px !important;
+//   height: 36px;
+//   padding: 0 0 0 16px;
+//   font-size: 18px;
+//   background: image-url('sprite.png') -647px -399px no-repeat;
+// }
 
-.add-select-box-holder div.selector span {
-  width: 100%;
-  height: 36px;
-  padding-right: 25px;
-  color: #333;
-  display: block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  background-position: right 0;
-  line-height: 37px;
-  vertical-align: middle;
-  cursor: pointer;
-}
+// .add-select-box-holder div.selector span {
+//   width: 100%;
+//   height: 36px;
+//   padding-right: 25px;
+//   color: #333;
+//   display: block;
+//   text-overflow: ellipsis;
+//   overflow: hidden;
+//   white-space: nowrap;
+//   background-position: right 0;
+//   line-height: 37px;
+//   vertical-align: middle;
+//   cursor: pointer;
+// }
 
-.add-select-box-holder div.selector select {
-  width: 275px;
-}
+// .add-select-box-holder div.selector select {
+//   width: 275px;
+// }
 
-.add-select-box-holder div.selector.focus:active,
-.add-select-box-holder div.selector.focus.active,
-.add-select-box-holder div.selector:hover:active,
-.add-select-box-holder div.selector.active:hover {
-  background-position: -647px -399px;
-}
+// .add-select-box-holder div.selector.focus:active,
+// .add-select-box-holder div.selector.focus.active,
+// .add-select-box-holder div.selector:hover:active,
+// .add-select-box-holder div.selector.active:hover {
+//   background-position: -647px -399px;
+// }
 
-.input-holder option,
-.add-select-box-holder option {
-  background: #fff;
-  line-height: 21px;
-  padding: 0 0 0 5px;
-}
+// .input-holder option,
+// .add-select-box-holder option {
+//   background: #fff;
+//   line-height: 21px;
+//   padding: 0 0 0 5px;
+// }
 
 .reports-header-div {
   height: 48px;

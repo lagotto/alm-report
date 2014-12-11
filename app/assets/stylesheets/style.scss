@@ -3,14 +3,14 @@
 */
 
   /* 1. Reset */
-    @import 'reset';
+    // @import 'reset';
   /* 2. Body */
-    body {
-      width: 100%;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 16px;
-      color: $header_text_color;
-    }
+    // body {
+    //   width: 100%;
+    //   font-family: Arial, Helvetica, sans-serif;
+    //   font-size: 16px;
+    //   color: $header_text_color;
+    // }
   /* 3. Container / .container */
     @import 'container';
   /* 4. Header */

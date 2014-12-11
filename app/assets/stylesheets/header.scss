@@ -34,7 +34,7 @@ h1 + ul li {
 }
 
 .tagline {
-  margin: 63px 0 48px 62px;
+  margin: 63px 0 48px 0;
   width: 67%;
   display: inline-block;
 }
@@ -70,6 +70,7 @@ h1 + ul li {
 }
 
 .list-container {
+  background: $list_count_background;
   width: 180px;
   height: 53px;
   overflow: hidden;
@@ -91,9 +92,7 @@ h1 + ul li {
 }
 
 .list-count {
-  padding: 8px 0 8px;
   font-size: 32px;
-  background: #828282;
 }
 
 .list-hover {
