@@ -58,6 +58,13 @@ AlmReport.BubbleChartComponent = Ember.Component.extend({
   update: function () {
     var preparedData = this.get('prepareData')(this.get('items'), this.get('axis'));
 
+    // TODO:
+    //   'PLOS ONE': {color: 'fda328'},                    // Orange
+    //   'PLOS Biology': {color: '1ebd21'},                // Green
+    //   'PLOS Computational Biology': {color: '1ebd21'},  // Green
+    //   'PLOS Genetics': {color: '1ebd21'},                // Green
+    //   'default': {color: 'b526fb'}                      // Purple
+
     this.get('chart').update({
       width: this.get('width'),
       height: this.get('height'),
