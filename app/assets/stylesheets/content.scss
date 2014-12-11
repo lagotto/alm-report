@@ -1,13 +1,8 @@
 /* 5.1. Form block
    ========================================================================== */
 
-.home-form,
-.advanced-form {
-  margin-top: 48px;
-}
 
 h2 {
-  color: #333;
   font-size: 26px;
 }
 
@@ -55,13 +50,15 @@ input[type="text"] {
   vertical-align: top;
 }
 
-select {
-  width: 100%;
-  width: calc(100% + 22px);
-  height: 45px;
-  border-radius: 6px;
-  padding: 20px;
-  font-size: 18px;
+.home-form {
+  select {
+    width: 100%;
+    width: calc(100% + 22px);
+    height: 45px;
+    border-radius: 6px;
+    padding: 20px;
+    font-size: 18px;
+  }
 }
 
 .submit-btn {
@@ -117,7 +114,6 @@ select {
 
 .aside-container {
   width: 240px;
-  margin: 48px 0 0;
   float: right;
 }
 
@@ -125,10 +121,6 @@ select {
   position: fixed;
   top: 0;
   margin-top: 10px;
-}
-
-.aside-container.aside {
-  margin-top: 48px;
 }
 
 .aside-container.aside a {
@@ -371,7 +363,6 @@ select {
 }
 
 .preview-form p {
-  color: #333;
 }
 
 .preview-form .article-info input[type="checkbox"] {
@@ -388,14 +379,11 @@ select {
   display: none;
 }
 
-/* 5.8. Add-articles
+/* 5.8. Articles
    ========================================================================== */
 
 .article-lists {
-  width: 635px;
-  margin: 45px 0 0 50px;
   position: relative;
-  float: left;
   min-height: 290px;
 }
 
@@ -403,29 +391,12 @@ select {
   margin: 0 0 18px 0;
 }
 
-.article-lists p {
-  width: 570px;
-  line-height: 18px;
-  color: #333;
-}
-
 .keyword,
 .author-name,
 .author-country,
 .publication-date,
 .journals {
-  color: #333;
   font-weight: bold;
-}
-
-.article-lists p span {
-  display: inline-block;
-  color: #333;
-}
-
-.article-lists ul {
-  margin: 44px 0 0 0;
-  float: left;
 }
 
 .article-lists li,
@@ -445,10 +416,6 @@ select {
   display: inline;
 }
 
-.article-lists span{
-  color: #8d8d8d;
-}
-
 .article-info {
   width: inherit;
   margin: 0 0 22px 22px;
@@ -462,13 +429,8 @@ p.select-articles-message {
   clear: both;
 }
 
-/* I think the nasty hack from DP doesn't fix the problem because we had to make the select wider to accommodate the length of the text */
-#uniform-add-article-select {
-  margin-bottom: 7px; /* nasty hack to allow the "select-articles-message" element to have the correct top vertical margin */
-}
-
 .invisible {
-  visibility: hidden;
+  display: none;
 }
 
 .select-articles-message a {
@@ -479,31 +441,52 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-.article-info input[type="checkbox"] {
-  position: absolute;
-  top: 0;
-  left: -25px;
-}
+.article-info {
 
-.article-info a {
-  margin: 0;
-  border-bottom: 1px solid #333;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-}
+  input[type="checkbox"] {
+    position: absolute;
+    top: 0;
+    left: -25px;
+  }
 
-.article-info .success,
-.article-info .error {
-  position: absolute;
-  top: 34px;
-  left: -61px;
-  font-size: 12px;
-  color: #2d9e00;
-}
+  a {
+    color: $button_color;
+    font-size: 14px;
+    font-weight: bold;
+  }
 
-.article-info .error {
-  color: #e53350;
+  .success, .error {
+    position: absolute;
+    top: 34px;
+    left: -61px;
+    font-size: 12px;
+    color: #2d9e00;
+  }
+
+  .error {
+    color: #e53350;
+  }
+
+  .updating {
+    position: absolute;
+    width: 16px;
+    height: 11px;
+    top: 24px;
+    left: -35px;
+    background: image-url('ajax-loader.gif') no-repeat 0 0;
+  }
+
+  p {
+    margin: 3px 0 0;
+    line-height: 16px;
+    color: #666;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 12px;
+  }
+
+  p + p {
+    margin: 0;
+  }
 }
 
 .success-tick {
@@ -515,54 +498,10 @@ input[type="checkbox"] {
   background: image-url('sprite.png') no-repeat -124px -142px;
 }
 
-.article-info .updating {
-  position: absolute;
-  width: 16px;
-  height: 11px;
-  top: 24px;
-  left: -35px;
-  background: image-url('ajax-loader.gif') no-repeat 0 0;
-}
-
-.article-info p {
-  margin: 3px 0 0;
-  line-height: 16px;
-  color: #666;
-  font-family:Arial, Helvetica, sans-serif;
-  font-size: 12px;
-}
-
-.article-info p + p {
-  margin: 0;
-  color: #333;
-}
-
 .select-all-articles-link:hover,
 .unselect-all-articles-link:hover,
 .select-articles-message a:hover {
   color: $active;
-}
-
-.add-select-box-holder {
-  margin: 35px 53px 0 0;
-  position: relative;
-  float: right;
-}
-
-.add-select-box-holder .add-select-label {
-  width: 66px;
-  margin: 9px 0 0;
-  float: left;
-}
-
-.article-lists .select {
-  width: 169px;
-  height: 28px;
-  padding: 8px 0 0 16px;
-  top: 0;
-  left: 69px;
-  background: image-url('sprite.png') -647px -399px no-repeat;
-  color: #333;
 }
 
 .pagination {
@@ -658,7 +597,6 @@ span.next {
 
 .aside-container p {
   margin: 37px 0 0;
-  color: #333;
   font-weight: normal;
   font-size: 22px;
 }
@@ -674,7 +612,6 @@ span.next {
 }
 
 .add-article-links .article-links {
-  width: 106px;
   padding: 11px 0 11px 4px;
   border-radius: 0;
   display: inline-block;
@@ -816,7 +753,6 @@ span.next {
 .sample-metrics {
   margin: 56px 0 0 78px;
   padding: 0 0 54px;
-  color: #333;
 }
 
 .sample-metrics p {
@@ -888,7 +824,6 @@ span.next {
   width: 715px;
   float: left;
   position: relative;
-  color: #333;
   min-height: 560px;
 }
 
@@ -950,7 +885,7 @@ span.next {
   .metrics-description {
     margin: 0 0 0 43px;
     padding: 0;
-    color: #333;
+
     font-size: 12px;
     line-height: 15px;
     border: none;
@@ -1274,7 +1209,6 @@ caption {
   line-height: 16px;
   display: table-cell;
   vertical-align: middle;
-  color: #333;
   font-size: 12px;
   font-weight: normal;
 }
@@ -1438,7 +1372,6 @@ caption {
 }
 
 input[type="file"] {
-  color: #333;
   float: left;
 }
 

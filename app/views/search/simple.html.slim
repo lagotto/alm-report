@@ -1,7 +1,7 @@
 .row
   .eight.columns
     = form_tag("/search", :method => "get", :class => "home-form")
-      h2.text-light-normal
+      h2
         | Search all Articles
         - if Search.plos?
           =< link_to "Advanced Search", search_advanced_path
@@ -46,7 +46,7 @@
         input.reset-btn type="reset" value="Clear All"
   .four.columns
     .aside.aside-container
-      h2.text-light-normal Find Specific Articles
+      h2 Find Specific Articles
       a.button-hover-dark-black.submit-btn href="/id/" By DOI/PMID
       a.button-hover-dark-black.submit-btn href="/upload" Upload File
 

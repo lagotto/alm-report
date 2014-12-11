@@ -452,12 +452,12 @@ jQuery(function(d, $){
   (function(){
 
     var $aside_container = $('.aside-container');
-    var container_width = $('.wrapper').width();
+    var container_width = $('.container.main').width();
 
     function scrollHandler() {
       // fix the position of the .aside_container if the viewport has
-      // scrolled 40 pixels beyond the height of the nav
-      if ( $(window).scrollTop() > ($('.nav-area').height() + 40) ) {
+      // scrolled 40 pixels beyond the height of the header
+      if ( $(window).scrollTop() > ($('.section.header').height() + 40) ) {
 
         // align the ".aside-container" to the right of the layout
         $aside_container.addClass('scroll-fixed');

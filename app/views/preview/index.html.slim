@@ -1,13 +1,13 @@
-.content.wrapper.cf
+.content.wrapper
   .preview-list
     = form_tag(preview_path, method: :get, class: "preview-form")
-      h2.text-light-normal Review your list of articles
+      h2 Review your list of articles
       p= "#{@start_result} - #{@end_result} of #{@total_found} articles"
 
       ul
         li.unselect-all-articles-link Clear All
 
-      p.select-articles-message.text-light-normal.invisible
+      p.select-articles-message.invisible
         span#select-articles-message-text
         span#select-all-articles-message-text
 

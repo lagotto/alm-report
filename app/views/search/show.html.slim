@@ -1,61 +1,66 @@
-.content.wrapper.cf
-  .article-lists
-    h2.text-light-normal Add selected articles to your list
-    p
-      - if @total_found > 0
-        => "#{@start_result} - #{@end_result} of #{number_with_delimiter(@total_found, :delimiter => ',')} results for"
-      - else
-        ' No results found for
-      - if params.has_key?(:unformattedQueryId)
-        span.keyword= params[:unformattedQueryId]
-        ' ;
-      - else
-        - if !params[:everything].nil? && params[:everything].length > 0
-          ' keyword:
-          span.keyword= params[:everything]
+.row
+  .two.columns
+    h2 Filters
+    p Here be filters.
+  .six.columns
+    .article-lists
+      h2 Add selected articles to your list
+      p
+        - if @total_found > 0
+          => "#{@start_result} - #{@end_result} of #{number_with_delimiter(@total_found, :delimiter => ',')} results for"
+        - else
+          ' No results found for
+        - if params.has_key?(:unformattedQueryId)
+          span.keyword= params[:unformattedQueryId]
           ' ;
-        - if !params[:author].nil? && params[:author].length > 0
-          ' author:
-          span.author-name= params[:author]
-          ' ;
-        - if !params[:author_country].nil? &&params[:author_country].length > 0
-          ' author country:
-          span.author-country= params[:author_country]
-          ' ;
-        - if @metadata[:publication_date]
-          span
-            ' publication date:
-            span.publication-date>= @metadata[:publication_date][0].strftime("%m-%d-%Y")
-            ' to
-            span.publication-date= @metadata[:publication_date][1].strftime("%m-%d-%Y")
+        - else
+          - if !params[:everything].nil? && params[:everything].length > 0
+            ' keyword:
+            span.keyword= params[:everything]
             ' ;
-      - if Search.plos?
-        = render 'journals'
-      - if Search.crossref?
-        span Due to limited availability of ALM data, search results are limited to items published after Jan 1st 2011.
-    - if @total_found > 0
-      ul
-        li.select-all-articles-link select all
-        li.unselect-all-articles-link unselect all
+          - if !params[:author].nil? && params[:author].length > 0
+            ' author:
+            span.author-name= params[:author]
+            ' ;
+          - if !params[:author_country].nil? &&params[:author_country].length > 0
+            ' author country:
+            span.author-country= params[:author_country]
+            ' ;
+          - if @metadata[:publication_date]
+            span
+              ' publication date:
+              span.publication-date>= @metadata[:publication_date][0].strftime("%m-%d-%Y")
+              ' to
+              span.publication-date= @metadata[:publication_date][1].strftime("%m-%d-%Y")
+              ' ;
+        - if Search.plos?
+          = render 'journals'
+        - if Search.crossref?
+          span Due to limited availability of ALM data, search results are limited to items published after Jan 1st 2011.
+      - if @total_found > 0
+        ul
+          li.select-all-articles-link select all
+          li.unselect-all-articles-link> unselect all
+          span> Sort by
 
-      .add-select-box-holder
-        span.add-select-label Sort by
-        = select_tag( \
-          :sort, \
-          options_for_select( \
-            (Search.plos? ? Solr::Request : SearchCrossref)::SORTS.to_a, \
-            params[:sort] \
-          ), \
-          class: "styled", \
-          id: "search_results_sort_order_select" \
-        )
-    p.select-articles-message.text-light-normal.invisible
-      span#select-articles-message-text
-      span#select-all-articles-message-text
-    div#select-all-spinner.ajax_spinner
-    - @all_checked = false
-    = render "article_list"
-  = render "right_nav", :current_page => :add_articles
+
+
+          = select_tag( \
+            :sort, \
+            options_for_select( \
+              (Search.plos? ? Solr::Request : SearchCrossref)::SORTS.to_a, \
+              params[:sort] \
+            ), \
+            id: "search_results_sort_order_select" \
+          )
+      p.select-articles-message.invisible
+        span#select-articles-message-text
+        span#select-all-articles-message-text
+      div#select-all-spinner.ajax_spinner
+      - @all_checked = false
+      = render "article_list"
+  .four.columns
+    = render "right_nav", :current_page => :add_articles
 
 div#gray-out-screen
 

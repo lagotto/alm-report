@@ -1,10 +1,10 @@
-.content.wrapper.cf
+.content.wrapper
 
   = render "reports_nav"
 
   .metrics-left-content
     - if @show_metrics_data
-      p.text-light-normal.metrics-article-count
+      p.metrics-article-count
         | #{@start_result} - #{@end_result} of #{@total_found} articles
 
       - @dois.each do |doi|
@@ -78,7 +78,7 @@
                   = render "alm_stat", :data => doi.alm, :stat => :f1000
 
   .report-downloads
-    h2.text-light-normal Downloads
+    h2 Downloads
     ul
       li
         = link_to({:controller => "reports", :action => "download_data", :id => @report, :format => :csv},

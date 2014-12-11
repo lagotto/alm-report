@@ -2,10 +2,6 @@
    3. Container
    ========================================================================== */
 
-.text-light-normal {
-  @include font_normal($font_family, $font_normal_weight);
-}
-
 .text-light-italic {
   @include font_italic($font_family, $font_normal_weight);
 }
@@ -39,5 +35,4 @@ li {
 
 a {
   color: $header_text_color;
-  text-decoration: none;
 }

@@ -31,9 +31,9 @@ describe "export report as csv", type: :feature, vcr: true do
       expect(page).to have_content "Cancer-Drug Associations: A Complex System"
       expect(page).to have_button("Preview List (0)", disabled: true)
 
-      first(".article-info.cf").find("input.check-save-article").click
+      first(".article-info").find("input.check-save-article").click
       expect(page).to have_button("Preview List (1)")
-      all(".article-info.cf")[5].find("input.check-save-article").click
+      all(".article-info")[5].find("input.check-save-article").click
 
       preview
 
@@ -43,10 +43,10 @@ describe "export report as csv", type: :feature, vcr: true do
     it "downloads the csv", js: true do
       search("A Future Vision for PLOS Computational Biology")
 
-      first(".article-info.cf").find("input.check-save-article").click
+      first(".article-info").find("input.check-save-article").click
       expect(page).to have_button("Preview List (1)")
       click_link("3")
-      all(".article-info.cf")[12].find("input.check-save-article").click
+      all(".article-info")[12].find("input.check-save-article").click
 
       preview
 
