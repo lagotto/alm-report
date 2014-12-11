@@ -16,7 +16,6 @@ gem "exception_notification"
 gem "httparty"
 gem "faraday"
 gem "faraday_middleware"
-gem "bower-rails"
 
 gem "ember-rails"
 gem "ember-source", "1.8.1"
