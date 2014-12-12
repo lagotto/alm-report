@@ -1,11 +1,12 @@
-.content.wrapper
-  .preview-list
+.row
+  .eight.columns
     = form_tag(preview_path, method: :get, class: "preview-form")
       h2 Review your list of articles
-      p= "#{@start_result} - #{@end_result} of #{@total_found} articles"
-
-      ul
-        li.unselect-all-articles-link Clear All
+      div
+        span> #{@start_result} - #{@end_result} of #{@total_found} articles
+        ul.actions
+          li
+            a.unselect-all-articles-link Clear All
 
       p.select-articles-message.invisible
         span#select-articles-message-text
@@ -13,4 +14,6 @@
 
       - @all_checked = true
       = render "search/article_list"
-  = render "right_nav", :current_page => :preview_list
+
+  .four.columns
+    = render "right_nav", :current_page => :preview_list

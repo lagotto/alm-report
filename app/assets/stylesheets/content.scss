@@ -350,28 +350,9 @@ input[type="text"] {
 /* 5.7. Preview-list
    ========================================================================== */
 
-.preview-list {
-  width: 628px;
-  margin: 45px 0 0 50px;
-  position: relative;
-  display: inline-block;
-  min-height: 330px;
-}
 
-.preview-form h2 {
-  margin: 0 0 18px 0;
-}
-
-.preview-form p {
-}
-
-.preview-form .article-info input[type="checkbox"] {
+.list input[type="checkbox"] {
   top: 1px;
-}
-
-.update-list-btn {
-  margin: 18px 8px 0 42px;
-  padding: 7px 12px 8px 11px;
 }
 
 .preview-form .success,
@@ -382,15 +363,6 @@ input[type="text"] {
 /* 5.8. Articles
    ========================================================================== */
 
-.article-lists {
-  position: relative;
-  min-height: 290px;
-}
-
-.article-lists h2 {
-  margin: 0 0 18px 0;
-}
-
 .keyword,
 .author-name,
 .author-country,
@@ -399,21 +371,19 @@ input[type="text"] {
   font-weight: bold;
 }
 
-.article-lists li,
-.preview-list li {
-  padding: 3px 0 2px 10px;
+ul.actions li {
+  &:first-child {
+    padding-left: 0;
+    border-left: none;
+  }
+  padding: 0 1rem;
   cursor: pointer;
   color: $button_color;
-}
-
-.article-lists ul li:first-child {
-  border-left: none;
-  padding: 3px 7px 3px 0;
-}
-
-.article-lists ul li {
   border-left: 1px solid $button_color;
   display: inline;
+  a {
+    color: $button_color;
+  }
 }
 
 .article-info {
@@ -423,10 +393,7 @@ input[type="text"] {
 }
 
 p.select-articles-message {
-  margin: 16px 0 12px 44px;
-  font-size: 14px;
   color: #858585;
-  clear: both;
 }
 
 .invisible {
@@ -445,7 +412,7 @@ input[type="checkbox"] {
 
   input[type="checkbox"] {
     position: absolute;
-    top: 0;
+    top: 6px;
     left: -25px;
   }
 

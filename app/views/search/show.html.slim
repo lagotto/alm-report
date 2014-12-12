@@ -3,48 +3,45 @@
     h2 Filters
     p Here be filters.
   .six.columns
-    .article-lists
-      h2 Add selected articles to your list
-      p
-        - if @total_found > 0
-          => "#{@start_result} - #{@end_result} of #{number_with_delimiter(@total_found, :delimiter => ',')} results for"
-        - else
-          ' No results found for
-        - if params.has_key?(:unformattedQueryId)
-          span.keyword= params[:unformattedQueryId]
-          ' ;
-        - else
-          - if !params[:everything].nil? && params[:everything].length > 0
-            ' keyword:
-            span.keyword= params[:everything]
-            ' ;
-          - if !params[:author].nil? && params[:author].length > 0
-            ' author:
-            span.author-name= params[:author]
-            ' ;
-          - if !params[:author_country].nil? &&params[:author_country].length > 0
-            ' author country:
-            span.author-country= params[:author_country]
-            ' ;
-          - if @metadata[:publication_date]
-            span
-              ' publication date:
-              span.publication-date>= @metadata[:publication_date][0].strftime("%m-%d-%Y")
-              ' to
-              span.publication-date= @metadata[:publication_date][1].strftime("%m-%d-%Y")
-              ' ;
-        - if Search.plos?
-          = render 'journals'
-        - if Search.crossref?
-          span Due to limited availability of ALM data, search results are limited to items published after Jan 1st 2011.
+    h2 Add selected articles to your list
+    p
       - if @total_found > 0
-        ul
-          li.select-all-articles-link select all
-          li.unselect-all-articles-link> unselect all
+        => "#{@start_result} - #{@end_result} of #{number_with_delimiter(@total_found, :delimiter => ',')} results for"
+      - else
+        ' No results found for
+      - if params.has_key?(:unformattedQueryId)
+        span.keyword= params[:unformattedQueryId]
+        ' ;
+      - else
+        - if !params[:everything].nil? && params[:everything].length > 0
+          ' keyword:
+          span.keyword= params[:everything]
+          ' ;
+        - if !params[:author].nil? && params[:author].length > 0
+          ' author:
+          span.author-name= params[:author]
+          ' ;
+        - if !params[:author_country].nil? &&params[:author_country].length > 0
+          ' author country:
+          span.author-country= params[:author_country]
+          ' ;
+        - if @metadata[:publication_date]
+          span
+            ' publication date:
+            span.publication-date>= @metadata[:publication_date][0].strftime("%m-%d-%Y")
+            ' to
+            span.publication-date= @metadata[:publication_date][1].strftime("%m-%d-%Y")
+            ' ;
+      - if Search.plos?
+        = render 'journals'
+      - if Search.crossref?
+        span Due to limited availability of ALM data, search results are limited to items published after Jan 1st 2011.
+    - if @total_found > 0
+      ul.actions
+        li.select-all-articles-link select all
+        li.unselect-all-articles-link unselect all
+        li
           span> Sort by
-
-
-
           = select_tag( \
             :sort, \
             options_for_select( \
@@ -53,12 +50,12 @@
             ), \
             id: "search_results_sort_order_select" \
           )
-      p.select-articles-message.invisible
-        span#select-articles-message-text
-        span#select-all-articles-message-text
-      div#select-all-spinner.ajax_spinner
-      - @all_checked = false
-      = render "article_list"
+    p.select-articles-message.invisible
+      span#select-articles-message-text
+      span#select-all-articles-message-text
+    div#select-all-spinner.ajax_spinner
+    - @all_checked = false
+    = render "article_list"
   .four.columns
     = render "right_nav", :current_page => :add_articles
 
