@@ -1,0 +1,14 @@
+nav#report
+  = link_to "Metrics Data", {:controller => "reports",  :action => "metrics", :id => @report }, class: ["metrics-icon", (@report_sub_tab == :metrics ? "metrics-icon-active" : nil)]
+
+  - if @report.report_dois.length > ENV["VIZ_LIMIT"].to_i
+    .inactive-viz-holder
+      span.inactive-viz-link.chart-view Visualizations
+      span.inactive-viz-msg The limit for visualizations is #{ENV["VIZ_LIMIT"]} articles.
+
+  - else
+    = link_to "Visualizations", visualizations_path(@report), class: ["chart-view", (@report_sub_tab == :visualizations ? "chart-view-active" : nil)]
+
+  span.download-visuals
+    = link_to "Edit List", preview_path, class: "edit-list"
+    a href="/start-over" class="start-over" Start Over

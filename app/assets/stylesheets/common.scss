@@ -1,5 +1,5 @@
 // Derived colors derived from other colors
-$subheader_background: lighten($breadcrumb_background_first, 50);
+$subheader_background: lighten($breadcrumb_background_first, 45);
 
 
 @mixin font_normal($family: $font_family, $weight: normal) {
@@ -55,6 +55,21 @@ $subheader_background: lighten($breadcrumb_background_first, 50);
     </svg>") no-repeat;
 }
 
+@mixin arrow($color: black) {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(149, 213, 162, 0);
+  border-top-color: $color;
+  border-width: 13px;
+  margin-left: -13px;
+}
+
 // Skeleton, SCSSized
 @import "normalize";
 @import "skeleton";
@@ -71,6 +86,10 @@ $subheader_background: lighten($breadcrumb_background_first, 50);
 
 body {
   background: $main_background;
+}
+
+a {
+  text-decoration: none;
 }
 
 .section {
@@ -96,6 +115,10 @@ body {
 
   &.main {
     background: $main_background;
+
+    a {
+      color: $button_color;
+    }
   }
 }
 

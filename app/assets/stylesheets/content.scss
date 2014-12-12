@@ -755,29 +755,17 @@ span.next {
 /* 5.12. Report.metrics
    ========================================================================== */
 
-
-.view-report.metrics-view-report {
-  height: 123px;
-}
-
 .metrics-chart-view {
   width: 25px;
   height: 24px;
   margin: 47px 12px 0 0;
 }
 
-.view-report .metrics-chart-view + span {
+nav#report .metrics-chart-view + span {
   margin: 47px 12px 0 0;
   color: $button_color;
   font-size: 18px;
   font-weight: bold;
-}
-
-.metrics-icon-active {
-  width: 20px;
-  height: 18px;
-  margin: 49px 12px 0 80px;
-  background: image-url('sprite.png') 0px -141px;
 }
 
 .metrics-icon-active + span {
@@ -805,7 +793,7 @@ span.next {
 }
 
 .metrics-article-count {
-  margin: 0 0 5px 83px;
+  margin: 0 0 5px 64px;
 }
 
 .visualizations-list {
@@ -838,7 +826,7 @@ span.next {
     margin: 0;
     padding: 4px 2px 0 3px;
     position: absolute;
-    top: 0;
+    top: 6px;
     left: 0;
     color: #fff;
     font-size: 14px;
@@ -869,8 +857,7 @@ span.next {
     margin: 0 0 0 43px;
   }
 
-  a {
-    width: 160px;
+  a.show-all-alms-link {
     margin: 21px 0 0 43px;
     display: inline-block;
     color: #369;
@@ -1011,81 +998,87 @@ caption {
 /* 5.13. Report.visualizations
    ========================================================================== */
 
-.view-report {
+nav#report {
+  margin-top: -4rem;
   width: 100%;
-  height: 113px;
-  display: inline-block;
+  height: 12rem;
+  line-height: 1;
+  margin-bottom: 1rem;
   background-color: $subheader_background;
-}
 
-.view-report span {
-  float: left;
-}
+  .metrics-icon, .chart-view {
+    float: left;
+    color: $body_text_color;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+  }
 
-.metrics-icon {
-  width: 110px;
-  height: 20px;
-  margin: 46px 100px 0 50px;
-  padding: 0 0 0 31px;
-  float: left;
-  @include metrics-icon($body_text_color);
-  color: $body_text_color;
-  font-weight: bold;
-  font-size: 18px;
-}
+  .metrics-icon-active:after, .chart-view-active:after {
+    @include arrow($subheader_background);
+    top: 7rem;
+  }
 
-.metrics-icon:hover,
-.metrics-icon-active {
-  @include metrics-icon($active);
-  color: $active;
-}
+  .metrics-icon {
+    height: 20px;
+    margin: 46px 100px 0 50px;
+    padding: 0 0 0 31px;
+    @include metrics-icon($body_text_color);
+  }
 
-.chart-view {
-  width: 110px;
-  height: 23px;
-  margin: 46px 11px 0 0;
-  padding: 0 0 0 38px;
-  float: left;
-  @include visualization-icon($body_text_color);
-  color: $body_text_color;
-  font-weight: bold;
-  font-size:18px;
-}
+  .metrics-icon:hover,
+  .metrics-icon-active {
+    @include metrics-icon($active);
+    color: $active;
+  }
 
-.chart-view:hover,
-.chart-view-active {
-  @include visualization-icon($active);
-  color: $active;
-}
+  .chart-view {
+    height: 23px;
+    margin: 46px 11px 0 0;
+    padding: 0 0 0 38px;
+    @include visualization-icon($body_text_color);
+  }
 
-.inactive-viz-link {
-  color: #999 !important;
-  @include visualization-icon(#999);
-}
+  .chart-view:hover,
+  .chart-view-active {
+    @include visualization-icon($active);
+    color: $active;
+  }
 
-.inactive-viz-holder {
-  width: 240px;
-  height: 120px;
-  float: left;
-}
+  .inactive-viz-link {
+    color: #999 !important;
+    @include visualization-icon(#999);
+  }
 
-.inactive-viz-link:hover {
-  color: #999 !important;
-  @include visualization-icon(#999);
-}
+  .inactive-viz-holder {
+    width: 240px;
+    height: 120px;
+    float: left;
+  }
 
-.inactive-viz-msg {
-  height: 23px;
-  padding: 10px 0 0 0;
-  float: left;
-  color: #999;
-  font-size: 10px;
-}
+  .inactive-viz-link:hover {
+    color: #999 !important;
+    @include visualization-icon(#999);
+  }
 
-.view-report .download-visuals {
-  width: 185px;
-  margin: 11px 36px 0 0;
-  float: right;
+  .inactive-viz-msg {
+    height: 23px;
+    padding: 10px 0 0 0;
+    float: left;
+    color: #999;
+    font-size: 10px;
+  }
+
+  .download-visuals {
+    a, a:hover { color: $button_text_color;}
+    width: 185px;
+    margin: 11px 36px 0 0;
+    float: right;
+  }
+
+  span {
+    float: left;
+  }
 }
 
 .edit-list,
