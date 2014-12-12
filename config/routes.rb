@@ -18,11 +18,11 @@ AlmReport::Application.routes.draw do
     get "download_data/:id" => "reports#download_data", as: :download
   end
 
-  get "/id" => "id#index", :via => :get
-  get "/id" => "id#save", :via => :post
+  get "/id" => "id#index"
+  post "/id" => "id#save"
 
-  get "/upload" => "id#upload", :via => :get
-  get "/upload" => "id#process_upload", :via => :post
+  get "/upload" => "id#upload"
+  post "/upload" => "id#process_upload"
 
   get "/about" => "static_pages#about"
   get "/samples" => "static_pages#samples"
