@@ -3,11 +3,12 @@
    ========================================================================== */
 
 footer {
-  padding-bottom: 70px;
-}
-
-footer a:hover {
-  text-decoration: underline;
+  li {
+    margin-bottom: 0;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 }
 
 footer.nav-area {
