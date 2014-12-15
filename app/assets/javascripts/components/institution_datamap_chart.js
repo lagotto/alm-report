@@ -27,9 +27,8 @@ AlmReport.InstitutionDatamapChartComponent = Ember.Component.extend({
         .value();
     }.property('items'),
 
-    draw: function () {
-        var preparedData = this.get('prepareData');
 
+    draw: function () {
         var chart = new Datamap({
             scope: 'world',
             fills: {
@@ -38,7 +37,7 @@ AlmReport.InstitutionDatamapChartComponent = Ember.Component.extend({
             element: this.$('.chart')[0],
         });
 
-        chart.bubbles(preparedData, {
+        chart.bubbles(this.get('prepareData'), {
             popupTemplate: function (geo, data) {
                     return ['<div class="hoverinfo">' +  data.full,
                     '<br/>Number of papers: ' +  data.papers +
