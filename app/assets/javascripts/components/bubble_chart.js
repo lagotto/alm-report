@@ -1,13 +1,35 @@
 AlmReport.BubbleChartComponent = Ember.Component.extend({
   tagName: 'div',
   axes: [
-    {key: 'mendeley', display: 'Mendeley'},
-    {key: 'scopus', display: 'Scopus'},
-    {key: 'nature', display: 'Nature'},
-    {key: 'citeulike', display: 'CiteULike'},
-    {key: 'pmc', display: 'PMC'}
+    {key: undefined, display: 'No source selected'},
+    {key: 'citeulike', display: 'CiteULike bookmarks'},
+    {key: 'crossref', display: 'CrossRef citations'},
+    {key: 'f1000', display: 'F1000Prime recommendations'},
+    {key: 'facebook', display: 'Facebook shares'},
+    {key: 'figshare', display: 'Figshare usage'},
+    {key: 'mendeley', display: 'Mendeley bookmarks'},
+    {key: 'pmceurope', display: 'PMC Europe citations'},
+    {key: 'pmceuropedata', display: 'PMC Europe database citations'},
+    {key: 'scienceseeker', display: 'ScienceSeeker bookmarks'},
+    {key: 'scopus', display: 'Scopus citations'},
+    {key: 'reddit', display: 'Reddit mentions'},
+    {key: 'researchblogging', display: 'ResearchBlogging mentions'},
+    {key: 'twitter', display: 'Twitter shares'},
+    {key: 'wos', display: 'Web of Science citations'},
+    {key: 'wordpress', display: 'WordPress.com mentions'},
+    {key: 'wikipedia', display: 'Wikipedia mentions'},
   ],
-  axis: 'mendeley',
+
+  axis: function () {
+    var initial = this.get('axes').find(function (a) {
+      return a.key == 'scopus'
+    })
+    if(initial) {
+      return initial
+    } else {
+      return this.get('axes')[0]
+    }
+  }.property('axes'),
 
   size: function () {
     return this.get('items').content.length
@@ -26,7 +48,7 @@ AlmReport.BubbleChartComponent = Ember.Component.extend({
   }.property('items'),
 
   axisChanged: function() {
-    this.update();
+    if(this.get('chart')) { this.update() }
   }.observes('axis'),
 
   prepareData: function(data, column) {
@@ -48,36 +70,71 @@ AlmReport.BubbleChartComponent = Ember.Component.extend({
         title: d.get('title')
       }
 
-      result[column] = _.find(d.get('sources'), function (source) {
-        return source.name === column
-      }).metrics.total;
+      if(column) {
+        result[column] = _.find(d.get('sources'), function (source) {
+          return source.name === column
+        }).metrics.total;
+      }
+
       return result;
     });
   },
 
   update: function () {
-    var preparedData = this.get('prepareData')(this.get('items'), this.get('axis'));
-
-    // TODO:
-    //   'PLOS ONE': {color: 'fda328'},                    // Orange
-    //   'PLOS Biology': {color: '1ebd21'},                // Green
-    //   'PLOS Computational Biology': {color: '1ebd21'},  // Green
-    //   'PLOS Genetics': {color: '1ebd21'},                // Green
-    //   'default': {color: 'b526fb'}                      // Purple
+    var preparedData = this.get('prepareData')(
+      this.get('items'),
+      this.get('axis').key
+    );
 
     this.get('chart').update({
       width: this.get('width'),
       height: this.get('height'),
       x: "months",
       y: "views",
-      radius: this.get('axis'),
+      radius: this.get('axis').key,
+      radiusLabel: this.get('axis').display,
       category: "journal",
       tooltip: "title"
     }, preparedData);
   },
 
+  colors: function () {
+    if(true) {     // TODO: specify colors only if PLOS:
+      return {
+          'PLOS ONE': '#fda328',                        // Orange
+          'PLOS Biology': '#1ebd21',                    // Green
+          'PLOS Computational Biology': '#1ebd21',      // Green
+          'PLOS Genetics': '#1ebd21',                   // Green
+          'PLOS Medicine': '#891fb1',                   // Purple
+          'PLOS Pathogens': '#891fb1',                  // Purple
+          'PLOS Neglected Tropical Diseases': '#891fb1',// Purple
+          'default': '#b526fb'                          // Purple
+      }
+    }
+  },
+
+  removeEmptySources: function () {
+    var emptySources = _.intersection.apply(this, this.get('items').map(
+      function (d) {
+        return _(d.get('sources')).map(function(s) {
+          if(!s.metrics || s.metrics.total == 0) {
+            return s.name
+          }
+        }).compact().value();
+    }));
+
+    this.set('axes', _.filter(this.get('axes'), function (selection) {
+      return emptySources.indexOf(selection.key) == -1;
+    }));
+  },
+
   draw: function () {
-    var preparedData = this.get('prepareData')(this.get('items'), this.get('axis'));
+    this.get('removeEmptySources').bind(this)();
+
+    var preparedData = this.get('prepareData')(
+      this.get('items'),
+      this.get('axis').key
+    );
 
     var chart = new BubbleChart;
 
@@ -85,10 +142,14 @@ AlmReport.BubbleChartComponent = Ember.Component.extend({
       width: this.get('width'),
       height: this.get('height'),
       x: "months",
+      xLabel: "Months",
       y: "views",
-      radius: this.get('axis'),
+      yLabel: "Total Usage",
+      radius: this.get('axis').key,
+      radiusLabel: this.get('axis').display,
       category: "journal",
-      tooltip: "title"
+      tooltip: "title",
+      colors: this.get('colors')()
     }, preparedData);
 
     this.set('chart', chart);
