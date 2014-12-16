@@ -1,4 +1,10 @@
 <div class="bubble chart"></div>
 
+<p class="info">
+Total usage includes page views and downloads from PLOS and PMC.
+{{#if axis.key }}
+   Bubble size correlates with {{axis.display}} and bubble color with the journal.
+{{/if}}
+</p>
 <p class="info">Select an additional source: {{view "select" content=axes selection=axis optionValuePath="content.key" optionLabelPath="content.display"}}</p>
 <p>SOURCE: {{size}} published articles from {{minDate}} to {{maxDate}}</p>
