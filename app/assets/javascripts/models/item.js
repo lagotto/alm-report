@@ -21,5 +21,6 @@ AlmReport.Item = DS.Model.extend({
   cited: DS.attr('number'),
   subjects: DS.attr(),
   sources: DS.attr(),
-  affiliations: DS.attr()
+  affiliations: DS.attr(),
+  events: DS.attr()
 });

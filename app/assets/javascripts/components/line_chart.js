@@ -8,20 +8,27 @@ AlmReport.LineChartComponent = Ember.Component.extend({
     data: function () {
         return _(this.get('item').sources).find(function (d) {
             return d.name == "counter";
-        }).by_month
+        }).events
     }.property('item'),
 
     html: function () {
         return _(this.get('data')).map(function (d) {
             var date = new Date(d.year, d.month)
-            return { time: date, views: d.html }
+            return { time: date, views: +d.html_views }
         }).value()
     }.property('data'),
 
     pdf: function () {
         return _(this.get('data')).map(function (d) {
             var date = new Date(d.year, d.month)
-            return { time: date, views: d.pdf }
+            return { time: date, views: +d.pdf_views }
+        }).value()
+    }.property('data'),
+
+    xml: function () {
+        return _(this.get('data')).map(function (d) {
+            var date = new Date(d.year, d.month)
+            return { time: date, views: +d.xml_views }
         }).value()
     }.property('data'),
 
@@ -29,6 +36,7 @@ AlmReport.LineChartComponent = Ember.Component.extend({
         return {
             html: this.get('html'),
             pdf: this.get('pdf'),
+            xml: this.get('xml'),
             url: this.get('item').canonical_url,
             journal: this.get('item').journal,
             title: this.get('item').title
@@ -37,7 +45,6 @@ AlmReport.LineChartComponent = Ember.Component.extend({
 
     draw: function () {
         var preparedData = this.get('prepareData');
-
         var chart = new LineChart;
 
         chart.create(this.$('.chart')[0], {
@@ -45,21 +52,18 @@ AlmReport.LineChartComponent = Ember.Component.extend({
             height: this.get('height'),
             x: "time",
             y: "views",
-            lines: ["html", "pdf"],
+            lines: ["html", "pdf", "xml"],
             category: "journal",
             tooltip: "title",
             colors: ['#fda328',
                 '#1447f2',
-                '#27dbf5']
+                '#891fb1']
         }, preparedData);
 
         this.set('chart', chart);
     },
 
     update: function () {
-        preparedData.html = _.map(preparedData.html, function (d) { return {time: d.time,  views: Math.random() * 2000}});
-        preparedData.pdf = _.map(preparedData.pdf, function (d) { return {time: d.time,  views: Math.random() * 1000}});
-
         this.get('chart').update({
             width: 1000,
             height: 600,
