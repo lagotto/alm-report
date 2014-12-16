@@ -124,18 +124,12 @@ input[type="text"] {
 }
 
 .aside-container.aside a {
-  padding: 8px 0 9px 10px;
   margin: 26px 0 0;
   display: block;
 }
 
 .aside-container.aside a:hover {
   background: $background;
-}
-
-.aside-container.aside a + a {
-  padding: 8px 0 9px 10px;
-  margin: 8px 0 0;
 }
 
 /* 5.3. Articles list block
@@ -153,6 +147,7 @@ input[type="text"] {
       height: 71px;
       width: 191px;
       border-radius: 4px;
+      color: $button_text_color;
       background: $background;
       margin-right: 4%;
       font-size: 14px;
@@ -165,7 +160,7 @@ input[type="text"] {
     }
 
     a:hover {
-      color: $button_text_color;
+      // color: $button_text_color;
       background: $button_color !important;
     }
 
@@ -228,19 +223,19 @@ input[type="text"] {
     margin: 39px 8px 0 0;
     float: left;
     text-align: center;
+    div.title {
+      color: $button_text_color;
+      padding: 2rem;
+      display: block;
+      background: $background;
+      font-size: 14px;
+      font-weight: bold;
+    }
   }
 
   a:hover {
     color: $header_text_color;
     text-decoration: underline;
-  }
-
-  div.title {
-    padding: 2rem;
-    display: block;
-    background: $background;
-    font-size: 14px;
-    font-weight: bold;
   }
 }
 
@@ -550,7 +545,7 @@ span.next {
   width: 5px;
   height: 9px;
   position: absolute;
-  top: 17px;
+  top: 21px;
   right: 12px;
   background: image-url('sprite.png') -50px -142px no-repeat;
 }
@@ -1283,50 +1278,6 @@ nav#report {
 
 /* 5.15. Page: Upload-file
    ========================================================================== */
-
-.upload-file {
-  width: 635px;
-  float: left;
-  position: relative;
-  margin: 45px 0 80px 38px;
-}
-.upload-file h2 {
-  margin: 0 0 18px;
-}
-
-.upload-file p {
-  color: #666;
-  font-size: 14px;
-}
-
-.upload-file a {
-  margin: 0;
-  color: #333333;
-  font-weight: bold;
-}
-
-.upload-file a:hover {
-  border-bottom: 1px solid #333333;
-}
-
-.upload-file-form {
-  width: 360px;
-  margin: 20px 0 0 0;
-}
-
-input[type="file"] {
-  float: left;
-}
-
-.upload-file-form input[type="file"] {
-  font-family: Arial,Helvetica,sans-serif;
-  width: 255px;
-}
-
-.upload-file-btn {
-  margin: 29px 0 0 0;
-  padding: 7px 12px 8px;
-}
 
 /* 5.16. Page: Upload file - Fix Errors
    ========================================================================== */

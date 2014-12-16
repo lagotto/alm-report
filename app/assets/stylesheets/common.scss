@@ -92,6 +92,14 @@ a {
   text-decoration: none;
 }
 
+.main {
+  background: $main_background;
+
+  a {
+    color: $button_color;
+  }
+}
+
 .section {
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -113,13 +121,13 @@ a {
     }
   }
 
-  &.main {
-    background: $main_background;
+  a.button {
+    font-size: 14px;
 
-    a {
-      color: $button_color;
-    }
+
+    color: $button_text_color;
   }
+
 }
 
 /* For devices larger than 550px */

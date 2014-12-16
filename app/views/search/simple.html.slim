@@ -42,13 +42,13 @@
           = label_tag(:financial_disclosure, "Funder Name or Funding Number")
           = text_field_tag(:financial_disclosure)
       .input-holder
-        = submit_tag "Search", :class => "button-hover-dark-black submit-btn"
-        input.reset-btn type="reset" value="Clear All"
+        => submit_tag "Search"
+        input type="reset" value="Clear All"
   .four.columns
     .aside.aside-container
       h2 Find Specific Articles
-      a.button-hover-dark-black.submit-btn href="/id/" By DOI/PMID
-      a.button-hover-dark-black.submit-btn href="/upload" Upload File
+      a.button href="/id/" By DOI/PMID
+      a.button href="/upload" Upload File
 
 = articles_list
 

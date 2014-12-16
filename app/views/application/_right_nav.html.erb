@@ -7,12 +7,12 @@
 <div class="<%= div_class %>">
   <% if current_page == :preview_list %>
     <form class="preview-list-aside-form" action="/reports/generate" method="get">
-      <input id="create-report-submit" class="button-hover-dark-black submit-btn right-list-btn" type="submit" value="Create Report" />
+      <input id="create-report-submit" class="button" type="submit" value="Create Report" />
       <span class="btn-arrow"></span>
     </form>
   <% else %>
     <form class="preview-list-aside-form" action="/preview" method="get">
-      <input id="preview-list-submit" class="preview-list-count preview-list-submit button-hover-dark-black submit-btn right-list-btn" type="submit" value="Preview List" name="" />
+      <input id="preview-list-submit" class="preview-list-count preview-list-submit button" type="submit" value="Preview List" name="" />
       <span class="btn-arrow"></span>
     </form>
   <% end %>
