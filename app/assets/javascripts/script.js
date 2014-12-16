@@ -770,15 +770,15 @@ jQuery(function(d, $){
 
     if (linkText.toLowerCase() === 'show all alms') {
       // display all the metric information with zero values
-      $(this).next('div').find('tr.metric-without-data').attr('class', 'metric-with-data');
-      $(this).next('div').find('table.metric-without-data').attr('class', 'metrics-table metric-with-data');
+      $(this).parent().next('div').find('tr.metric-without-data').attr('class', 'metric-with-data');
+      $(this).parent().next('div').find('table.metric-without-data').attr('class', 'metrics-table metric-with-data');
       $(this).text("Show summary ALMs").append(children);
       $(this).children("span").attr('class', 'arrow-up');
 
     } else {
       // display metric information if there is data
-      $(this).next('div').find('tr.metric-with-data').attr('class', 'metric-without-data');
-      $(this).next('div').find('table.metric-with-data').attr('class', 'metrics-table metric-without-data');
+      $(this).parent().next('div').find('tr.metric-with-data').attr('class', 'metric-without-data');
+      $(this).parent().next('div').find('table.metric-with-data').attr('class', 'metrics-table metric-without-data');
       $(this).text("Show all ALMs").append(children);
       $(this).children("span").attr('class', 'arrow-down');
     }

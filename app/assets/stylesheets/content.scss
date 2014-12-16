@@ -522,23 +522,25 @@ span.next {
   background-position: -25px -142px;
 }
 
-
-.preview-list-aside.scroll-fixed {
-  margin: 10px 0 0;
-}
-
-.preview-list-aside .add-article-links .article-links {
-  padding: 11px 0 11px 4px;
+.preview-list-aside {
+  &.scroll-fixed {
+    margin: 10px 0 0;
+  }
+  .add-article-links .article-links {
+    padding: 11px 0 11px 4px;
+  }
+  li {
+    margin-bottom: 0;
+  }
+  ul {
+    margin: 10px 0 0 0;
+  }
 }
 
 .preview-list-aside-form,
 .preview-list-aside-form + p {
   position: relative;
   float: left;
-}
-
-.preview-list ul {
-  margin: 10px 0 0 31px;
 }
 
 .btn-arrow {
@@ -806,16 +808,10 @@ nav#report .metrics-chart-view + span {
   }
 
   .metrics-para {
-    width: 612px;
-    display: inline-block;
-    line-height: 19px;
-    color: #666;
     font-size: 14px;
-    padding: 0 0 14px;
-    border: none;
   }
 
-  h2 span {
+  h2 span, h5 span {
     padding: 2px 8px 3px 8px;
     color: #fff;
     font-size: 14px;
@@ -828,6 +824,7 @@ nav#report .metrics-chart-view + span {
   }
 
   .metrics-description {
+    border-top: 1px solid #e4e4e4;
     font-size: 12px;
     line-height: 15px;
   }
@@ -843,12 +840,11 @@ nav#report .metrics-chart-view + span {
     margin: 0 0 0 43px;
   }
 
-  a.show-all-alms-link {
-    margin: 21px 0 0 43px;
-    display: inline-block;
-    color: #369;
-    font-size: 14px;
-  }
+  // a.show-all-alms-link {
+  //   display: inline-block;
+  //   color: #369;
+  //   font-size: 14px;
+  // }
 
   a:hover {
     cursor: pointer;
@@ -874,7 +870,6 @@ nav#report .metrics-chart-view + span {
 
   .metrics-table-content {
     width: 620px;
-    margin: 7px 0 0 14px;
     display: inline-block;
   }
 
@@ -885,7 +880,6 @@ nav#report .metrics-chart-view + span {
 
   .metrics-table {
     width: 289px;
-    margin: 0 0 0 20px;
     padding: 0 0 33px;
     font-weight: normal;
     border-spacing: 0 4px;
@@ -935,8 +929,8 @@ nav#report .metrics-chart-view + span {
 
   p {
     padding-top: 10px;
-    border-top: 1px solid #e4e4e4;
     color: #9c9c9c;
+    margin-bottom: 1em;
   }
 }
 
@@ -964,7 +958,6 @@ caption {
 
 .metrics-pagination.pagination {
   width: 715px;
-  margin: 55px 0 0 38px;
   padding: 0 0 38px;
 }
 

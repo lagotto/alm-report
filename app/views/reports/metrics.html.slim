@@ -9,10 +9,8 @@
 
         - @dois.each do |doi|
           .visualizations-list
-            span.list-numbers= doi.display_index
-
-
-            h5.metrics-article-title
+            h5
+              span= doi.display_index
               a href="http://dx.doi.org/#{doi.doi}"
                 = doi.solr.title
             - if doi.solr.authors
@@ -31,9 +29,10 @@
             - if doi.alm.blank?
               .metrics-no-data-para This article data isn't available. Please check back later.
             - else
-              a.show-all-alms-link
-                | Show all ALMs
-                span.arrow-down
+              p
+                a.show-all-alms-link
+                  | Show all ALMs
+                  span.arrow-down
               .metrics-table-content
                 .metric-row-content
                   table.metrics-table class=("metric-without-data" if !doi.alm[:viewed_data_present])
