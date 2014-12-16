@@ -16,10 +16,24 @@ AlmReport.SunburstChartComponent = Ember.Component.extend({
 
                     if(node) {
                         next = node
+                        if(next.citations) {
+                           next.citations = next.citations + d.get('cited');
+                        } else {
+                           next.citations = d.get('cited');
+                        }
+
                     } else if (j == s.length - 1) {
-                        next = { name: e, views: d.get('viewed') }
+                        next = {
+                            name: e,
+                            views: d.get('viewed'),
+                            citations: d.get('cited')
+                        }
                     } else {
-                        next = { name: e, children: []}
+                        next = {
+                            name: e,
+                            children: [],
+                            citations: d.get('cited')
+                        }
                     }
 
                     if(next !== node) {
@@ -31,6 +45,10 @@ AlmReport.SunburstChartComponent = Ember.Component.extend({
                 })
             });
         })
+
+        tree.citations = _.reduce(tree.children, function(sum, subject) {
+            return sum + subject.citations;
+        }, 0);
 
         return tree;
     }.property('items'),
