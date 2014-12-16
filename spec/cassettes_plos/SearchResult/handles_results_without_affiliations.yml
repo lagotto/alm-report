@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pbio.0050082&rows=25&wt=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.plos.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 16 Dec 2014 11:50:21 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Last-Modified:
+      - Tue, 16 Dec 2014 09:25:46 GMT
+      Etag:
+      - '"ZjM5YWQwMDAwMDAwMDAwMFNvbHI="'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Set-Cookie:
+      - Coyote-2-9514450c=95144522:0; path=/
+    body:
+      encoding: UTF-8
+      string: |
+        {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.pbio.0050082","cross_published_journal_name":["PLOS Collections","PLOS Biology"],"pmid":"17355177","subject":["/Biology and life sciences/Computational biology/Comparative genomics","/Biology and life sciences/Biochemistry/Ribosomes/Ribosomal RNA","/Biology and life sciences/Genetics/Genomics/Genome evolution","/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence databases","/Biology and life sciences/Biochemistry/Nucleic acids/RNA/Non-coding RNA/Ribosomal RNA","/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence databases","/Research and analysis methods/Molecular biology techniques/Cloning/DNA cloning/Shotgun sequencing","/Biology and life sciences/Ecology/Microbial ecology","/Biology and life sciences/Evolutionary biology/Molecular evolution/Genome evolution","/Biology and life sciences/Cell biology/Cellular structures and organelles/Ribosomes/Ribosomal RNA","/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Shotgun sequencing","/Biology and life sciences/Genetics/Genomics/Animal genomics/Invertebrate genomics","/Ecology and environmental sciences/Ecology/Microbial ecology","/Biology and life sciences/Genetics/Genomics/Comparative genomics","/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Shotgun sequencing","/Biology and life sciences/Computational biology/Genome evolution","/Research and analysis methods/Database and informatics methods/Biological databases/Sequence databases","/Biology and life sciences/Genetics/Genomics/Metagenomics","/Biology and life sciences/Microbiology/Microbial ecology","/Biology and life sciences/Molecular biology/Molecular biology techniques/Cloning/DNA cloning/Shotgun sequencing"],"publication_date":"2007-03-13T00:00:00Z","article_type":"Essay","author_display":["Jonathan A Eisen"],"editor_display":["Simon Levin"],"affiliate":["Princeton University, United States of America"],"title":"Environmental Shotgun Sequencing: Its Potential and Challenges for Studying the Hidden World of Microbes"}]}}
+    http_version: 
+  recorded_at: Tue, 16 Dec 2014 11:50:15 GMT
+recorded_with: VCR 2.9.3
