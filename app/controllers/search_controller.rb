@@ -9,7 +9,16 @@ class SearchController < ApplicationController
     @tab = :select_articles
     @title = "Add Articles"
 
-    @results, @total_found, @metadata = Search.find(params)
+    session[:params] = params
+
+    search = Search.find(params)
+    @results = search[:docs]
+    @facets = search[:facets]
+
+    session[:facets] = @facets
+
+    @total_found = search[:found]
+    @metadata = search[:metadata]
 
     if @cart.items.present?
       @results.each do |result|
@@ -21,6 +30,10 @@ class SearchController < ApplicationController
   end
 
   private
+
+  def filter
+
+  end
 
   def simple
     @tab = :select_articles
@@ -42,7 +55,7 @@ class SearchController < ApplicationController
       Solr::Request.get_journals
     else
       # Add a "All Journals" entry
-      { Solr::Request::ALL_JOURNALS => Solr::Request::ALL_JOURNALS }.
+      { Solr::ALL_JOURNALS => Solr::ALL_JOURNALS }.
         merge(Solr::Request.get_journals)
     end
   end

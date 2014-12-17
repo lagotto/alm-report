@@ -6,7 +6,7 @@ module Solr
       @params = params.dup
       @sort = @params[:sort]
 
-      @fl = fl || Request::FL
+      @fl = fl || FL
       @query = {}
     end
 
@@ -24,7 +24,7 @@ module Solr
       build_affiliate_param
       build_date_range
       @query[:q] = @params.sort_by { |k, _| k }.select do |k, _|
-        Request::QUERY_PARAMS.include?(k.to_sym)
+        QUERY_PARAMS.include?(k.to_sym)
       end.map do |k, v|
         unless %w(affiliate publication_date id).include?(k.to_s) # Pre-formatted
           v = quote_if_spaces(v)
@@ -39,7 +39,7 @@ module Solr
     def url
       # :unformattedQueryId comes from advanced search
       @params.has_key?(:unformattedQueryId) ? build_advanced : build
-      "#{ENV["SOLR_URL"]}?#{query_param}#{common_params}#{sort}&hl=false"
+      "#{ENV["SOLR_URL"]}?#{query_param}#{common_params}#{sort}&hl=false&#{FACETS}"
     end
 
 
@@ -109,11 +109,11 @@ module Solr
     end
 
     def common_params
-      "&#{Request::FILTER}&#{fl}&wt=json&facet=false&#{page_block}"
+      "&#{FILTER}&#{fl}&wt=json&#{page_block}"
     end
 
     def sort
-      if Request::SORTS.values.include? @sort
+      if SORTS.values.include? @sort
         "&sort=#{URI::encode(@sort)}"
       end
     end
@@ -162,8 +162,8 @@ module Solr
     def build_date_range
       parse_date_range
       if @start_time && @end_time
-        times = [@start_time.strftime(Request::SOLR_TIMESTAMP_FORMAT),
-          @end_time.strftime(Request::SOLR_TIMESTAMP_FORMAT)]
+        times = [@start_time.strftime(SOLR_TIMESTAMP_FORMAT),
+          @end_time.strftime(SOLR_TIMESTAMP_FORMAT)]
         @params[:publication_date] = "[#{times.join(" TO ")}]"
       end
     end
@@ -171,12 +171,12 @@ module Solr
     def clean_params
       # Strip out empty and only keep whitelisted params
       @params.delete_if do |k, v|
-        v.blank? || !Request::WHITELIST.include?(k.to_sym)
+        v.blank? || !WHITELIST.include?(k.to_sym)
       end
 
       # Strip out the placeholder "all journals" journal value.
       @params.delete_if do |k, v|
-        [k.to_s, v] == ["filterJournals", [Request::ALL_JOURNALS]]
+        [k.to_s, v] == ["filterJournals", [ALL_JOURNALS]]
       end
     end
   end
