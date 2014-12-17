@@ -34,9 +34,9 @@ AlmReport.LineChartComponent = Ember.Component.extend({
 
     prepareData: function () {
         return {
-            html: this.get('html'),
-            pdf: this.get('pdf'),
-            xml: this.get('xml'),
+            HTML: this.get('html'),
+            PDF: this.get('pdf'),
+            XML: this.get('xml'),
             url: this.get('item').canonical_url,
             journal: this.get('item').journal,
             title: this.get('item').title
@@ -54,7 +54,7 @@ AlmReport.LineChartComponent = Ember.Component.extend({
             xLabel: "Time",
             y: "views",
             yLabel: 'Views',
-            lines: ["html", "pdf", "xml"],
+            lines: ["HTML", "PDF", "XML"],
             category: "journal",
             tooltip: "title",
             colors: ['#fda328',
