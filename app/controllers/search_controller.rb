@@ -29,11 +29,14 @@ class SearchController < ApplicationController
     set_paging_vars(params[:current_page])
   end
 
-  private
-
   def filter
+    l = session[:params]
+    l[:filters].push({ params[:facet] => params[:value] })
 
+    redirect_to search_path(l)
   end
+
+  private
 
   def simple
     @tab = :select_articles
@@ -51,12 +54,6 @@ class SearchController < ApplicationController
   # PLOS
 
   def journals
-    @journals = if params[:advanced]
-      Solr::Request.get_journals
-    else
-      # Add a "All Journals" entry
-      { Solr::ALL_JOURNALS => Solr::ALL_JOURNALS }.
-        merge(Solr::Request.get_journals)
-    end
+    @journals = Solr::Request.get_journals
   end
 end

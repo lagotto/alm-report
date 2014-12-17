@@ -1,11 +1,11 @@
 .row
   .two.columns
     / p Filters
-    - @facets.each do |k, v|
-      p= k.to_s.titlecase
+    - @facets.each do |facet, items|
+      p= facet.to_s.titlecase
       ul
-        - v.each do |k, v|
-          li #{k} #{v}
+        - items.each do |value, count|
+          li= link_to "#{value} #{count}", filter_path({facet: facet, value: value})
 
   .six.columns
     h2 Add selected articles to your list

@@ -146,7 +146,7 @@ describe Solr::Request do
       :author_country=>"",
       :institution=>"University of California",
       :subject=>"Gene regulation",
-      :filterJournals=>["All Journals"],
+      :filters=>["All Journals"],
       :financial_disclosure=>""
     }
 

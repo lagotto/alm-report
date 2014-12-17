@@ -38,7 +38,7 @@ module Solr
   ]
 
   PROCESS_PARAMS = [
-    :publication_days_ago, :datepicker1, :datepicker2, :filterJournals,
+    :publication_days_ago, :datepicker1, :datepicker2, :filters,
     :current_page, :author_country, :institution, :ids, :rows
   ]
 

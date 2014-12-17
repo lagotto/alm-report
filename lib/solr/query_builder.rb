@@ -20,7 +20,7 @@ module Solr
     def build
       clean_params
       build_ids
-      build_filter_journals
+      build_filters
       build_affiliate_param
       build_date_range
       @query[:q] = @params.sort_by { |k, _| k }.select do |k, _|
@@ -64,7 +64,7 @@ module Solr
 
     # Returns the portion of Solr URL with the query parameter & journal filter
     def build_advanced
-      build_filter_journals
+      build_filters
 
       if @params.has_key?(:unformattedQueryId)
         @query[:q] = @params[:unformattedQueryId].strip
@@ -118,11 +118,17 @@ module Solr
       end
     end
 
-    def build_filter_journals
-      if @params.has_key?(:filterJournals)
-        @query[:fq] = @params[:filterJournals].map do |filter_journal|
-          "cross_published_journal_key:#{filter_journal}"
-        end.join(" OR ")
+    def build_filters
+      if @params.has_key?(:filters)
+        @query[:fq] = @params[:filters].map do |filter|
+          if filter.is_a? Hash
+            name = filter.to_a[0][0]
+            value = filter.to_a[0][1]
+            "#{name}:\"#{value}\""
+          elsif filter.present?
+            "cross_published_journal_key:#{filter}"
+          end
+        end.compact.join(" AND ")
       end
     end
 
@@ -172,11 +178,6 @@ module Solr
       # Strip out empty and only keep whitelisted params
       @params.delete_if do |k, v|
         v.blank? || !WHITELIST.include?(k.to_sym)
-      end
-
-      # Strip out the placeholder "all journals" journal value.
-      @params.delete_if do |k, v|
-        [k.to_s, v] == ["filterJournals", [ALL_JOURNALS]]
       end
     end
   end
