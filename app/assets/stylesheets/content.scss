@@ -1,25 +1,8 @@
-/* ==========================================================================
-   5. Content
-   ========================================================================== */
-
-.content {
-  margin-bottom: 49px;
-  border-radius: 0 0 4px 4px;
-  background: #efefef;
-}
-
 /* 5.1. Form block
    ========================================================================== */
 
-.home-form,
-.advanced-form {
-  width: 500px;
-  margin: 70px 0 50px 50px;
-  float: left;
-}
 
 h2 {
-  color: #333;
   font-size: 26px;
 }
 
@@ -39,9 +22,7 @@ label {
 }
 
 input[type="text"] {
-  width: 434px;
-  padding: 10px 0 10px 12px;
-  border-radius: 6px;
+  width: 100%;
   font-size: 18px;
 }
 
@@ -69,28 +50,15 @@ input[type="text"] {
   vertical-align: top;
 }
 
-select {
-  width: 450px;
-  height: 45px;
-  border-radius: 6px;
-  font-size: 18px;
-}
-
-.input-holder select {
-  margin-bottom: 2px;
-}
-
-.select {
-  width: 438px;
-  height: 45px;
-  padding: 12px 0 0 16px;
-  position: absolute;
-  top: 42px;
-  left: -4px;
-  overflow: hidden;
-  background: image-url('sprite.png') -187px -399px no-repeat;
-  font-size: 18px;
-  color: #333;
+.home-form {
+  select {
+    width: 100%;
+    width: calc(100% + 22px);
+    height: 45px;
+    border-radius: 6px;
+    padding: 20px;
+    font-size: 18px;
+  }
 }
 
 .submit-btn {
@@ -101,7 +69,7 @@ select {
   border-radius: 4px;
   background: $button_color;
   color: $button_text_color;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: $font_family;
   font-weight: bold;
   font-size: 15px;
 }
@@ -125,7 +93,7 @@ select {
   background: none;
   cursor: pointer;
   color: $button_color;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: $font_family;
   font-weight: bold;
   font-size: 15px;
 }
@@ -136,7 +104,7 @@ select {
   padding: 8px 6px 9px;
   cursor: pointer;
   color: $button_color;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: $font_family;
   font-weight: bold;
   font-size: 17px;
 }
@@ -146,7 +114,6 @@ select {
 
 .aside-container {
   width: 240px;
-  margin: 50px 0 0;
   float: right;
 }
 
@@ -156,12 +123,7 @@ select {
   margin-top: 10px;
 }
 
-.aside-container.aside {
-  margin: 70px 50px 0 0;
-}
-
 .aside-container.aside a {
-  padding: 8px 0 9px 10px;
   margin: 26px 0 0;
   display: block;
 }
@@ -170,44 +132,47 @@ select {
   background: $background;
 }
 
-.aside-container.aside a + a {
-  padding: 8px 0 9px 10px;
-  margin: 8px 0 0;
-}
-
 /* 5.3. Articles list block
    ========================================================================== */
 
 .articles-list {
-  margin: 90px 0 0 50px;
-}
+  margin: 48px 0;
 
-.articles-list div {
-  margin: 32px 6px 0 0;
-  float: left;
-  position: relative;
-}
+  div {
+    // margin: 32px 6px 0 0;
+    display: inline;
+    position: relative;
 
-.articles-list div a {
-  width: 202px;
-  height: 71px;
-  margin: 0 6px 0 0;
-  border-radius: 4px;
-  float: left;
-  background: $background;
-  font-size: 14px;
-  font-weight: bold;
-}
+    a {
+      height: 71px;
+      width: 191px;
+      border-radius: 4px;
+      color: $button_text_color;
+      background: $background;
+      margin-right: 4%;
+      font-size: 14px;
+      font-weight: bold;
+      display: inline-block;
+    }
 
-.articles-list div a:hover {
-  background: $button_color !important;
-}
+    &:last-child a {
+      margin-right: 0;
+    }
 
-.articles-list div a span {
-  float: left;
-}
-.articles-list div a span + span {
-  margin: 26px 0 0;
+    a:hover {
+      // color: $button_text_color;
+      background: $button_color !important;
+    }
+
+    a span {
+      float: left;
+    }
+
+    a span + span {
+      margin: 26px 0 0;
+    }
+  }
+
 }
 
 .top-views {
@@ -249,50 +214,29 @@ select {
    ========================================================================== */
 
 .sample-reports {
-  margin: 70px 0 0 50px;
+  margin-top: 48px;
   padding-bottom: 50px;
 
   a {
-    width: 266px;
+    background: #fff;
+    width: 100%;
     margin: 39px 8px 0 0;
     float: left;
+    text-align: center;
+    div.title {
+      color: $button_text_color;
+      padding: 2rem;
+      display: block;
+      background: $background;
+      font-size: 14px;
+      font-weight: bold;
+    }
   }
 
-  a:last-child {
-    width: 216px;
+  a:hover {
+    color: $header_text_color;
+    text-decoration: underline;
   }
-}
-
-.sample-reports a:hover img + span,
-.sample-reports a:hover img + span + span {
-  text-decoration: underline;
-}
-
-.sample-reports span {
-  width: 196px;
-  padding-left: 20px;
-  float: left;
-  background: $background;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.sample-reports img + span {
-  padding-top: 22px;
-}
-
-.sample-reports img + span + span {
-  width: 168px;
-  min-height: 38px;
-  padding: 1px 28px 0 20px;
-}
-
-.sample-reports img + span + span + span {
-  padding: 0 0 30px 20px;
-  position: relative;
-  bottom: 0;
-  font-size: 12px;
-  color: #999;
 }
 
 /* 5.5. Search.doi-pmid
@@ -401,29 +345,9 @@ select {
 /* 5.7. Preview-list
    ========================================================================== */
 
-.preview-list {
-  width: 628px;
-  margin: 45px 0 0 50px;
-  position: relative;
-  display: inline-block;
-  min-height: 330px;
-}
 
-.preview-form h2 {
-  margin: 0 0 18px 0;
-}
-
-.preview-form p {
-  color: #333;
-}
-
-.preview-form .article-info input[type="checkbox"] {
+.list input[type="checkbox"] {
   top: 1px;
-}
-
-.update-list-btn {
-  margin: 18px 8px 0 42px;
-  padding: 7px 12px 8px 11px;
 }
 
 .preview-form .success,
@@ -431,65 +355,30 @@ select {
   display: none;
 }
 
-/* 5.8. Add-articles
+/* 5.8. Articles
    ========================================================================== */
-
-.article-lists {
-  width: 635px;
-  margin: 45px 0 0 50px;
-  position: relative;
-  float: left;
-  min-height: 290px;
-}
-
-.article-lists h2 {
-  margin: 0 0 18px 0;
-}
-
-.article-lists p {
-  width: 570px;
-  line-height: 18px;
-  color: #333;
-}
 
 .keyword,
 .author-name,
 .author-country,
 .publication-date,
 .journals {
-  color: #333;
   font-weight: bold;
 }
 
-.article-lists p span {
-  display: inline-block;
-  color: #333;
-}
-
-.article-lists ul {
-  margin: 44px 0 0 0;
-  float: left;
-}
-
-.article-lists li,
-.preview-list li {
-  padding: 3px 0 2px 10px;
+ul.actions li {
+  &:first-child {
+    padding-left: 0;
+    border-left: none;
+  }
+  padding: 0 1rem;
   cursor: pointer;
   color: $button_color;
-}
-
-.article-lists ul li:first-child {
-  border-left: none;
-  padding: 3px 7px 3px 0;
-}
-
-.article-lists ul li {
   border-left: 1px solid $button_color;
   display: inline;
-}
-
-.article-lists span{
-  color: #8d8d8d;
+  a {
+    color: $button_color;
+  }
 }
 
 .article-info {
@@ -499,19 +388,11 @@ select {
 }
 
 p.select-articles-message {
-  margin: 16px 0 12px 44px;
-  font-size: 14px;
   color: #858585;
-  clear: both;
-}
-
-/* I think the nasty hack from DP doesn't fix the problem because we had to make the select wider to accommodate the length of the text */
-#uniform-add-article-select {
-  margin-bottom: 7px; /* nasty hack to allow the "select-articles-message" element to have the correct top vertical margin */
 }
 
 .invisible {
-  visibility: hidden;
+  display: none;
 }
 
 .select-articles-message a {
@@ -522,31 +403,52 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-.article-info input[type="checkbox"] {
-  position: absolute;
-  top: 0;
-  left: -25px;
-}
+.article-info {
 
-.article-info a {
-  margin: 0;
-  border-bottom: 1px solid #333;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-}
+  input[type="checkbox"] {
+    position: absolute;
+    top: 6px;
+    left: -25px;
+  }
 
-.article-info .success,
-.article-info .error {
-  position: absolute;
-  top: 34px;
-  left: -61px;
-  font-size: 12px;
-  color: #2d9e00;
-}
+  a {
+    color: $button_color;
+    font-size: 14px;
+    font-weight: bold;
+  }
 
-.article-info .error {
-  color: #e53350;
+  .success, .error {
+    position: absolute;
+    top: 34px;
+    left: -61px;
+    font-size: 12px;
+    color: #2d9e00;
+  }
+
+  .error {
+    color: #e53350;
+  }
+
+  .updating {
+    position: absolute;
+    width: 16px;
+    height: 11px;
+    top: 24px;
+    left: -35px;
+    background: image-url('ajax-loader.gif') no-repeat 0 0;
+  }
+
+  p {
+    margin: 3px 0 0;
+    line-height: 16px;
+    color: #666;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 12px;
+  }
+
+  p + p {
+    margin: 0;
+  }
 }
 
 .success-tick {
@@ -558,54 +460,10 @@ input[type="checkbox"] {
   background: image-url('sprite.png') no-repeat -124px -142px;
 }
 
-.article-info .updating {
-  position: absolute;
-  width: 16px;
-  height: 11px;
-  top: 24px;
-  left: -35px;
-  background: image-url('ajax-loader.gif') no-repeat 0 0;
-}
-
-.article-info p {
-  margin: 3px 0 0;
-  line-height: 16px;
-  color: #666;
-  font-family:Arial, Helvetica, sans-serif;
-  font-size: 12px;
-}
-
-.article-info p + p {
-  margin: 0;
-  color: #333;
-}
-
 .select-all-articles-link:hover,
 .unselect-all-articles-link:hover,
 .select-articles-message a:hover {
   color: $active;
-}
-
-.add-select-box-holder {
-  margin: 35px 53px 0 0;
-  position: relative;
-  float: right;
-}
-
-.add-select-box-holder .add-select-label {
-  width: 66px;
-  margin: 9px 0 0;
-  float: left;
-}
-
-.article-lists .select {
-  width: 169px;
-  height: 28px;
-  padding: 8px 0 0 16px;
-  top: 0;
-  left: 69px;
-  background: image-url('sprite.png') -647px -399px no-repeat;
-  color: #333;
 }
 
 .pagination {
@@ -664,13 +522,19 @@ span.next {
   background-position: -25px -142px;
 }
 
-
-.preview-list-aside.scroll-fixed {
-  margin: 10px 0 0;
-}
-
-.preview-list-aside .add-article-links .article-links {
-  padding: 11px 0 11px 4px;
+.preview-list-aside {
+  &.scroll-fixed {
+    margin: 10px 0 0;
+  }
+  .add-article-links .article-links {
+    padding: 11px 0 11px 4px;
+  }
+  li {
+    margin-bottom: 0;
+  }
+  ul {
+    margin: 10px 0 0 0;
+  }
 }
 
 .preview-list-aside-form,
@@ -679,15 +543,11 @@ span.next {
   float: left;
 }
 
-.preview-list ul {
-  margin: 10px 0 0 31px;
-}
-
 .btn-arrow {
   width: 5px;
   height: 9px;
   position: absolute;
-  top: 17px;
+  top: 21px;
   right: 12px;
   background: image-url('sprite.png') -50px -142px no-repeat;
 }
@@ -701,7 +561,6 @@ span.next {
 
 .aside-container p {
   margin: 37px 0 0;
-  color: #333;
   font-weight: normal;
   font-size: 22px;
 }
@@ -717,7 +576,6 @@ span.next {
 }
 
 .add-article-links .article-links {
-  width: 106px;
   padding: 11px 0 11px 4px;
   border-radius: 0;
   display: inline-block;
@@ -859,7 +717,6 @@ span.next {
 .sample-metrics {
   margin: 56px 0 0 78px;
   padding: 0 0 54px;
-  color: #333;
 }
 
 .sample-metrics p {
@@ -895,29 +752,17 @@ span.next {
 /* 5.12. Report.metrics
    ========================================================================== */
 
-
-.view-report.metrics-view-report {
-  height: 123px;
-}
-
 .metrics-chart-view {
   width: 25px;
   height: 24px;
   margin: 47px 12px 0 0;
 }
 
-.view-report .metrics-chart-view + span {
+nav#report .metrics-chart-view + span {
   margin: 47px 12px 0 0;
   color: $button_color;
   font-size: 18px;
   font-weight: bold;
-}
-
-.metrics-icon-active {
-  width: 20px;
-  height: 18px;
-  margin: 49px 12px 0 80px;
-  background: image-url('sprite.png') 0px -141px;
 }
 
 .metrics-icon-active + span {
@@ -931,7 +776,6 @@ span.next {
   width: 715px;
   float: left;
   position: relative;
-  color: #333;
   min-height: 560px;
 }
 
@@ -946,7 +790,7 @@ span.next {
 }
 
 .metrics-article-count {
-  margin: 0 0 5px 83px;
+  margin: 0 0 5px 64px;
 }
 
 .visualizations-list {
@@ -964,39 +808,25 @@ span.next {
   }
 
   .metrics-para {
-    width: 612px;
-    display: inline-block;
-    line-height: 19px;
-    color: #666;
     font-size: 14px;
-    padding: 0 0 14px;
-    border: none;
   }
 
-  .list-numbers {
-    min-width: 20px;
-    height: 22px;
-    margin: 0;
-    padding: 4px 2px 0 3px;
-    position: absolute;
-    top: 0;
-    left: 0;
+  h2 span, h5 span {
+    padding: 2px 8px 3px 8px;
     color: #fff;
     font-size: 14px;
     font-weight: bold;
-    text-align: center;
-    line-height: 17px;
     background-color: #000;
+    margin-right: 1rem;
     border-radius: 4px;
+    vertical-align: text-bottom;
+    display: inline-block;
   }
 
   .metrics-description {
-    margin: 0 0 0 43px;
-    padding: 0;
-    color: #333;
+    border-top: 1px solid #e4e4e4;
     font-size: 12px;
     line-height: 15px;
-    border: none;
   }
 
   .metrics-no-data-para {
@@ -1008,14 +838,6 @@ span.next {
     font-weight: bold;
     padding: 14px 0 14px 0;
     margin: 0 0 0 43px;
-  }
-
-  a {
-    width: 160px;
-    margin: 21px 0 0 43px;
-    display: inline-block;
-    color: #369;
-    font-size: 14px;
   }
 
   a:hover {
@@ -1042,7 +864,6 @@ span.next {
 
   .metrics-table-content {
     width: 620px;
-    margin: 7px 0 0 14px;
     display: inline-block;
   }
 
@@ -1053,7 +874,6 @@ span.next {
 
   .metrics-table {
     width: 289px;
-    margin: 0 0 0 20px;
     padding: 0 0 33px;
     font-weight: normal;
     border-spacing: 0 4px;
@@ -1087,9 +907,6 @@ span.next {
   }
 
   h2 {
-    width: 800px;
-    margin: 0 0 0 43px;
-    float: left;
     font-size: 26px;
     line-height: 24px;
   }
@@ -1099,24 +916,19 @@ span.next {
   }
 
   .info {
-    margin: 24px 0 0 44px;
-    padding: 0;
     border-top: none;
     line-height: 17px;
     color: #4d4d4d;
   }
 
   p {
-    margin: 9px 0 0 43px;
-    padding: 10px 0 0 1px;
-    border-top: 1px solid #e4e4e4;
-    font-size: 14px;
+    padding-top: 10px;
     color: #9c9c9c;
+    margin-bottom: 1em;
   }
 }
 
 .visualizations-container {
-  margin: 50px;
   min-height: 560px;
 }
 
@@ -1140,7 +952,6 @@ caption {
 
 .metrics-pagination.pagination {
   width: 715px;
-  margin: 55px 0 0 38px;
   padding: 0 0 38px;
 }
 
@@ -1151,81 +962,88 @@ caption {
 /* 5.13. Report.visualizations
    ========================================================================== */
 
-.view-report {
+nav#report {
+  margin-top: -4rem;
+  margin-bottom: 2rem;
   width: 100%;
-  height: 113px;
-  display: inline-block;
+  height: 12rem;
+  line-height: 1;
   background-color: $subheader_background;
-}
+  border-radius: 0 0 5px 5px;
 
-.view-report span {
-  float: left;
-}
+  .metrics-icon, .chart-view {
+    float: left;
+    color: $body_text_color;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+  }
 
-.metrics-icon {
-  width: 110px;
-  height: 20px;
-  margin: 46px 100px 0 50px;
-  padding: 0 0 0 31px;
-  float: left;
-  @include metrics-icon($body_text_color);
-  color: $body_text_color;
-  font-weight: bold;
-  font-size: 18px;
-}
+  .metrics-icon-active:after, .chart-view-active:after {
+    @include arrow($subheader_background);
+    top: 7rem;
+  }
 
-.metrics-icon:hover,
-.metrics-icon-active {
-  @include metrics-icon($active);
-  color: $active;
-}
+  .metrics-icon {
+    height: 20px;
+    margin: 46px 100px 0 50px;
+    padding: 0 0 0 31px;
+    @include metrics-icon($body_text_color);
+  }
 
-.chart-view {
-  width: 110px;
-  height: 23px;
-  margin: 46px 11px 0 0;
-  padding: 0 0 0 38px;
-  float: left;
-  @include visualization-icon($body_text_color);
-  color: $body_text_color;
-  font-weight: bold;
-  font-size:18px;
-}
+  .metrics-icon:hover,
+  .metrics-icon-active {
+    @include metrics-icon($active);
+    color: $active;
+  }
 
-.chart-view:hover,
-.chart-view-active {
-  @include visualization-icon($active);
-  color: $active;
-}
+  .chart-view {
+    height: 23px;
+    margin: 46px 11px 0 0;
+    padding: 0 0 0 38px;
+    @include visualization-icon($body_text_color);
+  }
 
-.inactive-viz-link {
-  color: #999 !important;
-  @include visualization-icon(#999);
-}
+  .chart-view:hover,
+  .chart-view-active {
+    @include visualization-icon($active);
+    color: $active;
+  }
 
-.inactive-viz-holder {
-  width: 240px;
-  height: 120px;
-  float: left;
-}
+  .inactive-viz-link {
+    color: #999 !important;
+    @include visualization-icon(#999);
+  }
 
-.inactive-viz-link:hover {
-  color: #999 !important;
-  @include visualization-icon(#999);
-}
+  .inactive-viz-holder {
+    width: 240px;
+    height: 120px;
+    float: left;
+  }
 
-.inactive-viz-msg {
-  height: 23px;
-  padding: 10px 0 0 0;
-  float: left;
-  color: #999;
-  font-size: 10px;
-}
+  .inactive-viz-link:hover {
+    color: #999 !important;
+    @include visualization-icon(#999);
+  }
 
-.view-report .download-visuals {
-  width: 185px;
-  margin: 11px 36px 0 0;
-  float: right;
+  .inactive-viz-msg {
+    height: 23px;
+    padding: 10px 0 0 0;
+    float: left;
+    color: #999;
+    font-size: 10px;
+  }
+
+  .download-visuals {
+    a, a:hover { color: $button_text_color;}
+    width: 185px;
+    margin: 11px 36px 0 0;
+    float: right;
+  }
+
+  span {
+    float: left;
+  }
 }
 
 .edit-list,
@@ -1316,7 +1134,6 @@ caption {
   line-height: 16px;
   display: table-cell;
   vertical-align: middle;
-  color: #333;
   font-size: 12px;
   font-weight: normal;
 }
@@ -1448,51 +1265,6 @@ caption {
 
 /* 5.15. Page: Upload-file
    ========================================================================== */
-
-.upload-file {
-  width: 635px;
-  float: left;
-  position: relative;
-  margin: 45px 0 80px 38px;
-}
-.upload-file h2 {
-  margin: 0 0 18px;
-}
-
-.upload-file p {
-  color: #666;
-  font-size: 14px;
-}
-
-.upload-file a {
-  margin: 0;
-  color: #333333;
-  font-weight: bold;
-}
-
-.upload-file a:hover {
-  border-bottom: 1px solid #333333;
-}
-
-.upload-file-form {
-  width: 360px;
-  margin: 20px 0 0 0;
-}
-
-input[type="file"] {
-  color: #333;
-  float: left;
-}
-
-.upload-file-form input[type="file"] {
-  font-family: Arial,Helvetica,sans-serif;
-  width: 255px;
-}
-
-.upload-file-btn {
-  margin: 29px 0 0 0;
-  padding: 7px 12px 8px;
-}
 
 /* 5.16. Page: Upload file - Fix Errors
    ========================================================================== */

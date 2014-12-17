@@ -1,5 +1,5 @@
 // Derived colors derived from other colors
-$subheader_background: lighten($breadcrumb_background_first, 50);
+$subheader_background: lighten($breadcrumb_background_first, 45);
 
 
 @mixin font_normal($family: $font_family, $weight: normal) {
@@ -55,8 +55,25 @@ $subheader_background: lighten($breadcrumb_background_first, 50);
     </svg>") no-repeat;
 }
 
-@import "jquery-ui-dp";
-@import "uniform.default";
+@mixin arrow($color: black) {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(149, 213, 162, 0);
+  border-top-color: $color;
+  border-width: 13px;
+  margin-left: -13px;
+}
+
+// Skeleton, SCSSized
+@import "normalize";
+@import "skeleton";
+
 @import "style";
 @import "spinner";
 
@@ -65,3 +82,57 @@ $subheader_background: lighten($breadcrumb_background_first, 50);
 @import "sunburst_chart";
 @import "datamap_chart";
 
+body {
+  background: $main_background;
+}
+
+a {
+  text-decoration: none;
+}
+
+.main {
+  background: $main_background;
+
+  a {
+    color: $button_color;
+  }
+}
+
+.section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  &.header {
+    margin-bottom: 2rem;
+  }
+  &.header, &.footer {
+    color: $header_text_color;
+    padding-bottom: 0;
+    background: $header_background;
+
+    a {
+      color: $header_text_color;
+    }
+
+    a:hover {
+      decoration: underline;
+    }
+  }
+
+  a.button {
+    font-size: 14px;
+
+
+    color: $button_text_color;
+  }
+
+}
+
+/* For devices larger than 550px */
+@media (min-width: 550px) {
+  .container .one-fifth.column { width: 16.8%; }
+}
+
+.container {
+  max-width: 1140px;
+}

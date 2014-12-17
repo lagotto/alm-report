@@ -54,4 +54,10 @@ describe SearchResult, vcr: true do
 
     expect(result.journal.downcase).to eq("plos computational biology")
   end
+
+  it "handles results without affiliations" do
+    result = Search.find_by_ids(["10.1371/journal.pbio.0050082"])[0]
+
+    expect(result.affiliations).to eq nil
+  end
 end

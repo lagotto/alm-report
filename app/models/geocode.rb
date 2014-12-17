@@ -71,33 +71,11 @@ class Geocode < ActiveRecord::Base
   # from input address to geocode object (not all input addresses may be present
   # in the output, if they were not found).
   def self.load_from_addresses(addresses)
-    processed = addresses.map do |address|
-      address = address.downcase
-      variations = COUNTRY_SYNONYMS.map do |synonym, canonical|
-        # Address can be in multiple forms:
-        # City, Province, Country
-        # City, Country
-        if address =~ /((?<=, )#{synonym}\Z)|\A#{synonym}\Z/
-          address.sub(synonym, canonical)
-        end
-      end.compact
-      variations.push(address) if variations.empty?
-      variations.push(address[/(?<=, ).*\Z/])
-      [address, Hash[*variations.compact.map { |f| [f, nil]}.flatten]]
+    processed = variations(addresses)
+
+    if processed.present?
+      geocode(processed)
     end
-
-    processed = Hash[processed]
-    geocodes = load_from_addresses_impl(processed.values.reduce(:merge).keys)
-
-    processed.map do |address, variations|
-      # Try to find the most specific address first.
-      variations = variations.keys.sort_by { |v| v.count(",") }.reverse
-
-      variation = variations.find do |variation|
-        geocodes[variation]
-      end
-      { address => geocodes[variation] } if variation
-    end.compact.reduce(:merge)
   end
 
   # Parses the author affiliates field in the article XML to retrieve the
@@ -115,4 +93,37 @@ class Geocode < ActiveRecord::Base
     end
   end
 
+  private
+
+  def self.variations(addresses)
+    processed = addresses.map do |address|
+      address = address.downcase
+      variations = COUNTRY_SYNONYMS.map do |synonym, canonical|
+        # Address can be in multiple forms:
+        # City, Province, Country
+        # City, Country
+        if address =~ /((?<=, )#{synonym}\Z)|\A#{synonym}\Z/
+          address.sub(synonym, canonical)
+        end
+      end.compact
+      variations.push(address) if variations.empty?
+      variations.push(address[/(?<=, ).*\Z/])
+      [address, Hash[*variations.compact.map { |f| [f, nil]}.flatten]]
+    end
+    Hash[processed]
+  end
+
+  def self.geocode(addresses)
+    geocodes = load_from_addresses_impl(addresses.values.reduce(:merge).keys)
+
+    addresses.map do |address, variations|
+      # Try to find the most specific address first.
+      variations = variations.keys.sort_by { |v| v.count(",") }.reverse
+
+      variation = variations.find do |variation|
+        geocodes[variation]
+      end
+      { address => geocodes[variation] } if variation
+    end.compact.reduce(:merge)
+  end
 end

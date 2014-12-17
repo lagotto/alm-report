@@ -1,0 +1,24 @@
+.row
+  .eight.columns
+    .upload-file
+      h2 Upload File
+      p
+        ' Bulk upload of articles with a file that contains any combination of DOIs and PMIDs for PLOS articles, one per line. The application will retrieve the top entries until the maximum of 500 is reached.
+        a href="/sample_upload_file.csv" Sample File
+      = form_tag("/upload", :method => "post", :class => "upload-file-form", :multipart => true) do
+        - if !@file_absent.nil? && @file_absent
+          .error-holder
+            = label_tag(:"upload-file-field", "File path", :class => "hidden")
+            = file_field_tag(:"upload-file-field")
+            p.error-message error-color Please choose a file to upload.
+        - else
+          = label_tag(:"upload-file-field", "File path", :class => "hidden")
+          = file_field_tag(:"upload-file-field")
+        p= submit_tag "Upload File"
+  .four.columns
+    = render "right_nav", :current_page => :upload
+
+
+
+
+
