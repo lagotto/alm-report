@@ -41,9 +41,20 @@ module Solr
 
     def self.parse_facets(json)
       facets = {}
-      facets[:journal] = Hash[*json["facet_counts"]["facet_fields"]["journal"]]
-      facets[:article_type] = Hash[*json["facet_counts"]["facet_fields"]["article_type"]]
-      facets[:publication_date] = json["facet_counts"]["facet_dates"]["publication_date"].select{|k,v| k.start_with? "2"}
+      counts = json["facet_counts"]
+
+      facets[:journal] = Hash[
+        *counts["facet_fields"]["journal"][0..9]
+      ]
+      facets[:article_type] = Hash[
+        *counts["facet_fields"]["article_type"][0..9]
+      ]
+
+      facets[:publication_date] = Hash[counts["facet_dates"]["publication_date"].select { |k,v| k.start_with? "2" }.map{|x,y| [x[0..3], y]}.reverse[0..9]]
+
+      #counts["facet_dates"]["publication_date"].
+#      select { |k,v| k.start_with? "2" }
+
       facets
     end
 

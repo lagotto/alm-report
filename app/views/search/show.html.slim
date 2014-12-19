@@ -5,7 +5,7 @@
       p= facet.to_s.titlecase
       ul
         - items.each do |value, count|
-          li= link_to "#{value} #{count}", filter_path({facet: facet, value: value})
+          li= link_to "#{value} (#{count})", filter_path({facet: facet, value: value})
 
   .six.columns
     h2 Add selected articles to your list
