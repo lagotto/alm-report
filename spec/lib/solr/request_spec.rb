@@ -1,6 +1,4 @@
 require "rails_helper"
-# require 'solr_request'
-# require "date"
 
 describe Solr::Request do
   it "queries by pubmed ids" do

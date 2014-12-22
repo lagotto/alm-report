@@ -39,21 +39,33 @@ module Solr
       end
     end
 
-    def self.parse_facets(json)
-      facets = {}
+    def parse_facets(json)
+      facets = Facet.new
       counts = json["facet_counts"]
 
-      facets[:journal] = Hash[
-        *counts["facet_fields"]["journal"][0..9]
-      ]
-      facets[:article_type] = Hash[
-        *counts["facet_fields"]["article_type"][0..9]
-      ]
+      facets.add(%w[journal article_type].map do |name|
+        facet = {}
+        facet[name] = Hash[
+          *counts["facet_fields"][name].map.with_index do |f, i|
+            i % 2 == 1 ? {count: f} : f
+          end
+        ]
+        facet
+      end)
 
-      facets[:publication_date] = Hash[counts["facet_dates"]["publication_date"].select { |k,v| k.start_with? "2" }.map{|x,y| [x[0..3], y]}.reverse[0..9]]
+      facets.add("publication_date" => Hash[
+        counts["facet_dates"]["publication_date"].select do |k, v|
+          k.start_with? "2"
+        end.map{ |date, count| [date, {count: count}] }.reverse
+      ])
 
-      #counts["facet_dates"]["publication_date"].
-#      select { |k,v| k.start_with? "2" }
+      facets.each do |name, values|
+        (@params[:facets] || []).each do |facet|
+          if values.find{|key, value| key == facet[:value]}
+            facets.select(name: name, value: facet[:value])
+          end
+        end
+      end
 
       facets
     end
@@ -66,7 +78,7 @@ module Solr
 
       return {
         docs: Request.parse_docs(json),
-        facets: Request.parse_facets(json),
+        facets: parse_facets(json),
         found: json["response"]["numFound"],
         metadata: metadata
       }

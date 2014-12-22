@@ -10,15 +10,14 @@ class SearchController < ApplicationController
     @title = "Add Articles"
 
     session[:params] = params
-
     search = Search.find(params)
+
     @results = search[:docs]
-    @facets = search[:facets]
-
-    session[:facets] = @facets
-
     @total_found = search[:found]
     @metadata = search[:metadata]
+
+    session[:facets] = search[:facets]
+    @facets = search[:facets]
 
     if @cart.items.present?
       @results.each do |result|
@@ -29,11 +28,15 @@ class SearchController < ApplicationController
     set_paging_vars(params[:current_page])
   end
 
-  def filter
-    l = session[:params]
-    l[:filters].push({ params[:facet] => params[:value] })
+  def facets
+    @facets = session[:facets]
+    redirect_to(root_path) && return unless @facets
 
-    redirect_to search_path(l)
+    params[:facets].each do |facet|
+      @facets.select(name: facet[:name], value: facet[:value])
+    end
+
+    redirect_to search_path(session[:params].merge(@facets.params))
   end
 
   private

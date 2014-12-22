@@ -119,12 +119,15 @@ module Solr
     end
 
     def build_filters
-      if @params.has_key?(:filters)
-        @query[:fq] = @params[:filters].map do |filter|
+      filters = (@params[:filters] || []) + (@params[:facets] || [])
+      if filters
+        @query[:fq] = filters.map do |filter|
           if filter.is_a? Hash
-            name = filter.to_a[0][0]
-            value = filter.to_a[0][1]
-            "#{name}:\"#{value}\""
+            if filter[:name] == "publication_date"
+              "#{filter[:name]}:[#{filter[:value]} TO #{filter[:value]}+1YEAR]"
+            else
+              "#{filter[:name]}:\"#{filter[:value]}\""
+            end
           elsif filter.present?
             "cross_published_journal_key:#{filter}"
           end
