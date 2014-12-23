@@ -5,6 +5,9 @@ AlmReport.Item = DS.Model.extend({
   issued: DS.attr(),
   published: function () {
     var parts = this.get('issued')['date-parts'][0]
+    if(parts[1]) {
+      parts[1] = parts[1] - 1;
+    }
     return new Date(
       parts[0],
       parts[1],
