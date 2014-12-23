@@ -1,7 +1,7 @@
 .row
   .two.columns
     .facets= render "facets", facets: @facets
-  .six.columns
+  .seven.columns
     h2 Add selected articles to your list
     p
       - if @total_found > 0
@@ -39,7 +39,7 @@
       ul.actions
         li.select-all-articles-link select all
         li.unselect-all-articles-link unselect all
-        li
+        li.sort
           span> Sort by
           = select_tag( \
             :sort, \
@@ -55,7 +55,7 @@
     div#select-all-spinner.ajax_spinner
     - @all_checked = false
     = render "article_list"
-  .four.columns
+  .three.columns
     = render "right_nav", :current_page => :add_articles
 
 div#gray-out-screen

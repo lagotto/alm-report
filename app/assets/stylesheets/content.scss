@@ -367,10 +367,16 @@ input[type="text"] {
 }
 
 ul.actions li {
-  &:first-child {
+  &:first-child, &.sort {
     padding-left: 0;
     border-left: none;
   }
+
+
+  &.sort {
+    margin-left: 4rem;
+  }
+
   padding: 0 1rem;
   cursor: pointer;
   color: $button_color;
