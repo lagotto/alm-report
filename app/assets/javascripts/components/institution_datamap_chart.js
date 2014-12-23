@@ -20,7 +20,7 @@ AlmReport.InstitutionDatamapChartComponent = Ember.Component.extend({
             // Group by full institution name and set the radius accordingly
             .groupBy(function (a) { return a.full }).map(function(v, k) {
                 var a = v[0];
-                a.radius = v.length * 10;
+                a.radius = Math.sqrt(v.length * 20);
                 a.papers = v.length;
                 return a;
             })
@@ -44,6 +44,12 @@ AlmReport.InstitutionDatamapChartComponent = Ember.Component.extend({
                     '</div>'].join('');
                 }
         });
+
+        chart.svg.call(d3.behavior.zoom().on("zoom", redraw));
+
+        function redraw() {
+            chart.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }
 
         this.set('chart', chart);
     },
