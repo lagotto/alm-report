@@ -4,7 +4,6 @@ gem "rails", "4.1.8"
 gem "mysql2"
 gem "dalli"
 gem "countries"
-
 gem "dotenv"
 gem "sass-rails"
 gem "coffee-rails"
@@ -17,6 +16,9 @@ gem "exception_notification"
 gem "httparty"
 gem "faraday"
 gem "faraday_middleware"
+
+gem "ember-rails"
+gem "ember-source", "1.8.1"
 
 group :development do
   gem "rubocop"

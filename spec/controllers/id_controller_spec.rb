@@ -34,16 +34,18 @@ describe IdController do
       should eq("10.1021/ac1014832")
   end
 
-  it "POST #process_upload" do
-    stub_request(:get, /api.crossref.org\/works/).
-      to_return(File.open('spec/fixtures/api_crossref_single_doi.raw'))
-
-    stub_request(:get, /api.plos.org.*pmid:.*/).
-      to_return(File.open('spec/fixtures/solr_pmids.raw'))
-
+  it "POST #process_upload", vcr: true do
     file = fixture_file_upload "sample_upload_file.csv", "text/plain"
     post :process_upload, :"upload-file-field" => file
 
     response.redirect_url.should eq('http://test.host/preview')
+  end
+
+  it "adds an article by id", vcr: true do
+    doi = "10.1371/journal.pone.0061406"
+    post :save, "doi-pmid-1" => doi
+
+    expect(response).to be_redirect
+    expect(session[:dois]).to eq [doi]
   end
 end

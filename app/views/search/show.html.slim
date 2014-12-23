@@ -1,6 +1,9 @@
-.content.wrapper.cf
-  .article-lists
-    h2.text-light-normal Add selected articles to your list
+.row
+  / .two.columns
+  /   h2 Filters
+  /   p Here be filters.
+  .eight.columns
+    h2 Add selected articles to your list
     p
       - if @total_found > 0
         => "#{@start_result} - #{@end_result} of #{number_with_delimiter(@total_found, :delimiter => ',')} results for"
@@ -34,28 +37,27 @@
       - if Search.crossref?
         span Due to limited availability of ALM data, search results are limited to items published after Jan 1st 2011.
     - if @total_found > 0
-      ul
+      ul.actions
         li.select-all-articles-link select all
         li.unselect-all-articles-link unselect all
-
-      .add-select-box-holder
-        span.add-select-label Sort by
-        = select_tag( \
-          :sort, \
-          options_for_select( \
-            (Search.plos? ? SolrRequest : SearchCrossref)::SORTS.to_a, \
-            params[:sort] \
-          ), \
-          class: "styled", \
-          id: "search_results_sort_order_select" \
-        )
-    p.select-articles-message.text-light-normal.invisible
+        li
+          span> Sort by
+          = select_tag( \
+            :sort, \
+            options_for_select( \
+              (Search.plos? ? Solr::Request : SearchCrossref)::SORTS.to_a, \
+              params[:sort] \
+            ), \
+            id: "search_results_sort_order_select" \
+          )
+    p.select-articles-message.invisible
       span#select-articles-message-text
       span#select-all-articles-message-text
     div#select-all-spinner.ajax_spinner
     - @all_checked = false
     = render "article_list"
-  = render "right_nav", :current_page => :add_articles
+  .four.columns
+    = render "right_nav", :current_page => :add_articles
 
 div#gray-out-screen
 

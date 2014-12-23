@@ -5,40 +5,55 @@ require "json"
 # Interface to the PLOS ALM API.
 module AlmRequest
 
-  @@ALM_METRICS = ActiveSupport::OrderedHash.new
-  @@ALM_METRICS[:plos_total] = "PLOS Total"
-  @@ALM_METRICS[:plos_html] = "PLOS views"
-  @@ALM_METRICS[:plos_pdf] = "PLOS PDF downloads"
-  @@ALM_METRICS[:plos_xml] = "PLOS XML downloads"
-  @@ALM_METRICS[:pmc_total] = "PMC Total"
-  @@ALM_METRICS[:pmc_views] = "PMC views"
-  @@ALM_METRICS[:pmc_pdf] = "PMC PDF Downloads"
-  @@ALM_METRICS[:crossref] = "CrossRef"
-  @@ALM_METRICS[:scopus] = "Scopus"
-  @@ALM_METRICS[:pubmed] = "PubMed Central"
-  @@ALM_METRICS[:citeulike] = "CiteULike"
-  @@ALM_METRICS[:mendeley] = "Mendeley"
-  @@ALM_METRICS[:twitter] = "Twitter"
-  @@ALM_METRICS[:facebook] = "Facebook"
-  @@ALM_METRICS[:wikipedia] = "Wikipedia"
-  @@ALM_METRICS[:researchblogging] = "Research Blogging"
-  @@ALM_METRICS[:nature] = "Nature Blogs"
-  @@ALM_METRICS[:scienceseeker] = "Science Seeker"
-  @@ALM_METRICS[:datacite] = "DataCite"
-  @@ALM_METRICS[:pmceurope] = "PMC Europe Citations"
-  @@ALM_METRICS[:pmceuropedata] = "PMC Europe Database Citations"
-  @@ALM_METRICS[:wos] = "Web of Science"
-  @@ALM_METRICS[:reddit] = "Reddit"
-  @@ALM_METRICS[:wordpress] = "Wordpress.com"
-  @@ALM_METRICS[:figshare] = "Figshare"
-  @@ALM_METRICS[:f1000] = "F1000Prime"
+  ALM_METRICS = {
+    plos_total: "PLOS Total",
+    plos_html: "PLOS views",
+    plos_pdf: "PLOS PDF downloads",
+    plos_xml: "PLOS XML downloads",
+    pmc_total: "PMC Total",
+    pmc_views: "PMC views",
+    pmc_pdf: "PMC PDF Downloads",
+    crossref: "CrossRef",
+    scopus: "Scopus",
+    pubmed: "PubMed Central",
+    citeulike: "CiteULike",
+    mendeley: "Mendeley",
+    twitter: "Twitter",
+    facebook: "Facebook",
+    wikipedia: "Wikipedia",
+    researchblogging: "Research Blogging",
+    nature: "Nature Blogs",
+    scienceseeker: "Science Seeker",
+    datacite: "DataCite",
+    pmceurope: "PMC Europe Citations",
+    pmceuropedata: "PMC Europe Database Citations",
+    wos: "Web of Science",
+    reddit: "Reddit",
+    wordpress: "Wordpress.com",
+    figshare: "Figshare",
+    f1000: "F1000Prime",
+  }
 
-  # Returns an ordered dict of all ALM metrics used in the app.  The key is
-  # the key returned by get_data_for_articles, and the value is suitable for
-  # display in the UI.  The order is used in some parts of the app (such as
-  # the CSV download field order).
-  def self.ALM_METRICS
-    @@ALM_METRICS
+  def self.get_v5(dois)
+    # results = {}
+    # check_cache(dois, results, "alm_v5")
+
+    request = {
+      api_key: ENV["ALM_API_KEY"],
+      ids: dois.sort.join(","),
+    }
+
+    # Needed to get Mendeley countries data for visualization
+    request[:info] = "detail" if dois.length == 1
+
+    conn = Faraday.new(url: ENV["ALM_URL"]) do |faraday|
+      faraday.request  :url_encoded
+      faraday.response :logger
+      faraday.response :json
+      faraday.adapter  Faraday.default_adapter
+    end
+
+    response = conn.get("/api/v5/articles", request).body
   end
 
   # Retrieves and returns all ALM data for the given DOIs.  Multiple requests to ALM
@@ -87,7 +102,7 @@ module AlmRequest
   def self.check_cache(dois, cache_results, cache_suffix)
     dois.delete_if  do | doi |
       results = Rails.cache.read("#{doi}.#{cache_suffix}")
-      if !results.nil?
+      if results
         cache_results[doi] = results
         true
       end

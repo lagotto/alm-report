@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pbio.1001046&rows=25&wt=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.plos.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 23 Dec 2014 12:47:33 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Last-Modified:
+      - Tue, 23 Dec 2014 12:46:14 GMT
+      Etag:
+      - '"ZmI1YmIwMDAwMDAwMDAwMFNvbHI="'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Set-Cookie:
+      - Coyote-2-9514450c=95144522:0; path=/
+    body:
+      encoding: UTF-8
+      string: |
+        {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.pbio.1001046","cross_published_journal_name":["PLOS Biology"],"pmid":"","subject":["/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/RNA sequencing","/Biology and life sciences/Genetics/Epigenetics/Chromatin/Chromatin modification/DNA methylation","/Biology and life sciences/Genetics/Genomics/Genome analysis/Genomic databases","/Biology and life sciences/Genetics/Genomics/Genome analysis","/Biology and life sciences/Genetics/Gene expression/Chromatin","/Biology and life sciences/Genetics/Gene expression/Chromatin/Chromatin modification/DNA methylation","/Biology and life sciences/Cell biology/Chromosome biology/Chromatin","/Biology and life sciences/Biochemistry/Nucleic acids/DNA/DNA modification/DNA methylation","/Biology and life sciences/Genetics/Epigenetics/DNA modification/DNA methylation","/Biology and life sciences/Genetics/DNA/DNA modification/DNA methylation","/Computer and information sciences/Information technology/Data processing","/Research and analysis methods/Database and informatics methods/Biological databases/Genomic databases","/Biology and life sciences/Biochemistry/Proteins/DNA-binding proteins/Transcription factors","/Biology and life sciences/Cell biology/Chromosome biology/Chromatin/Chromatin modification/DNA methylation","/Biology and life sciences/Computational biology/Genome analysis/Genomic databases","/Biology and life sciences/Genetics/Gene expression/Gene regulation/Transcription factors","/Biology and life sciences/Biochemistry/Proteins/Regulatory proteins/Transcription factors","/Biology and life sciences/Genetics/Gene expression/DNA modification/DNA methylation","/Biology and life sciences/Computational biology/Genome analysis","/Research and analysis methods/Molecular biology techniques/Sequencing techniques/RNA sequencing","/Biology and life sciences/Genetics/Genomics/Human genomics","/Biology and life sciences/Genetics/Epigenetics/Chromatin"],"publication_date":"2011-04-19T00:00:00Z","received_date":"2010-09-23T00:00:00Z","accepted_date":"2011-03-10T00:00:00Z","article_type":"Research Article","author_display":["The ENCODE Project Consortium "],"editor_display":["Peter B. Becker"],"financial_disclosure":"Funded by the National Human Genome Research Institute, National Institutes of Health, Bethesda, MD, USA. The role of the NIH Project Management Group in the preparation of this paper was limited to coordination and scientific management of the ENCODE Consortium.","title":"A User's Guide to the Encyclopedia of DNA Elements (ENCODE)"}]}}
+    http_version: 
+  recorded_at: Tue, 23 Dec 2014 12:47:38 GMT
+recorded_with: VCR 2.9.3

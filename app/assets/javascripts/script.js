@@ -452,12 +452,12 @@ jQuery(function(d, $){
   (function(){
 
     var $aside_container = $('.aside-container');
-    var container_width = $('.wrapper').width();
+    var container_width = $('.container.main').width();
 
     function scrollHandler() {
       // fix the position of the .aside_container if the viewport has
-      // scrolled 40 pixels beyond the height of the nav
-      if ( $(window).scrollTop() > ($('.nav-area').height() + 40) ) {
+      // scrolled 40 pixels beyond the height of the header
+      if ( $(window).scrollTop() > ($('.section.header').height() + 40) ) {
 
         // align the ".aside-container" to the right of the layout
         $aside_container.addClass('scroll-fixed');
@@ -770,15 +770,15 @@ jQuery(function(d, $){
 
     if (linkText.toLowerCase() === 'show all alms') {
       // display all the metric information with zero values
-      $(this).next('div').find('tr.metric-without-data').attr('class', 'metric-with-data');
-      $(this).next('div').find('table.metric-without-data').attr('class', 'metrics-table metric-with-data');
+      $(this).parent().next('div').find('tr.metric-without-data').attr('class', 'metric-with-data');
+      $(this).parent().next('div').find('table.metric-without-data').attr('class', 'metrics-table metric-with-data');
       $(this).text("Show summary ALMs").append(children);
       $(this).children("span").attr('class', 'arrow-up');
 
     } else {
       // display metric information if there is data
-      $(this).next('div').find('tr.metric-with-data').attr('class', 'metric-without-data');
-      $(this).next('div').find('table.metric-with-data').attr('class', 'metrics-table metric-without-data');
+      $(this).parent().next('div').find('tr.metric-with-data').attr('class', 'metric-without-data');
+      $(this).parent().next('div').find('table.metric-with-data').attr('class', 'metrics-table metric-without-data');
       $(this).text("Show all ALMs").append(children);
       $(this).children("span").attr('class', 'arrow-down');
     }

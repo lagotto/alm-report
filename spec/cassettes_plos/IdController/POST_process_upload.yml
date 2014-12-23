@@ -1,0 +1,300 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pone.0113157&rows=25&wt=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.plos.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 10 Dec 2014 13:45:20 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Last-Modified:
+      - Wed, 10 Dec 2014 13:45:05 GMT
+      Etag:
+      - '"YWUxYzkwMDAwMDAwMDAwMFNvbHI="'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Set-Cookie:
+      - Coyote-2-9514450c=9514451d:0; path=/
+    body:
+      encoding: UTF-8
+      string: |
+        {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.pone.0113157","cross_published_journal_name":["PLOS ONE"],"pmid":"","subject":["/Physical sciences/Chemistry/Analytical chemistry/Trace elements","/Physical sciences/Physics/Condensed matter physics/Solid state physics/Crystallography/Crystallization","/Biology and life sciences/Cell biology/Cytoplasmic inclusions/Crystalline inclusions","/Biology and life sciences/Genetics/Human genetics/Twins","/Biology and life sciences/Organisms/Animals/Vertebrates/Birds/Eagles","/Earth sciences/Mineralogy/Crystalline inclusions","/Earth sciences/Geology/Volcanology/Volcanoes","/Physical sciences/Chemistry/Chemical reactions/Chemical precipitation/Crystallization","/Earth sciences/Mineralogy/Minerals/Quartz","/Physical sciences/Materials science/Materials by structure/Crystals","/Earth sciences/Natural disasters/Volcanoes"],"publication_date":"2014-12-03T00:00:00Z","received_date":"2014-07-14T00:00:00Z","accepted_date":"2014-10-20T00:00:00Z","article_type":"Research Article","author_display":["Erik W. Klemetti","Michael A. Clynne"],"editor_display":["Victoria C. Smith"],"affiliate":["Department of Geosciences, Denison University, Granville OH 43023, United States of America","U.S. Geological Survey, Volcano Science Center, Menlo Park CA 94025, United States of America","University of Oxford, United Kingdom"],"financial_disclosure":"National Science Foundation (EAR #1250323 to EWK) http://www.nsf.gov/. Denison University Anderson Scholarship (to EWK) http://www.denison.edu/. The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.","title":"Localized Rejuvenation of a Crystal Mush Recorded in Zircon Temporal and Compositional Variation at the Lassen Volcanic Center, Northern California"}]}}
+    http_version: 
+  recorded_at: Wed, 10 Dec 2014 13:45:21 GMT
+- request:
+    method: get
+    uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pone.0114307&rows=25&wt=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.plos.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 10 Dec 2014 13:45:21 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Last-Modified:
+      - Wed, 10 Dec 2014 13:45:05 GMT
+      Etag:
+      - '"YWUxYzkwMDAwMDAwMDAwMFNvbHI="'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Set-Cookie:
+      - Coyote-2-9514450c=9514451d:0; path=/
+    body:
+      encoding: UTF-8
+      string: |
+        {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.pone.0114307","cross_published_journal_name":["PLOS ONE"],"pmid":"","subject":["/Biology and life sciences/Evolutionary biology/Organismal evolution/Human evolution","/Biology and life sciences/Population biology/Population genetics/Natural selection","/Biology and life sciences/Evolutionary biology/Population genetics/Natural selection","/Biology and life sciences/Paleontology/Paleoanthropology","/Biology and life sciences/Evolutionary biology/Evolutionary processes/Genetic drift","/Biology and life sciences/Evolutionary biology/Evolutionary genetics","/Earth sciences/Paleontology/Paleoanthropology","/Social sciences/Anthropology/Physical anthropology/Paleoanthropology","/Biology and life sciences/Physical anthropology/Paleoanthropology","/Biology and life sciences/Genetics/Population genetics/Genetic drift","/Biology and life sciences/Population biology/Population genetics/Genetic drift","/Social sciences/Anthropology/Paleoanthropology","/Biology and life sciences/Evolutionary biology/Evolutionary processes/Natural selection","/Biology and life sciences/Evolutionary biology/Population genetics/Genetic drift","/Biology and life sciences/Anatomy/Head/Face","/Medicine and health sciences/Anatomy/Head/Face","/Physical sciences/Mathematics/Probability theory/Random variables/Covariance","/Biology and life sciences/Evolutionary biology/Evolutionary processes","/Biology and life sciences/Genetics/Population genetics/Natural selection"],"publication_date":"2014-12-03T00:00:00Z","received_date":"2014-08-29T00:00:00Z","accepted_date":"2014-11-07T00:00:00Z","article_type":"Research Article","author_display":["Lauren Schroeder","Charles C. Roseman","James M. Cheverud","Rebecca R. Ackermann"],"editor_display":["Andrea B. Taylor"],"affiliate":["Department of Archaeology, University of Cape Town, Rondebosch, 7701, South Africa","Department of Anthropology, University of Illinois, Urbana-Champaign, Illinois, United States of America","Department of Biology, Loyola University, Chicago, Illinois, United States of America","Duke University School of Medicine, United States of America"],"financial_disclosure":"Funding provided by the Palaeontological Scientific Trust (LS), the L.S.B. Leakey Foundation (Baldwin Fellowship; LS), the South African National Research Foundation (LS, RRA), and the University Research Council at the University of Cape Town (RRA). The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.","title":"Characterizing the Evolutionary Path(s) to Early Homo"}]}}
+    http_version: 
+  recorded_at: Wed, 10 Dec 2014 13:45:21 GMT
+- request:
+    method: get
+    uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pone.0114162&rows=25&wt=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.plos.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 10 Dec 2014 13:45:21 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Last-Modified:
+      - Wed, 10 Dec 2014 13:45:05 GMT
+      Etag:
+      - '"YWUxYzkwMDAwMDAwMDAwMFNvbHI="'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Set-Cookie:
+      - Coyote-2-9514450c=9514451d:0; path=/
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6MSwic3RhcnQiOjAsImRvY3MiOlt7
+        ImlkIjoiMTAuMTM3MS9qb3VybmFsLnBvbmUuMDExNDE2MiIsImNyb3NzX3B1
+        Ymxpc2hlZF9qb3VybmFsX25hbWUiOlsiUExPUyBPTkUiXSwicG1pZCI6IiIs
+        InN1YmplY3QiOlsiL0Jpb2xvZ3kgYW5kIGxpZmUgc2NpZW5jZXMvUG9wdWxh
+        dGlvbiBiaW9sb2d5L1BvcHVsYXRpb24gbWV0cmljcy9Qb3B1bGF0aW9uIHNp
+        emUvRWZmZWN0aXZlIHBvcHVsYXRpb24gc2l6ZSIsIi9CaW9sb2d5IGFuZCBs
+        aWZlIHNjaWVuY2VzL0dlbmV0aWNzL1BvcHVsYXRpb24gZ2VuZXRpY3MvSGFw
+        bG90eXBlcyIsIi9CaW9sb2d5IGFuZCBsaWZlIHNjaWVuY2VzL1BvcHVsYXRp
+        b24gYmlvbG9neS9Qb3B1bGF0aW9uIGdlbmV0aWNzL0VmZmVjdGl2ZSBwb3B1
+        bGF0aW9uIHNpemUiLCIvQmlvbG9neSBhbmQgbGlmZSBzY2llbmNlcy9CaW9j
+        aGVtaXN0cnkvTnVjbGVpYyBhY2lkcy9ETkEvRm9ybXMgb2YgRE5BL01pdG9j
+        aG9uZHJpYWwgRE5BIiwiL1Blb3BsZSBhbmQgcGxhY2VzL0dlb2dyYXBoaWNh
+        bCBsb2NhdGlvbnMvQXNpYS9PbWFuIiwiL0VhcnRoIHNjaWVuY2VzL0dlb2dy
+        YXBoeS9HZW9ncmFwaGljIGFyZWFzL1NvdXRoZXJuIEhlbWlzcGhlcmUiLCIv
+        QmlvbG9neSBhbmQgbGlmZSBzY2llbmNlcy9Fdm9sdXRpb25hcnkgYmlvbG9n
+        eS9Qb3B1bGF0aW9uIGdlbmV0aWNzL0VmZmVjdGl2ZSBwb3B1bGF0aW9uIHNp
+        emUiLCIvQmlvbG9neSBhbmQgbGlmZSBzY2llbmNlcy9FY29sb2d5L0Vjb2xv
+        Z2ljYWwgbWV0cmljcy9Qb3B1bGF0aW9uIHNpemUvRWZmZWN0aXZlIHBvcHVs
+        YXRpb24gc2l6ZSIsIi9CaW9sb2d5IGFuZCBsaWZlIHNjaWVuY2VzL0V2b2x1
+        dGlvbmFyeSBiaW9sb2d5L1BvcHVsYXRpb24gZ2VuZXRpY3MiLCIvQmlvbG9n
+        eSBhbmQgbGlmZSBzY2llbmNlcy9PcmdhbmlzbXMvQW5pbWFscy9WZXJ0ZWJy
+        YXRlcy9NYW1tYWxzL01hcmluZSBtYW1tYWxzL1doYWxlcy9IdW1wYmFjayB3
+        aGFsZXMiLCIvQmlvbG9neSBhbmQgbGlmZSBzY2llbmNlcy9Qb3B1bGF0aW9u
+        IGJpb2xvZ3kvUG9wdWxhdGlvbiBnZW5ldGljcyIsIi9CaW9sb2d5IGFuZCBs
+        aWZlIHNjaWVuY2VzL01hcmluZSBiaW9sb2d5L01hcmluZSBtYW1tYWxzL1do
+        YWxlcy9IdW1wYmFjayB3aGFsZXMiLCIvQmlvbG9neSBhbmQgbGlmZSBzY2ll
+        bmNlcy9HZW5ldGljcy9ETkEvRm9ybXMgb2YgRE5BL01pdG9jaG9uZHJpYWwg
+        RE5BIiwiL0VhcnRoIHNjaWVuY2VzL01hcmluZSBhbmQgYXF1YXRpYyBzY2ll
+        bmNlcy9Cb2RpZXMgb2Ygd2F0ZXIvT2NlYW5zL0luZGlhbiBPY2VhbiIsIi9C
+        aW9sb2d5IGFuZCBsaWZlIHNjaWVuY2VzL0V2b2x1dGlvbmFyeSBiaW9sb2d5
+        L1BvcHVsYXRpb24gZ2VuZXRpY3MvSGFwbG90eXBlcyIsIi9CaW9sb2d5IGFu
+        ZCBsaWZlIHNjaWVuY2VzL1BvcHVsYXRpb24gYmlvbG9neS9Qb3B1bGF0aW9u
+        IG1ldHJpY3MvRWZmZWN0aXZlIHBvcHVsYXRpb24gc2l6ZSIsIi9CaW9sb2d5
+        IGFuZCBsaWZlIHNjaWVuY2VzL1BvcHVsYXRpb24gYmlvbG9neS9Qb3B1bGF0
+        aW9uIGdlbmV0aWNzL0hhcGxvdHlwZXMiLCIvQmlvbG9neSBhbmQgbGlmZSBz
+        Y2llbmNlcy9HZW5ldGljcy9Qb3B1bGF0aW9uIGdlbmV0aWNzL0VmZmVjdGl2
+        ZSBwb3B1bGF0aW9uIHNpemUiLCIvQmlvbG9neSBhbmQgbGlmZSBzY2llbmNl
+        cy9HZW5ldGljcy9Qb3B1bGF0aW9uIGdlbmV0aWNzIiwiL0VhcnRoIHNjaWVu
+        Y2VzL01hcmluZSBhbmQgYXF1YXRpYyBzY2llbmNlcy9NYXJpbmUgYmlvbG9n
+        eS9NYXJpbmUgbWFtbWFscy9XaGFsZXMvSHVtcGJhY2sgd2hhbGVzIiwiL0Vj
+        b2xvZ3kgYW5kIGVudmlyb25tZW50YWwgc2NpZW5jZXMvRWNvbG9neS9FY29s
+        b2dpY2FsIG1ldHJpY3MvUG9wdWxhdGlvbiBzaXplL0VmZmVjdGl2ZSBwb3B1
+        bGF0aW9uIHNpemUiXSwicHVibGljYXRpb25fZGF0ZSI6IjIwMTQtMTItMDNU
+        MDA6MDA6MDBaIiwicmVjZWl2ZWRfZGF0ZSI6IjIwMTQtMDMtMjhUMDA6MDA6
+        MDBaIiwiYWNjZXB0ZWRfZGF0ZSI6IjIwMTQtMTEtMDRUMDA6MDA6MDBaIiwi
+        YXJ0aWNsZV90eXBlIjoiUmVzZWFyY2ggQXJ0aWNsZSIsImF1dGhvcl9kaXNw
+        bGF5IjpbIkNyaXN0aW5hIFBvbWlsbGEiLCJBbmEgUi4gQW1hcmFsIiwiVGlt
+        IENvbGxpbnMiLCJHaWFubmEgTWludG9uIiwiS2VuIEZpbmRsYXkiLCJNYXR0
+        aGV3IFMuIExlc2xpZSIsIkxvdWlzYSBQb25uYW1wYWxhbSIsIlJvYmVydCBC
+        YWxkd2luIiwiSG93YXJkIFJvc2VuYmF1bSJdLCJlZGl0b3JfZGlzcGxheSI6
+        WyJTZWFuIFJvZ2VycyJdLCJhZmZpbGlhdGUiOlsiU2Fja2xlciBJbnN0aXR1
+        dGUgZm9yIENvbXBhcmF0aXZlIEdlbm9taWNzLCBBbWVyaWNhbiBNdXNldW0g
+        b2YgTmF0dXJhbCBIaXN0b3J5LCBOZXcgWW9yaywgTmV3IFlvcmssIFVuaXRl
+        ZCBTdGF0ZXMgb2YgQW1lcmljYSIsIkNlbnRybyBkZSBCaW9sb2dpYSBBbWJp
+        ZW50YWwsIEZhY3VsZGFkZSBkZSBDacOqbmNpYXMgVW5pdmVyc2lkYWRlIGRl
+        IExpc2JvYSwgTGlzYm9hLCBQb3J0dWdhbCIsIk9jZWFuIEdpYW50cyBQcm9n
+        cmFtLCBXaWxkbGlmZSBDb25zZXJ2YXRpb24gU29jaWV0eSwgQnJvbngsIE5l
+        dyBZb3JrLCBVbml0ZWQgU3RhdGVzIG9mIEFtZXJpY2EiLCJFbnZpcm9ubWVu
+        dCBTb2NpZXR5IG9mIE9tYW4sIFJ1d2ksIFN1bHRhbmF0ZSBvZiBPbWFuIiwi
+        V29ybGQgV2lkZSBGdW5kIGZvciBOYXR1cmUsIEdhYm9uLCBMaWJyZXZpbGxl
+        LCBHYWJvbiIsIk1hbW1hbCBSZXNlYXJjaCBJbnN0aXR1dGUsIERlcGFydG1l
+        bnQgb2YgWm9vbG9neSBhbmQgRW50b21vbG9neSwgVW5pdmVyc2l0eSBvZiBQ
+        cmV0b3JpYSwgUHJldG9yaWEsIFNvdXRoIEFmcmljYSIsIkluc3RpdHV0ZSBv
+        ZiBPY2VhbiBhbmQgRWFydGggU2NpZW5jZXMsIFVuaXZlcnNpdHkgb2YgTWFs
+        YXlhLCBLdWFsYSBMdW1wdXIsIE1hbGF5c2lhIiwiVW5pdmVyc2l0eSBvZiBD
+        YWxnYXJ5LCBDYW5hZGEiXSwiZmluYW5jaWFsX2Rpc2Nsb3N1cmUiOiJGdW5k
+        aW5nIGFuZCBvdGhlciBpbi1raW5kIHN1cHBvcnQgZm9yIHRoZSB3b3JrIHdh
+        cyBwcm92aWRlZCBieTogVGhlIEVudmlyb25tZW50IFNvY2lldHkgb2YgT21h
+        biwgU2hlbGwgT21hbiBNYXJrZXRpbmcsIFBldHJvbGV1bSBEZXZlbG9wbWVu
+        dCBPbWFuLCBUaGUgVUsgRm9yZWlnbiBhbmQgQ29tbW9ud2VhbHRoIE9mZmlj
+        ZSwgRm9yZCBNaWRkbGUgRWFzdCwgVmVyaXRhcyBHZW9waHlzaWNhbCwgU2Fs
+        YWxhaCBQb3J0IFNlcnZpY2VzLCBGaXZlIE9jZWFucyBMTEMsIFRhd29vcyBM
+        TEMsIFRoZSBQZXRlciBTY290dCBUcnVzdCBmb3IgRWR1Y2F0aW9uIFJlc2Vh
+        cmNoIGluIENvbnNlcnZhdGlvbiwgTWFyaW5hIEJhbmRhciBhbCBSb3dkaGEs
+        IERITCwgTXVzdGFmYSBTdWx0YW4gQ29tbXVuaWNhdGlvbnMsIFRoZSBBQkEg
+        U2Nob29sIE11c2NhdCwgVGhlIEJyaXRpc2ggU2Nob29sIE11c2NhdCwgVGhl
+        IFN1bHRhbiBTY2hvb2wgTXVzY2F0LCBUaGUgRW1iYXNzeSBvZiB0aGUgVW5p
+        dGVkIFN0YXRlcyBpbiBNdXNjYXQsIEVtaXJhdGVzIEFpcmxpbmVzLCBPbWFu
+        IEFpciwgQ2F0aGF5IFBhY2lmaWMsIEtQTUcsIE11c2NhdCBQaGFybWFjeSwg
+        T0hJIE1hcmluZSwgVHJ1Y2sgT21hbiwgVy5KLiBUb3dlbGwgYW5kIENvLiwg
+        SGFuIFBhZHJvbiBBc3NvY2lhdGVzLCBNYXJrIFJlbnRhbCBDYXJzLCBXUyBB
+        dGtpbnMgYW5kIHRoZSBXaWxkbGlmZSBDb25zZXJ2YXRpb24gU29jaWV0eS4g
+        VGhlIGZ1bmRlcnMgb2YgdGhpcyBzdHVkeSBoYWQgbm8gcm9sZSBpbiBzdHVk
+        eSBkZXNpZ24sIGRhdGEgY29sbGVjdGlvbiBhbmQgYW5hbHlzaXMsIGRlY2lz
+        aW9uIHRvIHB1Ymxpc2gsIG9yIHByZXBhcmF0aW9uIG9mIHRoZSBtYW51c2Ny
+        aXB0LiIsInRpdGxlIjoiVGhlIFdvcmxkJ3MgTW9zdCBJc29sYXRlZCBhbmQg
+        RGlzdGluY3QgV2hhbGUgUG9wdWxhdGlvbj8gSHVtcGJhY2sgV2hhbGVzIG9m
+        IHRoZSBBcmFiaWFuIFNlYSJ9XX19Cg==
+    http_version: 
+  recorded_at: Wed, 10 Dec 2014 13:45:22 GMT
+- request:
+    method: get
+    uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pone.0113930&rows=25&wt=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.plos.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 10 Dec 2014 13:45:22 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Last-Modified:
+      - Wed, 10 Dec 2014 13:45:05 GMT
+      Etag:
+      - '"YWUxYzkwMDAwMDAwMDAwMFNvbHI="'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Set-Cookie:
+      - Coyote-2-9514450c=95144522:0; path=/
+    body:
+      encoding: UTF-8
+      string: |
+        {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.pone.0113930","cross_published_journal_name":["PLOS ONE"],"pmid":"","publication_date":"2014-12-03T00:00:00Z","received_date":"2013-12-16T00:00:00Z","accepted_date":"2014-11-02T00:00:00Z","article_type":"Research Article","author_display":["Eleanor Stalenberg","Ian R. Wallis","Ross B. Cunningham","Chris Allen","William J. Foley"],"editor_display":["Elissa Z. Cameron"],"affiliate":["Division of Evolution, Ecology and Genetics, Research School of Biology, The Australian National University, Canberra, Australian Capital Territory, Australia","Fenner School of Environment and Society, The Australian National University, Canberra, Australian Capital Territory, Australia","National Parks and Wildlife Service, NSW Office of Environment and Heritage, Far South Coast, New South Wales, Australia","University of Tasmania, Australia"],"financial_disclosure":"IW and WF received a grant from New South Wales (NSW) Department of Environment, Climate Change & Water. The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.","title":"Nutritional Correlates of Koala Persistence in a Low-Density Population"}]}}
+    http_version: 
+  recorded_at: Wed, 10 Dec 2014 13:45:23 GMT
+- request:
+    method: get
+    uri: http://api.plos.org/search?facet=false&fl=id,publication_date,pmid&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&q=pmid:%2220552018%22%20OR%20pmid:%2220436915%22%20OR%20pmid:%2220436906%22%20OR%20pmid:%2220436680%22%20OR%20pmid:%2220224736%22&rows=5&wt=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.plos.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 10 Dec 2014 13:45:22 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Last-Modified:
+      - Wed, 10 Dec 2014 13:45:05 GMT
+      Etag:
+      - '"YWUxYzkwMDAwMDAwMDAwMFNvbHI="'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Set-Cookie:
+      - Coyote-2-9514450c=9514451d:0; path=/
+    body:
+      encoding: UTF-8
+      string: |
+        {"response":{"numFound":5,"start":0,"docs":[{"id":"10.1371/journal.pone.0010356","pmid":"20436915","publication_date":"2010-04-27T00:00:00Z"},{"id":"10.1371/journal.pone.0010363","pmid":"20436906","publication_date":"2010-04-27T00:00:00Z"},{"id":"10.1371/journal.pone.0010310","pmid":"20436680","publication_date":"2010-04-26T00:00:00Z"},{"id":"10.1371/journal.pone.0011070","pmid":"20552018","publication_date":"2010-06-11T00:00:00Z"},{"id":"10.1371/journal.pone.0009632","pmid":"20224736","publication_date":"2010-03-10T00:00:00Z"}]}}
+    http_version: 
+  recorded_at: Wed, 10 Dec 2014 13:45:23 GMT
+recorded_with: VCR 2.9.3

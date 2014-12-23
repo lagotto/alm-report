@@ -1,5 +1,4 @@
 class ReportsController < ApplicationController
-
   # Creates a new report based on the DOIs stored in the session,
   # and redirects to display it.
   def generate
@@ -90,13 +89,6 @@ class ReportsController < ApplicationController
     if @report.report_dois.length > ENV["VIZ_LIMIT"].to_i
       return flash[:error] = "Visualizations not enabled for more than " \
         "#{ENV["VIZ_LIMIT"].to_i} reports"
-    end
-
-    # deteremine if the report contains only one article
-    if @report.report_dois.length == 1
-      single_document_visualizations
-    else
-      multiple_documents_visualizations
     end
   end
 
@@ -223,4 +215,5 @@ class ReportsController < ApplicationController
     end
     render "multiple_documents_visualizations"
   end
+
 end

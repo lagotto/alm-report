@@ -29,17 +29,19 @@ WebMock.disable_net_connect!(
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, {
-    timeout: 180
+    timeout: 180,
+    inspector: true
   })
 end
 
 Capybara.javascript_driver = :poltergeist
 
 VCR.configure do |c|
-  c.cassette_library_dir = "spec/cassettes"
+  c.cassette_library_dir = "spec/cassettes_" + ENV["SEARCH"]
   c.hook_into :webmock
   c.ignore_localhost = true
-  c.ignore_hosts 'codeclimate.com'
+  c.ignore_hosts "codeclimate.com"
+  c.filter_sensitive_data("<API_KEY>") { ENV["ALM_API_KEY"] }
   c.configure_rspec_metadata!
 end
 
@@ -72,6 +74,13 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  config.around(:each) do |example|
+    # Restore pristine ENV after each example
+    old_env = Hash[ENV_VARS.map { |var| [var, ENV[var]] }]
+    example.run
+    old_env.each { |k,v| ENV[k] = v }
+  end
 
   config.before(:each) do |example|
     Rails.cache.clear

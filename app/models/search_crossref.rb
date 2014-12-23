@@ -14,8 +14,14 @@ class SearchCrossref
       "from-pub-date:2011",
       "until-pub-date:#{DateTime.now.year}"
     ].compact.join(",")
+
+    if query[:ids]
+      @rows = query[:ids].size
+      @filter += "," + query[:ids].map{ |id| "doi:#{id}"}.join(",")
+    end
+
     @page = query[:current_page] || 1
-    @rows = query[:rows] || ENV["PER_PAGE"].to_i
+    @rows ||= query[:rows] || ENV["PER_PAGE"].to_i
     @sort, @order = query[:sort].try(:split)
   end
 

@@ -39,11 +39,11 @@ class SearchController < ApplicationController
 
   def journals
     @journals = if params[:advanced]
-      SolrRequest.get_journals
+      Solr::Request.get_journals
     else
       # Add a "All Journals" entry
-      { SolrRequest::ALL_JOURNALS => SolrRequest::ALL_JOURNALS }.
-        merge(SolrRequest.get_journals)
+      { Solr::Request::ALL_JOURNALS => Solr::Request::ALL_JOURNALS }.
+        merge(Solr::Request.get_journals)
     end
   end
 end

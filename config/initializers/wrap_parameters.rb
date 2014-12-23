@@ -12,3 +12,7 @@ end
 ActiveSupport.on_load(:active_record) do
   self.include_root_in_json = false
 end
+
+# Stop active_model_serializers from adding root elements to JSON responses.
+ActiveModel::Serializer.root = false
+ActiveModel::ArraySerializer.root = false

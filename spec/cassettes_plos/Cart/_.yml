@@ -1,0 +1,94 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://api.plos.org/search?facet=false&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pone.0112913&rows=25&wt=json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api.plos.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 10 Dec 2014 13:45:27 GMT
+      Server:
+      - Apache-Coyote/1.1
+      Last-Modified:
+      - Wed, 10 Dec 2014 13:45:23 GMT
+      Etag:
+      - '"N2UxYzkwMDAwMDAwMDAwMFNvbHI="'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+      Set-Cookie:
+      - Coyote-2-9514450c=95144522:0; path=/
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6MSwic3RhcnQiOjAsImRvY3MiOlt7
+        ImlkIjoiMTAuMTM3MS9qb3VybmFsLnBvbmUuMDExMjkxMyIsImNyb3NzX3B1
+        Ymxpc2hlZF9qb3VybmFsX25hbWUiOlsiUExPUyBPTkUiXSwicG1pZCI6IiIs
+        InN1YmplY3QiOlsiL0Jpb2xvZ3kgYW5kIGxpZmUgc2NpZW5jZXMvQW5hdG9t
+        eS9PY3VsYXIgc3lzdGVtL09jdWxhciBhbmF0b215L0xlbnMgKGFuYXRvbXkp
+        IiwiL1Jlc2VhcmNoIGFuZCBhbmFseXNpcyBtZXRob2RzL1Jlc2VhcmNoIGZh
+        Y2lsaXRpZXMvTXVzZXVtIGNvbGxlY3Rpb25zIiwiL0Jpb2xvZ3kgYW5kIGxp
+        ZmUgc2NpZW5jZXMvQW5hdG9teS9PY3VsYXIgc3lzdGVtL09jdWxhciBhbmF0
+        b215L1JldGluYSIsIi9NZWRpY2luZSBhbmQgaGVhbHRoIHNjaWVuY2VzL0Fu
+        YXRvbXkvT2N1bGFyIHN5c3RlbS9FeWVzIiwiL0Jpb2xvZ3kgYW5kIGxpZmUg
+        c2NpZW5jZXMvT3JnYW5pc21zL0FuaW1hbHMvSW52ZXJ0ZWJyYXRlcy9BcnRo
+        cm9wb2RhL0FyYWNobmlkYS9TY29ycGlvbnMiLCIvUGh5c2ljYWwgc2NpZW5j
+        ZXMvTWF0ZXJpYWxzIHNjaWVuY2UvTWF0ZXJpYWxzIGJ5IGF0dHJpYnV0ZS9Q
+        aWdtZW50cyIsIi9CaW9sb2d5IGFuZCBsaWZlIHNjaWVuY2VzL0FuYXRvbXkv
+        SGVhZC9FeWVzIiwiL01lZGljaW5lIGFuZCBoZWFsdGggc2NpZW5jZXMvQW5h
+        dG9teS9PY3VsYXIgc3lzdGVtL09jdWxhciBhbmF0b215L1JldGluYSIsIi9C
+        aW9sb2d5IGFuZCBsaWZlIHNjaWVuY2VzL0FuYXRvbXkvT2N1bGFyIHN5c3Rl
+        bS9FeWVzIiwiL0Jpb2xvZ3kgYW5kIGxpZmUgc2NpZW5jZXMvQ2VsbCBiaW9s
+        b2d5L0NlbGx1bGFyIHN0cnVjdHVyZXMgYW5kIG9yZ2FuZWxsZXMvQ2VsbCBt
+        ZW1icmFuZXMiLCIvTWVkaWNpbmUgYW5kIGhlYWx0aCBzY2llbmNlcy9BbmF0
+        b215L0ludGVndW1lbnRhcnkgc3lzdGVtL1NraW4vSHlwb2Rlcm1pcyIsIi9N
+        ZWRpY2luZSBhbmQgaGVhbHRoIHNjaWVuY2VzL0FuYXRvbXkvSGVhZC9FeWVz
+        IiwiL0Jpb2xvZ3kgYW5kIGxpZmUgc2NpZW5jZXMvQW5hdG9teS9JbnRlZ3Vt
+        ZW50YXJ5IHN5c3RlbS9Ta2luL0h5cG9kZXJtaXMiLCIvTWVkaWNpbmUgYW5k
+        IGhlYWx0aCBzY2llbmNlcy9BbmF0b215L09jdWxhciBzeXN0ZW0vT2N1bGFy
+        IGFuYXRvbXkvTGVucyAoYW5hdG9teSkiXSwicHVibGljYXRpb25fZGF0ZSI6
+        IjIwMTQtMTItMDNUMDA6MDA6MDBaIiwicmVjZWl2ZWRfZGF0ZSI6IjIwMTQt
+        MDYtMDNUMDA6MDA6MDBaIiwiYWNjZXB0ZWRfZGF0ZSI6IjIwMTQtMTAtMTZU
+        MDA6MDA6MDBaIiwiYXJ0aWNsZV90eXBlIjoiUmVzZWFyY2ggQXJ0aWNsZSIs
+        ImF1dGhvcl9kaXNwbGF5IjpbIlN0ZXBoYW5pZSBGLiBMb3JpYSIsIkxvcmVu
+        em8gUHJlbmRpbmkiXSwiZWRpdG9yX2Rpc3BsYXkiOlsiU3lsdmllIFLDqXRh
+        dXgiXSwiYWZmaWxpYXRlIjpbIlJpY2hhcmQgR2lsZGVyIEdyYWR1YXRlIFNj
+        aG9vbCwgQW1lcmljYW4gTXVzZXVtIG9mIE5hdHVyYWwgSGlzdG9yeSwgTmV3
+        IFlvcmssIE5ldyBZb3JrLCBVbml0ZWQgU3RhdGVzIG9mIEFtZXJpY2EiLCJT
+        Y29ycGlvbiBTeXN0ZW1hdGljcyBSZXNlYXJjaCBHcm91cCwgRGl2aXNpb24g
+        b2YgSW52ZXJ0ZWJyYXRlIFpvb2xvZ3ksIEFtZXJpY2FuIE11c2V1bSBvZiBO
+        YXR1cmFsIEhpc3RvcnksIE5ldyBZb3JrLCBOZXcgWW9yaywgVW5pdGVkIFN0
+        YXRlcyBvZiBBbWVyaWNhIiwiQ05SUywgRnJhbmNlIl0sImZpbmFuY2lhbF9k
+        aXNjbG9zdXJlIjoiU0ZMIHdhcyBzdXBwb3J0ZWQgYnkgYSBmZWxsb3dzaGlw
+        IGZyb20gdGhlIFJpY2hhcmQgR2lsZGVyIEdyYWR1YXRlIFNjaG9vbCBvZiB0
+        aGUgQW1lcmljYW4gTXVzZXVtIG9mIE5hdHVyYWwgSGlzdG9yeSBhbmQgYSBO
+        YXRpb25hbCBTY2llbmNlIEZvdW5kYXRpb24gR3JhZHVhdGUgUmVzZWFyY2gg
+        RmVsbG93c2hpcC4gRnVuZGluZyBmb3IgdGhpcyByZXNlYXJjaCB3YXMgcHJv
+        dmlkZWQgYnkgYSBOYXRpb25hbCBTY2llbmNlIEZvdW5kYXRpb24gRG9jdG9y
+        YWwgRGlzc2VydGF0aW9uIEltcHJvdmVtZW50IEdyYW50IERFQiAxMzEwODU1
+        IHRvIExQIGFuZCBTRkwuIFRoZSBmdW5kZXJzIGhhZCBubyByb2xlIGluIHN0
+        dWR5IGRlc2lnbiwgZGF0YSBjb2xsZWN0aW9uIGFuZCBhbmFseXNpcywgZGVj
+        aXNpb24gdG8gcHVibGlzaCwgb3IgcHJlcGFyYXRpb24gb2YgdGhlIG1hbnVz
+        Y3JpcHQuIiwidGl0bGUiOiJIb21vbG9neSBvZiB0aGUgTGF0ZXJhbCBFeWVz
+        IG9mIFNjb3JwaW9uZXM6IEEgU2l4LU9jZWxsdXMgTW9kZWwifV19fQo=
+    http_version: 
+  recorded_at: Wed, 10 Dec 2014 13:45:28 GMT
+recorded_with: VCR 2.9.3

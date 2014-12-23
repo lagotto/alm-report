@@ -12,8 +12,9 @@ class Cart
   end
 
   def add(item_ids)
-    hash = Hash[item_ids.map do |item_id|
-      [item_id, SearchResult.from_cache(item_id)]
+    items = Search.find_by_ids(item_ids)
+    hash = Hash[items.map do |item|
+      [item.id, item]
     end]
     @items.merge!(hash)
   end

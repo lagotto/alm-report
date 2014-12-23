@@ -1,7 +1,7 @@
-.content.wrapper.cf
+.content.wrapper
   = form_tag search_path, method: :get, class: "advanced-form"
 
-    h2.text-light-normal
+    h2
       ' Construct Your Search
       = link_to "Simple Search", root_path
 
@@ -82,7 +82,7 @@
                 label for="filterJournals_#{key}" #{name}
 
   .aside.aside-container
-    h2.text-light-normal Find Specific Articles
+    h2 Find Specific Articles
     a.button-hover-dark-black href="/id/" By DOI/PMID
     a.button-hover-dark-black href="/upload" Upload File
 

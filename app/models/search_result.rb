@@ -1,16 +1,9 @@
 class SearchResult
   attr_accessor :checked
-  attr_reader :affiliates, :article_type, :cross_published_journal_name,
+  attr_reader :article_type, :cross_published_journal_name,
               :data, :financial_disclosure, :id, :pmid, :publication_date,
               :subjects, :title, :type, :publisher, :journal, :editors,
               :received_date, :accepted_date
-
-  # CrossRef types
-  # "proceedings","reference-book","journal-issue","proceedings-article",
-  # "other","dissertation","dataset","edited-book","journal-article","journal",
-  # "report","book-series","report-series","book-track","standard",
-  # "book-section","book-part","book","book-chapter","standard-series",
-  # "monograph","component","reference-entry","journal-volume","book-set"
 
   def self.from_crossref(id)
     response = SearchCrossref.get "/works/#{id}"
@@ -22,13 +15,11 @@ class SearchResult
   end
 
   def self.from_cache(id)
-    Rails.cache.fetch(id) do
-      from_crossref(id)
-    end
+    Search.find_by_ids([id]).first
   end
 
   def cache
-    Rails.cache.write(@id, self)
+    Rails.cache.write("Search:" + @id, self)
   end
 
   def initialize(data, source = nil)
@@ -50,7 +41,7 @@ class SearchResult
   # PLOS
   def initialize_plos
     @id = @data["id"]
-    @affiliates = @data["affiliate"]
+    @affiliations = @data["affiliate"]
     @article_type = @data["article_type"]
     @authors = @data["author_display"]
     @editors = @data["editor_display"]
@@ -85,6 +76,41 @@ class SearchResult
     @authors.join(", ") if @authors
   end
 
+  def affiliations
+    if @affiliations
+      affiliations = @affiliations.map do |a|
+        fields = Geocode.parse_location_from_affiliation(a)
+        if fields
+          {
+            full: a,
+            address: fields[0],
+            institution: fields[1]
+          }
+        else
+          nil
+        end
+      end.compact
+
+      locations = Geocode.load_from_addresses(
+        affiliations.map{ |a| a[:address] }.uniq
+      )
+
+      if locations
+        affiliations.map do |a|
+          located = locations.find do |address, location|
+            address == a[:address].downcase
+          end
+          if located
+            a.update(location: {
+              lat: located[1].latitude,
+              lng: located[1].longitude
+            })
+          end
+        end
+      end
+    end
+  end
+
   # CrossRef
 
   def initialize_crossref
@@ -98,9 +124,13 @@ class SearchResult
         "#{author["given"]} #{author["family"]}"
       end
     end
-    @journal = @data["container-title"][1] || @data["container-title"][0]
+    @journal = journal_crossref
     @url = @data["URL"]
     @publisher = @data["publisher"]
+  end
+
+  def journal_crossref
+    @data["container-title"].sort_by(&:length).last
   end
 
   def title_crossref

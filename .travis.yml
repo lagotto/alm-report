@@ -15,7 +15,10 @@ before_script:
 - mkdir -p tmp/pids
 script:
 - bundle exec rake db:setup RAILS_ENV=test
+- npm install -g bower
+- bundle exec bower install
 - bundle exec rspec
 addons:
   code_climate:
     repo_token: 996e94d9a86097c853b5bd92197c07cca653d962528e10406f1e75d78517438c
+after_failure: cat /home/travis/build/articlemetrics/alm-report/tmp/capybara/*.html

@@ -8,7 +8,7 @@ class ReportDoi < ActiveRecord::Base
 
   def to_csv
     if alm && solr
-      alm_columns = AlmRequest.ALM_METRICS.keys.map { |metric| alm[metric] }
+      alm_columns = AlmRequest::ALM_METRICS.keys.map { |metric| alm[metric] }
       row = csv_row.insert(6, *alm_columns)
       # Some of the long free-form text fields can contain newlines; convert
       # these to spaces.
@@ -27,7 +27,7 @@ class ReportDoi < ActiveRecord::Base
       solr.publication_date,
       solr.title,
       solr.authors,
-      solr.affiliates.try(:join, "; "),
+      solr.affiliations.try(:map) { |a| a[:full] }.try(:join, "; "),
       # Here be ALM data
       solr.journal,
       solr.article_type,
