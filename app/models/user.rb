@@ -20,8 +20,13 @@ class User < ActiveRecord::Base
 
   # fetch additional user information for cas strategy
   def self.fetch_raw_info(uid)
-    url = "#{ENV['CAS_INFO_URL']}/#{uid}"
-    profile = User.new.get_result(url) || {}
+    conn = Faraday.new(url: ENV["CAS_INFO_URL"]) do |faraday|
+             faraday.request  :url_encoded
+             faraday.response :logger
+             faraday.response :json
+             faraday.adapter  Faraday.default_adapter
+           end
+    profile = conn.get("/#{uid}").body || {}
     { name: profile.fetch("realName", uid),
       email: profile.fetch("email", nil) }
   end
