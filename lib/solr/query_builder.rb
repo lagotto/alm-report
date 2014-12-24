@@ -143,22 +143,22 @@ module Solr
     end
 
     # Logic for creating a limit on the publication_date for a query. All params
-    # are strings. Legal values for days_ago are "-1", "0", or a positive integer.
-    # If -1, the method returns (nil, nil) (no date range specified). If 0, the
+    # are strings. Legal values for days_ago are "", "0", or a positive integer.
+    # If "", the method returns (nil, nil) (no date range specified). If 0, the
     # values of start_date and end_date are used to construct the returned range.
     # If positive, the range extends from (today - days_ago) to today. start_date
     # and end_date, if present, should be strings in the format %m-%d-%Y.
     def parse_date_range
       return unless @params[:publication_days_ago].present?
 
-      days_ago = @params[:publication_days_ago].to_i
+      days_ago = @params[:publication_days_ago]
       start_date = @params[:datepicker1]
       end_date = @params[:datepicker2]
 
       @end_time = Time.new
-      if days_ago == -1  # All time; default.  Nothing to do.
+      if days_ago.blank?  # All time; default.  Nothing to do.
         @start_time, @end_time = nil, nil
-      elsif days_ago == 0  # Custom date range
+      elsif days_ago == "0"  # Custom date range
         @start_time = Date.strptime(start_date, "%m-%d-%Y")
         @end_time = DateTime.strptime(end_date + " 23:59:59", "%m-%d-%Y %H:%M:%S")
       else  # days_ago specifies start date; end date now
