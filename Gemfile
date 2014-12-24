@@ -16,6 +16,7 @@ gem "exception_notification"
 gem "httparty"
 gem "faraday"
 gem "faraday_middleware"
+gem "logstash-logger"
 
 gem "ember-rails"
 gem "ember-source", "1.8.1"
