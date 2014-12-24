@@ -1,4 +1,4 @@
-.content.wrapper.cf
+.content.wrapper
   = render "reports_nav"
 
   .visualizations-container
@@ -7,8 +7,8 @@
         .visualizations-list
           .reports-header-div
             span.list-numbers 1
-            h2.text-light-normal Article Usage and Citations as a function of Age
-          #article_usage_and_citations_age_div
+            h2 Article Usage and Citations as a function of Age
+          #citations
           p.info
             ' Total usage includes page views and downloads from PLOS and PMC.
             | Bubble size correlates with Scopus citations and bubble color with the PLOS journal.
@@ -21,11 +21,11 @@
         .visualizations-list
           .reports-header-div
             span.list-numbers 2
-            h2.text-light-normal Article Usage and Mendeley Bookmarks as a Function of Time
-          #article_usage_and_mendeley_age_div
+            h2 Article Usage and Bookmarks as a Function of Time
+          #saved
             p.info
               Total usage includes page views and downloads from PLOS and PMC.
-              Bubble size correlates with Mendeley bookmarks and bubble color with the PLOS journal.
+              Bubble size correlates with bookmarks and bubble color with the PLOS journal.
             p
               ' SOURCE: #{@report.report_dois.length} published articles from
               ' #{@report.get_earliest_report_date.strftime("%B %d, %Y")}
@@ -35,7 +35,7 @@
         .visualizations-list
           .reports-header-div
             span.list-numbers 3
-            h2.text-light-normal Article Usage by Subject Area
+            h2 Article Usage by Subject Area
           #article_subject_div
             p.info
               Rectangle size correlates with the number of articles associated with the subject area and the color intensity with total usage.
@@ -48,7 +48,7 @@
         .visualizations-list
           .reports-header-div
             span.list-numbers 4
-            h2.text-light-normal Research Articles by Location
+            h2 Research Articles by Location
           #article_location_div
             p.info
               Geolocation of #{@total_authors_data} authors for #{@report.report_dois.length} articles.
@@ -60,7 +60,7 @@
 
 
   .report-downloads
-    h2.text-light-normal Print
+    h2 Print
     ul
       li
         a#download_viz
@@ -70,30 +70,6 @@
 
     = render "report_share"
 
-javascript:
-  function haveDataToDrawViz() {
-    return #{ @draw_viz.to_json };
-  }
-
-  function drawVizForOne() {
-    return false;
-  }
-
-  function getArticleUsageCitationsAge() {
-      return #{{ @article_usage_citations_age_data.to_json }};
-  }
-
-  function getArticleUsageMendeleyAge() {
-      return #{{ @article_usage_mendeley_age_data.to_json }};
-  }
-
-  function getArticleUsageCitationSubjectArea() {
-    return #{{ @article_usage_citation_subject_area_data.to_json }};
-  }
-
-  function getArticleLocation() {
-
-    return #{{ @article_locations_data.to_json }};
-  }
-
-= javascript_include_tag "charts"
+- content_for :javascript do
+  = javascript_include_tag "multiple_documents_visualizations"
+  = javascript_include_tag "charts"

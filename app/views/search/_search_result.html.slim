@@ -2,7 +2,7 @@
 // We include publication_date since that is our default sort order on the
 // preview list page (and we don't want to have to re-query solr for it).
 
-div.article-info.cf
+div.article-info
   - if r.checked
     input(class="check-save-article" type="checkbox" checked="yes"
       name="" id="" value="#{r.key}")

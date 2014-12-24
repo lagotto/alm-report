@@ -17,7 +17,7 @@ class SearchPlos
   end
 
   def run
-    q = SolrRequest.new(@query, @fl)
+    q = Solr::Request.new(@query, @fl)
     q.query
   end
 end

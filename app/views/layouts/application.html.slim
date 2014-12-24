@@ -20,38 +20,37 @@ html.no-js lang="en"
 
     javascript:
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', '#{ "GOOGLE_ANALYTICS"] }']);
+      _gaq.push(['_setAccount', '#{ ENV["GOOGLE_ANALYTICS"] }']);
       _gaq.push(['_trackPageview']);
       (function() { var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s); }
       )();
 
   body
-    .container
-      header.nav-area
-        .wrapper
-          = top_bar
+    .section.header
+      .container
+        = top_bar
+        = tagline
 
-          = tagline
+        .list-outer-container
+          .list-container
+            span.list-label Your List
+            span.list-count= @cart.nil? ? 0 : @cart.size
+          div#your-list-choices.list-hover
+            - if @cart.nil? || @cart.empty?
+              span View Report
+              span Edit List
+            - else
+              - if @tab != :view_report
+                a href="/reports/generate" View Report
+              = link_to "Edit List", preview_path
 
-          .list-outer-container
-            .list-container
-              span.list-label Your List
-              span.list-count= @cart.nil? ? 0 : @cart.size
-            div#your-list-choices.list-hover
-              - if @cart.nil? || @cart.empty?
-                span View Report
-                span Edit List
-              - else
-                - if @tab != :view_report
-                  a href="/reports/generate" View Report
-                = link_to "Edit List", preview_path
+        - if @display_nav
+          ul.breadcrumb
+            li class=(@tab == :select_articles ? 'active' : nil) Select Articles
+            li class=(@tab == :preview_list ? 'active' : nil) Preview List
+            li class=(@tab == :view_report ? 'active' : nil) View Report
 
-          - if @display_nav
-            ul.breadcrumb
-              li class=(@tab == :select_articles ? 'active' : nil) Select Articles
-              li class=(@tab == :preview_list ? 'active' : nil) Preview List
-              li class=(@tab == :view_report ? 'active' : nil) View Report
-
+    .section.container.main
       - if !flash[:error].nil?
         .wrapper#error-message-div style="display: block"
           = flash[:error].html_safe
@@ -60,11 +59,18 @@ html.no-js lang="en"
 
       = yield
 
-      = footer
+    .section.footer
+      .container
+        = footer
+
+    script src="http://d3js.org/d3.v3.js" charset="utf-8"
+    script src="http://d3js.org/topojson.v1.min.js"
+    = javascript_include_tag "application"
+
+    = yield :javascript
 
     javascript:
       var RESULTS_PER_PAGE = #{ENV["PER_PAGE"].to_i}
       var ARTICLE_LIMIT = #{ENV["ARTICLE_LIMIT"].to_i}
       var VIZ_LIMIT = #{ENV["VIZ_LIMIT"].to_i}
       #{ "var search_total_found = #{@total_found};" if !@total_found.nil? }
-    = javascript_include_tag "application"

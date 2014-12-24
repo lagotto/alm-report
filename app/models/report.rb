@@ -51,6 +51,28 @@ class Report < ActiveRecord::Base
     @sorted_report_dates[-1]
   end
 
+  def as_json(options = {})
+    alm = AlmRequest.get_v5(report_dois.map(&:doi))
+
+    # Ember-friendly JSON formatting
+    alm["id"] = id
+    alm["items"] = alm.delete("data").map do |result|
+      result.update({"id" => result["doi"]})
+    end
+
+    search_results = Search.find_by_ids(alm["items"].map{ |i| i["id"] })
+
+    alm["items"].map! do |result|
+      s = search_results.find{|s| s.id == result["id"] }
+      result["affiliations"] = s.affiliations
+      result["journal"] = s.journal
+      result["subjects"] = s.subjects.map{|k| k.gsub(/\A\/|\/\Z/, '').split(/\//)}
+      result
+    end
+
+    { report: alm }
+  end
+
   def to_csv(options = {})
     field = options[:field]
 
@@ -66,7 +88,7 @@ class Report < ActiveRecord::Base
         title_row = [
             "DOI", "PMID", "Publication Date", "Title", "Authors", "Author Affiliations",
             ]
-        title_row += AlmRequest.ALM_METRICS.values
+        title_row += AlmRequest::ALM_METRICS.values
         title_row += [
             "Journal", "Article Type", "Funding Statement", "Subject Areas", "Submission Date",
             "Acceptance Date", "Editors", "Article URL",

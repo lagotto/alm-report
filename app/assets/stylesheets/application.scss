@@ -6,6 +6,7 @@ $header_background: #fff;
 $header_text_color: #222;
 $footer_text_color: #666;
 $footer_text_strong_color: #333;
+$main_background: #efefef;
 $body_text_color: #333;
 $button_color: #00ACE7;
 $button_text_color: #fff;
@@ -20,5 +21,6 @@ $breadcrumb_text_color: white;
 $breadcrumb_background_active: $active;
 $breadcrumb_background: white;
 $heading_size: 50px;
+$list_count_background: $breadcrumb_background_second;
 
-@import 'common';
+@import "common";

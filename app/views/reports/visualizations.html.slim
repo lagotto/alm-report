@@ -1,0 +1,11 @@
+.content.wrapper
+  = render "reports_nav"
+
+  #alm-report
+
+  script type="text/x-handlebars"
+    .visualizations-container
+      | {{outlet}}
+
+- content_for :javascript do
+  = javascript_include_tag "alm_report"

@@ -11,22 +11,23 @@ AlmReport::Application.routes.draw do
   get "/start-over" => "home#start_over"
   get "/get-article-count" => "home#get_article_count"
 
-  get "/reports/generate" => "reports#generate"
-  get '/reports/:action/:id', :controller => "reports"
+  scope "reports" do
+    get "generate" => "reports#generate"
+    get "metrics/:id" => "reports#metrics", as: :metrics
+    get "visualizations/:id" => "reports#visualizations", as: :visualizations
+    get "download_data/:id" => "reports#download_data", as: :download
+  end
 
-  get "/id" => "id#index", :via => :get
-  get "/id" => "id#save", :via => :post
+  get "/id" => "id#index"
+  post "/id" => "id#save"
 
-  get "/upload" => "id#upload", :via => :get
-  get "/upload" => "id#process_upload", :via => :post
+  get "/upload" => "id#upload"
+  post "/upload" => "id#process_upload"
 
   get "/about" => "static_pages#about"
   get "/samples" => "static_pages#samples"
 
-  # Any other routes are handled here, as ActionDispatch prevents RoutingError
-  # from hitting ApplicationController::rescue_action).  See
-  # https://github.com/rails/rails/issues/671
-  # BE SURE TO KEEP THIS AS THE LAST LINE!
-  get "*path", :to => "application#routing_error"
-
+  namespace :api do
+    resources :reports
+  end
 end

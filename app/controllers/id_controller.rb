@@ -44,7 +44,7 @@ class IdController < ApplicationController
       end
     end
 
-    pmid_docs = SolrRequest.query_by_pmids(field_to_parsed_pmid.values)
+    pmid_docs = Solr::Request.query_by_pmids(field_to_parsed_pmid.values)
     field_to_parsed_pmid.each do |field, pmid|
       doc = pmid_docs[pmid]
       if doc.nil?
@@ -181,14 +181,14 @@ class IdController < ApplicationController
 
     valid_dois.each do |doi|
       doc = SearchResult.from_cache(doi)
-      if doc.nil?
-        add_error.call(doi, "This paper could not be found")
-      else
+      if doc
         @cart[doc.id] = doc
+      else
+        add_error.call(doi, "This paper could not be found")
       end
     end
 
-    pmid_docs = SolrRequest.query_by_pmids(valid_pmids)
+    pmid_docs = Solr::Request.query_by_pmids(valid_pmids)
     valid_pmids.each do |pmid|
       doc = pmid_docs[pmid]
       if doc.nil?
