@@ -17,6 +17,7 @@ gem "exception_notification"
 gem "httparty"
 gem "faraday"
 gem "faraday_middleware"
+gem "logstash-logger"
 
 group :development do
   gem "rubocop"
