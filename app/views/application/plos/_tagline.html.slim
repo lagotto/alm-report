@@ -7,3 +7,10 @@
     a href="/samples" Samples
     span |
     a href="mailto:alm@plos.org" Send Us Feedback
+    span |
+    - if user_signed_in?
+      = current_user.name
+      span |
+      = link_to "Sign Out", destroy_user_session_path, method: :delete
+    - else
+      = login_link
