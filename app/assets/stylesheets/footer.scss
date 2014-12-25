@@ -15,50 +15,6 @@ footer.nav-area {
   background: $footer_background;
 }
 
-.credits {
-  width: 400px;
-  margin: 25px 0 0 10px;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.credits > a {
-  width: 100%;
-  display: inline-block;
-}
-
-.credits p {
-  width: 240px;
-  margin: 113px 0 0;
-  display: inline-block;
-  color: $footer_text_color;
-  font-size: 12px;
-}
-
-.credits strong {
-  color: $footer_text_strong_color;
-}
-
-.credits p + p {
-  width: 100%;
-  margin: 26px 0 0;
-  font-size: 12px;
-}
-
-.credits p + p span {
-  padding: 0 5px;
-  display: inline-block;
-}
-
-.credits li {
-  padding: 0 10px 0 0;
-  color: #666;
-}
-
-.credits a {
-  color: $footer_text_color;
-}
-
 footer {
   font-size: 12px;
   color: $footer_text_color;

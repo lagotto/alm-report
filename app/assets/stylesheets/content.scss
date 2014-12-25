@@ -387,16 +387,6 @@ ul.actions li {
   }
 }
 
-.article-info {
-  width: inherit;
-  margin: 0 0 22px 22px;
-  position: relative;
-}
-
-p.select-articles-message {
-  color: #858585;
-}
-
 .invisible {
   display: none;
 }
@@ -410,6 +400,8 @@ input[type="checkbox"] {
 }
 
 .article-info {
+  margin: 0 0 22px 22px;
+  position: relative;
 
   input[type="checkbox"] {
     position: absolute;
@@ -418,9 +410,14 @@ input[type="checkbox"] {
   }
 
   a {
-    color: $button_color;
+    color: $body_text_color;
+    text-decoration: underline;
     font-size: 14px;
     font-weight: bold;
+  }
+
+  a:hover {
+    color: $button_color;
   }
 
   .success, .error {
@@ -447,9 +444,12 @@ input[type="checkbox"] {
   p {
     margin: 3px 0 0;
     line-height: 16px;
-    color: #666;
     font-family:Arial, Helvetica, sans-serif;
     font-size: 12px;
+  }
+
+  p.authors {
+    color: $light_body_text_color;
   }
 
   p + p {
@@ -714,7 +714,7 @@ span.next {
 .sample-charts p {
   margin: 9px 0 0;
   line-height: 17px;
-  color: #666;
+  color: $light_body_text_color
 }
 
 /* 5.11. Sample-metrics
@@ -728,7 +728,7 @@ span.next {
 .sample-metrics p {
   width: 600px;
   margin: 12px 0 30px;
-  color: #666;
+  color: $light_body_text_color;
   font-size: 14px;
 }
 
@@ -1277,7 +1277,7 @@ nav#report {
 
 .upload-message {
   margin: -16px 0 32px 106px;
-  color: #666;
+  color: $light_body_text_color;
   font-size: 14px;
 }
 

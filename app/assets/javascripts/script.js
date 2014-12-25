@@ -330,7 +330,7 @@ jQuery(function(d, $){
         // confuse you...
         this.clearSelectAllMessage();
         $('#select-articles-message-text').html(
-            'The ' + unselect_count + ' articles on this page have been unselected.');
+            'The ' + unselect_count + ' articles on this page have been unselected. ');
         if (preview_list_count > 0) {
           $('#select-all-articles-message-text').html(
               '<a href="#" id="select_all_searchresults">Unselect all articles</a>.');
