@@ -48,7 +48,7 @@ class ReportsController < ApplicationController
       # Create a new array for display that is only the articles on the current page,
       # to limit what we have to load from solr and ALM.
       @dois = @report.report_dois[(@start_result) - 1..(@end_result - 1)]
-      alm_data = AlmRequest.get_data_for_articles(@dois)
+      alm_data = Alm.get_data_for_articles(@dois)
       solr_data = Cart.new(@dois.map(&:doi))
       [solr_data, alm_data]
     }
@@ -166,7 +166,7 @@ class ReportsController < ApplicationController
   end
 
   def single_document_visualizations
-    @alm_data = AlmRequest.get_data_for_one_article(@report.report_dois)
+    @alm_data = Alm.get_data_for_one_article(@report.report_dois)
     prepare_visualization_data
 
     #render single article report
@@ -189,7 +189,7 @@ class ReportsController < ApplicationController
   end
 
   def multiple_documents_visualizations
-    @alm_data = AlmRequest.get_data_for_articles(@report.report_dois)
+    @alm_data = Alm.get_data_for_articles(@report.report_dois)
     prepare_visualization_data
 
     # for when a report contains many articles but very small portion of the

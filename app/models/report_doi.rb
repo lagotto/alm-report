@@ -8,7 +8,7 @@ class ReportDoi < ActiveRecord::Base
 
   def to_csv
     if alm && solr
-      alm_columns = AlmRequest::ALM_METRICS.keys.map { |metric| alm[metric] }
+      alm_columns = Alm::ALM_METRICS.keys.map { |metric| alm[metric] }
       row = csv_row.insert(6, *alm_columns)
       # Some of the long free-form text fields can contain newlines; convert
       # these to spaces.

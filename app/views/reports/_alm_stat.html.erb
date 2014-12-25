@@ -10,12 +10,12 @@ This partial accepts the following parameters:
 If the above two parameters are undefined, data will be rendered from these
 parameters:
 
-  data: ALM data structure returned from AlmRequest
+  data: ALM data structure returned from Alm
   stat: key into the data dict specifying the value
 %>
 <%
   value ||= data[stat]
-  label ||= AlmRequest::ALM_METRICS[stat]
+  label ||= Alm::ALM_METRICS[stat]
 %>
 <tr class="<%= 'metric-without-data' if !(!value.nil? && value > 0) %>">
   <%
