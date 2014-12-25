@@ -5,7 +5,7 @@
 /* text area.  should look like input text box*/
 #unformattedQueryId {
   height: 10.5em;
-  width: 434px;
+  width: 100%;
   padding: 10px 0 10px 12px;
   border-radius: 6px;
   font-size: 18px;
@@ -25,16 +25,10 @@
 }
 
 .small-btn {
-  margin: 0 0 0 5px;
-  padding: 3px 0 3px 0;
-  min-width: 45px;
   border: none;
   border-radius: 4px;
-  background: $button_color;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 15px;
+  line-height: 2em;
+  height: 2em;
 }
 
 .filter-journals label {
