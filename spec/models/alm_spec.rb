@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'alm_request'
 
 describe Alm do
 
