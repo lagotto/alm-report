@@ -1,3 +1,6 @@
+# set ENV variables for testing
+ENV["OMNIAUTH"] = "persona"
+
 require 'spec_helper'
 
 require "simplecov"
@@ -6,6 +9,9 @@ require "simplecov"
 # end
 
 require "codeclimate-test-reporter"
+CodeClimate::TestReporter.configure do |config|
+  config.logger.level = Logger::WARN
+end
 CodeClimate::TestReporter.start
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
@@ -56,6 +62,14 @@ RSpec.configure do |config|
   # config.mock_with :rr
 
   config.include Devise::TestHelpers, :type => :controller
+
+  OmniAuth.config.test_mode = true
+  omni_hash = { :provider => "persona",
+                :uid => "12345",
+                :info => { "email" => "joe@example.com",
+                           "username" => "joe@example.com",
+                           "name" => "joe@example.com" }}
+  OmniAuth.config.mock_auth[:persona] = OmniAuth::AuthHash.new(omni_hash)
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures/"
