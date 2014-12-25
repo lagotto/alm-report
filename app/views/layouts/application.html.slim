@@ -53,10 +53,15 @@ html.no-js lang="en"
 
         .list-outer-container
           .list-container
-            span.list-label Your List
+            span.list-label= user_signed_in? ? h(truncate(current_user.name, length: 28)) : "Your List"
             span.list-count= @cart.nil? ? 0 : @cart.size
-          div#your-list-choices.list-hover
-            - if @cart.nil? || @cart.empty?
+          .list-hover
+            - if user_signed_in?
+              = link_to "Sign Out", destroy_user_session_path, method: :delete
+            - else
+              = login_link
+          #your-list-choices.list-hover
+            - if @cart.blank?
               span View Report
               span Edit List
             - else
