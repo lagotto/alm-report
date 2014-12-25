@@ -29,20 +29,11 @@ html.no-js lang="en"
     .section.header
       .container
         = top_bar
-        = tagline
-
-        .list-outer-container
-          .list-container
-            span.list-label Your List
-            span.list-count= @cart.nil? ? 0 : @cart.size
-          div#your-list-choices.list-hover
-            - if @cart.nil? || @cart.empty?
-              span View Report
-              span Edit List
-            - else
-              - if @tab != :view_report
-                a href="/reports/generate" View Report
-              = link_to "Edit List", preview_path
+        .row
+          .nine.columns
+            = tagline
+          .three.columns
+            = render 'list_counter'
 
         - if @display_nav
           ul.breadcrumb

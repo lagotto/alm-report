@@ -99,6 +99,7 @@ a {
   padding-bottom: 2rem;
 
   &.header {
+    font-family: $secondary_font_family;
     margin-bottom: 2rem;
   }
   &.header, &.footer {
