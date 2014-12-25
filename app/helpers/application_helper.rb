@@ -16,16 +16,14 @@ module ApplicationHelper
 
   def login_link
     case ENV['OMNIAUTH']
-    when "cas" then link_to "Sign in with PLOS ID", user_omniauth_authorize_path(:cas), :id => "sign_in"
-    when "github" then link_to "Sign in with Github", user_omniauth_authorize_path(:github), :id => "sign_in"
-    when "orcid" then link_to "Sign in with ORCID", user_omniauth_authorize_path(:orcid), :id => "sign_in"
+    when "cas" then link_to "Sign in with PLOS ID", user_omniauth_authorize_path(:cas), id: "sign_in"
+    when "github" then link_to "Sign in with Github", user_omniauth_authorize_path(:github), id: "sign_in"
+    when "orcid" then link_to "Sign in with ORCID", user_omniauth_authorize_path(:orcid), id: "sign_in"
     else
-      s = form_tag '/users/auth/persona/callback', :id => 'persona_form', :class => "navbar-form" do
-        p = hidden_field_tag('assertion')
-        p << button_tag('Sign in with Persona', :id => 'sign_in', :class => 'btn btn-link persona')
-        p
-      end
-      s.html_safe
+      form_tag "/users/auth/persona/callback", id: "persona_form" do
+        hidden_field_tag('assertion')
+        button_tag("Sign in with Persona", id: "sign_in", class: "button")
+      end.html_safe
     end
   end
 

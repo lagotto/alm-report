@@ -114,7 +114,7 @@ h1 + ul li {
   display: block;
 }
 
-.list-hover a {
+.list-hover a, .list-hover form {
   width: 100%;
   margin: 3px 0 0;
   padding: 9px 0;
@@ -124,6 +124,11 @@ h1 + ul li {
   text-align: center;
   background: $button_color;
   color: $button_text_color;
+}
+
+.list-hover form button {
+  height: auto;
+  line-height: 1.6;
 }
 
 .list-hover span {
