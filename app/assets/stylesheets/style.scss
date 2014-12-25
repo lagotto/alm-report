@@ -5,12 +5,7 @@
   /* 1. Reset */
     // @import 'reset';
   /* 2. Body */
-    // body {
-    //   width: 100%;
-    //   font-family: Arial, Helvetica, sans-serif;
-    //   font-size: 16px;
-    //   color: $header_text_color;
-    // }
+    @import 'body';
   /* 3. Container / .container */
     @import 'container';
   /* 4. Header */
@@ -63,5 +58,4 @@
   -------------------------------------------------------------------*/
 
 @import 'breadcrumb';
-
 @import 'facets';

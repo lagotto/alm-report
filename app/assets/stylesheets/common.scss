@@ -82,10 +82,6 @@ $subheader_background: lighten($breadcrumb_background_first, 45);
 @import "sunburst_chart";
 @import "datamap_chart";
 
-body {
-  background: $main_background;
-}
-
 a {
   text-decoration: none;
 }
@@ -126,13 +122,4 @@ a {
     color: $button_text_color;
   }
 
-}
-
-/* For devices larger than 550px */
-@media (min-width: 550px) {
-  .container .one-fifth.column { width: 16.8%; }
-}
-
-.container {
-  max-width: 1140px;
 }

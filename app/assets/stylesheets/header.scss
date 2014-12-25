@@ -67,6 +67,7 @@ h1 + ul li {
   margin: 70px 10px 0 0;
   float: right;
   font-weight: bold;
+  font-family: $secondary_font_family;
   color: $button_text_color;
 }
 
@@ -74,20 +75,19 @@ h1 + ul li {
   background: $list_count_background;
   width: 180px;
   height: 53px;
-  overflow: hidden;
   display: inline-block;
-  vertical-align: top;
+  line-height: 53px;
   cursor: pointer;
 }
 
 .list-container > span {
   width: 90px;
-  float: left;
+  display: inline-block;
+  vertical-align: top;
   text-align: center;
 }
 
 .list-label {
-  padding: 18px 0 20px;
   font-size: 14px;
   background: $button_color;
 }
