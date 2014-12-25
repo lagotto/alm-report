@@ -20,7 +20,7 @@ AlmReport.InstitutionDatamapChartComponent = Ember.Component.extend({
             // Group by full institution name and set the radius accordingly
             .groupBy(function (a) { return a.full }).map(function(v, k) {
                 var a = v[0];
-                a.radius = v.length * 10;
+                a.radius = Math.sqrt(v.length * 20);
                 a.papers = v.length;
                 return a;
             })
