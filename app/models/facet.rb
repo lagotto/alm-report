@@ -18,14 +18,20 @@ class Facet
     @facets.delete(facet.keys[0])
   end
 
+  def toggle(name:, value:)
+    if @facets[name][value][:selected]
+      deselect(name: name, value: value)
+    else
+      select(name: name, value: value)
+    end
+  end
+
   def select(name:, value:)
-#    @facets[name][:selected] = true
     @facets[name][value][:selected] = true
   end
 
   def deselect(name:, value:)
-#    @facets[name][:selected] = false
-    @facets[name][value][:selected] = false
+    @facets[name][value].delete(:selected)
   end
 
   def selected

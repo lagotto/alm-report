@@ -33,7 +33,7 @@ class SearchController < ApplicationController
     redirect_to(root_path) && return unless @facets
 
     search_params[:facets].each do |facet|
-      @facets.select(name: facet[:name], value: facet[:value])
+      @facets.toggle(name: facet[:name], value: facet[:value])
     end
 
     redirect_to search_path(session[:params].merge(@facets.params))
@@ -67,7 +67,7 @@ class SearchController < ApplicationController
       :publication_days_ago, :datepicker1, :datepicer2, :subject,
       :cross_published_journal_name, :financial_disclosure, :filters,
       :queryFieldId, :startDateAsStringId, :endDateAsStringId,
-      :unformattedQueryId, :journalOpt
+      :unformattedQueryId, :journalOpt, :facets
 
     params.delete_if do |k, v|
       v == "" || v == [""]

@@ -8,4 +8,10 @@ $(function () {
       $(this).text('Hide all')
     }
   })
+
+  $('.facets input[name=remove_facet]').change(function (e) {
+    window.location = $(this).parent().find('a').attr('href');
+  })
 })
+
+
