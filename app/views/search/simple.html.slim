@@ -52,6 +52,9 @@
 
 = articles_list
 
+- if current_user && current_user.reports.present?
+  = render "user_reports"
+
 - if Search.plos?
   = render "plos_example_reports"
 - elsif Search.crossref?

@@ -1,0 +1,10 @@
+section.sample-reports
+  h2 Your previous reports
+  - current_user.reports[0...12].in_groups_of(6) do |reports|
+    .row
+      - reports.each do |report|
+        .two.columns
+          - if report
+            a.sample-reports-block-1 href="/reports/metrics/#{report.id}"
+              .number= report.id
+              .title= report.created_at.to_s(:short)
