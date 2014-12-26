@@ -7,6 +7,8 @@ class Report < ActiveRecord::Base
   # doi is likely not a good solution.
   has_many :report_dois, -> { order(:sort_order) }
 
+  default_scope { order('created_at desc') }
+
   # Creates a child ReportDoi object for each DOI passed in in the input array.
   # Sort order is determined by the position in the array.  This object must have
   # already been saved to the DB before this method is called.
