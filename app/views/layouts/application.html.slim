@@ -56,11 +56,11 @@ html.no-js lang="en"
             li class=(@tab == :view_report ? 'active' : nil) View Report
 
     .section.container.main
-      - if !flash[:error].nil?
-        .wrapper#error-message-div style="display: block"
-          = flash[:error].html_safe
+      - if flash[:alert].present?
+        .wrapper#flash-message style="display: block"
+          = flash[:alert].html_safe
       - else
-        .wrapper#error-message-div
+        .wrapper#flash-message
 
       = yield
 
@@ -71,22 +71,25 @@ html.no-js lang="en"
     script src="http://d3js.org/d3.v3.js" charset="utf-8"
     script src="http://d3js.org/topojson.v1.min.js"
     = javascript_include_tag "application"
-    - unless ["cas","orcid","github"].include?(ENV['OMNIAUTH'])
+    - if ENV['OMNIAUTH'] == "persona"
       script src="https://login.persona.org/include.js"
       javascript:
         function loginViaEmail() {
           navigator.id.get(function(assertion) {
             if (assertion) {
-              $('input[name=assertion]').val(assertion);
-              $('form').submit();
+              $('#assertion').val(assertion);
+              $('#persona_form').submit();
             } else {
-              window.location = "<%= root_path %>"
+              window.location = #{root_path}
             }
+          }, {
+            backgroundColor: "#ebebeb",
+            siteName: #{ENV['SITENAME']
           });
         }
 
         $(function() {
-          $('.persona').click(function() {
+          $('#sign_in').click(function() {
             loginViaEmail();
             return false;
           });

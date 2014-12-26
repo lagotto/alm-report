@@ -437,7 +437,7 @@ jQuery(function(d, $){
       // ID of an element that contains the error message HTML.
       showErrorDialog : function(error_message_id) {
         var message = $("#" + error_message_id).html();
-        var error_div = $("#error-message-div");
+        var error_div = $("#flash-message");
         error_div.html(message);
         error_div.show();
       }
@@ -790,7 +790,7 @@ jQuery(function(d, $){
 $(document).ready(function() {
   if ($(".metrics-left-content").length > 0) {
     if ($(".metrics-left-content .visualizations-list").length == 0) {
-      $("#error-message-div")
+      $("#flash-message")
         .append("<div>The metrics for one or more of the articles requested are not available at this time. Please check back later.</div>")
         .show();
     }

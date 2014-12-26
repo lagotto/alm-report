@@ -21,7 +21,7 @@ module ApplicationHelper
     when "orcid" then link_to "Sign in with ORCID", user_omniauth_authorize_path(:orcid), id: "sign_in"
     else
       form_tag "/users/auth/persona/callback", id: "persona_form" do
-        hidden_field_tag('assertion')
+        hidden_field_tag('assertion') +
         button_tag("Sign in with Persona", id: "sign_in", class: "button")
       end.html_safe
     end
