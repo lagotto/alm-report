@@ -231,6 +231,14 @@ input[type="text"] {
       font-size: 14px;
       font-weight: bold;
     }
+    div.number {
+      font-size: 28px;
+      font-weight: bold;
+      padding: 2rem;
+      a:hover {
+        color: $button_text_color;
+      }
+    }
   }
 
   a:hover {
