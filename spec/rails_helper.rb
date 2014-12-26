@@ -1,6 +1,3 @@
-# set ENV variables for testing
-ENV["OMNIAUTH"] = "persona"
-
 require 'spec_helper'
 
 require "simplecov"
@@ -14,8 +11,10 @@ CodeClimate::TestReporter.configure do |config|
 end
 CodeClimate::TestReporter.start
 
-# This file is copied to spec/ when you run 'rails generate rspec:install'
+# set ENV variables for testing
 ENV["RAILS_ENV"] ||= 'test'
+ENV["OMNIAUTH"] = "persona"
+
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
@@ -29,7 +28,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 WebMock::Config.instance.query_values_notation = :flat_array
 WebMock.disable_net_connect!(
-  allow: ['codeclimate.com', '10.2.2.2'],
+  allow: ['codeclimate.com', '10.2.2.2', ENV['HOSTNAME']],
   allow_localhost: true
 )
 
@@ -61,15 +60,16 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 
-  config.include Devise::TestHelpers, :type => :controller
-
+  ENV["OMNIAUTH"] = "persona"
   OmniAuth.config.test_mode = true
-  omni_hash = { :provider => "persona",
-                :uid => "12345",
-                :info => { "email" => "joe@example.com",
-                           "username" => "joe@example.com",
-                           "name" => "joe@example.com" }}
-  OmniAuth.config.mock_auth[:persona] = OmniAuth::AuthHash.new(omni_hash)
+  config.before(:each) do
+    OmniAuth.config.mock_auth[:persona] = OmniAuth::AuthHash.new({
+      provider: "persona",
+      uid: "joe@example.com",
+      info: { "email" => "joe@example.com",
+              "name" => "joe@example.com" }
+    })
+  end
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures/"
@@ -91,11 +91,9 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
-  config.around(:each) do |example|
-    # Restore pristine ENV after each example
-    old_env = Hash[ENV_VARS.map { |var| [var, ENV[var]] }]
-    example.run
-    old_env.each { |k,v| ENV[k] = v }
+  # restore application-specific ENV variables after each example
+  config.after(:each) do
+    ENV_VARS.each { |k,v| ENV[k] = v }
   end
 
   config.before(:each) do |example|
