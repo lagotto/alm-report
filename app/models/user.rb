@@ -29,17 +29,17 @@ class User < ActiveRecord::Base
   end
 
   def self.get_profile(uid)
-    fail NameError if uid.nil?
+    fail NameError, "no uid provided" if uid.nil?
 
-    conn = Faraday.new(url: ENV["CAS_INFO_URL"]) do |faraday|
+    conn = Faraday.new do |faraday|
              faraday.request  :url_encoded
              faraday.response :logger
              faraday.response :json
              faraday.adapter  Faraday.default_adapter
            end
-    profile = conn.get("/#{uid}").body
-  rescue
-    nil
+    profile = conn.get("#{ENV["CAS_INFO_URL"]}/#{uid}").body
+  rescue NameError, Faraday::ParsingError, Faraday::ConnectionFailed => e
+    { "error" => e.message }
   end
 
   protected
@@ -51,28 +51,6 @@ class User < ActiveRecord::Base
 
   def password_required?
     false
-  end
-
-  def self.find_recoverable_or_initialize_with_errors(required_attributes, attributes, error=:invalid)
-    (case_insensitive_keys || []).each { |k| attributes[k].try(:downcase!) }
-
-    attributes = attributes.slice(*required_attributes)
-    attributes.delete_if { |key, value| value.blank? }
-
-    if attributes.size == required_attributes.size
-      record = where(attributes).first
-    end
-
-    unless record
-      record = new
-
-      required_attributes.each do |key|
-        value = attributes[key]
-        record.send("#{key}=", value)
-        record.errors.add(key, value.present? ? error : :blank)
-      end
-    end
-    record
   end
 
   def ensure_authentication_token
