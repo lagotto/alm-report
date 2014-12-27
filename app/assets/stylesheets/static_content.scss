@@ -32,7 +32,7 @@
   background: #666;
 }
 
-#flash-message {
+#error-message-div {
   background: #f0d5d8 image-url('warning.png') no-repeat 12px 15px 13px 15px;
   color: #e4324f;
   padding: 15px 15px 15px 55px;
@@ -42,7 +42,7 @@
   border-radius:5px;
 }
 
-#flash-message a {
+#error-message-div a {
   color: #000;
 }
 
