@@ -4,12 +4,12 @@ describe "user sessions", :type => :feature do
   it "signs in as Persona user", js: true do
     ENV["OMNIAUTH"] = "persona"
     sign_in
-    expect(page).to have_content "joe@example.com"
+    expect(page).to have_content "Joe Smith"
   end
 
   it "signs in as CAS user", js: true do
     sign_in
-    expect(page).to have_content "joe@example.com"
+    expect(page).to have_content "Joe Smith"
   end
 
   it "sign in error as CAS user", js: true do
@@ -26,13 +26,13 @@ describe "user sessions", :type => :feature do
   it "signs in as ORCID user", js: true do
     ENV["OMNIAUTH"] = "orcid"
     sign_in
-    expect(page).to have_content "joe@example.com"
+    expect(page).to have_content "Joe Smith"
   end
 
   it "signs in as Github user", js: true do
     ENV["OMNIAUTH"] = "github"
     sign_in
-    expect(page).to have_content "joe@example.com"
+    expect(page).to have_content "Joe Smith"
   end
 
   it "signs out as user", js: true do

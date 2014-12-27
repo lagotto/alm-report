@@ -64,11 +64,11 @@ RSpec.configure do |config|
   config.before(:each) do
     OmniAuth.config.mock_auth[:default] = OmniAuth::AuthHash.new({
       provider: ENV["OMNIAUTH"],
-      uid: "joe@example.com",
-      info: { "email" => "joe@example.com",
-              "name" => "joe@example.com" },
-      extra: { "email" => "joe@example.com",
-               "name" => "joe@example.com" }
+      uid: "12345",
+      info: { "email" => "joe_#{ENV["OMNIAUTH"]}@example.com",
+              "name" => "Joe Smith" },
+      extra: { "email" => "joe_#{ENV["OMNIAUTH"]}@example.com",
+               "name" => "Joe Smith" }
     })
   end
 

@@ -82,7 +82,7 @@ html.no-js lang="en"
         }
 
         function gotAssertion(assertion) {
-          if (typeof assertion !== 'undefined') {
+          if (typeof(assertion) !== 'undefined') {
             $('#assertion').val(assertion);
             $('#persona_form').submit();
           } else {
