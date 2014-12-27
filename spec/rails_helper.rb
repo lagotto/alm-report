@@ -13,7 +13,7 @@ CodeClimate::TestReporter.start
 
 # set ENV variables for testing
 ENV["RAILS_ENV"] ||= 'test'
-ENV["OMNIAUTH"] = "persona"
+ENV["OMNIAUTH"] = "cas"
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -60,14 +60,15 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 
-  ENV["OMNIAUTH"] = "persona"
   OmniAuth.config.test_mode = true
   config.before(:each) do
-    OmniAuth.config.mock_auth[:persona] = OmniAuth::AuthHash.new({
-      provider: "persona",
+    OmniAuth.config.mock_auth[:default] = OmniAuth::AuthHash.new({
+      provider: ENV["OMNIAUTH"],
       uid: "joe@example.com",
       info: { "email" => "joe@example.com",
-              "name" => "joe@example.com" }
+              "name" => "joe@example.com" },
+      extra: { "email" => "joe@example.com",
+               "name" => "joe@example.com" }
     })
   end
 
