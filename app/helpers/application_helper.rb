@@ -22,7 +22,7 @@ module ApplicationHelper
     else
       form_tag "/users/auth/persona/callback", id: "persona_form" do
         hidden_field_tag('assertion') +
-        button_tag("Sign in with Persona", id: "sign_in", class: "button")
+        button_tag("Sign in with Persona", id: "sign_in_button", class: "button")
       end.html_safe
     end
   end

@@ -33,11 +33,11 @@ html.no-js lang="en"
 
         .list-outer-container
           .list-container
-            span.list-label= user_signed_in? ? h(truncate(current_user.name, length: 28)) : "Your Article List"
+            span.list-label= user_signed_in? ? h(truncate(current_user.name, length: 25)) : "Your Article List"
             span.list-count= @cart.nil? ? 0 : @cart.size
           .list-hover
             - if user_signed_in?
-              = link_to "Sign Out", destroy_user_session_path, method: :delete
+              = link_to "Sign Out", destroy_user_session_path, method: :get
             - else
               = login_link
           #your-list-choices.list-hover
@@ -57,10 +57,10 @@ html.no-js lang="en"
 
     .section.container.main
       - if flash[:alert].present?
-        .wrapper#flash-message style="display: block"
-          = flash[:alert].html_safe
+        .wrapper#error-message-div style="display: block"
+          == flash[:alert]
       - else
-        .wrapper#flash-message
+        .wrapper#error-message-div
 
       = yield
 
@@ -75,21 +75,23 @@ html.no-js lang="en"
       script src="https://login.persona.org/include.js"
       javascript:
         function loginViaEmail() {
-          navigator.id.get(function(assertion) {
-            if (assertion) {
-              $('#assertion').val(assertion);
-              $('#persona_form').submit();
-            } else {
-              window.location = #{root_path}
-            }
-          }, {
+          navigator.id.get(gotAssertion, {
             backgroundColor: "#ebebeb",
-            siteName: #{ENV['SITENAME']
+            siteName: "#{ENV['SITENAME']}"
           });
         }
 
+        function gotAssertion(assertion) {
+          if (typeof assertion !== 'undefined') {
+            $('#assertion').val(assertion);
+            $('#persona_form').submit();
+          } else {
+            window.location = "#{root_path}"
+          }
+        }
+
         $(function() {
-          $('#sign_in').click(function() {
+          $('#sign_in_button').click(function() {
             loginViaEmail();
             return false;
           });
