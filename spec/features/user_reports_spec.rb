@@ -17,15 +17,13 @@ describe 'generate report', type: :feature, vcr: true do
       expect(page).to have_button('Preview List (2)')
       find_button('Preview List (2)').click
       expect(page).to have_content 'Cancer-Drug Associations: A Complex System'
-      expect(page).to have_content 'A Comparative Analysis of Gene-Expression Data of Multiple Cancer Types'
-      expect(page).not_to have_content 'Cancer as a Complex Phenotype: Pattern of Cancer Distribution'
       click_button 'Create Report'
 
       expect(page).to have_content('Metrics Data')
-      expect(page).to have_content('Visualizations')
-      click_link('Visualizations')
 
-      expect(page).to have_css('.bubble.chart svg')
+      visit '/'
+      expect(page).to have_content('Your previous reports')
+      expect(page).to have_css('a .number')
     end
   elsif Search.crossref?
     it "loads the visualization for a multiple articles", js: true do
@@ -46,15 +44,13 @@ describe 'generate report', type: :feature, vcr: true do
       expect(page).to have_button("Preview List (2)")
       find_button("Preview List (2)").click
       expect(page).to have_content "A Future Vision for PLOS Computational Biology"
-      expect(page).to have_content "A Computational Model of Liver Iron Metabolism"
-      expect(page).not_to have_content "Computational and Statistical Analysis of Protein Mass Spectrometry Data"
       click_button "Create Report"
 
       expect(page).to have_content("Metrics Data")
-      expect(page).to have_content("Visualizations")
-      click_link("Visualizations")
 
-      expect(page).to have_css(".bubble.chart svg")
+      visit '/'
+      expect(page).to have_content('Your previous reports')
+      expect(page).to have_css('a .number')
     end
   end
 end
