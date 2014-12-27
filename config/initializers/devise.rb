@@ -229,28 +229,28 @@ Devise.setup do |config|
   # config.navigational_formats = ['*/*', :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = :get
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  case ENV['OMNIAUTH']
-  when "cas"
+  if ENV['CAS_URL']
     config.omniauth :cas, url: ENV['CAS_URL'],
                           login_url: "#{ENV['CAS_PREFIX']}/login",
                           logout_url: "#{ENV['CAS_PREFIX']}/logout",
                           service_validate_url: "#{ENV['CAS_PREFIX']}/serviceValidate",
                           ssl: true,
                           fetch_raw_info: lambda { |strategy, options, ticket, user_info|
-                            User.fetch_raw_info(user_info.fetch('user', {}))
+                            User.fetch_raw_info(user_info.fetch('user'))
                           }
-  when "github"
-    config.omniauth :github, ENV['GITHUB_CLIENT_ID'], ENV['GITHUB_CLIENT_SECRET'], scope: "user,repo"
-  when "orcid"
-    config.omniauth :orcid, ENV['ORCID_CLIENT_ID'], ENV['ORCID_CLIENT_SECRET']
-  else
-    config.omniauth :persona
   end
+
+  config.omniauth :github, ENV['GITHUB_CLIENT_ID'],
+                           ENV['GITHUB_CLIENT_SECRET'],
+                           scope: "user,repo" if ENV['GITHUB_CLIENT_ID']
+  config.omniauth :orcid, ENV['ORCID_CLIENT_ID'],
+                          ENV['ORCID_CLIENT_SECRET'] if ENV['ORCID_CLIENT_ID']
+  config.omniauth :persona
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
