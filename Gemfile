@@ -16,6 +16,7 @@ gem "exception_notification"
 gem "httparty"
 gem "faraday"
 gem "faraday_middleware"
+gem "logstash-logger"
 
 gem "devise", "~> 3.4.1"
 gem "omniauth-persona"
