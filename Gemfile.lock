@@ -158,6 +158,10 @@ GEM
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.7)
+    logstash-event (1.2.02)
+    logstash-logger (0.7.0)
+      logstash-event (~> 1.2)
+      stud
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
@@ -302,6 +306,7 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    stud (0.0.18)
     temple (0.7.4)
     terminal-table (1.4.5)
     therubyracer (0.12.1)
@@ -353,6 +358,7 @@ DEPENDENCIES
   httparty
   jquery-rails
   jquery-ui-rails
+  logstash-logger
   mysql2
   omniauth (~> 1.2.2)
   omniauth-cas (~> 1.1.0)
