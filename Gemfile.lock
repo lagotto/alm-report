@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/mfenner/omniauth-orcid.git
+  revision: 31859733280f3523f716bafec5e17575cecf5d51
+  specs:
+    omniauth-orcid (0.6)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -38,6 +46,7 @@ GEM
       ember-source
       execjs
       handlebars-source (>= 1.0.0.rc.4)
+    bcrypt (3.1.9)
     better_errors (2.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -97,6 +106,13 @@ GEM
     currencies (0.4.2)
     dalli (2.7.2)
     debug_inspector (0.0.2)
+    devise (3.4.1)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      responders
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
     dotenv (1.0.2)
@@ -125,6 +141,7 @@ GEM
     fastercsv (1.5.5)
     haml (3.1.8)
     handlebars-source (1.3.0)
+    hashie (3.3.2)
     highline (1.6.21)
     hike (1.2.3)
     httparty (0.13.3)
@@ -137,13 +154,10 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.1)
+    jwt (1.2.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.7)
-    logstash-event (1.2.02)
-    logstash-logger (0.7.0)
-      logstash-event (~> 1.2)
-      stud
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
@@ -159,6 +173,32 @@ GEM
     net-ssh (2.9.1)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
+    oauth2 (1.0.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
+      rack (~> 1.0)
+    omniauth-cas (1.1.0)
+      addressable (~> 2.3)
+      nokogiri (~> 1.5)
+      omniauth (~> 1.2.0)
+    omniauth-github (1.1.2)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
+    omniauth-oauth2 (1.2.0)
+      faraday (>= 0.8, < 0.10)
+      multi_json (~> 1.3)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
+    omniauth-persona (0.0.1)
+      faraday
+      multi_json
+      omniauth (~> 1.0)
+    orm_adapter (0.5.0)
     parser (2.2.0.pre.8)
       ast (>= 1.1, < 3.0)
       slop (~> 3.4, >= 3.4.5)
@@ -195,6 +235,8 @@ GEM
     rainbow (2.0.0)
     rake (10.4.2)
     ref (1.0.5)
+    responders (1.1.2)
+      railties (>= 3.2, < 4.2)
     rspec-core (3.1.7)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -260,7 +302,6 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    stud (0.0.18)
     temple (0.7.4)
     terminal-table (1.4.5)
     therubyracer (0.12.1)
@@ -276,6 +317,8 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     vcr (2.9.3)
+    warden (1.2.3)
+      rack (>= 1.0)
     webmock (1.20.4)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -300,6 +343,7 @@ DEPENDENCIES
   coffee-rails
   countries
   dalli
+  devise (~> 3.4.1)
   dotenv
   ember-rails
   ember-source (= 1.8.1)
@@ -309,8 +353,12 @@ DEPENDENCIES
   httparty
   jquery-rails
   jquery-ui-rails
-  logstash-logger
   mysql2
+  omniauth (~> 1.2.2)
+  omniauth-cas (~> 1.1.0)
+  omniauth-github (~> 1.1.2)
+  omniauth-orcid (~> 0.6)!
+  omniauth-persona
   poltergeist
   pry-rails
   rails (= 4.1.8)

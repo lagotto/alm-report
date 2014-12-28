@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
   def article_limit_reached?
     return false if @cart.size < ENV["ARTICLE_LIMIT"].to_i
 
-    flash[:error] = "The maximum report size is #{ENV["ARTICLE_LIMIT"].to_i} " \
+    flash[:alert] = "The maximum report size is #{ENV["ARTICLE_LIMIT"].to_i} " \
                     "articles. Go to <a href=\"#{preview_path}\">Preview List</a> " \
                     "and remove articles before adding more to your selection."
     true

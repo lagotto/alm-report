@@ -1,5 +1,7 @@
 AlmReport::Application.routes.draw do
 
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "users/registrations" }
+
   root :to => "search#index"
   get "/search/advanced" => "search#index", advanced: true
 

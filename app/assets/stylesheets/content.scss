@@ -231,6 +231,12 @@ input[type="text"] {
       font-size: 14px;
       font-weight: bold;
     }
+    div.number {
+      font-size: 28px;
+      font-weight: bold;
+      padding: 2rem;
+      color: $button_color;
+    }
   }
 
   a:hover {

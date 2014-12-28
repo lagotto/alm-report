@@ -47,7 +47,7 @@ SITE
     windows (1.36.1)
       chef_handler (>= 0.0.0)
     xfs (1.1.0)
-    yum (3.5.1)
+    yum (3.5.2)
     yum-epel (0.5.3)
       yum (~> 3.0)
     yum-mysql-community (0.1.11)
@@ -56,9 +56,9 @@ SITE
 GIT
   remote: git@github.com:articlemetrics/alm_report-cookbook.git
   ref: master
-  sha: 15528ff32412dfd5964522a912298c207d9b167f
+  sha: 60060fdcf23ece9673f0169adf3efc8733485bde
   specs:
-    alm_report (0.6.23)
+    alm_report (0.6.24)
       apt (>= 0.0.0)
       capistrano (~> 0.7.0)
       database (>= 0.0.0)
@@ -68,6 +68,7 @@ GIT
       mysql_rails (~> 0.3.0)
       nodejs (>= 0.0.0)
       passenger_nginx (~> 0.4.0)
+      phantomjs (>= 0.0.0)
       ruby (~> 0.6.0)
 
 GIT
@@ -84,14 +85,6 @@ GIT
   sha: 069ee5080bebea6c5049462d832503a14a340570
   specs:
     dotenv (0.1.7)
-
-GIT
-  remote: git@github.com:articlemetrics/mysql.git
-  ref: master
-  sha: e306cddd572ca4c1906aa533c70092528bb77532
-  specs:
-    mysql (5.6.1)
-      yum-mysql-community (>= 0.0.0)
 
 GIT
   remote: git@github.com:articlemetrics/mysql_rails-cookbook.git
@@ -119,6 +112,14 @@ GIT
   specs:
     ruby (0.6.3)
       apt (>= 0.0.0)
+
+GIT
+  remote: git@github.com:jure/mysql
+  ref: master
+  sha: 850aa16cc30cc692cdbc7e038eca33dd213a261d
+  specs:
+    mysql (5.6.1)
+      yum-mysql-community (>= 0.0.0)
 
 DEPENDENCIES
   alm_report (>= 0)
