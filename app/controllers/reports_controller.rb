@@ -15,6 +15,9 @@ class ReportsController < ApplicationController
       raise "Error saving report"
     end
 
+    # associate this report with the current_user
+    @report.users << current_user if current_user
+
     @report.add_all_dois(dois)
     if @report.save
       redirect_to :action => "metrics", :id => @report.id
@@ -87,7 +90,7 @@ class ReportsController < ApplicationController
     load_report(params[:id])
 
     if @report.report_dois.length > ENV["VIZ_LIMIT"].to_i
-      return flash[:error] = "Visualizations not enabled for more than " \
+      return flash[:alert] = "Visualizations not enabled for more than " \
         "#{ENV["VIZ_LIMIT"].to_i} reports"
     end
   end

@@ -16,6 +16,14 @@ gem "exception_notification"
 gem "httparty"
 gem "faraday"
 gem "faraday_middleware"
+gem "logstash-logger"
+
+gem "devise", "~> 3.4.1"
+gem "omniauth-persona"
+gem "omniauth-cas", "~> 1.1.0"
+gem 'omniauth-github', '~> 1.1.2'
+gem "omniauth-orcid", "~> 0.6", :git => "https://github.com/mfenner/omniauth-orcid.git"
+gem 'omniauth', '~> 1.2.2'
 
 gem "ember-rails"
 gem "ember-source", "1.8.1"

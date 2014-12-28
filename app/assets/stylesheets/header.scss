@@ -68,11 +68,12 @@ h1 + ul li {
 
 .list-container {
   background: $list_count_background;
-  width: 180px;
+  width: 320px;
   height: 53px;
   display: inline-block;
   line-height: 53px;
   cursor: pointer;
+  border-radius:5px;
 }
 
 .list-container > span {
@@ -82,7 +83,17 @@ h1 + ul li {
   text-align: center;
 }
 
+.list-container > span.list-label {
+  width: 230px;
+}
+
+.list-container > span.list-count {
+  width: 90px;
+}
+
 .list-label {
+  padding: 18px 0 20px;
+  width: 180px;
   font-size: 14px;
   background: $button_color;
 }
@@ -92,7 +103,7 @@ h1 + ul li {
 }
 
 .list-hover {
-  width: 180px;
+  width: 230px;
   display: none;
   position: absolute;
   z-index: 1;
@@ -102,7 +113,7 @@ h1 + ul li {
   display: block;
 }
 
-.list-hover a {
+.list-hover a, .list-hover form {
   width: 100%;
   margin: 3px 0 0;
   padding: 9px 0;
@@ -112,6 +123,11 @@ h1 + ul li {
   text-align: center;
   background: $button_color;
   color: $button_text_color;
+}
+
+.list-hover form button {
+  height: auto;
+  line-height: 1.6;
 }
 
 .list-hover span {

@@ -1,9 +1,13 @@
 require 'csv'
 
 class Report < ActiveRecord::Base
+  has_and_belongs_to_many :users
+
   # TODO: figure out what we want the default sort order to be.
   # doi is likely not a good solution.
   has_many :report_dois, -> { order(:sort_order) }
+
+  default_scope { order('created_at desc') }
 
   # Creates a child ReportDoi object for each DOI passed in in the input array.
   # Sort order is determined by the position in the array.  This object must have
