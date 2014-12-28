@@ -5,7 +5,7 @@ describe Facet do
     @facet = Facet.new
 
     first = {
-      name: :article_type
+      name: :article_type,
       value: { "research article" =>
         { "count" => 10}
       }
