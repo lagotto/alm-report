@@ -5,14 +5,15 @@ describe Facet do
     @facet = Facet.new
 
     first = {
-      name: :article_type,
-      value: { "research article" =>
-        { "count" => 10}
+      :article_type => {
+        "research article" => {
+          "count" => 10
+        }
       }
     }
 
     @facet.add(first)
 
-    Facet.facets.should eq({ first[:name] => first[:value] })
+    @facet.facets.should eq(first)
   end
 end

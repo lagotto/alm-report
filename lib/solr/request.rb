@@ -43,6 +43,8 @@ module Solr
       facets = Facet.new
       counts = json["facet_counts"]
 
+      return nil unless counts
+
       facets.add(%w[journal article_type].map do |name|
         facet = {}
         facet[name] = Hash[

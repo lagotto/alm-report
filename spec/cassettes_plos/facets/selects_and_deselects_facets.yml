@@ -21,13 +21,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 29 Dec 2014 16:12:10 GMT
+      - Mon, 29 Dec 2014 22:07:09 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Mon, 29 Dec 2014 16:11:55 GMT
+      - Mon, 29 Dec 2014 22:06:56 GMT
       Etag:
-      - '"ZDRkMjA4MDAwMDAwMDAwMFNvbHI="'
+      - '"ZTg5NjA4MDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -35,11 +35,11 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=95144522:0; path=/
+      - Coyote-2-9514450c=95144521:0; path=/
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6NTAxMzgsInN0YXJ0IjowLCJkb2Nz
+        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6NTAxNzksInN0YXJ0IjowLCJkb2Nz
         IjpbeyJpZCI6IjEwLjEzNzEvam91cm5hbC5wb25lLjAwMTAwMzEiLCJjcm9z
         c19wdWJsaXNoZWRfam91cm5hbF9uYW1lIjpbIlBMT1MgT05FIl0sInBtaWQi
         OiIiLCJzdWJqZWN0IjpbIi9CaW9sb2d5IGFuZCBsaWZlIHNjaWVuY2VzL0Fu
@@ -1086,13 +1086,13 @@ http_interactions:
         IG9mIENhbmNlci1TcGVjaWZpYyBUcmFuc2NyaXB0IFZhcmlhbnRzIGJ5IFN1
         YnRyYWN0aXZlIFRyYW5zY3JpcHRvbWUtV2lkZSBBbmFseXNpcyJ9XX0sImZh
         Y2V0X2NvdW50cyI6eyJmYWNldF9xdWVyaWVzIjp7fSwiZmFjZXRfZmllbGRz
-        Ijp7ImpvdXJuYWwiOlsicGxvcyBvbmUiLDQwMzYzLCJwbG9zIGdlbmV0aWNz
+        Ijp7ImpvdXJuYWwiOlsicGxvcyBvbmUiLDQwNDA0LCJwbG9zIGdlbmV0aWNz
         IiwyMzY4LCJwbG9zIHBhdGhvZ2VucyIsMTU4MSwicGxvcyBjb21wdXRhdGlv
         bmFsIGJpb2xvZ3kiLDEwOTQsInBsb3MgYmlvbG9neSIsOTE2LCJwbG9zIG1l
         ZGljaW5lIiw3NjIsInBsb3MgbmVnbGVjdGVkIHRyb3BpY2FsIGRpc2Vhc2Vz
         Iiw1MTYsInBsb3MgY2xpbmljYWwgdHJpYWxzIiwxNCwicGxvcyBtZWRpY2lu
         IiwxLCJwbG9zIGNvbGxlY3Rpb25zIiwwXSwiYXJ0aWNsZV90eXBlIjpbInJl
-        c2VhcmNoIGFydGljbGUiLDQ4NzA4LCJjb3JyZWN0aW9uIiwzNDAsInBlcnNw
+        c2VhcmNoIGFydGljbGUiLDQ4NzQ5LCJjb3JyZWN0aW9uIiwzNDAsInBlcnNw
         ZWN0aXZlIiwxNTQsInJldmlldyIsMTQ0LCJzeW5vcHNpcyIsMTA5LCJlc3Nh
         eSIsODEsIm9waW5pb24iLDc1LCJwb2xpY3kgZm9ydW0iLDcxLCJlZGl0b3Jp
         YWwiLDU2LCJwZWFybHMiLDQ3LCJlZHVjYXRpb24iLDQ0LCJwcmltZXIiLDM5
@@ -1185,11 +1185,11 @@ http_interactions:
         LCIyMDEwLTAxLTAxVDAwOjAwOjAwWiI6MzM5NCwiMjAxMS0wMS0wMVQwMDow
         MDowMFoiOjYwNDgsIjIwMTItMDEtMDFUMDA6MDA6MDBaIjo5ODg3LCIyMDEz
         LTAxLTAxVDAwOjAwOjAwWiI6MTMxNTEsIjIwMTQtMDEtMDFUMDA6MDA6MDBa
-        IjoxMjA1MywiZ2FwIjoiKzFZRUFSIiwic3RhcnQiOiIyMDAwLTAxLTAxVDAw
+        IjoxMjA5NCwiZ2FwIjoiKzFZRUFSIiwic3RhcnQiOiIyMDAwLTAxLTAxVDAw
         OjAwOjAwWiIsImVuZCI6IjIwMTUtMDEtMDFUMDA6MDA6MDBaIn19LCJmYWNl
         dF9yYW5nZXMiOnt9fX0K
     http_version: 
-  recorded_at: Mon, 29 Dec 2014 16:12:15 GMT
+  recorded_at: Mon, 29 Dec 2014 22:07:15 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=true&facet.date=publication_date&facet.date.end=NOW&facet.date.gap=%2B1YEAR&facet.date.start=2000-01-01T00:00:00Z&facet.field=article_type&facet.field=journal&facet.field=publication_date&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&fq=journal:%22plos%20one%22&hl=false&q=everything:cancer&rows=25&wt=json
@@ -1211,13 +1211,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 29 Dec 2014 16:12:12 GMT
+      - Mon, 29 Dec 2014 22:07:12 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Mon, 29 Dec 2014 16:11:55 GMT
+      - Mon, 29 Dec 2014 22:06:56 GMT
       Etag:
-      - '"ZDRkMjA4MDAwMDAwMDAwMFNvbHI="'
+      - '"ZTg5NjA4MDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -1225,11 +1225,11 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=9514451d:0; path=/
+      - Coyote-2-9514450c=95144521:0; path=/
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6NDAzNjMsInN0YXJ0IjowLCJkb2Nz
+        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6NDA0MDQsInN0YXJ0IjowLCJkb2Nz
         IjpbeyJpZCI6IjEwLjEzNzEvam91cm5hbC5wb25lLjAwMTAwMzEiLCJjcm9z
         c19wdWJsaXNoZWRfam91cm5hbF9uYW1lIjpbIlBMT1MgT05FIl0sInBtaWQi
         OiIiLCJzdWJqZWN0IjpbIi9CaW9sb2d5IGFuZCBsaWZlIHNjaWVuY2VzL0Fu
@@ -2276,13 +2276,13 @@ http_interactions:
         T3ZhcmlhbiBDYW5jZXIgUGF0aWVudHMgYW5kIEZhbWlsaWVzIHdpdGggYSBI
         aXN0b3J5IG9mIE92YXJpYW4gb3IgQnJlYXN0IENhbmNlciJ9XX0sImZhY2V0
         X2NvdW50cyI6eyJmYWNldF9xdWVyaWVzIjp7fSwiZmFjZXRfZmllbGRzIjp7
-        ImpvdXJuYWwiOlsicGxvcyBvbmUiLDQwMzYzLCJwbG9zIGJpb2xvZ3kiLDAs
+        ImpvdXJuYWwiOlsicGxvcyBvbmUiLDQwNDA0LCJwbG9zIGJpb2xvZ3kiLDAs
         InBsb3MgY2xpbmljYWwgdHJpYWxzIiwwLCJwbG9zIGNvbGxlY3Rpb25zIiww
         LCJwbG9zIGNvbXB1dGF0aW9uYWwgYmlvbG9neSIsMCwicGxvcyBnZW5ldGlj
         cyIsMCwicGxvcyBtZWRpY2luIiwwLCJwbG9zIG1lZGljaW5lIiwwLCJwbG9z
         IG5lZ2xlY3RlZCB0cm9waWNhbCBkaXNlYXNlcyIsMCwicGxvcyBwYXRob2dl
         bnMiLDBdLCJhcnRpY2xlX3R5cGUiOlsicmVzZWFyY2ggYXJ0aWNsZSIsNDAw
-        MzAsImNvcnJlY3Rpb24iLDMxMywicmV2aWV3IiwxMCwib3ZlcnZpZXciLDUs
+        NzEsImNvcnJlY3Rpb24iLDMxMywicmV2aWV3IiwxMCwib3ZlcnZpZXciLDUs
         InJldHJhY3Rpb24iLDQsImZvcm1hbCBjb21tZW50IiwxLCJiZXN0IHByYWN0
         aWNlIiwwLCJib29rIHJldmlldyIsMCwiYm9vayByZXZpZXcvc2NpZW5jZSBp
         biB0aGUgbWVkaWEiLDAsImNhc2UgcmVwb3J0IiwwLCJjb2xsZWN0aW9uIHJl
@@ -2374,11 +2374,11 @@ http_interactions:
         MDEwLTAxLTAxVDAwOjAwOjAwWiI6MjYxNiwiMjAxMS0wMS0wMVQwMDowMDow
         MFoiOjUyMDIsIjIwMTItMDEtMDFUMDA6MDA6MDBaIjo2NTc4LCIyMDEzLTAx
         LTAxVDAwOjAwOjAwWiI6MTE5MjEsIjIwMTQtMDEtMDFUMDA6MDA6MDBaIjox
-        MDg5NiwiZ2FwIjoiKzFZRUFSIiwic3RhcnQiOiIyMDAwLTAxLTAxVDAwOjAw
+        MDkzNywiZ2FwIjoiKzFZRUFSIiwic3RhcnQiOiIyMDAwLTAxLTAxVDAwOjAw
         OjAwWiIsImVuZCI6IjIwMTUtMDEtMDFUMDA6MDA6MDBaIn19LCJmYWNldF9y
         YW5nZXMiOnt9fX0K
     http_version: 
-  recorded_at: Mon, 29 Dec 2014 16:12:18 GMT
+  recorded_at: Mon, 29 Dec 2014 22:07:17 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=true&facet.date=publication_date&facet.date.end=NOW&facet.date.gap=%2B1YEAR&facet.date.start=2000-01-01T00:00:00Z&facet.field=article_type&facet.field=journal&facet.field=publication_date&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=everything:cancer&rows=25&wt=json
@@ -2400,13 +2400,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 29 Dec 2014 16:12:15 GMT
+      - Mon, 29 Dec 2014 22:07:14 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Mon, 29 Dec 2014 16:11:55 GMT
+      - Mon, 29 Dec 2014 22:06:56 GMT
       Etag:
-      - '"ZDRkMjA4MDAwMDAwMDAwMFNvbHI="'
+      - '"ZTg5NjA4MDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -2414,11 +2414,11 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=95144521:0; path=/
+      - Coyote-2-9514450c=95144522:0; path=/
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6NTAxMzgsInN0YXJ0IjowLCJkb2Nz
+        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6NTAxNzksInN0YXJ0IjowLCJkb2Nz
         IjpbeyJpZCI6IjEwLjEzNzEvam91cm5hbC5wb25lLjAwMTAwMzEiLCJjcm9z
         c19wdWJsaXNoZWRfam91cm5hbF9uYW1lIjpbIlBMT1MgT05FIl0sInBtaWQi
         OiIiLCJzdWJqZWN0IjpbIi9CaW9sb2d5IGFuZCBsaWZlIHNjaWVuY2VzL0Fu
@@ -3465,13 +3465,13 @@ http_interactions:
         IG9mIENhbmNlci1TcGVjaWZpYyBUcmFuc2NyaXB0IFZhcmlhbnRzIGJ5IFN1
         YnRyYWN0aXZlIFRyYW5zY3JpcHRvbWUtV2lkZSBBbmFseXNpcyJ9XX0sImZh
         Y2V0X2NvdW50cyI6eyJmYWNldF9xdWVyaWVzIjp7fSwiZmFjZXRfZmllbGRz
-        Ijp7ImpvdXJuYWwiOlsicGxvcyBvbmUiLDQwMzYzLCJwbG9zIGdlbmV0aWNz
+        Ijp7ImpvdXJuYWwiOlsicGxvcyBvbmUiLDQwNDA0LCJwbG9zIGdlbmV0aWNz
         IiwyMzY4LCJwbG9zIHBhdGhvZ2VucyIsMTU4MSwicGxvcyBjb21wdXRhdGlv
         bmFsIGJpb2xvZ3kiLDEwOTQsInBsb3MgYmlvbG9neSIsOTE2LCJwbG9zIG1l
         ZGljaW5lIiw3NjIsInBsb3MgbmVnbGVjdGVkIHRyb3BpY2FsIGRpc2Vhc2Vz
         Iiw1MTYsInBsb3MgY2xpbmljYWwgdHJpYWxzIiwxNCwicGxvcyBtZWRpY2lu
         IiwxLCJwbG9zIGNvbGxlY3Rpb25zIiwwXSwiYXJ0aWNsZV90eXBlIjpbInJl
-        c2VhcmNoIGFydGljbGUiLDQ4NzA4LCJjb3JyZWN0aW9uIiwzNDAsInBlcnNw
+        c2VhcmNoIGFydGljbGUiLDQ4NzQ5LCJjb3JyZWN0aW9uIiwzNDAsInBlcnNw
         ZWN0aXZlIiwxNTQsInJldmlldyIsMTQ0LCJzeW5vcHNpcyIsMTA5LCJlc3Nh
         eSIsODEsIm9waW5pb24iLDc1LCJwb2xpY3kgZm9ydW0iLDcxLCJlZGl0b3Jp
         YWwiLDU2LCJwZWFybHMiLDQ3LCJlZHVjYXRpb24iLDQ0LCJwcmltZXIiLDM5
@@ -3564,11 +3564,11 @@ http_interactions:
         LCIyMDEwLTAxLTAxVDAwOjAwOjAwWiI6MzM5NCwiMjAxMS0wMS0wMVQwMDow
         MDowMFoiOjYwNDgsIjIwMTItMDEtMDFUMDA6MDA6MDBaIjo5ODg3LCIyMDEz
         LTAxLTAxVDAwOjAwOjAwWiI6MTMxNTEsIjIwMTQtMDEtMDFUMDA6MDA6MDBa
-        IjoxMjA1MywiZ2FwIjoiKzFZRUFSIiwic3RhcnQiOiIyMDAwLTAxLTAxVDAw
+        IjoxMjA5NCwiZ2FwIjoiKzFZRUFSIiwic3RhcnQiOiIyMDAwLTAxLTAxVDAw
         OjAwOjAwWiIsImVuZCI6IjIwMTUtMDEtMDFUMDA6MDA6MDBaIn19LCJmYWNl
         dF9yYW5nZXMiOnt9fX0K
     http_version: 
-  recorded_at: Mon, 29 Dec 2014 16:12:20 GMT
+  recorded_at: Mon, 29 Dec 2014 22:07:19 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=true&facet.date=publication_date&facet.date.end=NOW&facet.date.gap=%2B1YEAR&facet.date.start=2000-01-01T00:00:00Z&facet.field=article_type&facet.field=journal&facet.field=publication_date&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&fq=journal:%22plos%20one%22&hl=false&q=everything:cancer&rows=25&wt=json
@@ -3590,13 +3590,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 29 Dec 2014 16:12:16 GMT
+      - Mon, 29 Dec 2014 22:07:17 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Mon, 29 Dec 2014 16:11:55 GMT
+      - Mon, 29 Dec 2014 22:06:56 GMT
       Etag:
-      - '"ZDRkMjA4MDAwMDAwMDAwMFNvbHI="'
+      - '"ZTg5NjA4MDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -3604,11 +3604,11 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=95144521:0; path=/
+      - Coyote-2-9514450c=95144522:0; path=/
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6NDAzNjMsInN0YXJ0IjowLCJkb2Nz
+        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6NDA0MDQsInN0YXJ0IjowLCJkb2Nz
         IjpbeyJpZCI6IjEwLjEzNzEvam91cm5hbC5wb25lLjAwMTAwMzEiLCJjcm9z
         c19wdWJsaXNoZWRfam91cm5hbF9uYW1lIjpbIlBMT1MgT05FIl0sInBtaWQi
         OiIiLCJzdWJqZWN0IjpbIi9CaW9sb2d5IGFuZCBsaWZlIHNjaWVuY2VzL0Fu
@@ -4655,13 +4655,13 @@ http_interactions:
         T3ZhcmlhbiBDYW5jZXIgUGF0aWVudHMgYW5kIEZhbWlsaWVzIHdpdGggYSBI
         aXN0b3J5IG9mIE92YXJpYW4gb3IgQnJlYXN0IENhbmNlciJ9XX0sImZhY2V0
         X2NvdW50cyI6eyJmYWNldF9xdWVyaWVzIjp7fSwiZmFjZXRfZmllbGRzIjp7
-        ImpvdXJuYWwiOlsicGxvcyBvbmUiLDQwMzYzLCJwbG9zIGJpb2xvZ3kiLDAs
+        ImpvdXJuYWwiOlsicGxvcyBvbmUiLDQwNDA0LCJwbG9zIGJpb2xvZ3kiLDAs
         InBsb3MgY2xpbmljYWwgdHJpYWxzIiwwLCJwbG9zIGNvbGxlY3Rpb25zIiww
         LCJwbG9zIGNvbXB1dGF0aW9uYWwgYmlvbG9neSIsMCwicGxvcyBnZW5ldGlj
         cyIsMCwicGxvcyBtZWRpY2luIiwwLCJwbG9zIG1lZGljaW5lIiwwLCJwbG9z
         IG5lZ2xlY3RlZCB0cm9waWNhbCBkaXNlYXNlcyIsMCwicGxvcyBwYXRob2dl
         bnMiLDBdLCJhcnRpY2xlX3R5cGUiOlsicmVzZWFyY2ggYXJ0aWNsZSIsNDAw
-        MzAsImNvcnJlY3Rpb24iLDMxMywicmV2aWV3IiwxMCwib3ZlcnZpZXciLDUs
+        NzEsImNvcnJlY3Rpb24iLDMxMywicmV2aWV3IiwxMCwib3ZlcnZpZXciLDUs
         InJldHJhY3Rpb24iLDQsImZvcm1hbCBjb21tZW50IiwxLCJiZXN0IHByYWN0
         aWNlIiwwLCJib29rIHJldmlldyIsMCwiYm9vayByZXZpZXcvc2NpZW5jZSBp
         biB0aGUgbWVkaWEiLDAsImNhc2UgcmVwb3J0IiwwLCJjb2xsZWN0aW9uIHJl
@@ -4753,11 +4753,11 @@ http_interactions:
         MDEwLTAxLTAxVDAwOjAwOjAwWiI6MjYxNiwiMjAxMS0wMS0wMVQwMDowMDow
         MFoiOjUyMDIsIjIwMTItMDEtMDFUMDA6MDA6MDBaIjo2NTc4LCIyMDEzLTAx
         LTAxVDAwOjAwOjAwWiI6MTE5MjEsIjIwMTQtMDEtMDFUMDA6MDA6MDBaIjox
-        MDg5NiwiZ2FwIjoiKzFZRUFSIiwic3RhcnQiOiIyMDAwLTAxLTAxVDAwOjAw
+        MDkzNywiZ2FwIjoiKzFZRUFSIiwic3RhcnQiOiIyMDAwLTAxLTAxVDAwOjAw
         OjAwWiIsImVuZCI6IjIwMTUtMDEtMDFUMDA6MDA6MDBaIn19LCJmYWNldF9y
         YW5nZXMiOnt9fX0K
     http_version: 
-  recorded_at: Mon, 29 Dec 2014 16:12:22 GMT
+  recorded_at: Mon, 29 Dec 2014 22:07:22 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=true&facet.date=publication_date&facet.date.end=NOW&facet.date.gap=%2B1YEAR&facet.date.start=2000-01-01T00:00:00Z&facet.field=article_type&facet.field=journal&facet.field=publication_date&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&fq=journal:%22plos%20one%22%20AND%20article_type:%22research%20article%22&hl=false&q=everything:cancer&rows=25&wt=json
@@ -4779,13 +4779,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 29 Dec 2014 16:12:19 GMT
+      - Mon, 29 Dec 2014 22:07:18 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Mon, 29 Dec 2014 16:11:55 GMT
+      - Mon, 29 Dec 2014 22:06:56 GMT
       Etag:
-      - '"ZDRkMjA4MDAwMDAwMDAwMFNvbHI="'
+      - '"ZTg5NjA4MDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -4797,7 +4797,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6NDAwMzAsInN0YXJ0IjowLCJkb2Nz
+        eyJyZXNwb25zZSI6eyJudW1Gb3VuZCI6NDAwNzEsInN0YXJ0IjowLCJkb2Nz
         IjpbeyJpZCI6IjEwLjEzNzEvam91cm5hbC5wb25lLjAwMTAwMzEiLCJjcm9z
         c19wdWJsaXNoZWRfam91cm5hbF9uYW1lIjpbIlBMT1MgT05FIl0sInBtaWQi
         OiIiLCJzdWJqZWN0IjpbIi9CaW9sb2d5IGFuZCBsaWZlIHNjaWVuY2VzL0Fu
@@ -5987,13 +5987,13 @@ http_interactions:
         InRpdGxlIjoiQXNzb2NpYXRpb24gYmV0d2VlbiBQVEVOIEdlbmUgSVZTNCBQ
         b2x5bW9ycGhpc20gYW5kIFJpc2sgb2YgQ2FuY2VyOiBBIE1ldGEtQW5hbHlz
         aXMifV19LCJmYWNldF9jb3VudHMiOnsiZmFjZXRfcXVlcmllcyI6e30sImZh
-        Y2V0X2ZpZWxkcyI6eyJqb3VybmFsIjpbInBsb3Mgb25lIiw0MDAzMCwicGxv
+        Y2V0X2ZpZWxkcyI6eyJqb3VybmFsIjpbInBsb3Mgb25lIiw0MDA3MSwicGxv
         cyBiaW9sb2d5IiwwLCJwbG9zIGNsaW5pY2FsIHRyaWFscyIsMCwicGxvcyBj
         b2xsZWN0aW9ucyIsMCwicGxvcyBjb21wdXRhdGlvbmFsIGJpb2xvZ3kiLDAs
         InBsb3MgZ2VuZXRpY3MiLDAsInBsb3MgbWVkaWNpbiIsMCwicGxvcyBtZWRp
         Y2luZSIsMCwicGxvcyBuZWdsZWN0ZWQgdHJvcGljYWwgZGlzZWFzZXMiLDAs
         InBsb3MgcGF0aG9nZW5zIiwwXSwiYXJ0aWNsZV90eXBlIjpbInJlc2VhcmNo
-        IGFydGljbGUiLDQwMDMwLCJiZXN0IHByYWN0aWNlIiwwLCJib29rIHJldmll
+        IGFydGljbGUiLDQwMDcxLCJiZXN0IHByYWN0aWNlIiwwLCJib29rIHJldmll
         dyIsMCwiYm9vayByZXZpZXcvc2NpZW5jZSBpbiB0aGUgbWVkaWEiLDAsImNh
         c2UgcmVwb3J0IiwwLCJjb2xsZWN0aW9uIHJldmlldyIsMCwiY29tbXVuaXR5
         IHBhZ2UiLDAsImNvcnJlY3Rpb24iLDAsImNvcnJlc3BvbmRlbmNlIiwwLCJj
@@ -6085,11 +6085,11 @@ http_interactions:
         WiI6MTc0MiwiMjAxMC0wMS0wMVQwMDowMDowMFoiOjI2MDgsIjIwMTEtMDEt
         MDFUMDA6MDA6MDBaIjo1MTc2LCIyMDEyLTAxLTAxVDAwOjAwOjAwWiI6NjUz
         MiwiMjAxMy0wMS0wMVQwMDowMDowMFoiOjExODEzLCIyMDE0LTAxLTAxVDAw
-        OjAwOjAwWiI6MTA3NjUsImdhcCI6IisxWUVBUiIsInN0YXJ0IjoiMjAwMC0w
+        OjAwOjAwWiI6MTA4MDYsImdhcCI6IisxWUVBUiIsInN0YXJ0IjoiMjAwMC0w
         MS0wMVQwMDowMDowMFoiLCJlbmQiOiIyMDE1LTAxLTAxVDAwOjAwOjAwWiJ9
         fSwiZmFjZXRfcmFuZ2VzIjp7fX19Cg==
     http_version: 
-  recorded_at: Mon, 29 Dec 2014 16:12:24 GMT
+  recorded_at: Mon, 29 Dec 2014 22:07:24 GMT
 - request:
     method: get
     uri: http://alm.plos.org/api/v3/articles?api_key=<API_KEY>&ids=10.1371/journal.pone.0010031
@@ -6131,21 +6131,21 @@ http_interactions:
       Vary:
       - Accept-Encoding
       Etag:
-      - '"84a8791bf66ec67a4808ae3830c64b1f"'
+      - '"5a85a5283460e218a2602afc6794c358"'
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 5919ab3c-7382-46de-a00c-1b661127ee1a
+      - 16445621-0c99-4b82-8b98-4184cd88abff
       X-Runtime:
-      - '0.289413'
+      - '0.031095'
       X-Powered-By:
       - Phusion Passenger 4.0.55
       Date:
-      - Mon, 29 Dec 2014 16:12:22 GMT
+      - Mon, 29 Dec 2014 22:07:21 GMT
       Server:
       - nginx/1.6.2 + Phusion Passenger 4.0.55
       Set-Cookie:
-      - Coyote-2-9514450b=9514452d:0; path=/
+      - Coyote-2-9514450b=9514452f:0; path=/
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -6319,5 +6319,5 @@ http_interactions:
         YXRpb25zIjo0LCJ0b3RhbCI6NH0sInVwZGF0ZV9kYXRlIjoiMjAxNC0xMi0x
         MVQwNTo1NDo0MFoifV19XQ==
     http_version: 
-  recorded_at: Mon, 29 Dec 2014 16:12:25 GMT
+  recorded_at: Mon, 29 Dec 2014 22:07:25 GMT
 recorded_with: VCR 2.9.3
