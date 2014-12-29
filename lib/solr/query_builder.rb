@@ -162,7 +162,7 @@ module Solr
         @start_time = Date.strptime(start_date, "%m-%d-%Y")
         @end_time = DateTime.strptime(end_date + " 23:59:59", "%m-%d-%Y %H:%M:%S")
       else  # days_ago specifies start date; end date now
-        @start_time = end_time - (3600 * 24 * days_ago)
+        @start_time = @end_time - days_ago.to_i.days
       end
     end
 
