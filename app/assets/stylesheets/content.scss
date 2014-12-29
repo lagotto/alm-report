@@ -789,13 +789,6 @@ nav#report .metrics-chart-view + span {
   font-weight: bold;
 }
 
-.metrics-left-content {
-  width: 715px;
-  float: left;
-  position: relative;
-  min-height: 560px;
-}
-
 .metrics-left-content .metrics-article {
   width: 615px;
   position:absolute;
@@ -837,7 +830,13 @@ nav#report .metrics-chart-view + span {
     margin-right: 1rem;
     border-radius: 4px;
     vertical-align: text-bottom;
-    display: inline-block;
+    float: left;
+    margin-bottom: 50px;
+    margin-top: 4px;
+  }
+
+  p, .metrics-table-content {
+    margin-left: 33px;
   }
 
   .metrics-description {
