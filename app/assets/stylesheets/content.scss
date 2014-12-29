@@ -807,6 +807,10 @@ nav#report .metrics-chart-view + span {
   display: inline-block;
   position: relative;
 
+  &:first-child {
+    margin-top: -24px;
+  }
+
   &:not(:first-child) {
     margin-top: 48px;
   }
@@ -946,6 +950,9 @@ nav#report .metrics-chart-view + span {
 
 .visualizations-container {
   min-height: 560px;
+  p.source {
+    margin-left: 19rem;
+  }
 }
 
 .aside-container ul a:hover {
@@ -1020,6 +1027,13 @@ nav#report {
     @include visualization-icon($body_text_color);
   }
 
+  .report-share-block .share-button {
+    margin-top: 29px;
+    background: $button_color image-url('share.svg') no-repeat;
+    background-size: 30px 47px;
+    background-position-x: 20px;
+  }
+
   .chart-view:hover,
   .chart-view-active {
     @include visualization-icon($active);
@@ -1060,6 +1074,10 @@ nav#report {
   span {
     float: left;
   }
+
+  .report-share-block .share-button:hover {
+    background-color: $background;
+  }
 }
 
 .edit-list,
@@ -1095,72 +1113,66 @@ nav#report {
 
 .report-downloads {
   width: 240px;
-  margin: 23px 0 0;
   float: right;
-}
+  h2 {
+    margin: 0 0 0 16px;
+    font-size: 22px;
+  }
+  ul {
+    margin-bottom: 0;
+    width: 100%;
+  }
+  li {
+    margin-bottom: 0;
+    width: 100%;
+    border-bottom: 1px solid #aeaeae;
+    display: inline-block;
+    position: relative;
+  }
 
-.report-downloads h2 {
-  margin: 0 0 0 16px;
-  font-size: 22px;
-}
-
-.report-downloads ul {
-  width: 100%;
-}
-
-.report-downloads li {
-  width: 100%;
-  border-bottom: 1px solid #aeaeae;
-  display: inline-block;
-  position: relative;
-}
-
-.report-downloads .csv {
-  width: 40px;
-  height:46px;
-  margin: 29px 15px 0 18px;
-  float: left;
-  background: image-url('sprite.png') -459px -141px;
-}
-
-.report-downloads .png {
-  width: 40px;
-  height:46px;
-  margin: 29px 15px 0 18px;
-  float: left;
-  background: image-url('sprite.png') -498px -141px;
-}
-
-.report-downloads .file-name {
-  width: 100px;
-  height: 92px;
-  padding: 6px 0 0;
-  line-height: 16px;
-  font-size: 15px;
-  font-weight: bold;
+  .csv {
+    width: 40px;
+    height:46px;
+    margin: 29px 15px 0 18px;
+    float: left;
+    background: image-url('sprite.png') -459px -141px;
+  }
+  .png {
+    width: 40px;
+    height:46px;
+    margin: 29px 15px 0 18px;
+    float: left;
+    background: image-url('sprite.png') -498px -141px;
+  }
+  .file-name {
+    width: 100px;
+    height: 92px;
+    padding: 6px 0 0;
+    line-height: 16px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  span {
+    width: 90px;
+    margin: 0;
+    line-height: 16px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: normal;
+  }
+  .arrow {
+    width: 13px;
+    height:20px;
+    position: absolute;
+    top: 44%;
+    right: 34px;
+    background: image-url('sprite.png') -537px -142px;
+  }
 }
 
 .file-name:hover {
   text-decoration: underline;
-}
-
-.report-downloads span {
-  width: 90px;
-  margin: 0;
-  line-height: 16px;
-  display: table-cell;
-  vertical-align: middle;
-  font-size: 12px;
-  font-weight: normal;
-}
-
-.report-downloads .arrow {
-  width: 13px;
-  height:20px;
-  position: absolute;
-  top: 44%;
-  right: 34px;
-  background: image-url('sprite.png') -537px -142px;
 }
 
 /* the visualization download link isn't a real link (doesn't have href attr)
@@ -1182,37 +1194,38 @@ nav#report {
   display: block;
 }
 
-.report-downloads .report-share-block:hover a {
-  background: $button_color;
-}
-
-.report-share-block:hover span {
-  background-color: $button_color;
-}
-
 .share-box {
   height: 116px;
-  margin: 2px 0 0;
+  margin: 7px 0 0;
   padding: 9px 0 2px;
   border-radius: 4px;
   display: none;
   background: $button_color;
 }
 
-.report-downloads .report-share-block:hover .share-box {
+.report-share-block:hover .share-box {
   display: block;
+  float: right;
+  position: absolute;
+  top: 72px;
+  background: $background;
 }
 
-.report-share-block .share-box a {
-  width: 72%;
-  margin: 1px 0 0;
-  padding: 0;
+.report-share-block {
+  margin-left: 200px;
   float: left;
-  background: none;
-}
+  position: relative;
+  height: 90px;
 
-.report-share-block .share-box a:hover span {
-  text-decoration: underline;
+  .share-box a {
+    margin: 1px 0 0;
+    padding: 0;
+    float: left;
+    background: none;
+  }
+  .share-box a:hover span {
+   text-decoration: underline;
+  }
 }
 
 /*
@@ -1223,15 +1236,16 @@ nav#report {
  */
 .share-button {
   margin: 0;
-  padding: 8px 54px 9px 53px;
+  padding: 8px 24px 9px 51px;
   min-width: 78px;
+  height: 30px;
+  line-height: 30px;
   border: none;
   border-radius: 4px;
   background: #000;
   color: #fff !important;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold !important;
+  font-weight: bold;
   font-size: 15px !important;
 }
 

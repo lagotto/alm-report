@@ -31,22 +31,6 @@ AlmReport.BubbleChartComponent = Ember.Component.extend({
     }
   }.property('axes'),
 
-  size: function () {
-    return this.get('items').content.length
-  }.property('items'),
-
-  minDate: function () {
-    return _.min(this.get('items').toArray(), function (i) {
-      return i.get('published')
-    }).get('published').toLocaleString('si').slice(0,10)
-  }.property('items'),
-
-  maxDate: function () {
-    return _.max(this.get('items').toArray(), function (i) {
-      return i.get('published')
-    }).get('published').toLocaleString('si').slice(0,10)
-  }.property('items'),
-
   axisChanged: function() {
     if(this.get('chart')) { this.update() }
   }.observes('axis'),
