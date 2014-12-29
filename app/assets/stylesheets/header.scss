@@ -81,6 +81,7 @@ h1 + ul li {
   display: inline-block;
   vertical-align: top;
   text-align: center;
+  border-radius: 5px 0 0 5px;
 }
 
 .list-container > span.list-label {
@@ -92,7 +93,6 @@ h1 + ul li {
 }
 
 .list-label {
-  padding: 18px 0 20px;
   width: 180px;
   font-size: 14px;
   background: $button_color;

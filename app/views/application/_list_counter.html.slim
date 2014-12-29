@@ -1,12 +1,17 @@
 .list-outer-container
   .list-container
-    span.list-label Your List
+    span.list-label= user_signed_in? ? h(truncate(current_user.name, length: 25)) : "Your Article List"
     span.list-count= @cart.nil? ? 0 : @cart.size
-  div#your-list-choices.list-hover
-    - if @cart.nil? || @cart.empty?
-      span View Report
-      span Edit List
+  .list-hover
+    - if user_signed_in?
+      = link_to "Sign Out", destroy_user_session_path, method: :get
     - else
-      - if @tab != :view_report
-        a href="/reports/generate" View Report
-      = link_to "Edit List", preview_path
+      = login_link
+    #your-list-choices
+      - if @cart.blank?
+        span View Report
+        span Edit List
+      - else
+        - if @tab != :view_report
+          a href="/reports/generate" View Report
+        = link_to "Edit List", preview_path
