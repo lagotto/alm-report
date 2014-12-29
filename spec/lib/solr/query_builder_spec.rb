@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'solr/query_builder'
 
 def build_query_test_once(params, expected, opts = nil)
   qb = Solr::QueryBuilder.new(params)

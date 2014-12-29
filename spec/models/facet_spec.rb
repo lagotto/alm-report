@@ -13,6 +13,6 @@ describe Facet do
 
     @facet.add(first)
 
-    Facet.facets.should eq { first[:name] => first[:value] }
+    Facet.facets.should eq({ first[:name] => first[:value] })
   end
 end
