@@ -1028,10 +1028,11 @@ nav#report {
   }
 
   .report-share-block .share-button {
-    margin-top: 29px;
-    background: $button_color image-url('share.svg') no-repeat;
+    margin-top: 32px;
+    @include share-icon($button_color);
     background-size: 30px 47px;
-    background-position-x: 20px;
+    background-position-x: 31px;
+    border: 1px #ccc solid;
   }
 
   .chart-view:hover,
@@ -1075,7 +1076,12 @@ nav#report {
     float: left;
   }
 
-  .report-share-block .share-button:hover {
+  .report-share-block .share-button:hover, .report-share-block:hover .share-button {
+    color: $button_text_color;
+    border: 1px transparent solid;
+    @include share-icon($button_text_color);
+    background-size: 30px 47px;
+    background-position-x: 31px;
     background-color: $background;
   }
 }
@@ -1196,7 +1202,7 @@ nav#report {
 
 .share-box {
   height: 116px;
-  margin: 7px 0 0;
+  margin: 12px 0 0;
   padding: 9px 0 2px;
   border-radius: 4px;
   display: none;
@@ -1243,7 +1249,7 @@ nav#report {
   border: none;
   border-radius: 4px;
   background: #000;
-  color: #fff !important;
+  color: $button_color;
   text-align: center;
   font-weight: bold;
   font-size: 15px !important;
