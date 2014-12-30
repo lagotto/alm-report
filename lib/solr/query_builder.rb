@@ -121,7 +121,7 @@ module Solr
     def build_filters
       filters = (@params[:filters] || []) + (@params[:facets] || [])
       if filters
-        @query[:fq] = filters.map do |filter|
+        fq = filters.map do |filter|
           if filter.is_a? Hash
             if filter[:name] == "publication_date"
               "#{filter[:name]}:[#{filter[:value]} TO #{filter[:value]}+1YEAR]"
@@ -132,6 +132,7 @@ module Solr
             "cross_published_journal_key:#{filter}"
           end
         end.compact.join(" AND ")
+        @query[:fq] = fq unless fq.blank?
       end
     end
 

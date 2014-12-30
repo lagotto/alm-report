@@ -9,14 +9,15 @@ describe Alm do
       report.save
 
       dois = [
-        '10.1371/journal.pone.0064652',
-        '10.1371/journal.pmed.0020124'
+        "10.1371/journal.pone.0064652",
+        "10.1371/journal.pmed.0020124"
       ]
 
       report.add_all_dois(dois)
 
       params = {}
-      params[:ids] = dois.join(",")
+      params[:ids] = dois.sort.join(",")
+
       url = Alm.get_alm_url(params)
 
       body = File.read("#{fixture_path}alm_good_response.json")
@@ -101,7 +102,7 @@ describe Alm do
       report.add_all_dois(dois)
 
       params = {}
-      params[:ids] = dois.join(",")
+      params[:ids] = dois.sort.join(",")
       url = Alm.get_alm_url(params)
 
       body = File.read("#{fixture_path}alm_bad_response.json")
@@ -126,7 +127,7 @@ describe Alm do
       report.add_all_dois(dois)
 
       params = {}
-      params[:ids] = dois.join(",")
+      params[:ids] = dois.sort.join(",")
       url = Alm.get_alm_url(params)
 
       body = File.read("#{fixture_path}alm_good_response2.json")
@@ -180,7 +181,7 @@ describe Alm do
     report.add_all_dois(dois)
 
     params = {}
-    params[:ids] = dois.join(",")
+    params[:ids] = dois.sort.join(",")
     params[:info] = "history"
     params[:source] = "crossref,pubmed,scopus"
     url = Alm.get_alm_url(params)
@@ -189,7 +190,7 @@ describe Alm do
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
 
     params = {}
-    params[:ids] = dois.join(",")
+    params[:ids] = dois.sort.join(",")
     params[:info] = "event"
     params[:source] = "counter,pmc,citeulike,twitter,researchblogging,nature,scienceseeker,mendeley"
     url = Alm.get_alm_url(params)
@@ -263,7 +264,7 @@ describe Alm do
       report.add_all_dois(dois)
 
       params = {}
-      params[:ids] = dois.join(",")
+      params[:ids] = dois.sort.join(",")
       url = Alm.get_alm_url(params)
 
       body = File.read("#{fixture_path}alm_good_response.json")

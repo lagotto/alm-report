@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 29 Dec 2014 22:15:21 GMT
+      - Tue, 30 Dec 2014 19:49:41 GMT
       Server:
       - http-kit
       Access-Control-Allow-Headers:
@@ -95,5 +95,5 @@ http_interactions:
         Paper":2291,"Book":481,"Journal Issue":471,"Entry":418,"Other":349,"Component":138,"Report":43,"Monograph":38,"Proceedings":13,"Reference":2,"Book
         Series":1}},"update-type":{"value-count":5,"values":{"correction":377,"err":104,"retraction":11,"new_version":4,"Erratum":2}}}}}'
     http_version: 
-  recorded_at: Mon, 29 Dec 2014 22:15:25 GMT
+  recorded_at: Tue, 30 Dec 2014 19:49:46 GMT
 recorded_with: VCR 2.9.3

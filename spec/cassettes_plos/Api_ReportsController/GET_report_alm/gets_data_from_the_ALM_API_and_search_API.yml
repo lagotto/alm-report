@@ -33,7 +33,7 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Last-Modified:
-      - Mon, 29 Dec 2014 18:11:02 GMT
+      - Tue, 30 Dec 2014 19:10:49 GMT
       Access-Control-Allow-Origin:
       - "*"
       Access-Control-Allow-Methods:
@@ -45,13 +45,13 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - 9384a208-f752-4e91-bd3b-62d6a4c3fcc5
+      - ae318102-6ffc-468a-932d-2c4f0521e0cf
       X-Runtime:
-      - '0.933034'
+      - '0.401769'
       X-Powered-By:
       - Phusion Passenger 4.0.55
       Date:
-      - Mon, 29 Dec 2014 22:09:49 GMT
+      - Tue, 30 Dec 2014 19:49:42 GMT
       Server:
       - nginx/1.6.2 + Phusion Passenger 4.0.55
       Set-Cookie:
@@ -69,7 +69,7 @@ http_interactions:
         Y29tcGJpb2wub3JnL2FydGljbGUvaW5mbyUzQWRvaSUyRjEwLjEzNzElMkZq
         b3VybmFsLnBjYmkuMTAwMjcyNyIsInZpZXdlZCI6NTA5MSwic2F2ZWQiOjE1
         LCJkaXNjdXNzZWQiOjIyLCJjaXRlZCI6MCwidXBkYXRlX2RhdGUiOiIyMDE0
-        LTEyLTI5VDE4OjExOjAyWiIsInNvdXJjZXMiOlt7Im5hbWUiOiJjaXRldWxp
+        LTEyLTMwVDE5OjEwOjQ5WiIsInNvdXJjZXMiOlt7Im5hbWUiOiJjaXRldWxp
         a2UiLCJkaXNwbGF5X25hbWUiOiJDaXRlVUxpa2UiLCJncm91cF9uYW1lIjoi
         c2F2ZWQiLCJldmVudHNfdXJsIjoiaHR0cDovL3d3dy5jaXRldWxpa2Uub3Jn
         L2RvaS8xMC4xMzcxJTJGam91cm5hbC5wY2JpLjEwMDI3MjciLCJieV9kYXki
@@ -173,7 +173,7 @@ http_interactions:
         ZiI6Mn1dLCJieV95ZWFyIjpbeyJ5ZWFyIjoyMDEyLCJwZGYiOjIyOSwiaHRt
         bCI6MzIzN30seyJ5ZWFyIjoyMDEzLCJwZGYiOjQxLCJodG1sIjo5NjN9LHsi
         eWVhciI6MjAxNCwicGRmIjoyMywiaHRtbCI6MzA2fV0sInVwZGF0ZV9kYXRl
-        IjoiMjAxNC0xMi0yOVQwMDowOTo1OFoiLCJtZXRyaWNzIjp7InBkZiI6Mjkz
+        IjoiMjAxNC0xMi0yOVQyMzoyOToyNloiLCJtZXRyaWNzIjp7InBkZiI6Mjkz
         LCJodG1sIjo0NTA2LCJyZWFkZXJzIjpudWxsLCJjb21tZW50cyI6bnVsbCwi
         bGlrZXMiOm51bGwsInRvdGFsIjo0OTM2fSwiZXZlbnRzIjpbeyJtb250aCI6
         IjEwIiwieWVhciI6IjIwMTIiLCJwZGZfdmlld3MiOiIxNzciLCJ4bWxfdmll
@@ -987,7 +987,7 @@ http_interactions:
         LCJ0b3RhbCI6MH0seyJ5ZWFyIjoyMDE0LCJtb250aCI6MTEsInRvdGFsIjow
         fSx7InllYXIiOjIwMTQsIm1vbnRoIjoxMiwidG90YWwiOjB9XSwiYnlfeWVh
         ciI6W3sieWVhciI6MjAxNCwidG90YWwiOjEwMjI2NH1dLCJ1cGRhdGVfZGF0
-        ZSI6IjIwMTQtMTItMjNUMTc6MzI6NTlaIiwibWV0cmljcyI6eyJwZGYiOm51
+        ZSI6IjIwMTQtMTItMzBUMTc6Mzk6NDJaIiwibWV0cmljcyI6eyJwZGYiOm51
         bGwsImh0bWwiOm51bGwsInJlYWRlcnMiOm51bGwsImNvbW1lbnRzIjpudWxs
         LCJsaWtlcyI6bnVsbCwidG90YWwiOjEwMjI2NH0sImV2ZW50cyI6eyJzdGFy
         dF9kYXRlIjoiMjAxMi0wMS0wMVQwMDowMDowMFoiLCJlbmRfZGF0ZSI6IjIw
@@ -1087,8 +1087,8 @@ http_interactions:
         bWUiOiJhcnRpY2xlY292ZXJhZ2VjdXJhdGVkIiwiZGlzcGxheV9uYW1lIjoi
         QXJ0aWNsZSBDb3ZlcmFnZSBDdXJhdGVkIiwiZ3JvdXBfbmFtZSI6ImRpc2N1
         c3NlZCIsImV2ZW50c191cmwiOm51bGwsImJ5X2RheSI6W10sImJ5X21vbnRo
-        IjpbXSwiYnlfeWVhciI6W10sInVwZGF0ZV9kYXRlIjoiMjAxNC0xMi0yOVQx
-        ODoxMTowMloiLCJtZXRyaWNzIjp7InBkZiI6bnVsbCwiaHRtbCI6bnVsbCwi
+        IjpbXSwiYnlfeWVhciI6W10sInVwZGF0ZV9kYXRlIjoiMjAxNC0xMi0zMFQx
+        OToxMDo0OVoiLCJtZXRyaWNzIjp7InBkZiI6bnVsbCwiaHRtbCI6bnVsbCwi
         cmVhZGVycyI6bnVsbCwiY29tbWVudHMiOjAsImxpa2VzIjpudWxsLCJ0b3Rh
         bCI6MH0sImV2ZW50cyI6W10sImV2ZW50c19jc2wiOltdfSx7Im5hbWUiOiJw
         bG9zX2NvbW1lbnRzIiwiZGlzcGxheV9uYW1lIjoiSm91cm5hbCBDb21tZW50
@@ -1099,10 +1099,10 @@ http_interactions:
         IjowLCJsaWtlcyI6bnVsbCwidG90YWwiOjB9LCJldmVudHMiOltdLCJldmVu
         dHNfY3NsIjpbXX1dfV19
     http_version: 
-  recorded_at: Mon, 29 Dec 2014 22:09:53 GMT
+  recorded_at: Tue, 30 Dec 2014 19:49:47 GMT
 - request:
     method: get
-    uri: http://api.plos.org/search?facet=true&facet.date=publication_date&facet.date.end=NOW&facet.date.gap=%2B1YEAR&facet.date.start=2000-01-01T00:00:00Z&facet.field=article_type&facet.field=journal&facet.field=publication_date&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pcbi.1002727&rows=25&wt=json
+    uri: http://api.plos.org/search?facet=true&facet.date=publication_date&facet.date.end=NOW&facet.date.gap=%2B1YEAR&facet.date.start=2000-01-01T00:00:00Z&facet.field=article_type&facet.field=journal&facet.field=publication_date&fl=id,pmid,publication_date,received_date,accepted_date,title,cross_published_journal_name,author_display,editor_display,article_type,affiliate,subject,financial_disclosure&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=id:10.1371/journal.pcbi.1002727&rows=25&wt=json
     body:
       encoding: US-ASCII
       string: ''
@@ -1121,13 +1121,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Mon, 29 Dec 2014 22:09:49 GMT
+      - Tue, 30 Dec 2014 19:49:43 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Mon, 29 Dec 2014 22:09:27 GMT
+      - Tue, 30 Dec 2014 19:48:29 GMT
       Etag:
-      - '"Mjk2MDgwMDAwMDAwMDAwU29scg=="'
+      - '"ZGQzYjA4MDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -1135,11 +1135,11 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=9514451d:0; path=/
+      - Coyote-2-9514450c=95144521:0; path=/
     body:
       encoding: UTF-8
       string: |
         {"response":{"numFound":1,"start":0,"docs":[{"id":"10.1371/journal.pcbi.1002727","cross_published_journal_name":["PLOS Computational Biology"],"pmid":"","subject":["/Biology and life sciences/Computational biology","/People and places/Population groupings/Professions/Biologists","/Ecology and environmental sciences/Ecology/Biodiversity","/Biology and life sciences/Ecology/Biodiversity","/Social sciences/Sociology/Families and family members/Human families"],"publication_date":"2012-10-04T00:00:00Z","article_type":"Editorial","author_display":["Ruth Nussinov"],"affiliate":["Basic Science Program, SAIC-Frederick, Inc., Center for Cancer Research Nanobiology Program, Frederick National Laboratory for Cancer Research, National Cancer Institute, Frederick, Maryland, United States of America","Sackler Institute of Molecular Medicine, Department of Human Genetics and Molecular Medicine, Sackler School of Medicine, Tel Aviv University, Tel Aviv, Israel"],"financial_disclosure":"The author received no specific funding for writing this article.","title":"A Future Vision for PLOS Computational Biology"}]},"facet_counts":{"facet_queries":{},"facet_fields":{"journal":["plos biology",0,"plos clinical trials",0,"plos collections",0,"plos computational biology",0,"plos genetics",0,"plos medicin",0,"plos medicine",0,"plos neglected tropical diseases",0,"plos one",0,"plos pathogens",0],"article_type":["editorial",1,"best practice",0,"book review",0,"book review/science in the media",0,"case report",0,"collection review",0,"community page",0,"correction",0,"correspondence",0,"correspondence and other communications",0,"debate",0,"deep reads",0,"education",0,"essay",0,"expert commentary",0,"expression of concern",0,"feature",0,"formal comment",0,"from innovation to application",0,"guidelines and guidance",0,"health in action",0,"historical and philosophical perspectives",0,"historical profiles and perspectives",0,"interview",0,"issue image",0,"journal club",0,"learning forum",0,"message from iscb",0,"message from plos",0,"message from the founders",0,"message from the plos founders",0,"neglected diseases",0,"obituary",0,"opinion",0,"overview",0,"pearls",0,"perspective",0,"photo quiz",0,"policy forum",0,"policy platform",0,"primer",0,"quiz",0,"research article",0,"research in translation",0,"retraction",0,"review",0,"special report",0,"student forum",0,"symposium",0,"synopsis",0,"technical report",0,"the plos medicine debate",0,"topic page",0,"unsolved mystery",0,"viewpoints",0],"publication_date":["2012-10-04T00:00:00Z",1,"2003-08-18T00:00:00Z",0,"2003-09-15T00:00:00Z",0,"2003-10-13T00:00:00Z",0,"2003-10-27T00:00:00Z",0,"2003-11-03T00:00:00Z",0,"2003-11-17T00:00:00Z",0,"2003-11-24T00:00:00Z",0,"2003-12-15T00:00:00Z",0,"2003-12-22T00:00:00Z",0,"2004-01-13T00:00:00Z",0,"2004-01-20T00:00:00Z",0,"2004-02-10T00:00:00Z",0,"2004-02-17T00:00:00Z",0,"2004-02-24T00:00:00Z",0,"2004-03-05T00:00:00Z",0,"2004-03-16T00:00:00Z",0,"2004-03-23T00:00:00Z",0,"2004-03-30T00:00:00Z",0,"2004-04-13T00:00:00Z",0,"2004-04-20T00:00:00Z",0,"2004-04-27T00:00:00Z",0,"2004-05-11T00:00:00Z",0,"2004-06-15T00:00:00Z",0,"2004-06-22T00:00:00Z",0,"2004-06-29T00:00:00Z",0,"2004-07-13T00:00:00Z",0,"2004-07-20T00:00:00Z",0,"2004-07-27T00:00:00Z",0,"2004-08-17T00:00:00Z",0,"2004-08-24T00:00:00Z",0,"2004-08-31T00:00:00Z",0,"2004-09-07T00:00:00Z",0,"2004-09-14T00:00:00Z",0,"2004-09-21T00:00:00Z",0,"2004-09-28T00:00:00Z",0,"2004-10-05T00:00:00Z",0,"2004-10-12T00:00:00Z",0,"2004-10-19T00:00:00Z",0,"2004-10-26T00:00:00Z",0,"2004-11-02T00:00:00Z",0,"2004-11-09T00:00:00Z",0,"2004-11-11T00:00:00Z",0,"2004-11-16T00:00:00Z",0,"2004-11-23T00:00:00Z",0,"2004-11-30T00:00:00Z",0,"2004-12-02T00:00:00Z",0,"2004-12-07T00:00:00Z",0,"2004-12-14T00:00:00Z",0,"2004-12-21T00:00:00Z",0,"2004-12-28T00:00:00Z",0,"2005-01-04T00:00:00Z",0,"2005-01-11T00:00:00Z",0,"2005-01-18T00:00:00Z",0,"2005-01-25T00:00:00Z",0,"2005-02-01T00:00:00Z",0,"2005-02-08T00:00:00Z",0,"2005-02-15T00:00:00Z",0,"2005-02-22T00:00:00Z",0,"2005-03-01T00:00:00Z",0,"2005-03-08T00:00:00Z",0,"2005-03-14T00:00:00Z",0,"2005-03-15T00:00:00Z",0,"2005-03-22T00:00:00Z",0,"2005-03-29T00:00:00Z",0,"2005-04-05T00:00:00Z",0,"2005-04-12T00:00:00Z",0,"2005-04-19T00:00:00Z",0,"2005-04-26T00:00:00Z",0,"2005-05-03T00:00:00Z",0,"2005-05-10T00:00:00Z",0,"2005-05-12T00:00:00Z",0,"2005-05-17T00:00:00Z",0,"2005-05-24T00:00:00Z",0,"2005-05-27T00:00:00Z",0,"2005-05-31T00:00:00Z",0,"2005-06-07T00:00:00Z",0,"2005-06-14T00:00:00Z",0,"2005-06-17T00:00:00Z",0,"2005-06-21T00:00:00Z",0,"2005-06-24T00:00:00Z",0,"2005-06-28T00:00:00Z",0,"2005-07-05T00:00:00Z",0,"2005-07-08T00:00:00Z",0,"2005-07-12T00:00:00Z",0,"2005-07-15T00:00:00Z",0,"2005-07-19T00:00:00Z",0,"2005-07-22T00:00:00Z",0,"2005-07-25T00:00:00Z",0,"2005-07-26T00:00:00Z",0,"2005-07-29T00:00:00Z",0,"2005-08-02T00:00:00Z",0,"2005-08-05T00:00:00Z",0,"2005-08-09T00:00:00Z",0,"2005-08-12T00:00:00Z",0,"2005-08-16T00:00:00Z",0,"2005-08-19T00:00:00Z",0,"2005-08-23T00:00:00Z",0,"2005-08-26T00:00:00Z",0,"2005-08-28T00:00:00Z",0]},"facet_dates":{"publication_date":{"2000-01-01T00:00:00Z":0,"2001-01-01T00:00:00Z":0,"2002-01-01T00:00:00Z":0,"2003-01-01T00:00:00Z":0,"2004-01-01T00:00:00Z":0,"2005-01-01T00:00:00Z":0,"2006-01-01T00:00:00Z":0,"2007-01-01T00:00:00Z":0,"2008-01-01T00:00:00Z":0,"2009-01-01T00:00:00Z":0,"2010-01-01T00:00:00Z":0,"2011-01-01T00:00:00Z":0,"2012-01-01T00:00:00Z":1,"2013-01-01T00:00:00Z":0,"2014-01-01T00:00:00Z":0,"gap":"+1YEAR","start":"2000-01-01T00:00:00Z","end":"2015-01-01T00:00:00Z"}},"facet_ranges":{}}}
     http_version: 
-  recorded_at: Mon, 29 Dec 2014 22:09:54 GMT
+  recorded_at: Tue, 30 Dec 2014 19:49:48 GMT
 recorded_with: VCR 2.9.3

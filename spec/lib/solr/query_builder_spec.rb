@@ -119,7 +119,10 @@ describe Solr::QueryBuilder do
       "titleFoo&fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&" \
       "fl=id,pmid,publication_date,received_date,accepted_date,title,cross_" \
       "published_journal_name,author_display,editor_display,article_type,affi" \
-      "liate,subject,financial_disclosure&wt=json&facet=false&rows=25&hl=false"
+      "liate,subject,financial_disclosure&wt=json&rows=25&hl=false&" \
+      "facet=true&facet.field=journal&facet.field=article_type&facet.field=" \
+      "publication_date&facet.date=publication_date&facet.date.start=" \
+      "2000-01-01T00:00:00Z&facet.date.end=NOW&facet.date.gap=%2B1YEAR"
     qb.url.should eq(url)
   end
 
@@ -172,9 +175,9 @@ describe Solr::QueryBuilder do
     )
   end
 
-  it "parses date range -1 (all time)" do
+  it "parses date range '' (all time)" do
     params = {
-      publication_days_ago: "-1"
+      publication_days_ago: ""
     }
     qb = Solr::QueryBuilder.new(params)
     qb.build

@@ -73,7 +73,7 @@ class Alm
       response = conn.get("/api/v3/articles", params)
 
       if response.status != 200
-        Rails.logger.error "ALM (#{url}) returned #{resp.code}: " + resp.body
+        Rails.logger.error "ALM (#{response.env.url}) returned #{response.status}"
         next
       end
       response.body
