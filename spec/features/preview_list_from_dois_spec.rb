@@ -11,5 +11,11 @@ describe "preview list from dois", type: :feature, vcr: true do
     click_button "Add to My List"
 
     expect(page).to have_content "Independent Origins of Cultivated Coconut"
+
+
+
+
+
+
   end
 end

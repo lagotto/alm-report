@@ -75,7 +75,7 @@ class SearchCrossref
 
     if @params[:ids]
       @rows = @params[:ids].size
-      @filter += @params[:ids].map{ |id| "doi:#{id}"}.join(",")
+      @filter += @params[:ids].map{ |id| "doi:#{id}" }
     end
   end
 
