@@ -14,6 +14,9 @@ CodeClimate::TestReporter.start
 # set ENV variables for testing
 ENV["RAILS_ENV"] ||= 'test'
 ENV["OMNIAUTH"] = "cas"
+ENV["CAS_URL"] = "https://register.example.org"
+ENV["CAS_INFO_URL"] = "http://example.org/users"
+ENV["CAS_PREFIX"]= "/cas"
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
