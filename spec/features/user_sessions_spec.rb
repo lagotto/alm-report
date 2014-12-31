@@ -1,11 +1,11 @@
 require "rails_helper"
 
 describe "user sessions", :type => :feature do
-  it "signs in as Persona user", js: true do
-    ENV["OMNIAUTH"] = "persona"
-    sign_in
-    expect(page).to have_content "Joe Smith"
-  end
+  # it "signs in as Persona user", js: true do
+  #   ENV["OMNIAUTH"] = "persona"
+  #   sign_in
+  #   expect(page).to have_content "Joe Smith"
+  # end
 
   it "signs in as CAS user", js: true do
     sign_in
