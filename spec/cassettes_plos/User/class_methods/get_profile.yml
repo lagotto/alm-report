@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://api.plosjournals.org/v1/users/12345
+    uri: http://example.org/users/12345
     body:
       encoding: US-ASCII
       string: ''

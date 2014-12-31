@@ -87,6 +87,14 @@ GIT
     dotenv (0.1.7)
 
 GIT
+  remote: git@github.com:articlemetrics/mysql.git
+  ref: master
+  sha: e306cddd572ca4c1906aa533c70092528bb77532
+  specs:
+    mysql (5.6.1)
+      yum-mysql-community (>= 0.0.0)
+
+GIT
   remote: git@github.com:articlemetrics/mysql_rails-cookbook.git
   ref: master
   sha: 73dac770ec5873aa44b01c2a5342b457ec331877
@@ -112,14 +120,6 @@ GIT
   specs:
     ruby (0.6.3)
       apt (>= 0.0.0)
-
-GIT
-  remote: git@github.com:jure/mysql
-  ref: master
-  sha: 850aa16cc30cc692cdbc7e038eca33dd213a261d
-  specs:
-    mysql (5.6.1)
-      yum-mysql-community (>= 0.0.0)
 
 DEPENDENCIES
   alm_report (>= 0)
