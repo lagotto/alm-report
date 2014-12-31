@@ -11,6 +11,11 @@ h2 {
   position: relative;
 }
 
+input.secondary {
+  background: none;
+  color: $button_color;
+}
+
 label {
   margin: 11px 0 0;
   padding: 0 0 9px;
@@ -373,10 +378,16 @@ input[type="text"] {
 }
 
 ul.actions li {
-  &:first-child {
+  &:first-child, &.sort {
     padding-left: 0;
     border-left: none;
   }
+
+
+  &.sort {
+    margin-left: 4rem;
+  }
+
   padding: 0 1rem;
   cursor: pointer;
   color: $button_color;
@@ -385,16 +396,6 @@ ul.actions li {
   a {
     color: $button_color;
   }
-}
-
-.article-info {
-  width: inherit;
-  margin: 0 0 22px 22px;
-  position: relative;
-}
-
-p.select-articles-message {
-  color: #858585;
 }
 
 .invisible {
@@ -410,6 +411,8 @@ input[type="checkbox"] {
 }
 
 .article-info {
+  margin: 0 0 22px 22px;
+  position: relative;
 
   input[type="checkbox"] {
     position: absolute;
@@ -418,9 +421,14 @@ input[type="checkbox"] {
   }
 
   a {
-    color: $button_color;
+    color: $body_text_color;
+    text-decoration: underline;
     font-size: 14px;
     font-weight: bold;
+  }
+
+  a:hover {
+    color: $button_color;
   }
 
   .success, .error {
@@ -447,9 +455,12 @@ input[type="checkbox"] {
   p {
     margin: 3px 0 0;
     line-height: 16px;
-    color: #666;
     font-family:Arial, Helvetica, sans-serif;
     font-size: 12px;
+  }
+
+  p.authors {
+    color: $light_body_text_color;
   }
 
   p + p {
@@ -528,7 +539,7 @@ span.next {
   background-position: -25px -142px;
 }
 
-.preview-list-aside {
+.preview-list-aside, .aside-container {
   &.scroll-fixed {
     margin: 10px 0 0;
   }
@@ -714,7 +725,7 @@ span.next {
 .sample-charts p {
   margin: 9px 0 0;
   line-height: 17px;
-  color: #666;
+  color: $light_body_text_color
 }
 
 /* 5.11. Sample-metrics
@@ -728,7 +739,7 @@ span.next {
 .sample-metrics p {
   width: 600px;
   margin: 12px 0 30px;
-  color: #666;
+  color: $light_body_text_color;
   font-size: 14px;
 }
 
@@ -778,13 +789,6 @@ nav#report .metrics-chart-view + span {
   font-weight: bold;
 }
 
-.metrics-left-content {
-  width: 715px;
-  float: left;
-  position: relative;
-  min-height: 560px;
-}
-
 .metrics-left-content .metrics-article {
   width: 615px;
   position:absolute;
@@ -802,6 +806,10 @@ nav#report .metrics-chart-view + span {
 .visualizations-list {
   display: inline-block;
   position: relative;
+
+  &:first-child {
+    margin-top: -24px;
+  }
 
   &:not(:first-child) {
     margin-top: 48px;
@@ -826,7 +834,13 @@ nav#report .metrics-chart-view + span {
     margin-right: 1rem;
     border-radius: 4px;
     vertical-align: text-bottom;
-    display: inline-block;
+    float: left;
+    margin-bottom: 50px;
+    margin-top: 4px;
+  }
+
+  p, .metrics-table-content {
+    margin-left: 33px;
   }
 
   .metrics-description {
@@ -936,6 +950,9 @@ nav#report .metrics-chart-view + span {
 
 .visualizations-container {
   min-height: 560px;
+  p.source {
+    margin-left: 19rem;
+  }
 }
 
 .aside-container ul a:hover {
@@ -1010,6 +1027,14 @@ nav#report {
     @include visualization-icon($body_text_color);
   }
 
+  .report-share-block .share-button {
+    margin-top: 32px;
+    @include share-icon($button_color);
+    background-size: 30px 47px;
+    background-position-x: 31px;
+    border: 1px #ccc solid;
+  }
+
   .chart-view:hover,
   .chart-view-active {
     @include visualization-icon($active);
@@ -1050,6 +1075,15 @@ nav#report {
   span {
     float: left;
   }
+
+  .report-share-block .share-button:hover, .report-share-block:hover .share-button {
+    color: $button_text_color;
+    border: 1px transparent solid;
+    @include share-icon($button_text_color);
+    background-size: 30px 47px;
+    background-position-x: 31px;
+    background-color: $background;
+  }
 }
 
 .edit-list,
@@ -1085,72 +1119,66 @@ nav#report {
 
 .report-downloads {
   width: 240px;
-  margin: 23px 0 0;
   float: right;
-}
+  h2 {
+    margin: 0 0 0 16px;
+    font-size: 22px;
+  }
+  ul {
+    margin-bottom: 0;
+    width: 100%;
+  }
+  li {
+    margin-bottom: 0;
+    width: 100%;
+    border-bottom: 1px solid #aeaeae;
+    display: inline-block;
+    position: relative;
+  }
 
-.report-downloads h2 {
-  margin: 0 0 0 16px;
-  font-size: 22px;
-}
-
-.report-downloads ul {
-  width: 100%;
-}
-
-.report-downloads li {
-  width: 100%;
-  border-bottom: 1px solid #aeaeae;
-  display: inline-block;
-  position: relative;
-}
-
-.report-downloads .csv {
-  width: 40px;
-  height:46px;
-  margin: 29px 15px 0 18px;
-  float: left;
-  background: image-url('sprite.png') -459px -141px;
-}
-
-.report-downloads .png {
-  width: 40px;
-  height:46px;
-  margin: 29px 15px 0 18px;
-  float: left;
-  background: image-url('sprite.png') -498px -141px;
-}
-
-.report-downloads .file-name {
-  width: 100px;
-  height: 92px;
-  padding: 6px 0 0;
-  line-height: 16px;
-  font-size: 15px;
-  font-weight: bold;
+  .csv {
+    width: 40px;
+    height:46px;
+    margin: 29px 15px 0 18px;
+    float: left;
+    background: image-url('sprite.png') -459px -141px;
+  }
+  .png {
+    width: 40px;
+    height:46px;
+    margin: 29px 15px 0 18px;
+    float: left;
+    background: image-url('sprite.png') -498px -141px;
+  }
+  .file-name {
+    width: 100px;
+    height: 92px;
+    padding: 6px 0 0;
+    line-height: 16px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  span {
+    width: 90px;
+    margin: 0;
+    line-height: 16px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: normal;
+  }
+  .arrow {
+    width: 13px;
+    height:20px;
+    position: absolute;
+    top: 44%;
+    right: 34px;
+    background: image-url('sprite.png') -537px -142px;
+  }
 }
 
 .file-name:hover {
   text-decoration: underline;
-}
-
-.report-downloads span {
-  width: 90px;
-  margin: 0;
-  line-height: 16px;
-  display: table-cell;
-  vertical-align: middle;
-  font-size: 12px;
-  font-weight: normal;
-}
-
-.report-downloads .arrow {
-  width: 13px;
-  height:20px;
-  position: absolute;
-  top: 44%;
-  right: 34px;
-  background: image-url('sprite.png') -537px -142px;
 }
 
 /* the visualization download link isn't a real link (doesn't have href attr)
@@ -1172,37 +1200,38 @@ nav#report {
   display: block;
 }
 
-.report-downloads .report-share-block:hover a {
-  background: $button_color;
-}
-
-.report-share-block:hover span {
-  background-color: $button_color;
-}
-
 .share-box {
   height: 116px;
-  margin: 2px 0 0;
+  margin: 12px 0 0;
   padding: 9px 0 2px;
   border-radius: 4px;
   display: none;
   background: $button_color;
 }
 
-.report-downloads .report-share-block:hover .share-box {
+.report-share-block:hover .share-box {
   display: block;
+  float: right;
+  position: absolute;
+  top: 72px;
+  background: $background;
 }
 
-.report-share-block .share-box a {
-  width: 72%;
-  margin: 1px 0 0;
-  padding: 0;
+.report-share-block {
+  margin-left: 200px;
   float: left;
-  background: none;
-}
+  position: relative;
+  height: 90px;
 
-.report-share-block .share-box a:hover span {
-  text-decoration: underline;
+  .share-box a {
+    margin: 1px 0 0;
+    padding: 0;
+    float: left;
+    background: none;
+  }
+  .share-box a:hover span {
+   text-decoration: underline;
+  }
 }
 
 /*
@@ -1213,15 +1242,16 @@ nav#report {
  */
 .share-button {
   margin: 0;
-  padding: 8px 54px 9px 53px;
+  padding: 8px 24px 9px 51px;
   min-width: 78px;
+  height: 30px;
+  line-height: 30px;
   border: none;
   border-radius: 4px;
   background: #000;
-  color: #fff !important;
+  color: $button_color;
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold !important;
+  font-weight: bold;
   font-size: 15px !important;
 }
 
@@ -1277,7 +1307,7 @@ nav#report {
 
 .upload-message {
   margin: -16px 0 32px 106px;
-  color: #666;
+  color: $light_body_text_color;
   font-size: 14px;
 }
 

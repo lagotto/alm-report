@@ -56,7 +56,7 @@ class Report < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    alm = AlmRequest.get_v5(report_dois.map(&:doi))
+    alm = Alm.get_v5(report_dois.map(&:doi))
 
     # Ember-friendly JSON formatting
     alm["id"] = id
@@ -81,7 +81,7 @@ class Report < ActiveRecord::Base
     field = options[:field]
 
     if (field.nil?)
-      alm = AlmRequest.get_data_for_articles(report_dois)
+      alm = Alm.get_data_for_articles(report_dois)
 
       data = report_dois.map do |report_doi|
         report_doi.solr = SearchResult.from_cache(report_doi.doi)
@@ -92,7 +92,7 @@ class Report < ActiveRecord::Base
         title_row = [
             "DOI", "PMID", "Publication Date", "Title", "Authors", "Author Affiliations",
             ]
-        title_row += AlmRequest::ALM_METRICS.values
+        title_row += Alm::ALM_METRICS.values
         title_row += [
             "Journal", "Article Type", "Funding Statement", "Subject Areas", "Submission Date",
             "Acceptance Date", "Editors", "Article URL",

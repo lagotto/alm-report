@@ -1,6 +1,6 @@
 .row
   .eight.columns
-    = form_tag("/search", :method => "get", :class => "home-form")
+    = form_tag(search_path, :method => "get", :class => "home-form")
       h2
         | Search all Articles
         - if Search.plos?
@@ -22,10 +22,10 @@
           = label_tag(:publication_days_ago, "Publication Date")
           = select_tag(:publication_days_ago, \
               options_for_select( \
-                  [["All Time", -1], \
-                  ["Last 30 days", 30], \
+                  [["Last 30 days", 30], \
                   ["Last 365 days", 365], \
-                  ["Custom date range", 0]]), :class => "styled")
+                  ["Custom date range", 0]]), \
+              class: "styled", include_blank: "All Time" )
           .date-input-fields
             = text_field_tag(:datepicker1, nil, :placeholder => "MM-DD-YYYY")
             span to
@@ -36,14 +36,15 @@
         .input-holder
           = label_tag(:cross_published_journal_name, "Journal")
           = collection_select( \
-              "filterJournals", "", @journals, :first, :last, class: "styled" \
+              "filters", "", @journals, :first, :last, class: "styled", \
+              include_blank: "All Journals" \
             )
         .input-holder
           = label_tag(:financial_disclosure, "Funder Name or Funding Number")
           = text_field_tag(:financial_disclosure)
       .input-holder
         => submit_tag "Search"
-        input type="reset" value="Clear All"
+        input type="reset" value="Clear All" class="secondary"
   .four.columns
     .aside.aside-container
       h2 Find Specific Articles

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://api.crossref.org/works?filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0113157&offset=0&rows=1
+    uri: http://api.crossref.org/works?facet=t&filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0113157&offset=0&rows=1
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Dec 2014 13:43:25 GMT
+      - Tue, 30 Dec 2014 21:41:10 GMT
       Server:
       - http-kit
       Access-Control-Allow-Headers:
@@ -31,7 +31,7 @@ http_interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Content-Length:
-      - '1297'
+      - '2095'
     body:
       encoding: UTF-8
       string: '{"status":"ok","message-type":"work-list","message-version":"1.0.0","message":{"query":{"search-terms":null,"start-index":0},"items-per-page":1,"items":[{"subtitle":[],"subject":["Agricultural
@@ -41,12 +41,16 @@ http_interactions:
         Rejuvenation of a Crystal Mush Recorded in Zircon Temporal and Compositional
         Variation at the Lassen Volcanic Center, Northern California"],"editor":[{"family":"Smith","given":"Victoria
         C."}],"type":"journal-article","DOI":"10.1371\/journal.pone.0113157","ISSN":["1932-6203"],"URL":"http:\/\/dx.doi.org\/10.1371\/journal.pone.0113157","source":"CrossRef","publisher":"Public
-        Library of Science (PLoS)","indexed":{"date-parts":[[2014,12,6]],"timestamp":1417827224387},"volume":"9","member":"http:\/\/id.crossref.org\/member\/340"}],"total-results":1,"facets":{}}}'
+        Library of Science (PLoS)","indexed":{"date-parts":[[2014,12,6]],"timestamp":1417827224387},"volume":"9","member":"http:\/\/id.crossref.org\/member\/340"}],"total-results":1,"facets":{"license":{"value-count":0,"values":{}},"archive":{"value-count":0,"values":{}},"funder-doi":{"value-count":0,"values":{}},"issn":{"value-count":1,"values":{"http:\/\/id.crossref.org\/issn\/1932-6203":1}},"funder-name":{"value-count":0,"values":{}},"container-title":{"value-count":1,"values":{"PLoS
+        ONE":1}},"published":{"value-count":1,"values":{"2014":1}},"category-name":{"value-count":3,"values":{"Medicine(all)":1,"Biochemistry,
+        Genetics and Molecular Biology(all)":1,"Agricultural and Biological Sciences(all)":1}},"source":{"value-count":1,"values":{"CrossRef":1}},"orcid":{"value-count":0,"values":{}},"publisher-name":{"value-count":1,"values":{"Public
+        Library of Science (PLoS)":1}},"type-name":{"value-count":1,"values":{"Journal
+        Article":1}},"update-type":{"value-count":0,"values":{}}}}}'
     http_version: 
-  recorded_at: Wed, 10 Dec 2014 13:43:26 GMT
+  recorded_at: Tue, 30 Dec 2014 21:41:15 GMT
 - request:
     method: get
-    uri: http://api.crossref.org/works?filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0114307&offset=0&rows=1
+    uri: http://api.crossref.org/works?facet=t&filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0114307&offset=0&rows=1
     body:
       encoding: US-ASCII
       string: ''
@@ -63,7 +67,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Dec 2014 13:43:25 GMT
+      - Tue, 30 Dec 2014 21:41:10 GMT
       Server:
       - http-kit
       Access-Control-Allow-Headers:
@@ -75,7 +79,7 @@ http_interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Content-Length:
-      - '1288'
+      - '2086'
     body:
       encoding: UTF-8
       string: '{"status":"ok","message-type":"work-list","message-version":"1.0.0","message":{"query":{"search-terms":null,"start-index":0},"items-per-page":1,"items":[{"subtitle":[],"subject":["Agricultural
@@ -85,12 +89,16 @@ http_interactions:
         R."}],"container-title":["PLoS ONE"],"reference-count":0,"page":"e114307","deposited":{"date-parts":[[2014,12,3]],"timestamp":1417564800000},"issue":"12","title":["Characterizing
         the Evolutionary Path(s) to Early Homo"],"editor":[{"family":"Taylor","given":"Andrea
         B."}],"type":"journal-article","DOI":"10.1371\/journal.pone.0114307","ISSN":["1932-6203"],"URL":"http:\/\/dx.doi.org\/10.1371\/journal.pone.0114307","source":"CrossRef","publisher":"Public
-        Library of Science (PLoS)","indexed":{"date-parts":[[2014,12,6]],"timestamp":1417827246876},"volume":"9","member":"http:\/\/id.crossref.org\/member\/340"}],"total-results":1,"facets":{}}}'
+        Library of Science (PLoS)","indexed":{"date-parts":[[2014,12,6]],"timestamp":1417827246876},"volume":"9","member":"http:\/\/id.crossref.org\/member\/340"}],"total-results":1,"facets":{"license":{"value-count":0,"values":{}},"archive":{"value-count":0,"values":{}},"funder-doi":{"value-count":0,"values":{}},"issn":{"value-count":1,"values":{"http:\/\/id.crossref.org\/issn\/1932-6203":1}},"funder-name":{"value-count":0,"values":{}},"container-title":{"value-count":1,"values":{"PLoS
+        ONE":1}},"published":{"value-count":1,"values":{"2014":1}},"category-name":{"value-count":3,"values":{"Medicine(all)":1,"Biochemistry,
+        Genetics and Molecular Biology(all)":1,"Agricultural and Biological Sciences(all)":1}},"source":{"value-count":1,"values":{"CrossRef":1}},"orcid":{"value-count":0,"values":{}},"publisher-name":{"value-count":1,"values":{"Public
+        Library of Science (PLoS)":1}},"type-name":{"value-count":1,"values":{"Journal
+        Article":1}},"update-type":{"value-count":0,"values":{}}}}}'
     http_version: 
-  recorded_at: Wed, 10 Dec 2014 13:43:26 GMT
+  recorded_at: Tue, 30 Dec 2014 21:41:15 GMT
 - request:
     method: get
-    uri: http://api.crossref.org/works?filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0114162&offset=0&rows=1
+    uri: http://api.crossref.org/works?facet=t&filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0114162&offset=0&rows=1
     body:
       encoding: US-ASCII
       string: ''
@@ -107,7 +115,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Dec 2014 13:43:26 GMT
+      - Tue, 30 Dec 2014 21:41:10 GMT
       Server:
       - http-kit
       Access-Control-Allow-Headers:
@@ -119,7 +127,7 @@ http_interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Content-Length:
-      - '1499'
+      - '2297'
     body:
       encoding: UTF-8
       string: '{"status":"ok","message-type":"work-list","message-version":"1.0.0","message":{"query":{"search-terms":null,"start-index":0},"items-per-page":1,"items":[{"subtitle":[],"subject":["Agricultural
@@ -130,12 +138,16 @@ http_interactions:
         ONE"],"reference-count":0,"page":"e114162","deposited":{"date-parts":[[2014,12,3]],"timestamp":1417564800000},"issue":"12","title":["The
         World''s Most Isolated and Distinct Whale Population? Humpback Whales of the
         Arabian Sea"],"editor":[{"family":"Rogers","given":"Sean"}],"type":"journal-article","DOI":"10.1371\/journal.pone.0114162","ISSN":["1932-6203"],"URL":"http:\/\/dx.doi.org\/10.1371\/journal.pone.0114162","source":"CrossRef","publisher":"Public
-        Library of Science (PLoS)","indexed":{"date-parts":[[2014,12,6]],"timestamp":1417827241173},"volume":"9","member":"http:\/\/id.crossref.org\/member\/340"}],"total-results":1,"facets":{}}}'
+        Library of Science (PLoS)","indexed":{"date-parts":[[2014,12,6]],"timestamp":1417827241173},"volume":"9","member":"http:\/\/id.crossref.org\/member\/340"}],"total-results":1,"facets":{"license":{"value-count":0,"values":{}},"archive":{"value-count":0,"values":{}},"funder-doi":{"value-count":0,"values":{}},"issn":{"value-count":1,"values":{"http:\/\/id.crossref.org\/issn\/1932-6203":1}},"funder-name":{"value-count":0,"values":{}},"container-title":{"value-count":1,"values":{"PLoS
+        ONE":1}},"published":{"value-count":1,"values":{"2014":1}},"category-name":{"value-count":3,"values":{"Medicine(all)":1,"Biochemistry,
+        Genetics and Molecular Biology(all)":1,"Agricultural and Biological Sciences(all)":1}},"source":{"value-count":1,"values":{"CrossRef":1}},"orcid":{"value-count":0,"values":{}},"publisher-name":{"value-count":1,"values":{"Public
+        Library of Science (PLoS)":1}},"type-name":{"value-count":1,"values":{"Journal
+        Article":1}},"update-type":{"value-count":0,"values":{}}}}}'
     http_version: 
-  recorded_at: Wed, 10 Dec 2014 13:43:26 GMT
+  recorded_at: Tue, 30 Dec 2014 21:41:15 GMT
 - request:
     method: get
-    uri: http://api.crossref.org/works?filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0113930&offset=0&rows=1
+    uri: http://api.crossref.org/works?facet=t&filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0113930&offset=0&rows=1
     body:
       encoding: US-ASCII
       string: ''
@@ -152,7 +164,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Dec 2014 13:43:26 GMT
+      - Tue, 30 Dec 2014 21:41:11 GMT
       Server:
       - http-kit
       Access-Control-Allow-Headers:
@@ -164,7 +176,7 @@ http_interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Content-Length:
-      - '1336'
+      - '2134'
     body:
       encoding: UTF-8
       string: '{"status":"ok","message-type":"work-list","message-version":"1.0.0","message":{"query":{"search-terms":null,"start-index":0},"items-per-page":1,"items":[{"subtitle":[],"subject":["Agricultural
@@ -174,9 +186,13 @@ http_interactions:
         J."}],"container-title":["PLoS ONE"],"reference-count":0,"page":"e113930","deposited":{"date-parts":[[2014,12,3]],"timestamp":1417564800000},"issue":"12","title":["Nutritional
         Correlates of Koala Persistence in a Low-Density Population"],"editor":[{"family":"Cameron","given":"Elissa
         Z."}],"type":"journal-article","DOI":"10.1371\/journal.pone.0113930","ISSN":["1932-6203"],"URL":"http:\/\/dx.doi.org\/10.1371\/journal.pone.0113930","source":"CrossRef","publisher":"Public
-        Library of Science (PLoS)","indexed":{"date-parts":[[2014,12,6]],"timestamp":1417827233805},"volume":"9","member":"http:\/\/id.crossref.org\/member\/340"}],"total-results":1,"facets":{}}}'
+        Library of Science (PLoS)","indexed":{"date-parts":[[2014,12,6]],"timestamp":1417827233805},"volume":"9","member":"http:\/\/id.crossref.org\/member\/340"}],"total-results":1,"facets":{"license":{"value-count":0,"values":{}},"archive":{"value-count":0,"values":{}},"funder-doi":{"value-count":0,"values":{}},"issn":{"value-count":1,"values":{"http:\/\/id.crossref.org\/issn\/1932-6203":1}},"funder-name":{"value-count":0,"values":{}},"container-title":{"value-count":1,"values":{"PLoS
+        ONE":1}},"published":{"value-count":1,"values":{"2014":1}},"category-name":{"value-count":3,"values":{"Medicine(all)":1,"Biochemistry,
+        Genetics and Molecular Biology(all)":1,"Agricultural and Biological Sciences(all)":1}},"source":{"value-count":1,"values":{"CrossRef":1}},"orcid":{"value-count":0,"values":{}},"publisher-name":{"value-count":1,"values":{"Public
+        Library of Science (PLoS)":1}},"type-name":{"value-count":1,"values":{"Journal
+        Article":1}},"update-type":{"value-count":0,"values":{}}}}}'
     http_version: 
-  recorded_at: Wed, 10 Dec 2014 13:43:26 GMT
+  recorded_at: Tue, 30 Dec 2014 21:41:16 GMT
 - request:
     method: get
     uri: http://api.plos.org/search?facet=false&fl=id,publication_date,pmid&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&q=pmid:%2220552018%22%20OR%20pmid:%2220436915%22%20OR%20pmid:%2220436906%22%20OR%20pmid:%2220436680%22%20OR%20pmid:%2220224736%22&rows=5&wt=json
@@ -198,13 +214,13 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Dec 2014 13:43:26 GMT
+      - Tue, 30 Dec 2014 21:41:10 GMT
       Server:
       - Apache-Coyote/1.1
       Last-Modified:
-      - Wed, 10 Dec 2014 13:40:01 GMT
+      - Tue, 30 Dec 2014 21:40:49 GMT
       Etag:
-      - '"YjQxYzkwMDAwMDAwMDAwMFNvbHI="'
+      - '"NDVlNzA4MDAwMDAwMDAwMFNvbHI="'
       Content-Type:
       - application/json;charset=UTF-8
       Connection:
@@ -212,11 +228,11 @@ http_interactions:
       Transfer-Encoding:
       - chunked
       Set-Cookie:
-      - Coyote-2-9514450c=9514451d:0; path=/
+      - Coyote-2-9514450c=95144522:0; path=/
     body:
       encoding: UTF-8
       string: |
         {"response":{"numFound":5,"start":0,"docs":[{"id":"10.1371/journal.pone.0010356","pmid":"20436915","publication_date":"2010-04-27T00:00:00Z"},{"id":"10.1371/journal.pone.0010363","pmid":"20436906","publication_date":"2010-04-27T00:00:00Z"},{"id":"10.1371/journal.pone.0010310","pmid":"20436680","publication_date":"2010-04-26T00:00:00Z"},{"id":"10.1371/journal.pone.0011070","pmid":"20552018","publication_date":"2010-06-11T00:00:00Z"},{"id":"10.1371/journal.pone.0009632","pmid":"20224736","publication_date":"2010-03-10T00:00:00Z"}]}}
     http_version: 
-  recorded_at: Wed, 10 Dec 2014 13:43:26 GMT
+  recorded_at: Tue, 30 Dec 2014 21:41:16 GMT
 recorded_with: VCR 2.9.3

@@ -1,11 +1,14 @@
 class Search
   include Cacheable
+  include Pageable
 
   def self.find(query, opts = {})
-    if plos?
-      SearchPlos.new(query, opts).run
-    elsif crossref?
-      SearchCrossref.new(query, opts).run
+    pages(query, opts, page: :current_page, rows: :rows, count: :docs) do |query, opts|
+      if plos?
+        SearchPlos.new(query, opts).run
+      elsif crossref?
+        SearchCrossref.new(query, opts).run
+      end
     end
   end
 
@@ -19,7 +22,7 @@ class Search
 
   def self.find_by_ids(ids)
     cache(ids, expires_in: 1.day) do |ids|
-      find({ids: ids}).first
+      find({ids: ids})[:docs]
     end
   end
 end

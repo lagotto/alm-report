@@ -9,6 +9,9 @@ nav#report
   - else
     = link_to "Visualizations", visualizations_path(@report), class: ["chart-view", (@report_sub_tab == :visualizations ? "chart-view-active" : nil)]
 
+  = render "report_share"
+
   span.download-visuals
     = link_to "Edit List", preview_path, class: "edit-list"
     a href="/start-over" class="start-over" Start Over
+

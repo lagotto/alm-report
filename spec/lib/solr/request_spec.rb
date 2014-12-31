@@ -1,6 +1,4 @@
 require "rails_helper"
-# require 'solr_request'
-# require "date"
 
 describe Solr::Request do
   it "queries by pubmed ids" do
@@ -124,21 +122,22 @@ describe Solr::Request do
     }
 
     q = Solr::Request.new(params)
-    results, total_results, metadata = q.query
+    metadata = q.query[:metadata]
     metadata[:publication_date][0].should eq(Date.strptime("05-07-2014", "%m-%d-%Y"))
     metadata[:publication_date][1].should eq(DateTime.strptime("10-31-2014 23:59:59", "%m-%d-%Y %H:%M:%S"))
   end
 
-  it "query for articles using simple search" do
+  it "query for articles using simple search", vcr: true do
 
-    url = "http://api.plos.org/search?q=affiliate:%22University%20of%20California%22%20AND%20" \
-        "author:Garmay%20AND%20everything:word%20AND%20subject:%22Gene%20regulation%22&" \
-        "fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&" \
-        "fl=id,pmid,publication_date,received_date,accepted_date,title," \
-        "cross_published_journal_name,author_display,editor_display,article_type,affiliate," \
-        "subject,financial_disclosure&wt=json&facet=false&rows=25&hl=false"
-    body = File.read("#{fixture_path}simple_search_result.json")
-    stub_request(:get, url).to_return(:body => body, :status => 200)
+    # url = "http://api.plos.org/search?q=affiliate:%22University%20of%20California%22%20AND%20" \
+    #     "author:Garmay%20AND%20everything:word%20AND%20subject:%22Gene%20regulation%22&" \
+    #     "fq=doc_type:full&fq=!article_type_facet:%22Issue%20Image%22&" \
+    #     "fl=id,pmid,publication_date,received_date,accepted_date,title," \
+    #     "cross_published_journal_name,author_display,editor_display,article_type,affiliate," \
+    #     "subject,financial_disclosure&wt=json&facet=false&rows=25&hl=false"
+
+    # body = File.read("#{fixture_path}simple_search_result.json")
+    # stub_request(:get, url).to_return(:body => body, :status => 200)
 
     params = {
       :everything=>"word",
@@ -146,32 +145,24 @@ describe Solr::Request do
       :author_country=>"",
       :institution=>"University of California",
       :subject=>"Gene regulation",
-      :filterJournals=>["All Journals"],
+      :filters=>[""],
       :financial_disclosure=>""
     }
 
     q = Solr::Request.new(params, nil)
-    results, total_results = q.query
+    query = q.query
+    results = query[:docs]
+    total_results = query[:found]
 
     results[0].data.should eq({
       "id" => "10.1371/journal.pone.0006901",
+      "accepted_date" => Date.parse("Fri, 07 Aug 2009"),
       "cross_published_journal_name" => ["PLOS ONE"],
-      "pmid" => "19730735",
-      "subject" => [
-        "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis",
-        "/Biology and life sciences/Genetics/Genomics/Genome analysis/Genomic databases",
-        "/Computer and information sciences/Information technology/Databases/Genomic databases",
-        "/Biology and life sciences/Biochemistry/DNA/DNA sequences",
-        "/Biology and life sciences/Biochemistry/Proteins/DNA-binding proteins/Transcription factors",
-        "/Computer and information sciences/Information technology/Databases/Database and informatics methods/Database searching/Sequence similarity searching",
-        "/Research and analysis methods/Database and informatics methods/Database searching/Sequence similarity searching",
-        "/Biology and life sciences/Genetics/Genomics/Animal genomics/Invertebrate genomics",
-        "/Biology and life sciences/Genetics/Gene expression/Gene regulation/Transcription factors",
-        "/Biology and life sciences/Computational biology/Genome analysis/Genomic databases",
-        "/Biology and life sciences/Biochemistry/Proteins/Regulatory proteins/Transcription factors",
-        "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence motif analysis",
-        "/Biology and life sciences/Genetics/Gene expression/Gene regulation", "/Biology and life sciences/Genetics/DNA/DNA sequences"
-      ],
+      "editor_display" => ["Nicholas James Provart"],
+      "financial_disclosure" => "This work was supported by NIH grant HG002779 to MBE by the U.S. Department of Energy under Contract No. DE-AC02-05CH11231. The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.",
+      "pmid" => "", # This should not be empty, but it unfortunately is.
+      "received_date" => Date.parse("Wed, 08 Oct 2008"),
+      "subject" => ["/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis", "/Biology and life sciences/Genetics/Genomics/Genome evolution", "/Biology and life sciences/Genetics/Genomics/Genome analysis/Genomic databases", "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence alignment", "/Biology and life sciences/Evolutionary biology/Molecular evolution/Genome evolution", "/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence alignment", "/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis", "/Biology and life sciences/Biochemistry/Proteins/DNA-binding proteins/Transcription factors", "/Research and analysis methods/Database and informatics methods/Biological databases/Genomic databases", "/Research and analysis methods/Database and informatics methods/Database searching/Sequence similarity searching", "/Biology and life sciences/Genetics/Genomics/Animal genomics/Invertebrate genomics", "/Biology and life sciences/Genetics/Gene expression/Gene regulation/Transcription factors", "/Biology and life sciences/Computational biology/Genome analysis/Genomic databases", "/Biology and life sciences/Biochemistry/Proteins/Regulatory proteins/Transcription factors", "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence motif analysis", "/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence motif analysis", "/Biology and life sciences/Computational biology/Genome evolution"],
       "publication_date" => Date.strptime("2009-09-04T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"),
       "article_type" => "Research Article",
       "author_display" => ["Garmay Leung", "Michael B. Eisen"],
@@ -186,10 +177,15 @@ describe Solr::Request do
   end
 
   it "can use a custom field list (fl)" do
-    url = "http://api.plos.org/search?facet=false&fl=id,pmid,publication_date" \
-          "&fq=doc_type:full&fq=!article_type_facet:%22Issue%20" \
-          "Image%22&hl=false&q=everything:biology&rows=25&wt=json"
+    url = "http://api.plos.org/search?" \
+        "facet=true&facet.field=journal&facet.field=article_type&facet.field=" \
+        "publication_date&facet.date=publication_date&facet.date.start=" \
+        "2000-01-01T00:00:00Z&facet.date.end=NOW&facet.date.gap=%2B1YEAR" \
+        "&fl=id,pmid,publication_date" \
+        "&fq=doc_type:full&fq=!article_type_facet:%22Issue%20" \
+        "Image%22&hl=false&q=everything:biology&rows=25&wt=json&"
 
+    url = "http://api.plos.org/search?facet=true&facet.date=publication_date&facet.date.end=NOW&facet.date.gap=%2B1YEAR&facet.date.start=2000-01-01T00:00:00Z&facet.field=article_type&facet.field=journal&facet.field=publication_date&fl=id,pmid,publication_date&fq=!article_type_facet:%22Issue%20Image%22&fq=doc_type:full&hl=false&q=everything:biology&rows=25&wt=json"
     fl = "id,pmid,publication_date"
 
     fixture = File.open("#{fixture_path}solr_custom_field_list.raw")
@@ -199,6 +195,6 @@ describe Solr::Request do
     data = request.query
 
     # We should get the requested fields in the result
-    data[0].first.data.keys.should eq(fl.split(','))
+    data[:docs].first.data.keys.should eq(fl.split(','))
   end
 end

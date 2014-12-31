@@ -1,8 +1,7 @@
 .row
-  / .two.columns
-  /   h2 Filters
-  /   p Here be filters.
-  .eight.columns
+  .two.columns
+    .facets= render "facets", facets: @facets
+  .seven.columns
     h2 Add selected articles to your list
     p
       - if @total_found > 0
@@ -40,12 +39,12 @@
       ul.actions
         li.select-all-articles-link select all
         li.unselect-all-articles-link unselect all
-        li
+        li.sort
           span> Sort by
           = select_tag( \
             :sort, \
             options_for_select( \
-              (Search.plos? ? Solr::Request : SearchCrossref)::SORTS.to_a, \
+              (Search.plos? ? Solr : SearchCrossref)::SORTS.to_a, \
               params[:sort] \
             ), \
             id: "search_results_sort_order_select" \
@@ -56,7 +55,7 @@
     div#select-all-spinner.ajax_spinner
     - @all_checked = false
     = render "article_list"
-  .four.columns
+  .three.columns
     = render "right_nav", :current_page => :add_articles
 
 div#gray-out-screen

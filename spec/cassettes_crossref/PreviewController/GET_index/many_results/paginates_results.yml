@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://api.crossref.org/works?filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0113545,doi:10.1371/journal.pone.0113544,doi:10.1371/journal.pone.0113532,doi:10.1371/journal.pone.0113204,doi:10.1371/journal.pone.0112953,doi:10.1371/journal.pone.0112950,doi:10.1371/journal.pone.0112905,doi:10.1371/journal.pone.0112903,doi:10.1371/journal.pone.0112895,doi:10.1371/journal.pone.0112872,doi:10.1371/journal.pone.0112851,doi:10.1371/journal.pone.0112850,doi:10.1371/journal.pone.0112846,doi:10.1371/journal.pone.0112815,doi:10.1371/journal.pone.0112803,doi:10.1371/journal.pone.0112781,doi:10.1371/journal.pone.0112771,doi:10.1371/journal.pone.0112766,doi:10.1371/journal.pone.0112764,doi:10.1371/journal.pone.0112737,doi:10.1371/journal.pone.0112714,doi:10.1371/journal.pone.0112694,doi:10.1371/journal.pone.0112693,doi:10.1371/journal.pone.0112672,doi:10.1371/journal.pone.0112642,doi:10.1371/journal.pone.0112641,doi:10.1371/journal.pone.0112611,doi:10.1371/journal.pone.0112609,doi:10.1371/journal.pone.0112560,doi:10.1371/journal.pone.0112554,doi:10.1371/journal.pone.0112548,doi:10.1371/journal.pone.0112541,doi:10.1371/journal.pone.0112535,doi:10.1371/journal.pone.0112528,doi:10.1371/journal.pone.0112525,doi:10.1371/journal.pone.0112523,doi:10.1371/journal.pone.0112522,doi:10.1371/journal.pone.0112514,doi:10.1371/journal.pone.0112509,doi:10.1371/journal.pone.0112505,doi:10.1371/journal.pone.0112504,doi:10.1371/journal.pone.0112497,doi:10.1371/journal.pone.0112485,doi:10.1371/journal.pone.0112476,doi:10.1371/journal.pone.0112470,doi:10.1371/journal.pone.0112466,doi:10.1371/journal.pone.0112462,doi:10.1371/journal.pone.0112459,doi:10.1371/journal.pone.0112429,doi:10.1371/journal.pone.0112427,doi:10.1371/journal.pone.0112418,doi:10.1371/journal.pone.0112415,doi:10.1371/journal.pone.0112408,doi:10.1371/journal.pone.0112407,doi:10.1371/journal.pone.0112400,doi:10.1371/journal.pone.0112390,doi:10.1371/journal.pone.0112387,doi:10.1371/journal.pone.0112385,doi:10.1371/journal.pone.0112351,doi:10.1371/journal.pone.0112332&offset=0&rows=60
+    uri: http://api.crossref.org/works?facet=t&filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0113545,doi:10.1371/journal.pone.0113544,doi:10.1371/journal.pone.0113532,doi:10.1371/journal.pone.0113204,doi:10.1371/journal.pone.0112953,doi:10.1371/journal.pone.0112950,doi:10.1371/journal.pone.0112905,doi:10.1371/journal.pone.0112903,doi:10.1371/journal.pone.0112895,doi:10.1371/journal.pone.0112872,doi:10.1371/journal.pone.0112851,doi:10.1371/journal.pone.0112850,doi:10.1371/journal.pone.0112846,doi:10.1371/journal.pone.0112815,doi:10.1371/journal.pone.0112803,doi:10.1371/journal.pone.0112781,doi:10.1371/journal.pone.0112771,doi:10.1371/journal.pone.0112766,doi:10.1371/journal.pone.0112764,doi:10.1371/journal.pone.0112737,doi:10.1371/journal.pone.0112714,doi:10.1371/journal.pone.0112694,doi:10.1371/journal.pone.0112693,doi:10.1371/journal.pone.0112672,doi:10.1371/journal.pone.0112642,doi:10.1371/journal.pone.0112641,doi:10.1371/journal.pone.0112611,doi:10.1371/journal.pone.0112609,doi:10.1371/journal.pone.0112560,doi:10.1371/journal.pone.0112554,doi:10.1371/journal.pone.0112548,doi:10.1371/journal.pone.0112541,doi:10.1371/journal.pone.0112535,doi:10.1371/journal.pone.0112528,doi:10.1371/journal.pone.0112525,doi:10.1371/journal.pone.0112523,doi:10.1371/journal.pone.0112522,doi:10.1371/journal.pone.0112514,doi:10.1371/journal.pone.0112509,doi:10.1371/journal.pone.0112505,doi:10.1371/journal.pone.0112504,doi:10.1371/journal.pone.0112497,doi:10.1371/journal.pone.0112485,doi:10.1371/journal.pone.0112476,doi:10.1371/journal.pone.0112470,doi:10.1371/journal.pone.0112466,doi:10.1371/journal.pone.0112462,doi:10.1371/journal.pone.0112459,doi:10.1371/journal.pone.0112429,doi:10.1371/journal.pone.0112427,doi:10.1371/journal.pone.0112418,doi:10.1371/journal.pone.0112415,doi:10.1371/journal.pone.0112408,doi:10.1371/journal.pone.0112407,doi:10.1371/journal.pone.0112400,doi:10.1371/journal.pone.0112390,doi:10.1371/journal.pone.0112387,doi:10.1371/journal.pone.0112385,doi:10.1371/journal.pone.0112351,doi:10.1371/journal.pone.0112332&offset=0&rows=60
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Dec 2014 13:43:07 GMT
+      - Tue, 30 Dec 2014 21:41:29 GMT
       Server:
       - http-kit
       Access-Control-Allow-Headers:
@@ -31,7 +31,7 @@ http_interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Content-Length:
-      - '74871'
+      - '75692'
     body:
       encoding: UTF-8
       string: '{"status":"ok","message-type":"work-list","message-version":"1.0.0","message":{"query":{"search-terms":null,"start-index":0},"items-per-page":60,"items":[{"subtitle":[],"subject":["Agricultural
@@ -455,7 +455,11 @@ http_interactions:
         Molecular Biology(all)"],"issued":{"date-parts":[[2014,11,10]]},"score":1.0,"prefix":"http:\/\/id.crossref.org\/prefix\/10.1371","update-policy":"http:\/\/dx.doi.org\/10.1371\/journal.pone.corrections_policy","container-title":["PLoS
         ONE"],"reference-count":0,"page":"e113545","deposited":{"date-parts":[[2014,11,10]],"timestamp":1415577600000},"issue":"11","title":["Correction:
         The Rich Get Richer: Brain Injury Elicits Hyperconnectivity in Core Subnetworks"],"type":"journal-article","DOI":"10.1371\/journal.pone.0113545","ISSN":["1932-6203"],"URL":"http:\/\/dx.doi.org\/10.1371\/journal.pone.0113545","source":"CrossRef","publisher":"Public
-        Library of Science (PLoS)","indexed":{"date-parts":[[2014,11,13]],"timestamp":1415839204063},"volume":"9","member":"http:\/\/id.crossref.org\/member\/340"}],"total-results":60,"facets":{}}}'
+        Library of Science (PLoS)","indexed":{"date-parts":[[2014,11,13]],"timestamp":1415839204063},"volume":"9","member":"http:\/\/id.crossref.org\/member\/340"}],"total-results":60,"facets":{"license":{"value-count":0,"values":{}},"archive":{"value-count":0,"values":{}},"funder-doi":{"value-count":0,"values":{}},"issn":{"value-count":1,"values":{"http:\/\/id.crossref.org\/issn\/1932-6203":60}},"funder-name":{"value-count":0,"values":{}},"container-title":{"value-count":1,"values":{"PLoS
+        ONE":60}},"published":{"value-count":1,"values":{"2014":60}},"category-name":{"value-count":3,"values":{"Medicine(all)":60,"Biochemistry,
+        Genetics and Molecular Biology(all)":60,"Agricultural and Biological Sciences(all)":60}},"source":{"value-count":1,"values":{"CrossRef":60}},"orcid":{"value-count":0,"values":{}},"publisher-name":{"value-count":1,"values":{"Public
+        Library of Science (PLoS)":60}},"type-name":{"value-count":1,"values":{"Journal
+        Article":60}},"update-type":{"value-count":1,"values":{"correction":4}}}}}'
     http_version: 
-  recorded_at: Wed, 10 Dec 2014 13:43:08 GMT
+  recorded_at: Tue, 30 Dec 2014 21:41:34 GMT
 recorded_with: VCR 2.9.3

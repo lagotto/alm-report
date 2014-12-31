@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://api.crossref.org/works?filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0010031&offset=0&rows=1
+    uri: http://api.crossref.org/works?facet=t&filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0010031&offset=0&rows=1
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Dec 2014 13:43:07 GMT
+      - Tue, 30 Dec 2014 21:41:31 GMT
       Server:
       - http-kit
       Access-Control-Allow-Headers:
@@ -31,10 +31,10 @@ http_interactions:
       Content-Type:
       - application/json;charset=UTF-8
       Content-Length:
-      - '186'
+      - '735'
     body:
       encoding: UTF-8
-      string: '{"status":"ok","message-type":"work-list","message-version":"1.0.0","message":{"query":{"search-terms":null,"start-index":0},"items-per-page":1,"items":[],"total-results":0,"facets":{}}}'
+      string: '{"status":"ok","message-type":"work-list","message-version":"1.0.0","message":{"query":{"search-terms":null,"start-index":0},"items-per-page":1,"items":[],"total-results":0,"facets":{"license":{"value-count":0,"values":{}},"archive":{"value-count":0,"values":{}},"funder-doi":{"value-count":0,"values":{}},"issn":{"value-count":0,"values":{}},"funder-name":{"value-count":0,"values":{}},"container-title":{"value-count":0,"values":{}},"published":{"value-count":0,"values":{}},"category-name":{"value-count":0,"values":{}},"source":{"value-count":0,"values":{}},"orcid":{"value-count":0,"values":{}},"publisher-name":{"value-count":0,"values":{}},"type-name":{"value-count":0,"values":{}},"update-type":{"value-count":0,"values":{}}}}}'
     http_version: 
-  recorded_at: Wed, 10 Dec 2014 13:43:07 GMT
+  recorded_at: Tue, 30 Dec 2014 21:41:36 GMT
 recorded_with: VCR 2.9.3

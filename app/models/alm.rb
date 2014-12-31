@@ -1,9 +1,6 @@
-require "net/http"
-require "open-uri"
-require "json"
-
-# Interface to the PLOS ALM API.
-module AlmRequest
+# Interface to the ALM API.
+class Alm
+  include Pageable
 
   ALM_METRICS = {
     plos_total: "PLOS Total",
@@ -34,60 +31,54 @@ module AlmRequest
     f1000: "F1000Prime",
   }
 
-  def self.get_v5(dois)
-    # results = {}
-    # check_cache(dois, results, "alm_v5")
+  MAX_PER_REQUEST = ENV["ALM_MAX_ARTICLES_PER_REQUEST"].to_i
 
-    request = {
-      api_key: ENV["ALM_API_KEY"],
-      ids: dois.sort.join(","),
-    }
-
-    # Needed to get Mendeley countries data for visualization
-    request[:info] = "detail" if dois.length == 1
-
-    conn = Faraday.new(url: ENV["ALM_URL"]) do |faraday|
+  def self.conn
+    @conn ||= Faraday.new(url: ENV["ALM_URL"]) do |faraday|
       faraday.request  :url_encoded
       faraday.response :logger
       faraday.response :json
       faraday.adapter  Faraday.default_adapter
     end
-
-    response = conn.get("/api/v5/articles", request).body
   end
 
-  # Retrieves and returns all ALM data for the given DOIs.  Multiple requests to ALM
-  # may be made if the number of DOIs is large.  The returned list is the raw JSON
+  def self.get_v5(dois)
+    request = {
+      api_key: ENV["ALM_API_KEY"],
+      ids: dois.sort,
+    }
+
+    paginate(request, array: :ids, per_page: MAX_PER_REQUEST) do |request|
+      request[:ids] = request[:ids].join(",")
+      # To get Mendeley countries data for single article visualization
+      request[:info] = "detail" if dois.length == 1
+
+      response = conn.get("/api/v5/articles", request).body
+    end
+  end
+
+  # Retrieves and returns all ALM data for the given DOIs. Multiple requests to ALM
+  # may be made if the number of DOIs is large. The returned list is the raw JSON
   # output from ALM, with no additional processing.
   def self.get_raw_data(dois)
-    json = []
-    while dois.length > 0 do
-      subset_dois = dois.slice!(0, ENV["ALM_MAX_ARTICLES_PER_REQUEST"].to_i)
-      params = {}
-      params[:ids] = subset_dois.join(",")
+    request = {
+      api_key: ENV["ALM_API_KEY"],
+      ids: dois.sort
+    }
 
-      # ALM will return all the data it can in the list of articles.
-      # the only ones missing will be omitted from the response.
-      # if it only has one article and it fails to retrieve data for that one article,
-      # that's when it will return 404
+    result = paginate(request, array: :ids, per_page: MAX_PER_REQUEST) do |request|
+      params = request.dup
+      params[:ids] = request[:ids].join(",")
 
-      url = get_alm_url(params)
-      start_time = Time.now
+      response = conn.get("/api/v3/articles", params)
 
-      resp = Net::HTTP.get_response(URI.parse(url))
-
-      end_time = Time.now
-      Rails.logger.debug "ALM Request for #{subset_dois.size} articles took #{end_time - start_time} seconds"
-
-      if !resp.kind_of?(Net::HTTPSuccess)
-        Rails.logger.error "ALM Server for #{url} returned #{resp.code}: " + resp.body
-
-        # move to the next set of articles
+      if response.status != 200
+        Rails.logger.error "ALM (#{response.env.url}) returned #{response.status}"
         next
       end
-      json.concat(JSON.parse(resp.body))
+      response.body
     end
-    json
+    result || []
   end
 
   # Checks memcache to see if data about the given DOIs are present.
@@ -119,7 +110,7 @@ module AlmRequest
     # get alm data from cache
     dois = check_cache(dois, all_results, "alm")
 
-    json = AlmRequest.get_raw_data(dois)
+    json = get_raw_data(dois)
     json.each do |article|
       sources = article["sources"].map do |source|
         [source["name"], source["metrics"]]
@@ -193,7 +184,7 @@ module AlmRequest
   def self.get_article_data_for_list_display(dois)
     results = {}
     dois = check_cache(dois, results, "alm_list_display")
-    json = AlmRequest.get_raw_data(dois)
+    json = get_raw_data(dois)
     json.each do |article|
       results[article["doi"]] = article
       Rails.cache.write("#{article["doi"]}.alm_list_display", article, :expires_in => 1.day)

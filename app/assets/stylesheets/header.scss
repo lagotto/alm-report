@@ -11,12 +11,12 @@ header.nav-area {
 }
 
 h1 {
-  margin: 53px 0 0 10px;
+  margin: 3rem 0 0;
   display: inline-block;
 }
 
 h1 + ul {
-  margin: 69px 9px 0 0;
+  margin: 4rem 0 0;
   float: right;
   font-size: 16px;
 }
@@ -34,10 +34,23 @@ h1 + ul li {
 }
 
 .tagline {
-  margin: 63px 0 48px 0;
-  width: 67%;
+  margin: 2rem 0 2rem 0;
   display: inline-block;
-  float: left;
+
+  h2 {
+    font-size: $heading_size;
+    color: $header_text_color;
+  }
+
+  p {
+    font-style: italic;
+    margin-bottom: 0;
+  }
+
+  span {
+    font-style: normal;
+    margin: 0 5px;
+  }
 }
 
 .tagline a:hover,
@@ -45,45 +58,30 @@ h1 + ul li {
   text-decoration: underline;
 }
 
-.tagline h2 {
-  font-size: $heading_size;
-  color: $header_text_color;
-}
-
-.tagline p {
-  margin: 7px 0 0;
-}
-
-.tagline p + p {
-  margin: 2px 0 0;
-}
-
-.tagline p + p span{
-  padding: 0 6px;
-  display: inline-block;
-}
-
 .list-outer-container {
-  margin: 50px 0 0 0;
+  margin: 2rem 0 0;
   float: right;
-  font-weight: bold;
+  @include font_bold_normal($font_family);
   color: $button_text_color;
+  position: relative;
 }
 
 .list-container {
   background: $list_count_background;
   width: 320px;
   height: 53px;
-  overflow: hidden;
   display: inline-block;
-  vertical-align: top;
+  line-height: 53px;
   cursor: pointer;
   border-radius:5px;
 }
 
 .list-container > span {
-  float: left;
+  width: 90px;
+  display: inline-block;
+  vertical-align: top;
   text-align: center;
+  border-radius: 5px 0 0 5px;
 }
 
 .list-container > span.list-label {
@@ -95,7 +93,6 @@ h1 + ul li {
 }
 
 .list-label {
-  padding: 18px 0 20px;
   width: 180px;
   font-size: 14px;
   background: $button_color;
@@ -108,6 +105,8 @@ h1 + ul li {
 .list-hover {
   width: 230px;
   display: none;
+  position: absolute;
+  z-index: 1;
 }
 
 .list-outer-container:hover .list-hover {

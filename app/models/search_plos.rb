@@ -1,5 +1,4 @@
 class SearchPlos
-
   JOURNALS = {
     "PLoSONE" => "PLOS ONE",
     "PLoSGenetics" => "PLOS Genetics",

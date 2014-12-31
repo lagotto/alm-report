@@ -1,7 +1,6 @@
 require 'rails_helper'
-require 'alm_request'
 
-describe AlmRequest do
+describe Alm do
 
   context "get ALM Data for articles" do
 
@@ -10,21 +9,22 @@ describe AlmRequest do
       report.save
 
       dois = [
-        '10.1371/journal.pone.0064652',
-        '10.1371/journal.pmed.0020124'
+        "10.1371/journal.pone.0064652",
+        "10.1371/journal.pmed.0020124"
       ]
 
       report.add_all_dois(dois)
 
       params = {}
-      params[:ids] = dois.join(",")
-      url = AlmRequest.get_alm_url(params)
+      params[:ids] = dois.sort.join(",")
+
+      url = Alm.get_alm_url(params)
 
       body = File.read("#{fixture_path}alm_good_response.json")
 
       stub_request(:get, url).to_return(:body => body, :status => 200)
 
-      data = AlmRequest.get_data_for_articles(report.report_dois)
+      data = Alm.get_data_for_articles(report.report_dois)
 
       data.size.should eq(2)
 
@@ -102,14 +102,14 @@ describe AlmRequest do
       report.add_all_dois(dois)
 
       params = {}
-      params[:ids] = dois.join(",")
-      url = AlmRequest.get_alm_url(params)
+      params[:ids] = dois.sort.join(",")
+      url = Alm.get_alm_url(params)
 
       body = File.read("#{fixture_path}alm_bad_response.json")
 
       stub_request(:get, "#{url}").to_return(:body => body, :status => 404)
 
-      data = AlmRequest.get_data_for_articles(report.report_dois)
+      data = Alm.get_data_for_articles(report.report_dois)
 
       data.size.should eq(0)
 
@@ -127,14 +127,14 @@ describe AlmRequest do
       report.add_all_dois(dois)
 
       params = {}
-      params[:ids] = dois.join(",")
-      url = AlmRequest.get_alm_url(params)
+      params[:ids] = dois.sort.join(",")
+      url = Alm.get_alm_url(params)
 
       body = File.read("#{fixture_path}alm_good_response2.json")
 
       stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
 
-      data = AlmRequest.get_data_for_articles(report.report_dois)
+      data = Alm.get_data_for_articles(report.report_dois)
 
       data.size.should eq(1)
 
@@ -181,24 +181,24 @@ describe AlmRequest do
     report.add_all_dois(dois)
 
     params = {}
-    params[:ids] = dois.join(",")
+    params[:ids] = dois.sort.join(",")
     params[:info] = "history"
     params[:source] = "crossref,pubmed,scopus"
-    url = AlmRequest.get_alm_url(params)
+    url = Alm.get_alm_url(params)
 
     body = File.read("#{fixture_path}alm_one_article_history.json")
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
 
     params = {}
-    params[:ids] = dois.join(",")
+    params[:ids] = dois.sort.join(",")
     params[:info] = "event"
     params[:source] = "counter,pmc,citeulike,twitter,researchblogging,nature,scienceseeker,mendeley"
-    url = AlmRequest.get_alm_url(params)
+    url = Alm.get_alm_url(params)
 
     body = File.read("#{fixture_path}alm_one_article_event.json")
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
 
-    data = AlmRequest.get_data_for_one_article(report.report_dois)
+    data = Alm.get_data_for_one_article(report.report_dois)
 
     data.size.should eq(1)
 
@@ -241,10 +241,10 @@ describe AlmRequest do
     report.save
     report.add_all_dois([doi])
 
-    url = AlmRequest.get_alm_url({:ids => doi})
+    url = Alm.get_alm_url({:ids => doi})
     body = File.read("#{fixture_path}alm_pntd.0002063.json")
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
-    data = AlmRequest.get_data_for_articles(report.report_dois)
+    data = Alm.get_data_for_articles(report.report_dois)
 
     data.size.should eq(1)
     data[doi][:plos_html].should eq(902)
@@ -264,14 +264,14 @@ describe AlmRequest do
       report.add_all_dois(dois)
 
       params = {}
-      params[:ids] = dois.join(",")
-      url = AlmRequest.get_alm_url(params)
+      params[:ids] = dois.sort.join(",")
+      url = Alm.get_alm_url(params)
 
       body = File.read("#{fixture_path}alm_good_response.json")
 
       stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
 
-      data = AlmRequest.get_data_for_articles(report.report_dois)
+      data = Alm.get_data_for_articles(report.report_dois)
 
       data.size.should eq(2)
 

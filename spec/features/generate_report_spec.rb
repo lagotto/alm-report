@@ -91,7 +91,7 @@ describe 'generate report', type: :feature, vcr: true do
       expect(page).to have_button("Preview List (2)")
       find_button("Preview List (2)").click
       expect(page).to have_content "A Future Vision for PLOS Computational Biology"
-      expect(page).to have_content "A Computational Model of Liver Iron Metabolism"
+      expect(page).to have_content "The Premier Conference for the World's Computational Biologists"
       expect(page).not_to have_content "Computational and Statistical Analysis of Protein Mass Spectrometry Data"
       click_button "Create Report"
 

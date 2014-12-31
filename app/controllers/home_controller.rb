@@ -36,26 +36,7 @@ class HomeController < ApplicationController
 
   # Queries solr for the results used by select_all_search_results.
   def get_all_results
-    # For efficiency, we want to query solr for the smallest number of results.
-    # However, this is difficult because the user may have already selected
-    # some articles from various pages of the search results, and there is no
-    # easy way to determine the intersection of this with the search we're about
-    # to do.  Using article_limit * 2 as our requested number of results handles
-    # various pathological cases such as the user having checked every other
-    # search result.
-    limit = ENV["ARTICLE_LIMIT"].to_i * 2
-    params[:rows] = rows = 200
-    # solr usually returns 500s if you try to retreive all 1000 articles at once,
-    # so we do paging here (with a larger page size than in the UI).
-
-    results = []
-    for page in 1 .. (limit / rows)
-      params[:current_page] = page
-      docs, _ = Search.find(params)
-      results += docs
-      break if docs.size < rows
-    end
-    results
+    Search.find(params, all: true)[:docs]
   end
   private :get_all_results
 
@@ -90,6 +71,7 @@ class HomeController < ApplicationController
 
   # Action that clears any DOIs in the session and redirects to home.
   def start_over
+    session.delete(:facets)
     @cart.clear
     redirect_to root_path
   end

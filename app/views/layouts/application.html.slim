@@ -29,25 +29,11 @@ html.no-js lang="en"
     .section.header
       .container
         = top_bar
-        = tagline
-
-        .list-outer-container
-          .list-container
-            span.list-label= user_signed_in? ? h(truncate(current_user.name, length: 25)) : "Your Article List"
-            span.list-count= @cart.nil? ? 0 : @cart.size
-          .list-hover
-            - if user_signed_in?
-              = link_to "Sign Out", destroy_user_session_path, method: :get
-            - else
-              = login_link
-          #your-list-choices.list-hover
-            - if @cart.blank?
-              span View Report
-              span Edit List
-            - else
-              - if @tab != :view_report
-                a href="/reports/generate" View Report
-              = link_to "Edit List", preview_path
+        .row
+          .nine.columns
+            = tagline
+          .three.columns
+            = render 'list_counter'
 
         - if @display_nav
           ul.breadcrumb
