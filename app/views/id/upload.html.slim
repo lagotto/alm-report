@@ -10,7 +10,7 @@
           .error-holder
             = label_tag(:"upload-file-field", "File path", :class => "hidden")
             = file_field_tag(:"upload-file-field")
-            p.error-message error-color Please choose a file to upload.
+            p.error-message.error-color Please choose a file to upload.
         - else
           = label_tag(:"upload-file-field", "File path", :class => "hidden")
           = file_field_tag(:"upload-file-field")
