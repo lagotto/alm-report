@@ -1,20 +1,19 @@
-.container
+.container.visualizations
   = render "reports_nav"
+  .row
+    .twelve.columns
+      div.report-downloads
+        ul
+          li
+            a#download_viz
+              span.png
+              span.file-name Print Visualizations
+              span.arrow
 
-  div.report-downloads
-    h2.text-light-normal Print
-    ul
-      li
-        a#download_viz
-          span.png
-          span.file-name Visualizations
-          span.arrow
+      #alm-report
 
-  #alm-report
-
-  script type="text/x-handlebars"
-    .visualizations-container
-      | {{outlet}}
+      script type="text/x-handlebars"
+        | {{outlet}}
 
 - content_for :javascript do
   = javascript_include_tag "alm_report"

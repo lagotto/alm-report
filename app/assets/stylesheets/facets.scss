@@ -2,9 +2,11 @@
   ul {
     font-size: 14px;
     li {
-      margin-bottom: 0;
+      margin-bottom: 4px;
+      line-height: 1.3;
     }
   }
+
   a {
     font-size: 14px;
   }
@@ -14,6 +16,10 @@
   }
 
   input[type="checkbox"] {
+    margin-bottom: 0;
+  }
+  p {
+    font-weight: bold;
     margin-bottom: 0;
   }
 }

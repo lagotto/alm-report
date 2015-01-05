@@ -124,6 +124,7 @@ jQuery(function(d, $){
       },
 
       toggleAllArticles : function(e) {
+        e.preventDefault();
         if (e.data['mode'] == 'ADD') {
 
           // Enforce article limit if necessary by only selecting the
@@ -475,8 +476,8 @@ jQuery(function(d, $){
       // the layout is centered, so we need half of the difference between the
       // viewport width and the layout width
       var right_edge = parseInt( (($(window).width() - container_width) / 2), 10);
-      $aside_container.css('right', right_edge);
-    }
+      $aside_container.css('right', right_edge + 40);
+   }
 
     return {
       init : function() {
@@ -787,7 +788,7 @@ jQuery(function(d, $){
 // Display an error when report metrics page does not have any data to show
 $(document).ready(function() {
   if ($(".metrics-left-content").length > 0) {
-    if ($(".metrics-left-content .visualizations-list").length == 0) {
+    if ($(".metrics-left-content .metrics-list").length == 0) {
       $("#error-message-div")
         .append("<div>The metrics for one or more of the articles requested are not available at this time. Please check back later.</div>")
         .show();

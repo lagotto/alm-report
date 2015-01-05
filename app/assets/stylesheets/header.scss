@@ -73,7 +73,6 @@ h1 + ul li {
   display: inline-block;
   line-height: 53px;
   cursor: pointer;
-  border-radius:5px;
 }
 
 .list-container > span {
@@ -128,6 +127,7 @@ h1 + ul li {
 .list-hover form button {
   height: auto;
   line-height: 1.6;
+  margin-bottom: 0;
 }
 
 .list-hover span {

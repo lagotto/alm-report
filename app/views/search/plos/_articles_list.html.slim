@@ -1,22 +1,24 @@
-h2 Browse the 'Best in Class' articles from PLOS
-.articles-list
-  div
-    = link_to '/search?sort=counter_total_all desc'
-      span.top-views
-      span Top Views
-  div
-    = link_to '/search?sort=sum(alm_citeulikeCount, alm_mendeleyCount) desc'
-      span.top-bookmarked
-      span Top Bookmarked
-  div
-    = link_to '/search?sort=alm_twitterCount desc'
-      span.top-tweets
-      span Top Tweets
-  div
-    = link_to '/search?sort=alm_scopusCiteCount desc'
-      span.top-cited
-      span Top Cited
-  div
-    = link_to '/search?sort=sum(alm_twitterCount, alm_facebookCount) desc'
-      span.top-shares
-      span Top Shares
+.row
+  .twelve.columns
+    h2 Browse the 'Best in Class' articles from PLOS
+    .articles-list
+      div
+        = link_to '/search?sort=counter_total_all desc'
+          span.top-views
+          span Top Views
+      div
+        = link_to '/search?sort=sum(alm_citeulikeCount, alm_mendeleyCount) desc'
+          span.top-bookmarked
+          span Top Bookmarked
+      div
+        = link_to '/search?sort=alm_twitterCount desc'
+          span.top-tweets
+          span Top Tweets
+      div
+        = link_to '/search?sort=alm_scopusCiteCount desc'
+          span.top-cited
+          span Top Cited
+      div
+        = link_to '/search?sort=sum(alm_twitterCount, alm_facebookCount) desc'
+          span.top-shares
+          span Top Shares

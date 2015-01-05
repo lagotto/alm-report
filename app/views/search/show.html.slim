@@ -37,8 +37,10 @@
         span Due to limited availability of ALM data, search results are limited to items published after Jan 1st 2011.
     - if @total_found > 0
       ul.actions
-        li.select-all-articles-link select all
-        li.unselect-all-articles-link unselect all
+        li.select-all-articles-link
+          a href="#" select all
+        li.unselect-all-articles-link
+          a href="#" unselect all
         li.sort
           span> Sort by
           = select_tag( \
