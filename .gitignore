@@ -39,3 +39,5 @@ pickle-email-*.html
 optimise-db.txt
 /vendor/cookbooks
 .env
+.env.*
+!.env.example
