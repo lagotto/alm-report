@@ -45,7 +45,9 @@ AlmReport::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store
-  config.cache_store = :dalli_store, *(ENV["SERVERS"].split(",")), { :namespace => ENV["APPLICATION"], :compress => true }
+  # dalli uses ENV['MEMCACHE_SERVERS']
+  ENV['MEMCACHE_SERVERS'] ||= ENV['HOSTNAME']
+  config.cache_store = :dalli_store, nil, { :namespace => ENV['APPLICATION'], :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
