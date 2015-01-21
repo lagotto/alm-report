@@ -82,8 +82,8 @@ namespace :deploy do
     end
   end
 
-  after :updated, "npm:install"
-  after :updated, "bower:install"
+  before :publishing, "npm:install"
+  before :publishing, "bower:install"
   after :publishing, :restart
 
   after :finishing, "deploy:cleanup"
