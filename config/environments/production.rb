@@ -38,17 +38,6 @@ AlmReport::Application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  # See everything in the log (default is :info)
-  log_level = ENV["LOG_LEVEL"] ? ENV["LOG_LEVEL"].to_sym : :info
-  config.log_level = log_level
-
-  # log to file, using logstash JSON format
-  logstash_type = ENV["LOGSTASH_TYPE"] ? ENV["LOGSTASH_TYPE"].to_sym : :file
-  config.logstash.type = logstash_type
-
-  # Optional, Redis will default to localhost
-  config.logstash.host = ENV["LOGSTASH_HOST"] || "localhost"
-
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
 
@@ -56,7 +45,9 @@ AlmReport::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store
-  config.cache_store = :dalli_store, *(ENV["SERVERS"].split(",")), { :namespace => ENV["APPLICATION"], :compress => true }
+  # dalli uses ENV['MEMCACHE_SERVERS']
+  ENV['MEMCACHE_SERVERS'] ||= ENV['HOSTNAME']
+  config.cache_store = :dalli_store, nil, { :namespace => ENV['APPLICATION'], :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"

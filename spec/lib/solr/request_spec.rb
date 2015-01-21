@@ -155,23 +155,38 @@ describe Solr::Request do
     total_results = query[:found]
 
     results[0].data.should eq({
-      "id" => "10.1371/journal.pone.0006901",
+      "id"=>"10.1371/journal.pone.0006901",
+      "cross_published_journal_name"=>["PLOS ONE"],
+      "pmid"=>"19730735",
+      "subject"=>["/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis",
+        "/Biology and life sciences/Genetics/Genomics/Genome evolution",
+        "/Biology and life sciences/Genetics/Genomics/Genome analysis/Genomic databases",
+        "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence alignment",
+        "/Biology and life sciences/Evolutionary biology/Molecular evolution/Genome evolution",
+        "/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence alignment",
+        "/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis",
+        "/Biology and life sciences/Biochemistry/Proteins/DNA-binding proteins/Transcription factors",
+        "/Research and analysis methods/Database and informatics methods/Biological databases/Genomic databases",
+        "/Research and analysis methods/Database and informatics methods/Database searching/Sequence similarity searching",
+        "/Biology and life sciences/Genetics/Genomics/Animal genomics/Invertebrate genomics",
+        "/Biology and life sciences/Genetics/Gene expression/Gene regulation/Transcription factors",
+        "/Biology and life sciences/Computational biology/Genome analysis/Genomic databases",
+        "/Biology and life sciences/Biochemistry/Proteins/Regulatory proteins/Transcription factors",
+        "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence motif analysis",
+        "/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence motif analysis",
+        "/Biology and life sciences/Computational biology/Genome evolution"],
       "accepted_date" => Date.parse("Fri, 07 Aug 2009"),
-      "cross_published_journal_name" => ["PLOS ONE"],
-      "editor_display" => ["Nicholas James Provart"],
-      "financial_disclosure" => "This work was supported by NIH grant HG002779 to MBE by the U.S. Department of Energy under Contract No. DE-AC02-05CH11231. The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.",
-      "pmid" => "", # This should not be empty, but it unfortunately is.
       "received_date" => Date.parse("Wed, 08 Oct 2008"),
-      "subject" => ["/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis", "/Biology and life sciences/Genetics/Genomics/Genome evolution", "/Biology and life sciences/Genetics/Genomics/Genome analysis/Genomic databases", "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence alignment", "/Biology and life sciences/Evolutionary biology/Molecular evolution/Genome evolution", "/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence alignment", "/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis", "/Biology and life sciences/Biochemistry/Proteins/DNA-binding proteins/Transcription factors", "/Research and analysis methods/Database and informatics methods/Biological databases/Genomic databases", "/Research and analysis methods/Database and informatics methods/Database searching/Sequence similarity searching", "/Biology and life sciences/Genetics/Genomics/Animal genomics/Invertebrate genomics", "/Biology and life sciences/Genetics/Gene expression/Gene regulation/Transcription factors", "/Biology and life sciences/Computational biology/Genome analysis/Genomic databases", "/Biology and life sciences/Biochemistry/Proteins/Regulatory proteins/Transcription factors", "/Research and analysis methods/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence motif analysis", "/Biology and life sciences/Molecular biology/Molecular biology techniques/Sequencing techniques/Sequence analysis/Sequence motif analysis", "/Biology and life sciences/Computational biology/Genome evolution"],
-      "publication_date" => Date.strptime("2009-09-04T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"),
-      "article_type" => "Research Article",
-      "author_display" => ["Garmay Leung", "Michael B. Eisen"],
-      "affiliate" => [
-        "University of California Berkeley and University of California San Francisco Joint Graduate Group in Bioengineering, University of California, Berkeley, California, United States of America",
-        "Department of Molecular and Cell Biology, University of California, Berkeley, California, United States of America",
-        "Howard Hughes Medical Institute, University of California, Berkeley, California, United States of America"
-      ],
-      "title" => "Identifying Cis-Regulatory Sequences by Word Profile Similarity"
+      "publication_date" => Date.parse("Fri, 04 Sep 2009"),
+      "article_type"=>"Research Article",
+      "author_display"=>["Garmay Leung",
+      "Michael B. Eisen"],
+      "editor_display"=>["Nicholas James Provart"],
+      "affiliate"=>["University of California Berkeley and University of California San Francisco Joint Graduate Group in Bioengineering, University of California, Berkeley, California, United States of America",
+      "Department of Molecular and Cell Biology, University of California, Berkeley, California, United States of America",
+      "Howard Hughes Medical Institute, University of California, Berkeley, California, United States of America"],
+      "financial_disclosure"=>"This work was supported by NIH grant HG002779 to MBE by the U.S. Department of Energy under Contract No. DE-AC02-05CH11231. The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript.",
+      "title"=>"Identifying Cis-Regulatory Sequences by Word Profile Similarity"
     })
     total_results.should eq(1)
   end

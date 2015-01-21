@@ -93,17 +93,25 @@ a {
   text-decoration: none;
 }
 
-.main {
-  background: $main_background;
-}
+
 
 .section {
   padding-top: 2rem;
   padding-bottom: 2rem;
 
+  &.main {
+    h2 {
+      font-family: $secondary_font_family;
+    }
+    padding-top: 4rem;
+    background: $main_background;
+    .row {
+      padding: 0 40px;
+    }
+  }
+
   &.header {
     font-family: $secondary_font_family;
-    margin-bottom: 2rem;
   }
   &.header, &.footer {
     color: $header_text_color;
@@ -125,5 +133,4 @@ a {
 
     color: $button_text_color;
   }
-
 }

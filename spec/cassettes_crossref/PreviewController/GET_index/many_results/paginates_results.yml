@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://api.crossref.org/works?facet=t&filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0113545,doi:10.1371/journal.pone.0113544,doi:10.1371/journal.pone.0113532,doi:10.1371/journal.pone.0113204,doi:10.1371/journal.pone.0112953,doi:10.1371/journal.pone.0112950,doi:10.1371/journal.pone.0112905,doi:10.1371/journal.pone.0112903,doi:10.1371/journal.pone.0112895,doi:10.1371/journal.pone.0112872,doi:10.1371/journal.pone.0112851,doi:10.1371/journal.pone.0112850,doi:10.1371/journal.pone.0112846,doi:10.1371/journal.pone.0112815,doi:10.1371/journal.pone.0112803,doi:10.1371/journal.pone.0112781,doi:10.1371/journal.pone.0112771,doi:10.1371/journal.pone.0112766,doi:10.1371/journal.pone.0112764,doi:10.1371/journal.pone.0112737,doi:10.1371/journal.pone.0112714,doi:10.1371/journal.pone.0112694,doi:10.1371/journal.pone.0112693,doi:10.1371/journal.pone.0112672,doi:10.1371/journal.pone.0112642,doi:10.1371/journal.pone.0112641,doi:10.1371/journal.pone.0112611,doi:10.1371/journal.pone.0112609,doi:10.1371/journal.pone.0112560,doi:10.1371/journal.pone.0112554,doi:10.1371/journal.pone.0112548,doi:10.1371/journal.pone.0112541,doi:10.1371/journal.pone.0112535,doi:10.1371/journal.pone.0112528,doi:10.1371/journal.pone.0112525,doi:10.1371/journal.pone.0112523,doi:10.1371/journal.pone.0112522,doi:10.1371/journal.pone.0112514,doi:10.1371/journal.pone.0112509,doi:10.1371/journal.pone.0112505,doi:10.1371/journal.pone.0112504,doi:10.1371/journal.pone.0112497,doi:10.1371/journal.pone.0112485,doi:10.1371/journal.pone.0112476,doi:10.1371/journal.pone.0112470,doi:10.1371/journal.pone.0112466,doi:10.1371/journal.pone.0112462,doi:10.1371/journal.pone.0112459,doi:10.1371/journal.pone.0112429,doi:10.1371/journal.pone.0112427,doi:10.1371/journal.pone.0112418,doi:10.1371/journal.pone.0112415,doi:10.1371/journal.pone.0112408,doi:10.1371/journal.pone.0112407,doi:10.1371/journal.pone.0112400,doi:10.1371/journal.pone.0112390,doi:10.1371/journal.pone.0112387,doi:10.1371/journal.pone.0112385,doi:10.1371/journal.pone.0112351,doi:10.1371/journal.pone.0112332&offset=0&rows=60
+    uri: http://api.crossref.org/works?facet=t&filter=from-pub-date:2011,until-pub-date:2015,doi:10.1371/journal.pone.0113545,doi:10.1371/journal.pone.0113544,doi:10.1371/journal.pone.0113532,doi:10.1371/journal.pone.0113204,doi:10.1371/journal.pone.0112953,doi:10.1371/journal.pone.0112950,doi:10.1371/journal.pone.0112905,doi:10.1371/journal.pone.0112903,doi:10.1371/journal.pone.0112895,doi:10.1371/journal.pone.0112872,doi:10.1371/journal.pone.0112851,doi:10.1371/journal.pone.0112850,doi:10.1371/journal.pone.0112846,doi:10.1371/journal.pone.0112815,doi:10.1371/journal.pone.0112803,doi:10.1371/journal.pone.0112781,doi:10.1371/journal.pone.0112771,doi:10.1371/journal.pone.0112766,doi:10.1371/journal.pone.0112764,doi:10.1371/journal.pone.0112737,doi:10.1371/journal.pone.0112714,doi:10.1371/journal.pone.0112694,doi:10.1371/journal.pone.0112693,doi:10.1371/journal.pone.0112672,doi:10.1371/journal.pone.0112642,doi:10.1371/journal.pone.0112641,doi:10.1371/journal.pone.0112611,doi:10.1371/journal.pone.0112609,doi:10.1371/journal.pone.0112560,doi:10.1371/journal.pone.0112554,doi:10.1371/journal.pone.0112548,doi:10.1371/journal.pone.0112541,doi:10.1371/journal.pone.0112535,doi:10.1371/journal.pone.0112528,doi:10.1371/journal.pone.0112525,doi:10.1371/journal.pone.0112523,doi:10.1371/journal.pone.0112522,doi:10.1371/journal.pone.0112514,doi:10.1371/journal.pone.0112509,doi:10.1371/journal.pone.0112505,doi:10.1371/journal.pone.0112504,doi:10.1371/journal.pone.0112497,doi:10.1371/journal.pone.0112485,doi:10.1371/journal.pone.0112476,doi:10.1371/journal.pone.0112470,doi:10.1371/journal.pone.0112466,doi:10.1371/journal.pone.0112462,doi:10.1371/journal.pone.0112459,doi:10.1371/journal.pone.0112429,doi:10.1371/journal.pone.0112427,doi:10.1371/journal.pone.0112418,doi:10.1371/journal.pone.0112415,doi:10.1371/journal.pone.0112408,doi:10.1371/journal.pone.0112407,doi:10.1371/journal.pone.0112400,doi:10.1371/journal.pone.0112390,doi:10.1371/journal.pone.0112387,doi:10.1371/journal.pone.0112385,doi:10.1371/journal.pone.0112351,doi:10.1371/journal.pone.0112332&offset=0&rows=60
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 30 Dec 2014 21:41:29 GMT
+      - Mon, 05 Jan 2015 20:14:20 GMT
       Server:
       - http-kit
       Access-Control-Allow-Headers:
@@ -461,5 +461,5 @@ http_interactions:
         Library of Science (PLoS)":60}},"type-name":{"value-count":1,"values":{"Journal
         Article":60}},"update-type":{"value-count":1,"values":{"correction":4}}}}}'
     http_version: 
-  recorded_at: Tue, 30 Dec 2014 21:41:34 GMT
+  recorded_at: Mon, 05 Jan 2015 20:14:20 GMT
 recorded_with: VCR 2.9.3

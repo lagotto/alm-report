@@ -25,11 +25,11 @@ rescue LoadError
   $stderr.puts "Please install dotenv with \"gem install dotenv\""
   exit
 rescue ArgumentError
-  $stderr.puts "Please set WORKERS, SERVERS and DEPLOY_USER in the .env file"
+  $stderr.puts "Please set SERVERS and DEPLOY_USER in the .env file"
   exit
 end
 
-set :default_env, { "DOTENV" => ENV["DOTENV"] }
+# set :default_env, { "DOTENV" => ENV["DOTENV"] }
 
 set :application, ENV["APPLICATION"]
 set :repo_url, 'https://github.com/articlemetrics/alm-report.git'
@@ -56,7 +56,8 @@ set :log_level, log_level
 
 # Default value for :linked_files is []
 # link .env file
-set :linked_files, %W{ #{filename} }
+#set :linked_files, %W{ #{filename} }
+set :linked_files, %W{ .env }
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{ log data tmp/pids tmp/sockets vendor/bundle public/files }
@@ -71,7 +72,7 @@ set :keep_releases, 5
 set :bundle_path, -> { shared_path.join('vendor/bundle') }
 
 # Use system libraries for Nokogiri
-set :bundle_env_variables, 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1
+# set :bundle_env_variables, 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1
 
 namespace :deploy do
   desc 'Restart application'

@@ -69,19 +69,19 @@ div.button span {
   outline: 0;
 }
 
-.selector,
-.radio,
-.checker,
-.uploader,
-.button,
-.selector *,
-.radio *,
-.checker *,
-.uploader *,
-.button * {
-  margin: 0;
-  padding: 0;
-}
+// .selector,
+// .radio,
+// .checker,
+// .uploader,
+// .button,
+// .selector *,
+// .radio *,
+// .checker *,
+// .uploader *,
+// .button * {
+//   margin: 0;
+//   padding: 0;
+// }
 
 /* Remove default webkit and possible mozilla .search styles */
 div.checker input,

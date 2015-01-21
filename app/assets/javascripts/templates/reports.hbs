@@ -1,28 +1,32 @@
 <p class="source">Visualizing {{items.length}} articles from {{minDate}} to {{maxDate}}</p>
 <div class="visualizations-container">
   {{#if single}}
-    <div class="visualizations-list">
-      <h5><span>1</span>Article Usage over Time</h5>
-      {{ line-chart items=items width=1140 height=600 }}
-      <p class="info">Total usage includes page views and downloads from PLOS and PMC.</p>
+    <div class="visualization">
+      <h2><span>1</span>Article Usage over Time</h2>
+      {{ line-chart items=items width=1060 height=600 }}
+      <p class="info">Total usage includes page views and downloads from PLOS and PubMed Central Usage Stats.</p>
     </div>
-    <div class="visualizations-list">
-      <h5><span>2</span>Mendeley Bookmarks by Location</h5>
-      {{ country-datamap-chart items=items width=1140 height=600}}
+    <div class="visualization">
+      <h2><span>2</span>Mendeley Bookmarks by Location</h2>
+      {{ country-datamap-chart items=items width=1060 height=600}}
     </div>
   {{else}}
-    <div class="visualizations-list">
-      <h5><span>1</span>Article Usage as a Function of Age</h5>
-      {{ bubble-chart items=items width=1140 height=600}}
+    <div class="visualization">
+      <h2><span>1</span>Article Usage as a Function of Age</h2>
+      {{ bubble-chart items=items width=1060 height=600}}
     </div>
-    <div class="visualizations-list">
-      <h5><span>2</span>Article Usage by Subject Area</h5>
-      {{ sunburst-chart items=items width=1140 height=900}}
+    <div class="visualization">
+      <h2><span>2</span>Article Usage by Subject Area</h2>
+      {{ sunburst-chart items=items width=1060 height=900}}
     </div>
-    <div class="visualizations-list">
-      <h5><span>3</span>Research Articles by Location</h5>
-      {{ institution-datamap-chart items=items width=1140 height=600 }}
+    <div class="visualization">
+      <h2><span>3</span>Research Articles by Location</h2>
+      {{ institution-datamap-chart items=items width=1060 height=600 }}
     </div>
   {{/if}}
   <br>
 </div>
+
+
+
+

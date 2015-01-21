@@ -8,8 +8,8 @@
           | #{@start_result} - #{@end_result} of #{@total_found} articles
 
         - @dois.each do |doi|
-          .visualizations-list
-            h5
+          .metrics-list
+            h2
               span= doi.display_index
               a href="http://dx.doi.org/#{doi.doi}"
                 = doi.solr.title

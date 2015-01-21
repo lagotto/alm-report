@@ -73,20 +73,20 @@
               | Only search in the following journals:
           li.options
             fieldset#fsJournalOpt
-            ul
-              - @journals.each do |key, name|
-                li
-                  input(id="filters_#{key}" name="filters[]" value="#{key}" type="checkbox"
-                    title="Select #{name}" alt="Select Journal #{name} Check Box"
-                    checked=("checked" if params["filters"] && params["filters"].include?(key)))
-                    | &nbsp;
-                  label for="filters_#{key}" #{name}
+              ul
+                - @journals.each do |key, name|
+                  li
+                    input(id="filters_#{key}" name="filters[]" value="#{key}" type="checkbox"
+                      title="Select #{name}" alt="Select Journal #{name} Check Box"
+                      checked=("checked" if params["filters"] && params["filters"].include?(key)))
+                      | &nbsp;
+                    label for="filters_#{key}" #{name}
 
   .four.columns
     .aside.aside-container
       h2 Find Specific Articles
-      a.button-hover-dark-black href="/id/" By DOI/PMID
-      a.button-hover-dark-black href="/upload" Upload File
+      a.button href="/id/" By DOI/PMID
+      a.button href="/upload" Upload File
 
       .help-block
         h3 Instructions

@@ -3,13 +3,13 @@ SITE
   specs:
     7-zip (1.0.2)
       windows (>= 1.2.2)
-    apt (2.6.0)
+    apt (2.6.1)
     ark (0.9.0)
       7-zip (>= 0.0.0)
       windows (>= 0.0.0)
     aws (2.5.0)
     build-essential (2.1.3)
-    chef-sugar (2.4.1)
+    chef-sugar (2.5.0)
     chef_handler (1.1.6)
     chocolatey (0.2.0)
       windows (~> 1.31)
@@ -31,7 +31,7 @@ SITE
       ark (>= 0.0.0)
       build-essential (>= 0.0.0)
       yum-epel (>= 0.0.0)
-    openssl (2.0.0)
+    openssl (2.0.2)
       chef-sugar (>= 0.0.0)
     phantomjs (1.0.3)
       build-essential (>= 0.0.0)
@@ -40,7 +40,7 @@ SITE
       apt (>= 1.9.0)
       build-essential (>= 0.0.0)
       openssl (>= 0.0.0)
-    runit (1.5.12)
+    runit (1.5.14)
       build-essential (>= 0.0.0)
       yum (~> 3.0)
       yum-epel (>= 0.0.0)
@@ -48,7 +48,7 @@ SITE
       chef_handler (>= 0.0.0)
     xfs (1.1.0)
     yum (3.5.2)
-    yum-epel (0.5.3)
+    yum-epel (0.6.0)
       yum (~> 3.0)
     yum-mysql-community (0.1.11)
       yum (>= 3.0)
@@ -56,35 +56,35 @@ SITE
 GIT
   remote: git@github.com:articlemetrics/alm_report-cookbook.git
   ref: master
-  sha: 60060fdcf23ece9673f0169adf3efc8733485bde
+  sha: 9a28d19e33b71b5e9d9f6e95c5e66918d31ad932
   specs:
-    alm_report (0.6.24)
+    alm_report (1.0.0)
       apt (>= 0.0.0)
-      capistrano (~> 0.7.0)
+      capistrano (~> 0.8.0)
       database (>= 0.0.0)
-      dotenv (~> 0.1.0)
+      dotenv (~> 0.2.0)
       memcached (>= 0.0.0)
       mysql (>= 0.0.0)
       mysql_rails (~> 0.3.0)
       nodejs (>= 0.0.0)
-      passenger_nginx (~> 0.4.0)
+      passenger_nginx (~> 0.5.0)
       phantomjs (>= 0.0.0)
       ruby (~> 0.6.0)
 
 GIT
   remote: git@github.com:articlemetrics/capistrano-cookbook.git
   ref: master
-  sha: 71fb5694cd1119ae178f83f4f33872dda9eb35e0
+  sha: 4019524bf33243d4b52c49eefdc19152e3d91233
   specs:
-    capistrano (0.7.25)
+    capistrano (0.8.1)
       ruby (~> 0.6.0)
 
 GIT
   remote: git@github.com:articlemetrics/dotenv-cookbook.git
   ref: master
-  sha: 069ee5080bebea6c5049462d832503a14a340570
+  sha: 6af99d90f302ba74a460a5337bcdd5a5b7505ff5
   specs:
-    dotenv (0.1.7)
+    dotenv (0.2.0)
 
 GIT
   remote: git@github.com:articlemetrics/mysql.git
@@ -107,9 +107,9 @@ GIT
 GIT
   remote: git@github.com:articlemetrics/passenger_nginx-cookbook.git
   ref: master
-  sha: a53bb990328e0e920a88bce09ca06a155cfa61ec
+  sha: 982440c212cfc6f7e282efe1377df5890f57f5c2
   specs:
-    passenger_nginx (0.4.1)
+    passenger_nginx (0.5.0)
       apt (>= 0.0.0)
       ruby (~> 0.6.0)
 

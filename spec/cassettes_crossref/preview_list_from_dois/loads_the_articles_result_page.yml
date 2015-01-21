@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://api.crossref.org/works?facet=t&filter=from-pub-date:2011,until-pub-date:2014,doi:10.1371/journal.pone.0021143&offset=0&rows=1
+    uri: http://api.crossref.org/works?facet=t&filter=from-pub-date:2011,until-pub-date:2015,doi:10.1371/journal.pone.0021143&offset=0&rows=1
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 30 Dec 2014 21:41:41 GMT
+      - Mon, 05 Jan 2015 20:14:08 GMT
       Server:
       - http-kit
       Access-Control-Allow-Headers:
@@ -47,5 +47,5 @@ http_interactions:
         Library of Science (PLoS)":1}},"type-name":{"value-count":1,"values":{"Journal
         Article":1}},"update-type":{"value-count":0,"values":{}}}}}'
     http_version: 
-  recorded_at: Tue, 30 Dec 2014 21:41:46 GMT
+  recorded_at: Mon, 05 Jan 2015 20:14:07 GMT
 recorded_with: VCR 2.9.3
