@@ -50,7 +50,7 @@ SITE
     yum (3.5.2)
     yum-epel (0.6.0)
       yum (~> 3.0)
-    yum-mysql-community (0.1.11)
+    yum-mysql-community (0.1.12)
       yum (>= 3.0)
 
 GIT
