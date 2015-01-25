@@ -2,6 +2,7 @@ AlmReport.Item = DS.Model.extend({
   doi: DS.attr('string'),
   title: DS.attr('string'),
   journal: DS.attr('string'),
+  publisher_id: DS.attr('number'),
   issued: DS.attr(),
   published: function () {
     var parts = this.get('issued')['date-parts'][0]
@@ -18,6 +19,9 @@ AlmReport.Item = DS.Model.extend({
   pmid: DS.attr('string'),
   pmcid: DS.attr('string'),
   mendeley_uuid: DS.attr('string'),
+  wos: DS.attr('string'),
+  scp: DS.attr('string'),
+  update_date: DS.attr('date'),
   viewed: DS.attr('number'),
   saved: DS.attr('number'),
   discussed: DS.attr('number'),
