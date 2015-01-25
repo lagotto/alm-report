@@ -13,21 +13,19 @@ SITE
     chef_handler (1.1.6)
     chocolatey (0.2.0)
       windows (~> 1.31)
-    database (2.3.0)
+    database (2.3.1)
       aws (>= 0.0.0)
-      mysql (>= 5.0.0)
-      mysql-chef_gem (>= 0.0.0)
+      mysql (~> 5.0)
+      mysql-chef_gem (~> 0.0)
       postgresql (>= 1.0.0)
       xfs (>= 0.0.0)
     memcached (1.7.2)
       runit (~> 1.0)
       yum (~> 3.0)
       yum-epel (>= 0.0.0)
-    mysql (6.0.10)
-      smf (>= 0.0.0)
-      yum-mysql-community (>= 0.0.0)
-    mysql-chef_gem (1.0.0)
+    mysql-chef_gem (0.0.5)
       build-essential (>= 0.0.0)
+      mysql (>= 0.0.0)
     nodejs (2.2.0)
       apt (>= 0.0.0)
       ark (>= 0.0.0)
@@ -42,13 +40,10 @@ SITE
       apt (>= 1.9.0)
       build-essential (>= 0.0.0)
       openssl (>= 0.0.0)
-    rbac (1.0.2)
     runit (1.5.14)
       build-essential (>= 0.0.0)
       yum (~> 3.0)
       yum-epel (>= 0.0.0)
-    smf (2.2.1)
-      rbac (>= 1.0.1)
     windows (1.36.1)
       chef_handler (>= 0.0.0)
     xfs (1.1.0)
@@ -61,15 +56,15 @@ SITE
 GIT
   remote: git@github.com:articlemetrics/alm_report-cookbook.git
   ref: master
-  sha: b297a2bdac8a087a5d33551c3da93071b90ebf27
+  sha: cc46faac47bcd92f51b07cd0765d14ae19d53dd9
   specs:
-    alm_report (1.0.1)
+    alm_report (1.0.3)
       apt (>= 0.0.0)
       capistrano (~> 0.8.0)
-      database (>= 0.0.0)
+      database (~> 2.3.1)
       dotenv (~> 0.2.0)
       memcached (>= 0.0.0)
-      mysql (~> 6.0)
+      mysql (>= 0.0.0)
       mysql_rails (~> 0.3.0)
       nodejs (>= 0.0.0)
       passenger_nginx (~> 0.5.0)
@@ -92,13 +87,21 @@ GIT
     dotenv (0.2.0)
 
 GIT
+  remote: git@github.com:articlemetrics/mysql.git
+  ref: master
+  sha: e306cddd572ca4c1906aa533c70092528bb77532
+  specs:
+    mysql (5.6.1)
+      yum-mysql-community (>= 0.0.0)
+
+GIT
   remote: git@github.com:articlemetrics/mysql_rails-cookbook.git
   ref: master
-  sha: 65457bffc066403da6bd824da7643cc3729a09c7
+  sha: 7209a9de6dd94bbe4db72410e23a036aaaa9c977
   specs:
-    mysql_rails (0.3.11)
-      database (>= 0.0.0)
-      mysql (>= 0.0.0)
+    mysql_rails (0.3.27)
+      database (~> 2.3.1)
+      mysql (~> 5.6.1)
       ruby (~> 0.6.0)
 
 GIT
