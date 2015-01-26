@@ -26,6 +26,7 @@ gem 'omniauth', '~> 1.2.2'
 
 gem "ember-rails"
 gem "ember-source", "1.8.1"
+gem "bower-rails", "~> 0.9.1"
 
 group :development do
   gem "rubocop"
