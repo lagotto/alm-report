@@ -63,11 +63,11 @@ class SearchController < ApplicationController
   private
 
   def search_params
-    params.permit :everything, :author, :author_country, :institution,
-      :publication_days_ago, :datepicker1, :datepicer2, :subject,
+    params.permit :commit, :everything, :filters, :author, :author_country, :institution,
+      :publication_days_ago, :datepicker1, :datepicker2, :subject,
       :cross_published_journal_name, :financial_disclosure, :filters,
       :queryFieldId, :startDateAsStringId, :endDateAsStringId,
-      :unformattedQueryId, :journalOpt, :facets
+      :unformattedQueryId, :journalOpt, :utf8, facets: [:name, :value]
 
     params.delete_if do |k, v|
       v == "" || v == [""]
