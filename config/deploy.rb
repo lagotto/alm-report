@@ -82,7 +82,6 @@ namespace :deploy do
     end
   end
 
-  before :publishing, "npm:install"
   before :publishing, "bower:install"
   after :publishing, :restart
 
