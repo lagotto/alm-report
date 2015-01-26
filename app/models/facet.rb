@@ -19,6 +19,8 @@ class Facet
   end
 
   def toggle(name = nil, value = nil)
+    return unless name && value
+
     if @facets[name][value][:selected]
       deselect(name: name, value: value)
     else
@@ -27,10 +29,14 @@ class Facet
   end
 
   def select(name = nil, value = nil)
+    return unless name && value
+
     @facets[name][value][:selected] = true
   end
 
   def deselect(name = nil, value = nil)
+    return unless name && value
+
     @facets[name][value].delete(:selected)
   end
 
