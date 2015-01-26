@@ -18,7 +18,7 @@ class Facet
     @facets.delete(facet.keys[0])
   end
 
-  def toggle(name:, value:)
+  def toggle(name = nil, value = nil)
     if @facets[name][value][:selected]
       deselect(name: name, value: value)
     else
@@ -26,11 +26,11 @@ class Facet
     end
   end
 
-  def select(name:, value:)
+  def select(name = nil, value = nil)
     @facets[name][value][:selected] = true
   end
 
-  def deselect(name:, value:)
+  def deselect(name = nil, value = nil)
     @facets[name][value].delete(:selected)
   end
 
@@ -47,8 +47,6 @@ class Facet
   end
 
   def params
-    {facets: selected.map do |name, value|
-      {name: name, value: value}
-    end}
+    { facets: selected.map { |name, value| { name: name, value: value } } }
   end
 end
