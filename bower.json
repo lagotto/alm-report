@@ -5,7 +5,7 @@
     "line": "git://github.com/articlemetrics/line",
     "sunburst": "git://github.com/articlemetrics/sunburst",
     "datamaps": "latest",
-    "lodash": "latest",
+    "lodash": "2.4.1",
     "d3-tip": "git://github.com/Caged/d3-tip"
   },
   "resolutions": {
