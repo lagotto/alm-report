@@ -14,6 +14,7 @@
 //= require script
 //= require advancedSearch
 //= require es5_shim
+//= require lodash/dist/lodash.js
 //= require d3-tip/index
 //= require bubble/app/scripts/bubble_chart
 //= require sunburst/app/scripts/sunburst_chart
