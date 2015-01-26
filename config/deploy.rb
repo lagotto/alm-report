@@ -60,7 +60,7 @@ set :log_level, log_level
 set :linked_files, %W{ .env }
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{ log data tmp/pids tmp/sockets vendor/bundle vendor/assets node_modules }
+set :linked_dirs, %w{ log data tmp/pids tmp/sockets vendor/bundle node_modules }
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
