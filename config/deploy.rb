@@ -82,7 +82,7 @@ namespace :deploy do
     end
   end
 
-  before :publishing, "bower:install"
+  before :updated, "bower:install"
   after :publishing, :restart
 
   after :finishing, "deploy:cleanup"
