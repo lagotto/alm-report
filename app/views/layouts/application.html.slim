@@ -86,7 +86,7 @@ html.no-js lang="en"
     = yield :javascript
 
     javascript:
-      var RESULTS_PER_PAGE = #{ENV["PER_PAGE"].to_i}
-      var ARTICLE_LIMIT = #{ENV["ARTICLE_LIMIT"].to_i}
-      var VIZ_LIMIT = #{ENV["VIZ_LIMIT"].to_i}
+      var RESULTS_PER_PAGE = #{ENV["PER_PAGE"].to_i},
+          ARTICLE_LIMIT = #{ENV["ARTICLE_LIMIT"].to_i},
+          VIZ_LIMIT = #{ENV["VIZ_LIMIT"].to_i};
       #{ "var search_total_found = #{@total_found};" if !@total_found.nil? }
