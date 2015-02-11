@@ -1,3 +1,19 @@
+# 2.2.1
+
+ALM Reports 2.2.1 was released on February 11, 2015.
+
+This release contains several small bug fixes for precompiling javascripts, minor CSS changes, and some other minor tweaks.
+
+# 2.2.0
+
+ALM Reports 2.2.0 was released on January 7th, 2014.
+
+In this release we replaced the previous [Google Charts based visualizations with custom D3 visualizations](https://github.com/articlemetrics/alm-report/pull/91), hosted in an [Ember.js](http://emberjs.com/) application. This release introduces our bubble chart (https://github.com/articlemetrics/bubble), line chart (https://github.com/articlemetrics/line) and sunburst (https://github.com/articlemetrics/sunburst) visualizations. For map-based visualizations, we used the [datamaps](https://github.com/markmarkoh/datamaps) library.
+
+We've also added filtering/faceting support for both PLOS and CrossRef search backends (see #121 and #126) . Because of this feature and visualizations, a restructuring of the layout was necessary and the application now uses a framework for its widened layout (http://getskeleton.com/).
+
+Additionally we've started using the version 5 ALM API (http://alm.plos.org/docs/api) for visualizations data.
+
 # 2.1.0
 
 ALM Reports 2.1.0 was released on October 18, 2014.
