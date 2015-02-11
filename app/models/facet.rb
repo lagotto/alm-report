@@ -19,8 +19,8 @@ class Facet
   end
 
   def toggle(options = {})
-    name = options.fetch("name", nil)
-    value = options.fetch("value", nil)
+    name = options.fetch(:name, nil)
+    value = options.fetch(:value, nil)
     return unless name && value
 
     if @facets[name][value][:selected]
@@ -31,16 +31,16 @@ class Facet
   end
 
   def select(options = {})
-    name = options.fetch("name", nil)
-    value = options.fetch("value", nil)
+    name = options.fetch(:name, nil)
+    value = options.fetch(:value, nil)
     return unless name && value
 
     @facets[name][value][:selected] = true
   end
 
   def deselect(options = {})
-    name = options.fetch("name", nil)
-    value = options.fetch("value", nil)
+    name = options.fetch(:name, nil)
+    value = options.fetch(:value, nil)
     return unless name && value
 
     @facets[name][value].delete(:selected)
