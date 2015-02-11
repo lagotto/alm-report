@@ -2,7 +2,7 @@ AlmReport.LineChartComponent = Ember.Component.extend({
     tagName: 'div',
 
     item: function () {
-        return this.get('items.content')[0].get('data');
+        return this.get('items').toArray()[0].get('data');
     }.property('items'),
 
     data: function () {

@@ -252,22 +252,22 @@ AlmReport.CountryDatamapChartComponent = Ember.Component.extend({
             "Zimbabwe": "ZWE"
         }
 
-        var countries = this.get('items.content')[0].get('sources').find(function (s) {
+        var countries = this.get('items').toArray()[0].get('sources').find(function (s) {
             return s['display_name'] == 'Mendeley' }
-        ).events.country
+        ).events.reader_count_by_country
 
         var data = {}
-        countries.forEach(function (country) {
-            if(transform[country.name]) {
+        _.forIn(countries, function (readers, country) {
+            if(transform[country]) {
                 var fillKey;
-                if(country.value > 5) {
+                if(readers > 5) {
                     fillKey = 'high'
-                } else if(country.value > 0) {
+                } else if(readers > 0) {
                     fillKey = 'low'
                 }
-                data[transform[country.name]] = {
+                data[transform[country]] = {
                     fillKey: fillKey,
-                    value: country.value
+                    value: readers
                 };
             }
         });

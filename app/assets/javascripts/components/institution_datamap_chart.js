@@ -2,7 +2,7 @@ AlmReport.InstitutionDatamapChartComponent = Ember.Component.extend({
     tagName: 'div',
 
     prepareData: function() {
-        return _(this.get('items.content')).map(function (i) {
+        return _(this.get('items').toArray()).map(function (i) {
             return i.get('affiliations') ?
                 i.get('affiliations').map(function (a) {
                     return a ? {
