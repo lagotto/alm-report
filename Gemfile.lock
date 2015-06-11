@@ -63,6 +63,8 @@ GEM
       ruby_parser (~> 3.5.0)
       sass (~> 3.0)
       terminal-table (~> 1.4)
+    bugsnag (2.8.7)
+      multi_json (~> 1.0)
     builder (3.2.2)
     capistrano (3.3.5)
       capistrano-stats (~> 1.1.0)
@@ -335,6 +337,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   brakeman
+  bugsnag (~> 2.8.6)
   capistrano-bundler
   capistrano-rails
   capybara
@@ -372,3 +375,6 @@ DEPENDENCIES
   uglifier
   vcr
   webmock
+
+BUNDLED WITH
+   1.10.3

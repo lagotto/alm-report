@@ -16,6 +16,7 @@ gem "exception_notification"
 gem "httparty"
 gem "faraday"
 gem "faraday_middleware"
+gem 'bugsnag', '~> 2.8.6'
 
 gem "devise", "~> 3.4.1"
 gem "omniauth-persona"
