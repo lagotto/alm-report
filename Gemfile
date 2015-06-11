@@ -33,6 +33,8 @@ group :development do
   gem "pry-rails"
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano-passenger', '~> 0.0.5'
   gem "capistrano-rails", require: false
   gem "capistrano-bundler", require: false
 end
