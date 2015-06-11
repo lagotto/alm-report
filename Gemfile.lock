@@ -132,9 +132,6 @@ GEM
     ember-source (1.8.1)
       handlebars-source (~> 1.0)
     erubis (2.7.0)
-    exception_notification (4.0.1)
-      actionmailer (>= 3.0.4)
-      activesupport (>= 3.0.4)
     execjs (2.3.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
@@ -353,7 +350,6 @@ DEPENDENCIES
   dotenv
   ember-rails
   ember-source (= 1.8.1)
-  exception_notification
   faraday
   faraday_middleware
   httparty
