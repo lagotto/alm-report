@@ -19,7 +19,7 @@ html.no-js lang="en"
     script src="http://www.google.com/jsapi"
 
     - if ENV['BUGSNAG_JS_KEY']
-      script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js" data-apikey="<%= ENV['BUGSNAG_JS_KEY'] %>">
+      script src="//d2wy8f7a9ursnm.cloudfront.net/bugsnag-2.min.js" data-apikey='#{ENV["BUGSNAG_JS_KEY"]}'>
 
     javascript:
       var _gaq = _gaq || [];
