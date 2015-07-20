@@ -31,6 +31,9 @@ module AlmReport
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths << Rails.root.join('lib')
 
+    # add assets from Ember app
+    config.assets.paths << "#{Rails.root}/frontend/bower_components"
+
     # Configure the default encoding used in templates for Ruby.
     config.encoding = "utf-8"
 
