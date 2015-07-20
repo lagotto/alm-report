@@ -12,6 +12,11 @@
     "es5-shim": "~4.1.0",
     "bootstrap-sass": "~3.3.4",
     "font-awesome": "~4.3.0",
-    "queue-async": "~1.0.7"
+    "queue-async": "~1.0.7",
+    "bubble": "git://github.com/articlemetrics/bubble",
+    "line": "git://github.com/articlemetrics/line",
+    "sunburst": "git://github.com/articlemetrics/sunburst",
+    "datamaps": "latest"
+  },
   }
 }
