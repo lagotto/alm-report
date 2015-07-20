@@ -15,7 +15,7 @@
 //= require jquery-ui
 //= require d3/d3.js
 //= require d3-tip/index.js
-//= require query-string
+//= require queryString
 //= require script
 //= require advancedSearch
 //= require bubble/app/scripts/bubble_chart
