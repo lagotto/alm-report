@@ -86,7 +86,7 @@ Vagrant.configure("2") do |config|
     # Override settings for specific providers
     machine.vm.provider :virtualbox do |vb, override|
       vb.name = ENV["APPLICATION"]
-      vb.customize ["modifyvm", :id, "--memory", "1024"]
+      vb.customize ["modifyvm", :id, "--memory", "2048"]
       unless Vagrant::Util::Platform.windows?
         # Disable default synced folder before bindfs tries to bind to it
         override.vm.synced_folder ".", "/var/www/#{ENV['APPLICATION']}/shared", disabled: true
@@ -104,7 +104,8 @@ Vagrant.configure("2") do |config|
     end
 
     machine.vm.provider :vmware_fusion do |fusion|
-      fusion.vmx["memsize"] = "1024"
+      fusion.vmx["memsize"] = "2048"
+      fusion.vmx["numvcpus"] = "2"
     end
 
     machine.vm.provider :aws do |aws, override|
