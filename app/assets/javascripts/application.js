@@ -13,11 +13,11 @@
 //= require jquery/dist/jquery.js
 //= require jquery-ujs/src/rails.js
 //= require jquery-ui
-//= require jquery-ui
+//= require d3/d3.js
+//= require d3-tip/index.js
 //= require query-string
 //= require script
 //= require advancedSearch
-//= require d3-tip/index
 //= require bubble/app/scripts/bubble_chart
 //= require sunburst/app/scripts/sunburst_chart
 //= require line/app/scripts/line_chart
