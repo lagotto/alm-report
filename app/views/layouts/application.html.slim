@@ -57,8 +57,6 @@ html.no-js lang="en"
       .container
         = footer
 
-    script src="http://d3js.org/d3.v3.js" charset="utf-8"
-    script src="http://d3js.org/topojson.v1.min.js"
     = javascript_include_tag "application"
     - if ENV['OMNIAUTH'] == "persona"
       script src="https://login.persona.org/include.js"
