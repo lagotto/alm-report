@@ -12,14 +12,18 @@ env:
     secure: drRsnsZAyBEb99FBPXPl2GrIJ0QRNvT6BxVnDG/BVulW1DJIRM3rUQYJBPxJIRn+SyEUF5q/z7LYs1alxuTrj0DHeIMY5PGWpm/aQXvUQvQSj5CNfRNdQVWUwjs4xdmg4fJ9anz29CShBo2DfLWvMqWpwX2I/dh6IZQrWmdiI9o=
 services:
 - memcached
+
 before_script:
-- cp .env.travis .env
-- mkdir -p tmp/pids
+  - memcached -p 11211 &
+  - cp .env.travis .env
+  - mkdir -p tmp/pids
+  - cd frontend && npm install
+  - cd ../ && npm install -g istanbul codeclimate-test-reporter
+  - bundle exec rake db:setup RAILS_ENV=test
+
 script:
-- bundle exec rake db:setup RAILS_ENV=test
-- npm install bower
-- bundle exec rake bower:install
 - bundle exec rspec
+
 addons:
   code_climate:
     repo_token: 996e94d9a86097c853b5bd92197c07cca653d962528e10406f1e75d78517438c
