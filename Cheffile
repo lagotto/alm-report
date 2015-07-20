@@ -4,19 +4,19 @@
 site 'http://community.opscode.com/api/v1'
 
 cookbook "alm_report",
-  :git => "git@github.com:articlemetrics/alm_report-cookbook.git"
+  :git => "git@github.com:lagotto/alm_report-cookbook.git"
 cookbook "ruby",
-  :git => "git@github.com:articlemetrics/ruby-cookbook.git"
+  :git => "git@github.com:lagotto/ruby-cookbook.git"
 cookbook "passenger_nginx",
-  :git => "git@github.com:articlemetrics/passenger_nginx-cookbook.git"
+  :git => "git@github.com:lagotto/passenger_nginx-cookbook.git"
 cookbook "mysql_rails",
-  :git => "git@github.com:articlemetrics/mysql_rails-cookbook.git"
+  :git => "git@github.com:lagotto/mysql_rails-cookbook.git"
 cookbook "capistrano",
-  :git => "git@github.com:articlemetrics/capistrano-cookbook.git"
+  :git => "git@github.com:lagotto/capistrano-cookbook.git"
 cookbook "dotenv",
-  :git => "git@github.com:articlemetrics/dotenv-cookbook.git"
+  :git => "git@github.com:lagotto/dotenv-cookbook.git"
 cookbook "mysql",
-  :git => "git@github.com:articlemetrics/mysql.git"
-cookbook "database", "~> 2.3.0"
+  :git => "git@github.com:lagotto/mysql.git"
+cookbook "database", "~> 2.3.1"
 cookbook "memcached"
-cookbook "phantomjs"
+cookbook "nodejs"

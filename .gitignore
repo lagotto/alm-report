@@ -29,7 +29,11 @@ capybara-*.html
 /config/data_bags/*
 /vendor/cookbooks/*/.git
 /vendor/assets/bower_components
-/node_modules
+/frontend/node_modules/*
+/frontend/bower_components/*
+/vendor/assets/bower_components
+/frontend/npm-debug.log
+/frontend/vendor/
 **.orig
 rerun.txt
 pickle-email-*.html

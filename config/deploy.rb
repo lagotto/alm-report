@@ -1,4 +1,4 @@
-# config valid only for Capistrano 3.1
+# config valid only for Capistrano 3.4.x
 lock '3.4.0'
 
 begin
@@ -7,7 +7,7 @@ begin
 
   # load ENV variables from file specified by DOTENV
   # use .env with DOTENV=default
-  filename = ENV["DOTENV"] == "default" ? ".env" : ".env.#{ENV["DOTENV"]}"
+  filename = ENV["DOTENV"] == "default" ? ".env" : ".env.#{ENV['DOTENV']}"
 
   fail Errno::ENOENT unless File.exist?(File.expand_path("../../#{filename}", __FILE__))
 
@@ -16,30 +16,34 @@ begin
   Dotenv.load! filename
 
   # make sure ENV variables required for capistrano are set
-  fail ArgumentError if ENV["SERVERS"].to_s.empty? ||
-                        ENV["DEPLOY_USER"].to_s.empty?
+  fail ArgumentError if ENV['SERVERS'].to_s.empty? ||
+                        ENV['DEPLOY_USER'].to_s.empty?
 rescue Errno::ENOENT
   $stderr.puts "Please create file .env in the Rails root folder"
-  exit
+  exit 1
 rescue LoadError
   $stderr.puts "Please install dotenv with \"gem install dotenv\""
-  exit
+  exit 1
 rescue ArgumentError
   $stderr.puts "Please set SERVERS and DEPLOY_USER in the .env file"
-  exit
+  exit 1
 end
 
-# set :default_env, { "DOTENV" => ENV["DOTENV"] }
+# set :default_env, { 'DOTENV' => ENV["DOTENV"] }
 
 set :application, ENV["APPLICATION"]
-set :repo_url, 'https://github.com/articlemetrics/alm-report.git'
+set :repo_url, "#{ENV['GITHUB_URL']}.git"
 set :stage, ENV["STAGE"]
+set :pty, false
 
 # Default branch is :master
 set :branch, ENV["REVISION"] || ENV["BRANCH_NAME"] || "master"
 
+# Bugsnag deploy tracking
+set :bugsnag_api_key, ENV["BUGSNAG_KEY"] if ENV["BUGSNAG_KEY"]
+
 # Default deploy_to directory is /var/www/my_app
-# set :deploy_to, '/var/www/alm-report2'
+# set :deploy_to, '/var/www/alm-report'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -57,13 +61,10 @@ set :log_level, log_level
 # Default value for :linked_files is []
 # link .env file
 #set :linked_files, %W{ #{filename} }
-set :linked_files, %W{ .env }
+set :linked_files, %w{ .env }
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{ log data tmp/pids tmp/sockets vendor/bundle node_modules }
-
-# Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :linked_dirs, %w{ log tmp/pids tmp/sockets vendor/bundle frontend/node_modules frontend/bower_components }
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
@@ -74,6 +75,15 @@ set :bundle_path, -> { shared_path.join('vendor/bundle') }
 # Use system libraries for Nokogiri
 # set :bundle_env_variables, 'NOKOGIRI_USE_SYSTEM_LIBRARIES' => 1
 
+set :rails_env, ENV['RAILS_ENV']
+
+ENV['SERVERS'].split(",").each_with_index do |s, i|
+  # only primary server has db role
+  r = i > 0 ? %w(web app) : %w(web app db)
+
+  server s, user: ENV['DEPLOY_USER'], roles: r
+end
+
 namespace :deploy do
   desc 'Restart application'
   task :restart do
@@ -82,8 +92,7 @@ namespace :deploy do
     end
   end
 
-  before :updated, "bower:install"
   after :publishing, :restart
-
   after :finishing, "deploy:cleanup"
 end
+

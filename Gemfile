@@ -12,7 +12,6 @@ gem "uglifier"
 gem "jquery-rails"
 gem "jquery-ui-rails"
 gem "slim-rails"
-gem "httparty"
 gem "faraday"
 gem "faraday_middleware"
 gem 'bugsnag', '~> 2.8.6'
@@ -24,7 +23,7 @@ gem 'omniauth-github', '~> 1.1.2'
 gem "omniauth-orcid", "~> 0.6", :git => "https://github.com/mfenner/omniauth-orcid.git"
 gem 'omniauth', '~> 1.2.2'
 
-gem "ember-rails"
+gem "ember-rails", "0.16.2"
 gem "ember-source", "1.8.1"
 
 group :development do
