@@ -41,7 +41,6 @@ set :branch, ENV["REVISION"] || ENV["BRANCH_NAME"] || "master"
 
 # install/update npm modules and bower components
 set :npm_target_path, -> { release_path.join('frontend') }
-set :npm_flags, '--production --no-spin'
 
 # Bugsnag deploy tracking
 set :bugsnag_api_key, ENV["BUGSNAG_KEY"] if ENV["BUGSNAG_KEY"]
