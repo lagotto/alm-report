@@ -33,7 +33,7 @@ module ApplicationHelper
       font
       links_holder
       stylesheet
-      articles_list
+      works_list
       footer
       tagline
       top_bar

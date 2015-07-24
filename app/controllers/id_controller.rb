@@ -2,8 +2,8 @@
 require "csv"
 require "set"
 
-# Controller that handles the "Find Articles by DOI/PMID" page.
-# TODO: better messaging when users hit the article limit.
+# Controller that handles the "Find Works by DOI/PMID" page.
+# TODO: better messaging when users hit the work limit.
 class IdController < ApplicationController
 
   before_filter :set_tabs
@@ -11,12 +11,12 @@ class IdController < ApplicationController
   def index
     # doi/pmid page
 
-    article_limit_reached?
+    work_limit_reached?
   end
 
   def set_tabs
-    @tab = :select_articles
-    @title = "Find Articles by DOI/PMID"
+    @tab = :select_works
+    @title = "Find Works by DOI/PMID"
     @errors = {}
     @max_doi_field = 8
   end
@@ -24,7 +24,7 @@ class IdController < ApplicationController
 
   # Checks that a given DOI appears to be a well-formed DOI. Note that
   # this method only does a regex match; it does not query any backend to
-  # determine if the corresponding article actually exists.
+  # determine if the corresponding work actually exists.
   def self.validate_doi(doi)
     doi =~ %r(\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?!["&\'<>])\S)+)\b)
     return $1 ? $1 : nil
@@ -58,8 +58,8 @@ class IdController < ApplicationController
 
 
   def save
-    # if the user is already at the article limit, do not let the user continue
-    return render "index" if article_limit_reached?
+    # if the user is already at the work limit, do not let the user continue
+    return render "index" if work_limit_reached?
 
     # Ignore Errors is an option in the case when the user uploads a file
     # and it contains errors (that is, we get here via process_upload).
@@ -106,7 +106,7 @@ class IdController < ApplicationController
     solr_docs = query_solr_for_ids(field_to_parsed_doi, field_to_parsed_pmid)
     if @errors.length == 0
 
-      # We don't have a publication date for currents articles, so just use
+      # We don't have a publication date for currents works, so just use
       # the order they were added to the form instead.
       currents_dois.each_with_index {|doi, i| @cart[doi] = i}
       solr_docs.each {|_, doc| @cart[doc.id] = doc}
@@ -120,7 +120,7 @@ class IdController < ApplicationController
   def upload
     @title = "Upload File"
 
-    article_limit_reached?
+    work_limit_reached?
   end
 
 
@@ -141,8 +141,8 @@ class IdController < ApplicationController
 
 
   def process_upload
-    # if the user is already at the article limit, do not let the user continue
-    return render "upload" if article_limit_reached?
+    # if the user is already at the work limit, do not let the user continue
+    return render "upload" if work_limit_reached?
 
     if params[:"upload-file-field"].nil?
       @file_absent = true
@@ -171,7 +171,7 @@ class IdController < ApplicationController
         rescue ArgumentError
           validated = IdController.validate_doi(id)
           if validated.nil?
-            add_error.call(id, "This DOI/PMID is not a PLOS article")
+            add_error.call(id, "This DOI/PMID is not a PLOS work")
           else
             valid_dois << validated
           end

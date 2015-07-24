@@ -4,7 +4,7 @@ module Pageable
   module ClassMethods
     def pages(params, opts, config, &block)
       if opts[:all]
-        limit = ENV["ARTICLE_LIMIT"].to_i * 2
+        limit = ENV["WORK_LIMIT"].to_i * 2
         rows = 200
 
         results = {}

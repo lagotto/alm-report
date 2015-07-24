@@ -6,8 +6,8 @@ class SearchController < ApplicationController
   end
 
   def show
-    @tab = :select_articles
-    @title = "Add Articles"
+    @tab = :select_works
+    @title = "Add Works"
 
     session[:params] = search_params
     search = Search.find(search_params)
@@ -42,13 +42,13 @@ class SearchController < ApplicationController
   private
 
   def simple
-    @tab = :select_articles
+    @tab = :select_works
 
     render "simple"
   end
 
   def advanced
-    @tab = :select_articles
+    @tab = :select_works
     @title = "Advanced Search"
 
     render "advanced"

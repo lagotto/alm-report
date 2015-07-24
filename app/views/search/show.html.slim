@@ -2,7 +2,7 @@
   .two.columns
     .facets= render "facets", facets: @facets
   .seven.columns
-    h2 Add selected articles to your list
+    h2 Add selected works to your list
     p
       - if @total_found > 0
         => "#{@start_result} - #{@end_result} of #{number_with_delimiter(@total_found, :delimiter => ',')} results for"
@@ -37,9 +37,9 @@
         span Due to limited availability of ALM data, search results are limited to items published after Jan 1st 2011.
     - if @total_found > 0
       ul.actions
-        li.select-all-articles-link
+        li.select-all-works-link
           a href="#" select all
-        li.unselect-all-articles-link
+        li.unselect-all-works-link
           a href="#" unselect all
         li.sort
           span> Sort by
@@ -51,24 +51,24 @@
             ), \
             id: "search_results_sort_order_select" \
           )
-    p.select-articles-message.invisible
-      span#select-articles-message-text
-      span#select-all-articles-message-text
+    p.select-works-message.invisible
+      span#select-works-message-text
+      span#select-all-works-message-text
     div#select-all-spinner.ajax_spinner
     - @all_checked = false
-    = render "article_list"
+    = render "work_list"
   .three.columns
-    = render "right_nav", :current_page => :add_articles
+    = render "right_nav", :current_page => :add_works
 
 div#gray-out-screen
 
 div#viz-limit-error-message style="display: none;"
-  | Although the ALM report data can contain up to #{ENV["ARTICLE_LIMIT"].to_i} articles, the maximum size for visualizations is #{ENV["VIZ_LIMIT"]} articles.
+  | Although the ALM report data can contain up to #{ENV["WORK_LIMIT"].to_i} works, the maximum size for visualizations is #{ENV["VIZ_LIMIT"]} works.
 
-div#article-limit-error-message style="display: none;"
-  | The maximum report size is #{ENV["ARTICLE_LIMIT"].to_i} articles. Go to
+div#work-limit-error-message style="display: none;"
+  | The maximum report size is #{ENV["WORK_LIMIT"].to_i} works. Go to
   a<> href="/preview-list" Preview List
-  | and remove articles before adding more to your selection.
+  | and remove works before adding more to your selection.
 
 div#partial-select-all-error-message style="display: none;"
 

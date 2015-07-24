@@ -67,18 +67,18 @@ $.ajax({
 });
 
 
-function getArticleUsageCitationsAge() {
-    // return #{{ @article_usage_citations_age_data.to_json }};
+function getWorkUsageCitationsAge() {
+    // return #{{ @work_usage_citations_age_data.to_json }};
 }
 
-function getArticleUsageMendeleyAge() {
-    // return #{{ @article_usage_mendeley_age_data.to_json }};
+function getWorkUsageMendeleyAge() {
+    // return #{{ @work_usage_mendeley_age_data.to_json }};
 }
 
-function getArticleUsageCitationSubjectArea() {
-    // return #{{ @article_usage_citation_subject_area_data.to_json }};
+function getWorkUsageCitationSubjectArea() {
+    // return #{{ @work_usage_citation_subject_area_data.to_json }};
 }
 
-function getArticleLocation() {
-    // return #{{ @article_locations_data.to_json }};
+function getWorkLocation() {
+    // return #{{ @work_locations_data.to_json }};
 }

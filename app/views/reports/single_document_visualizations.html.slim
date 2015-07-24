@@ -4,23 +4,23 @@ div.content.wrapper.cf
   - graph_number = 0
 
   div.visualizations-container
-    - if @article_usage_data.present?
+    - if @work_usage_data.present?
       - graph_number = graph_number + 1
       div.visualizations-list
         div.reports-header-div
           span.list-numbers= graph_number
-          h2 Article Usage as a function of Age
+          h2 Work Usage as a function of Age
 
-        #article_usage_div
+        #work_usage_div
         p.info Total usage includes page views and downloads from PLOS and PMC.
 
-    - if !@article_citation_data.empty?
+    - if !@work_citation_data.empty?
       - graph_number = graph_number + 1
       div.visualizations-list
         div.reports-header-div
           span.list-numbers= graph_number
-          h2 Article Citations as a function of Age
-        #article_citation_div
+          h2 Work Citations as a function of Age
+        #work_citation_div
         p.info Cumulative citations from each of the citation indices.
 
     - if !@social_scatter.empty?
@@ -38,8 +38,8 @@ div.content.wrapper.cf
         div.reports-header-div
           span.list-numbers= graph_number
           h2 Mendeley Bookmarks by Location
-        #article_mendeley_readers_div
-        p.info Geolocation of #{@reader_total} individuals who have saved the article in Mendeley.
+        #work_mendeley_readers_div
+        p.info Geolocation of #{@reader_total} individuals who have saved the work in Mendeley.
 
     - if graph_number == 0
       div.visualizations-list
@@ -66,22 +66,22 @@ javascript:
     return true;
   }
 
-  function getArticleUsageAge() {
-    return #{{ @article_usage_data }};
+  function getWorkUsageAge() {
+    return #{{ @work_usage_data }};
   }
 
-  function getArticleCitationAge() {
-    return #{{ @article_citation_data }};
+  function getWorkCitationAge() {
+    return #{{ @work_citation_data }};
   }
 
-  function getArticleSocialScatterHeader() {
+  function getWorkSocialScatterHeader() {
     return #{{ @social_scatter_header.to_json }};
   }
-  function getArticleSocialScatter() {
+  function getWorkSocialScatter() {
     return #{{ @social_scatter.to_json }};
   }
 
-  function getArticleMendeley() {
+  function getWorkMendeley() {
    return  #{{ @reader_data }};
   }
 

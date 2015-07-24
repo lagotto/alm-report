@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "preview list from dois", type: :feature, vcr: true do
-  it "loads the articles result page", js: true do
+  it "loads the works result page", js: true do
     visit "/"
 
     click_link "By DOI/PMID"

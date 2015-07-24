@@ -30,7 +30,7 @@ class Report < ActiveRecord::Base
   end
 
   # Sets the @sorted_report_dates field.
-  # Precondition: load_articles_from_solr has already been called.
+  # Precondition: load_works_from_solr has already been called.
   def sort_report_dates
     if @sorted_report_dates.nil?
       @sorted_report_dates = report_dois.collect{|report_doi| report_doi.solr.publication_date}
@@ -40,16 +40,16 @@ class Report < ActiveRecord::Base
   private :sort_report_dates
 
 
-  # Returns the earliest publication date of any article in this report.
-  # Precondition: load_articles_from_solr has already been called.
+  # Returns the earliest publication date of any work in this report.
+  # Precondition: load_works_from_solr has already been called.
   def get_earliest_report_date
     sort_report_dates
     @sorted_report_dates[0]
   end
 
 
-  # Returns the latest publication date of any article in this report.
-  # Precondition: load_articles_from_solr has already been called.
+  # Returns the latest publication date of any work in this report.
+  # Precondition: load_works_from_solr has already been called.
   def get_latest_report_date
     sort_report_dates
     @sorted_report_dates[-1]
@@ -81,7 +81,7 @@ class Report < ActiveRecord::Base
     field = options[:field]
 
     if (field.nil?)
-      alm = Alm.get_data_for_articles(report_dois)
+      alm = Alm.get_data_for_works(report_dois)
 
       data = report_dois.map do |report_doi|
         report_doi.solr = SearchResult.from_cache(report_doi.doi)
@@ -94,13 +94,13 @@ class Report < ActiveRecord::Base
             ]
         title_row += Alm::ALM_METRICS.values
         title_row += [
-            "Journal", "Article Type", "Funding Statement", "Subject Areas", "Submission Date",
-            "Acceptance Date", "Editors", "Article URL",
+            "Journal", "Work Type", "Funding Statement", "Subject Areas", "Submission Date",
+            "Acceptance Date", "Editors", "Work URL",
             ]
         csv << title_row
 
         report_dois.each do |report_doi|
-          # If the article was unpublished (rare), skip it.
+          # If the work was unpublished (rare), skip it.
           row = report_doi.to_csv
           csv << row if row
         end

@@ -41,7 +41,7 @@ class ReportDoi < ActiveRecord::Base
   end
 
   # Returns a string suitable for inclusion in the CSV report for subject areas
-  # of an article.  Only "leaf" or lowest-level categories are included.  The
+  # of a work.  Only "leaf" or lowest-level categories are included.  The
   # input is the list of subjects as returned by solr.
   def subject_string
     # We sort on the leaf categories, just like ambra does.

@@ -12,7 +12,7 @@ AlmReport::Application.routes.draw do
   post "/update-session" => "home#update_session"
   get "/select-all-search-results" => "home#select_all_search_results"
   get "/start-over" => "home#start_over"
-  get "/get-article-count" => "home#get_article_count"
+  get "/get-work-count" => "home#get_work_count"
 
   scope "reports" do
     get "generate" => "reports#generate"

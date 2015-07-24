@@ -41,7 +41,7 @@ describe IdController do
     response.redirect_url.should eq('http://test.host/preview')
   end
 
-  it "adds an article by id", vcr: true do
+  it "adds a work by id", vcr: true do
     doi = "10.1371/journal.pone.0061406"
     post :save, "doi-pmid-1" => doi
 

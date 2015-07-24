@@ -1,4 +1,4 @@
-// handles the article selection and saving on add-articles.html
+// handles the work selection and saving on add-works.html
 jQuery(function(d, $){
   (function(){
 
@@ -18,15 +18,15 @@ jQuery(function(d, $){
         }
 
         // set up event handlers
-        $('.check-save-article').on("click", jQuery.proxy(this.checkboxClickHandler, this));
-        $('.select-all-articles-link').on("click", { 'mode' : "ADD" }, jQuery.proxy(this.toggleAllArticles, this));
-        $('.unselect-all-articles-link').on("click", { 'mode' : "REMOVE" }, jQuery.proxy(this.toggleAllArticles, this));
-        $('.reset-btn').on("click", { 'mode' : "REMOVE" }, jQuery.proxy(this.toggleAllArticles, this));
+        $('.check-save-work').on("click", jQuery.proxy(this.checkboxClickHandler, this));
+        $('.select-all-works-link').on("click", { 'mode' : "ADD" }, jQuery.proxy(this.toggleAllWorks, this));
+        $('.unselect-all-works-link').on("click", { 'mode' : "REMOVE" }, jQuery.proxy(this.toggleAllWorks, this));
+        $('.reset-btn').on("click", { 'mode' : "REMOVE" }, jQuery.proxy(this.toggleAllWorks, this));
 
         // We want the preview list count to be accurate even if the user navigates
         // with the back button.  So we always load the current preview list count
         // via ajax.
-        $.ajax("/get-article-count", {
+        $.ajax("/get-work-count", {
           type: "GET",
           cache: false,
           success: jQuery.proxy(function(resp) {
@@ -78,19 +78,19 @@ jQuery(function(d, $){
         // If we are over the limit, and it's a check event, don't do anything
         // (and uncheck the checkbox).
         if ($checkbox.prop("checked")) {
-          if (preview_list_count >= VIZ_LIMIT && preview_list_count < ARTICLE_LIMIT) {
+          if (preview_list_count >= VIZ_LIMIT && preview_list_count < WORK_LIMIT) {
             this.showErrorDialog("viz-limit-error-message");
-          } else if (preview_list_count >= ARTICLE_LIMIT) {
+          } else if (preview_list_count >= WORK_LIMIT) {
             $checkbox.prop("checked", false);
-            this.showErrorDialog("article-limit-error-message");
+            this.showErrorDialog("work-limit-error-message");
             return;
           }
         }
 
         // create some data that we want to send to the server
         var ajax_data = {
-          // grab the article ID from the checkbox value
-          article_ids : [$checkbox.val()],
+          // grab the work ID from the checkbox value
+          work_ids : [$checkbox.val()],
 
           // set the "mode" based on what state the checkbox is transitioning to
           // NOTE: this handler runs *after* the checkbox element has been
@@ -98,7 +98,7 @@ jQuery(function(d, $){
           mode : $checkbox.prop("checked") ? "ADD" : "REMOVE"
         };
 
-        var $container = $checkbox.parent('.article-info');
+        var $container = $checkbox.parent('.work-info');
 
         // show the user immediate visual feedback that we're doing something
         this.displayProgressIndicators($container, ajax_data.mode);
@@ -123,24 +123,24 @@ jQuery(function(d, $){
         $containers.find('a').after("<span class='updating'><\/span>");
       },
 
-      toggleAllArticles : function(e) {
+      toggleAllWorks : function(e) {
         e.preventDefault();
         if (e.data['mode'] == 'ADD') {
 
-          // Enforce article limit if necessary by only selecting the
-          // first articles.
-          var max = ARTICLE_LIMIT - preview_list_count;
-          var $checkboxes = $(".check-save-article:not(:checked)").slice(0, max);
+          // Enforce work limit if necessary by only selecting the
+          // first works.
+          var max = WORK_LIMIT - preview_list_count;
+          var $checkboxes = $(".check-save-work:not(:checked)").slice(0, max);
           if (!select_all_error_msg_visible && $checkboxes.length > 0) {
             var new_count = preview_list_count + $checkboxes.length;
-            if (new_count >= VIZ_LIMIT && new_count < ARTICLE_LIMIT) {
+            if (new_count >= VIZ_LIMIT && new_count < WORK_LIMIT) {
               this.showErrorDialog("viz-limit-error-message");
               select_all_error_msg_visible = true;
-            } else if (new_count >= ARTICLE_LIMIT) {
+            } else if (new_count >= WORK_LIMIT) {
               if (max == 0) {
-                this.showErrorDialog("article-limit-error-message");
+                this.showErrorDialog("work-limit-error-message");
               } else {
-                var message = $("#article-limit-error-message").html();
+                var message = $("#work-limit-error-message").html();
                 message = "Only the first " + max + " of the results have been added.  " + message;
                 $('#partial-select-all-error-message').html(message);
                 this.showErrorDialog("partial-select-all-error-message");
@@ -150,13 +150,13 @@ jQuery(function(d, $){
           }
           already_clicked_select_all = true;
         } else {
-          var $checkboxes = $(".check-save-article:checked");
+          var $checkboxes = $(".check-save-work:checked");
         }
         var $containers = []; // this will eventually be a jquery collection
 
         // this data will be serialized in the ajax request
         var ajax_data = {
-          article_ids : [],
+          work_ids : [],
           mode : e.data['mode']
         };
 
@@ -169,10 +169,10 @@ jQuery(function(d, $){
           checkbox.prop("checked", (e.data['mode'] == 'ADD'));
 
           // grab the value from the checkbox; that's what we want to send to the server
-          ajax_data['article_ids'].push(checkbox.val());
+          ajax_data['work_ids'].push(checkbox.val());
 
           // store a ref to the container; we need to operate on that later
-          var $container = checkbox.parent('.article-info');
+          var $container = checkbox.parent('.work-info');
           $containers.push($container);
 
           // displays the progress indicator for the checkbox's container
@@ -183,7 +183,7 @@ jQuery(function(d, $){
         // collection so we can more easily operate on it later
         $containers = $($containers);
 
-        if (ajax_data["article_ids"].length) {
+        if (ajax_data["work_ids"].length) {
           // pass the data to the server to update the session
           this.updateServer(ajax_data, $checkboxes, $containers, true);
         }
@@ -205,7 +205,7 @@ jQuery(function(d, $){
           data : ajax_data,
 
           // NOTE: ajaxResponseHandler requires checkboxes and containers passed in to the handler
-          // so that we can update the correct article(s)!
+          // so that we can update the correct work(s)!
           complete : jQuery.proxy(this.ajaxResponseHandler, this, ajax_data.mode,
               $checkboxes, $containers, toggle_all)
         });
@@ -235,7 +235,7 @@ jQuery(function(d, $){
               text : "Error!",
               img_class_name : ""
             };
-            this.showErrorDialog("article-limit-error-message");
+            this.showErrorDialog("work-limit-error-message");
           }
         } else {
 
@@ -252,9 +252,9 @@ jQuery(function(d, $){
         this.updateProgressIndicators($containers, status_data);
 
         // now that the server returned a response, we can re-enable the
-        // checkboxes so the user can do something else with the article or try
+        // checkboxes so the user can do something else with the work or try
         // again (on the off chance the AJAX response was an error and the
-        // article state wasn't set correctly.)
+        // work state wasn't set correctly.)
         $checkboxes.prop('disabled', false);
 
         // if there was an error, we need to reset the state of the checkbox to
@@ -269,10 +269,10 @@ jQuery(function(d, $){
 
         // now that we have a response from the server and we've adjusted the
         // checkbox states if necessary, re-query the DOM to figure out how
-        // many article are actually selected on this page.
-        var selected_articles_count = $(".check-save-article:checked").length;
+        // many work are actually selected on this page.
+        var selected_works_count = $(".check-save-work:checked").length;
 
-        // update "your list" and "preview list" buttons with new article count
+        // update "your list" and "preview list" buttons with new work count
         this.incrementListCount(json_resp.delta);
         if (preview_list_count === 0) {
           this.disableButton($('#create-report-submit'));
@@ -285,10 +285,10 @@ jQuery(function(d, $){
         // Show select all/unselect all messaging if applicable.
         if (!error_occurred && toggle_all) {
 
-          // show "select all articles across all pages" message if this
+          // show "select all works across all pages" message if this
           // result set spans multiple pages and we've just checked all the
-          // articles on this page
-          if (results_span_pages && (selected_articles_count == RESULTS_PER_PAGE)) {
+          // works on this page
+          if (results_span_pages && (selected_works_count == RESULTS_PER_PAGE)) {
             this.showSelectAll();
           } else if (json_resp.delta < 0) {
             this.showUnselectAll(-json_resp.delta);
@@ -297,48 +297,48 @@ jQuery(function(d, $){
 
       },
 
-      // Removes any "select all" or "unselect all" message from the add articles page.
+      // Removes any "select all" or "unselect all" message from the add works page.
       clearSelectAllMessage : function(message) {
-        if ($('.select-articles-message').is(':visible')) {
-          $('#select-articles-message-text').html('');
-          $('#select-all-articles-message-text').html('');
-          $('.select-articles-message').addClass('invisible');
+        if ($('.select-works-message').is(':visible')) {
+          $('#select-works-message-text').html('');
+          $('#select-all-works-message-text').html('');
+          $('.select-works-message').addClass('invisible');
         }
       },
 
-      // Shows the "select all" message on the add articles page.
+      // Shows the "select all" message on the add works page.
       showSelectAll : function() {
         this.clearSelectAllMessage();
-        $('#select-articles-message-text').html(
-            'The ' + RESULTS_PER_PAGE + ' articles on this page have been selected.');
-        var additional_count = Math.min(ARTICLE_LIMIT, search_total_found) - preview_list_count;
+        $('#select-works-message-text').html(
+            'The ' + RESULTS_PER_PAGE + ' works on this page have been selected.');
+        var additional_count = Math.min(WORK_LIMIT, search_total_found) - preview_list_count;
         if (additional_count > 0) {
-          $('#select-all-articles-message-text').html(
+          $('#select-all-works-message-text').html(
               ' <a href="#" id="select_all_searchresults">Select the remaining '
-              + additional_count + ' articles</a>.');
+              + additional_count + ' works</a>.');
         } else {
-          $('#select-all-articles-message-text').hide();
+          $('#select-all-works-message-text').hide();
         }
-        $('.select-articles-message').removeClass('invisible');
+        $('.select-works-message').removeClass('invisible');
         $('#select_all_searchresults').on('click',
             jQuery.proxy(this.selectAllSearchResults, this));
       },
 
-      // Shows the "unselect all" message on the add articles page.
+      // Shows the "unselect all" message on the add works page.
       showUnselectAll : function(unselect_count) {
 
         // We use the same DOM components as showSelectAll above.  Don't let that
         // confuse you...
         this.clearSelectAllMessage();
-        $('#select-articles-message-text').html(
-            'The ' + unselect_count + ' articles on this page have been unselected. ');
+        $('#select-works-message-text').html(
+            'The ' + unselect_count + ' works on this page have been unselected. ');
         if (preview_list_count > 0) {
-          $('#select-all-articles-message-text').html(
-              '<a href="#" id="select_all_searchresults">Unselect all articles</a>.');
+          $('#select-all-works-message-text').html(
+              '<a href="#" id="select_all_searchresults">Unselect all works</a>.');
         } else {
-          $('#select-all-articles-message-text').hide();
+          $('#select-all-works-message-text').hide();
         }
-        $('.select-articles-message').removeClass('invisible');
+        $('.select-works-message').removeClass('invisible');
         $('#select_all_searchresults').on('click', jQuery.proxy(function(e) {
           $.ajax('/start-over', {
             type: 'GET',
@@ -386,9 +386,9 @@ jQuery(function(d, $){
         });
       },
 
-      // Handles the user clicking on the "Select all nnn articles" link.  Selects
-      // *all* of the articles from the search, not just those on the current page.
-      // (Subject to the article limit.)
+      // Handles the user clicking on the "Select all nnn works" link.  Selects
+      // *all* of the works from the search, not just those on the current page.
+      // (Subject to the work limit.)
       selectAllSearchResults : function(e) {
         $("#gray-out-screen").css({
           opacity: 0.7,
@@ -414,11 +414,11 @@ jQuery(function(d, $){
       selectAllSearchResultsResponseHandler : function(xhr, status) {
         $("#gray-out-screen").hide();
         $("#select-all-spinner").hide();
-        $(".select-articles-message").addClass('invisible');
+        $(".select-works-message").addClass('invisible');
 
         var json_resp = $.parseJSON(xhr.responseText);
         if (status == "success" && json_resp.status == "success") {
-          var $unchecked_checkboxes = $(".check-save-article:not(:checked)");
+          var $unchecked_checkboxes = $(".check-save-work:not(:checked)");
           $unchecked_checkboxes.prop("checked", true);
           this.incrementListCount(json_resp.delta);
           if (!select_all_error_msg_visible && preview_list_count > VIZ_LIMIT) {
@@ -426,7 +426,7 @@ jQuery(function(d, $){
             select_all_error_msg_visible = true;
           }
         } else {
-          var $checked_checkboxes = $(".check-save-article:checked");
+          var $checked_checkboxes = $(".check-save-work:checked");
           $checked_checkboxes.prop("checked", false);
           this.showErrorDialog("solr-500-error-message");
         }
@@ -536,7 +536,7 @@ jQuery(function(d, $){
 }(document, jQuery));
 
 
-// handles the dismissing of error messages from the "Find Articles by DOI/PMID" page.
+// handles the dismissing of error messages from the "Find Works by DOI/PMID" page.
 var dismissDoiPmidErrors = function(event) {
   var $current_element = $(event.target);
   var $current_error_holder = $current_element.parent('.error-holder');
@@ -585,9 +585,9 @@ var highlightDoiPmidError = function($element, error_message) {
 };
 
 
-// Onchange handler for text fields on the "Find Articles by DOI/PMID" page.
+// Onchange handler for text fields on the "Find Works by DOI/PMID" page.
 // Performs validation to ensure the values are valid DOIs or PMIDs identifing
-// PLOS articles.
+// PLOS works.
 var doiPmidInputOnChange = function() {
   var input_element = $(this)[0];
   var value = $.trim(input_element.value);
@@ -615,7 +615,7 @@ var doiPmidInputOnChange = function() {
         doi = match[3];
         is_currents_doi = true;
       } else {
-        highlightDoiPmidError(input_element, 'This DOI/PMID is not a PLOS article');
+        highlightDoiPmidError(input_element, 'This DOI/PMID is not a PLOS work');
       }
     }
   }
@@ -737,11 +737,11 @@ jQuery(function(d, $){
   });
 }(document, jQuery));
 
-// add custom button and select boxes for all browsers on home, home-welcomeback, add-article and upload-file pages
+// add custom button and select boxes for all browsers on home, home-welcomeback, add-work and upload-file pages
 if (jQuery.fn.uniform) {
   jQuery(function(){
     $('select').uniform();
-    $('#add-article-select').uniform();
+    $('#add-work-select').uniform();
     $('#upload-file-field').uniform();
     $('.filename, .action').click(function(){
       $('#upload-file-field').trigger('click');
@@ -749,7 +749,7 @@ if (jQuery.fn.uniform) {
   })
 }
 
-// Event handler for the sort select box on the add articles page.
+// Event handler for the sort select box on the add works page.
 jQuery(function(d, $){
   $('#search_results_sort_order_select').change(function() {
     var sort_param = this.options[this.selectedIndex].value;
@@ -790,7 +790,7 @@ $(document).ready(function() {
   if ($(".metrics-left-content").length > 0) {
     if ($(".metrics-left-content .metrics-list").length == 0) {
       $("#error-message-div")
-        .append("<div>The metrics for one or more of the articles requested are not available at this time. Please check back later.</div>")
+        .append("<div>The metrics for one or more of the works requested are not available at this time. Please check back later.</div>")
         .show();
     }
   }
@@ -898,13 +898,13 @@ jQuery(function(d, $){
 }(document, jQuery));
 
 // Onclick handler for downloading report metrics.  Pops up a confirmation dialog
-// if there are enough articles in the report that the operation might be slow.
+// if there are enough works in the report that the operation might be slow.
 jQuery(function(d, $){
   $('#metrics-download-link').click(function(e) {
-    var article_count = parseInt($('.list-count').text(), 10);
-    if (article_count > VIZ_LIMIT) {
-      var msg = 'Downloading metrics data for ' + article_count
-          + ' articles can be quite slow, and take up to several minutes.  Are you sure you want to proceed?'
+    var work_count = parseInt($('.list-count').text(), 10);
+    if (work_count > VIZ_LIMIT) {
+      var msg = 'Downloading metrics data for ' + work_count
+          + ' works can be quite slow, and take up to several minutes.  Are you sure you want to proceed?'
       var cont = confirm(msg);
       if (cont) {
         return true;

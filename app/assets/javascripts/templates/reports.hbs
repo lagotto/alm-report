@@ -1,8 +1,8 @@
-<p class="source">Visualizing {{items.length}} articles from {{minDate}} to {{maxDate}}</p>
+<p class="source">Visualizing {{items.length}} works from {{minDate}} to {{maxDate}}</p>
 <div class="visualizations-container">
   {{#if single}}
     <div class="visualization">
-      <h2><span>1</span>Article Usage over Time</h2>
+      <h2><span>1</span>Work Usage over Time</h2>
       {{ line-chart items=items width=1060 height=600 }}
       <p class="info">Total usage includes page views and downloads from PLOS and PubMed Central Usage Stats.</p>
     </div>
@@ -12,15 +12,15 @@
     </div>
   {{else}}
     <div class="visualization">
-      <h2><span>1</span>Article Usage as a Function of Age</h2>
+      <h2><span>1</span>Work Usage as a Function of Age</h2>
       {{ bubble-chart items=items width=1060 height=600}}
     </div>
     <div class="visualization">
-      <h2><span>2</span>Article Usage by Subject Area</h2>
+      <h2><span>2</span>Work Usage by Subject Area</h2>
       {{ sunburst-chart items=items width=1060 height=900}}
     </div>
     <div class="visualization">
-      <h2><span>3</span>Research Articles by Location</h2>
+      <h2><span>3</span>Research Works by Location</h2>
       {{ institution-datamap-chart items=items width=1060 height=600 }}
     </div>
   {{/if}}

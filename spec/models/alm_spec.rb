@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe Alm do
 
-  context "get ALM Data for articles" do
+  context "get ALM Data for works" do
 
-    it "get ALM data for articles" do
+    it "get ALM data for works" do
       report = Report.new
       report.save
 
@@ -24,7 +24,7 @@ describe Alm do
 
       stub_request(:get, url).to_return(:body => body, :status => 200)
 
-      data = Alm.get_data_for_articles(report.report_dois)
+      data = Alm.get_data_for_works(report.report_dois)
 
       data.size.should eq(2)
 
@@ -91,7 +91,7 @@ describe Alm do
 
     end
 
-    it "fail to get ALM data for articles" do
+    it "fail to get ALM data for works" do
       report = Report.new
       report.save
 
@@ -109,13 +109,13 @@ describe Alm do
 
       stub_request(:get, "#{url}").to_return(:body => body, :status => 404)
 
-      data = Alm.get_data_for_articles(report.report_dois)
+      data = Alm.get_data_for_works(report.report_dois)
 
       data.size.should eq(0)
 
     end
 
-    it "get ALM data for valid articles in the list" do
+    it "get ALM data for valid works in the list" do
       report = Report.new
       report.save
 
@@ -134,7 +134,7 @@ describe Alm do
 
       stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
 
-      data = Alm.get_data_for_articles(report.report_dois)
+      data = Alm.get_data_for_works(report.report_dois)
 
       data.size.should eq(1)
 
@@ -171,7 +171,7 @@ describe Alm do
 
   end
 
-  it "get ALM data for one article" do
+  it "get ALM data for one works" do
     report = Report.new
     report.save
 
@@ -186,7 +186,7 @@ describe Alm do
     params[:source] = "crossref,pubmed,scopus"
     url = Alm.get_alm_url(params)
 
-    body = File.read("#{fixture_path}alm_one_article_history.json")
+    body = File.read("#{fixture_path}alm_one_work_history.json")
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
 
     params = {}
@@ -195,10 +195,10 @@ describe Alm do
     params[:source] = "counter,pmc,citeulike,twitter,researchblogging,nature,scienceseeker,mendeley"
     url = Alm.get_alm_url(params)
 
-    body = File.read("#{fixture_path}alm_one_article_event.json")
+    body = File.read("#{fixture_path}alm_one_work_event.json")
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
 
-    data = Alm.get_data_for_one_article(report.report_dois)
+    data = Alm.get_data_for_one_work(report.report_dois)
 
     data.size.should eq(1)
 
@@ -244,7 +244,7 @@ describe Alm do
     url = Alm.get_alm_url({:ids => doi})
     body = File.read("#{fixture_path}alm_pntd.0002063.json")
     stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
-    data = Alm.get_data_for_articles(report.report_dois)
+    data = Alm.get_data_for_works(report.report_dois)
 
     data.size.should eq(1)
     data[doi][:plos_html].should eq(902)
@@ -271,7 +271,7 @@ describe Alm do
 
       stub_request(:get, "#{url}").to_return(:body => body, :status => 200)
 
-      data = Alm.get_data_for_articles(report.report_dois)
+      data = Alm.get_data_for_works(report.report_dois)
 
       data.size.should eq(2)
 

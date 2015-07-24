@@ -1,6 +1,6 @@
 .list-outer-container
   .list-container
-    span.list-label= user_signed_in? ? h(truncate(current_user.name, length: 25)) : "Your Article List"
+    span.list-label= user_signed_in? ? h(truncate(current_user.name, length: 25)) : "Your Work List"
     span.list-count= @cart.nil? ? 0 : @cart.size
   .list-hover
     - if user_signed_in?

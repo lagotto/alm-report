@@ -27,7 +27,7 @@ describe ReportsController do
         report_doi.sort_order = 1
         results = Search.find({everything: "test"})
         report_doi.solr = [results.first]
-        alm = Alm.get_data_for_one_article([report_doi])
+        alm = Alm.get_data_for_one_work([report_doi])
         report_doi.alm = alm[report_doi.doi]
         @report.report_dois = [report_doi]
         @report.save

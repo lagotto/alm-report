@@ -3,58 +3,58 @@
 
   .visualizations-container
     - if @draw_viz
-      - if @article_usage_citations_age_data.present?
+      - if @work_usage_citations_age_data.present?
         .visualizations-list
           .reports-header-div
             span.list-numbers 1
-            h2 Article Usage and Citations as a function of Age
+            h2 Work Usage and Citations as a function of Age
           #citations
           p.info
             ' Total usage includes page views and downloads from PLOS and PMC.
             | Bubble size correlates with Scopus citations and bubble color with the PLOS journal.
           p
-            ' SOURCE: #{@report.report_dois.length} published articles from
+            ' SOURCE: #{@report.report_dois.length} published works from
             ' #{@report.get_earliest_report_date.strftime("%B %d, %Y")}
             | to #{@report.get_latest_report_date.strftime("%B %d, %Y")}
 
-      - if @article_usage_mendeley_age_data.present?
+      - if @work_usage_mendeley_age_data.present?
         .visualizations-list
           .reports-header-div
             span.list-numbers 2
-            h2 Article Usage and Bookmarks as a Function of Time
+            h2 Work Usage and Bookmarks as a Function of Time
           #saved
             p.info
               Total usage includes page views and downloads from PLOS and PMC.
               Bubble size correlates with bookmarks and bubble color with the PLOS journal.
             p
-              ' SOURCE: #{@report.report_dois.length} published articles from
+              ' SOURCE: #{@report.report_dois.length} published works from
               ' #{@report.get_earliest_report_date.strftime("%B %d, %Y")}
               | to #{@report.get_latest_report_date.strftime("%B %d, %Y")}
 
-      - if @article_usage_citation_subject_area_data.present?
+      - if @work_usage_citation_subject_area_data.present?
         .visualizations-list
           .reports-header-div
             span.list-numbers 3
-            h2 Article Usage by Subject Area
-          #article_subject_div
+            h2 Work Usage by Subject Area
+          #work_subject_div
             p.info
-              Rectangle size correlates with the number of articles associated with the subject area and the color intensity with total usage.
+              Rectangle size correlates with the number of works associated with the subject area and the color intensity with total usage.
             p
-              ' SOURCE: #{@report.report_dois.length} published articles from
+              ' SOURCE: #{@report.report_dois.length} published works from
               ' #{@report.get_earliest_report_date.strftime("%B %d, %Y")}
               | to #{@report.get_latest_report_date.strftime("%B %d, %Y")}
 
-      - if @article_locations_data.present?
+      - if @work_locations_data.present?
         .visualizations-list
           .reports-header-div
             span.list-numbers 4
-            h2 Research Articles by Location
-          #article_location_div
+            h2 Research Works by Location
+          #work_location_div
             p.info
-              Geolocation of #{@total_authors_data} authors for #{@report.report_dois.length} articles.
+              Geolocation of #{@total_authors_data} authors for #{@report.report_dois.length} works.
               Bubble size and color correlates with the number of authors in that location.
             p
-              ' SOURCE: #{@report.report_dois.length} published articles from
+              ' SOURCE: #{@report.report_dois.length} published works from
               ' #{@report.get_earliest_report_date.strftime("%B %d, %Y")}
               | to #{@report.get_latest_report_date.strftime("%B %d, %Y")}
 

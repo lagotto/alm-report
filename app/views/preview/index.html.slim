@@ -1,19 +1,19 @@
 .row
   .eight.columns
     = form_tag(preview_path, method: :get, class: "preview-form")
-      h2 Review your list of articles
+      h2 Review your list of works
       div
-        span> #{@start_result} - #{@end_result} of #{@total_found} articles
+        span> #{@start_result} - #{@end_result} of #{@total_found} works
         ul.actions
           li
-            a.unselect-all-articles-link href="#" Clear All
+            a.unselect-all-works-link href="#" Clear All
 
-      p.select-articles-message.invisible
-        span#select-articles-message-text
-        span#select-all-articles-message-text
+      p.select-works-message.invisible
+        span#select-works-message-text
+        span#select-all-works-message-text
 
       - @all_checked = true
-      = render "search/article_list"
+      = render "search/work_list"
 
   .four.columns
     = render "right_nav", :current_page => :preview_list

@@ -48,10 +48,10 @@ class ReportsController < ApplicationController
       @total_found = @report.report_dois.length
       set_paging_vars(params[:current_page], ENV["METRICS_PER_PAGE"].to_i)
 
-      # Create a new array for display that is only the articles on the current page,
+      # Create a new array for display that is only the works on the current page,
       # to limit what we have to load from solr and ALM.
       @dois = @report.report_dois[(@start_result) - 1..(@end_result - 1)]
-      alm_data = Alm.get_data_for_articles(@dois)
+      alm_data = Alm.get_data_for_works(@dois)
       solr_data = Cart.new(@dois.map(&:doi))
       [solr_data, alm_data]
     }
@@ -64,7 +64,7 @@ class ReportsController < ApplicationController
       if (!dois_to_delete.empty?)
         purge_bad_dois(dois_to_delete)
 
-        # We need to re-do paging logic since the number of articles has changed.
+        # We need to re-do paging logic since the number of works has changed.
         @solr_data, @alm_data = paging_logic.call()
         i = @start_result
         manage_report_data(@dois, i)
@@ -108,12 +108,12 @@ class ReportsController < ApplicationController
       else
         doi.solr = solr
 
-        # only try to retrieve the alm data if the article exists in solr
+        # only try to retrieve the alm data if the work exists in solr
         alm = @alm_data[doi.doi]
         if alm.nil?
-          # if there isn't alm data for an article that exists in solr
-          # alm had an error for that article or
-          # the article is too new to have any alm data
+          # if there isn't alm data for an work that exists in solr
+          # alm had an error for that work or
+          # the work is too new to have any alm data
           # either way, display an error message
         else
           doi.alm = alm
@@ -169,14 +169,14 @@ class ReportsController < ApplicationController
   end
 
   def single_document_visualizations
-    @alm_data = Alm.get_data_for_one_article(@report.report_dois)
+    @alm_data = Alm.get_data_for_one_work(@report.report_dois)
     prepare_visualization_data
 
-    #render single article report
-    @article_usage_data = ChartData.
+    #render single work report
+    @work_usage_data = ChartData.
       generate_data_for_usage_chart(@report)
 
-    @article_citation_data = ChartData.
+    @work_citation_data = ChartData.
       generate_data_for_citation_chart(@report)
 
     social_scatter_data = ChartData.
@@ -192,27 +192,27 @@ class ReportsController < ApplicationController
   end
 
   def multiple_documents_visualizations
-    @alm_data = Alm.get_data_for_articles(@report.report_dois)
+    @alm_data = Alm.get_data_for_works(@report.report_dois)
     prepare_visualization_data
 
-    # for when a report contains many articles but very small portion of the
-    # articles have alm data (without it viz page will look very weird)
+    # for when a report contains many works but very small portion of the
+    # works have alm data (without it viz page will look very weird)
 
     min_data_points = (ENV["MIN_DATA_POINTS"] || 2).to_i
 
     if @solr_data.length >= min_data_points
       bubble_data = ChartData.bubble_charts(@report)
-      @article_usage_citations_age_data = bubble_data[:citation_data]
-      @article_usage_mendeley_age_data = bubble_data[:mendeley_data]
+      @work_usage_citations_age_data = bubble_data[:citation_data]
+      @work_usage_mendeley_age_data = bubble_data[:mendeley_data]
 
-      @article_usage_citation_subject_area_data = ChartData.
+      @work_usage_citation_subject_area_data = ChartData.
         subject_area_chart(@report)
 
       loc_data = ChartData.
-        generate_data_for_articles_by_location_chart(@report)
+        generate_data_for_works_by_location_chart(@report)
 
       @total_authors_data = loc_data[:total_authors_data]
-      @article_locations_data = loc_data[:locations_data]
+      @work_locations_data = loc_data[:locations_data]
     else
       @draw_viz = false
     end

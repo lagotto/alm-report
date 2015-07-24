@@ -64,7 +64,7 @@ changeField();
 
 var journals_all = $('#journalsOpt_all');
 var subject_all = $('#subjectOption_all');
-var article_all = $('#articleType_all');
+var work_all = $('#ArticleType_all');
 
 var disableFormEls = function(el) {
   inpts = el.closest('ol').find('.options input');
@@ -93,11 +93,11 @@ $('#subjectOption_some').change(function() {
   enableFormEls($(this));
 });
 
-article_all.change(function() {
+work_all.change(function() {
   disableFormEls($(this));
 });
 
-$('#articleType_some').change(function() {
+$('#ArticleType_some').change(function() {
   enableFormEls($(this));
 });
 
@@ -109,8 +109,8 @@ if (subject_all.is(':checked')) {
   disableFormEls(subject_all);
 }
 
-if (article_all.is(':checked')) {
-  disableFormEls(article_all);
+if (work_all.is(':checked')) {
+  disableFormEls(work_all);
 }
 
 var updateQuery = function() {
@@ -160,10 +160,10 @@ $('#queryConjunctionNotId').on('click', updateQuery);
 $('#clearFiltersButtonId2').on('click', function() {
   journals_all.prop('checked', true);
   subject_all.prop('checked', true);
-  article_all.prop('checked', true);
+  work_all.prop('checked', true);
   disableFormEls(journals_all);
   disableFormEls(subject_all);
-  disableFormEls(article_all);
+  disableFormEls(work_all);
 });
 
 $('#clearUnformattedQueryButtonId').on('click', function() {

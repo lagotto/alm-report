@@ -31,7 +31,7 @@ class Alm
     f1000: "F1000Prime",
   }
 
-  MAX_PER_REQUEST = ENV["ALM_MAX_ARTICLES_PER_REQUEST"].to_i
+  MAX_PER_REQUEST = ENV["ALM_MAX_WORKS_PER_REQUEST"].to_i
 
   def self.conn
     @conn ||= Faraday.new(url: ENV["ALM_URL"]) do |faraday|
@@ -50,7 +50,7 @@ class Alm
 
     paginate(request, array: :ids, per_page: MAX_PER_REQUEST) do |request|
       request[:ids] = request[:ids].join(",")
-      # To get Mendeley countries data for single article visualization
+      # To get Mendeley countries data for single work visualization
       request[:info] = "detail" if dois.length == 1
 
       response = conn.get("/api/v5/articles", request).body
@@ -102,8 +102,8 @@ class Alm
   end
 
 
-  # Returns a dict containing ALM usage data for a given list of articles.
-  def self.get_data_for_articles(report_dois)
+  # Returns a dict containing ALM usage data for a given list of works.
+  def self.get_data_for_works(report_dois)
     all_results = {}
     dois = report_dois.map { |report_doi| report_doi.doi }
 
@@ -111,8 +111,8 @@ class Alm
     dois = check_cache(dois, all_results, "alm")
 
     json = get_raw_data(dois)
-    json.each do |article|
-      sources = article["sources"].map do |source|
+    json.each do |work|
+      sources = work["sources"].map do |source|
         [source["name"], source["metrics"]]
       end.flatten(1)
 
@@ -160,10 +160,10 @@ class Alm
 
       results[:recommended_data_present] = results[:f1000] > 0
 
-      all_results[article["doi"]] = results
+      all_results[work["doi"]] = results
 
       # store alm data in cache
-      Rails.cache.write("#{article["doi"]}.alm", results, :expires_in => 1.day)
+      Rails.cache.write("#{work["doi"]}.alm", results, :expires_in => 1.day)
     end
     all_results
   end
@@ -179,15 +179,15 @@ class Alm
     end
   end
 
-  # Retrieves article data from ALM suitable for display in a brief list, such
+  # Retrieves work data from ALM suitable for display in a brief list, such
   # as search results or the preview list.
-  def self.get_article_data_for_list_display(dois)
+  def self.get_work_data_for_list_display(dois)
     results = {}
     dois = check_cache(dois, results, "alm_list_display")
     json = get_raw_data(dois)
-    json.each do |article|
-      results[article["doi"]] = article
-      Rails.cache.write("#{article["doi"]}.alm_list_display", article, :expires_in => 1.day)
+    json.each do |work|
+      results[work["doi"]] = work
+      Rails.cache.write("#{work["doi"]}.alm_list_display", work, :expires_in => 1.day)
     end
     results
   end
@@ -197,8 +197,8 @@ class Alm
   # (for performance reasons)
   #
 
-  # get data for single article visualization report
-  def self.get_data_for_one_article(report_dois)
+  # get data for single work visualization report
+  def self.get_data_for_one_work(report_dois)
     dois = report_dois.map { |report_doi| report_doi.doi }
 
     params = {}
@@ -220,19 +220,19 @@ class Alm
 
     data = JSON.parse(resp.body)
 
-    data.each do | article |
+    data.each do | work |
       results = {}
 
-      results = article["sources"].inject({}) do | result, source |
+      results = work["sources"].inject({}) do | result, source |
         key = source["name"].to_sym
         result[key] = {}
         result[key][:total] = source["metrics"]["total"].to_i
         result
       end
 
-      results[:publication_date] = article["publication_date"]
+      results[:publication_date] = work["publication_date"]
 
-      all_results[article["doi"]] = results
+      all_results[work["doi"]] = results
     end
 
     params = {}
@@ -252,10 +252,10 @@ class Alm
 
     data = JSON.parse(resp.body)
 
-    data.each do | article |
-      results = all_results[article["doi"]]
+    data.each do | work |
+      results = all_results[work["doi"]]
 
-      article["sources"].inject(results) do | result, source |
+      work["sources"].inject(results) do | result, source |
         key = source["name"].to_sym
         result[key] = {}
         result[key][:events] = source["events"]
@@ -263,7 +263,7 @@ class Alm
         result
       end
 
-      all_results[article["doi"]] = results
+      all_results[work["doi"]] = results
     end
 
     return all_results

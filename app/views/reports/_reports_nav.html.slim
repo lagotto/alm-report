@@ -4,7 +4,7 @@ nav#report
   - if @report.report_dois.length > ENV["VIZ_LIMIT"].to_i
     .inactive-viz-holder
       span.inactive-viz-link.chart-view Visualizations
-      span.inactive-viz-msg The limit for visualizations is #{ENV["VIZ_LIMIT"]} articles.
+      span.inactive-viz-msg The limit for visualizations is #{ENV["VIZ_LIMIT"]} works.
 
   - else
     = link_to "Visualizations", visualizations_path(@report), class: ["chart-view", (@report_sub_tab == :visualizations ? "chart-view-active" : nil)]

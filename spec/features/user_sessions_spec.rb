@@ -17,7 +17,7 @@ describe "user sessions", :type => :feature do
     OmniAuth.config.mock_auth[:default] = :invalid_credentials
 
     sign_in
-    expect(page).to have_content "Your Article List"
+    expect(page).to have_content "Your Work List"
     expect(page).to have_content "Could not authenticate you from CAS"
 
     OmniAuth.config.mock_auth[:default] = auth
@@ -38,6 +38,6 @@ describe "user sessions", :type => :feature do
   it "signs out as user", js: true do
     sign_in
     sign_out
-    expect(page).to have_content "Your Article List"
+    expect(page).to have_content "Your Work List"
   end
 end

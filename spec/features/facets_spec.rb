@@ -46,7 +46,7 @@ describe "facets", type: :feature, vcr: true do
     expect(page).not_to have_content second_facet_text
     expect(page).not_to have_content fourth_facet_text.gsub(/\(.*\)/, '')
 
-    first(".article-info").find("input.check-save-article").click
+    first(".work-info").find("input.check-save-work").click
     expect(page).to have_button("Preview List (1)")
 
     click_button "Preview List (1)"

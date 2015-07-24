@@ -3,34 +3,34 @@ class HomeController < ApplicationController
   def update_session
     initial_count = @cart.size
 
-    # don't update session when article_limit reached
+    # don't update session when work_limit reached
     return render json: { status: "limit", delta: 0 } \
-      unless initial_count < ENV["ARTICLE_LIMIT"].to_i
+      unless initial_count < ENV["WORK_LIMIT"].to_i
 
-    article_ids = params[:article_ids]
+    work_ids = params[:work_ids]
 
     case params[:mode]
-    when "ADD" then @cart.add(article_ids)
-    when "REMOVE" then @cart.remove(article_ids)
+    when "ADD" then @cart.add(work_ids)
+    when "REMOVE" then @cart.remove(work_ids)
     end
     render json: { status: "success", delta: @cart.size - initial_count }.to_json
   end
 
   # Parse array of keys in the form "10.1371/journal.pone.0052192|12345678",
   # i.e. a doi and timestamp separated by a '|' character. Returns a hash.
-  # Hash is empty if params[:article_ids] is nil or limit reached
-  def parse_article_keys(keys, count = 0)
-    limit = ENV["ARTICLE_LIMIT"].to_i - count
+  # Hash is empty if params[:work_ids] is nil or limit reached
+  def parse_work_keys(keys, count = 0)
+    limit = ENV["WORK_LIMIT"].to_i - count
     return {} unless limit > 0
 
-    article_ids = Array(keys)[0...limit].reduce({}) do |hash, id|
+    work_ids = Array(keys)[0...limit].reduce({}) do |hash, id|
       fields = id.split("|")
       hash.merge(fields.first => fields.last.to_i)
     end
   end
 
-  # Simple AJAX action that returns the count of articles stored in the session.
-  def get_article_count
+  # Simple AJAX action that returns the count of works stored in the session.
+  def get_work_count
     render json: @cart.size
   end
 
@@ -40,16 +40,16 @@ class HomeController < ApplicationController
   end
   private :get_all_results
 
-  # Ajax action that handles the "Select all nnn articles" link.  Selects
-  # *all* of the articles from the search, not just those on the current page.
-  # (Subject to the article limit.)
+  # Ajax action that handles the "Select all nnn works" link.  Selects
+  # *all* of the works from the search, not just those on the current page.
+  # (Subject to the work limit.)
   def select_all_search_results
     initial_count = @cart.size
 
     # This is a little weird... if the user has no more capacity before the
-    # article limit, return an error status, but if at least one article can
+    # work limit, return an error status, but if at least one work can
     # be added, return success.
-    if initial_count >= ENV["ARTICLE_LIMIT"].to_i
+    if initial_count >= ENV["WORK_LIMIT"].to_i
       status = "limit"
     else
       status = "success"

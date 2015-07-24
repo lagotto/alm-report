@@ -31,7 +31,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 WebMock::Config.instance.query_values_notation = :flat_array
 WebMock.disable_net_connect!(
-  allow: ['codeclimate.com', '10.2.2.2', ENV['HOSTNAME']],
+  allow: ['codeclimate.com', ENV['PRIVATE_IP'], ENV['HOSTNAME']],
   allow_localhost: true
 )
 

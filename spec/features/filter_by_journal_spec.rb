@@ -14,8 +14,8 @@ if Search.plos?
       page.should have_content "1 - 25 of 39 results"
       page.should have_content "for author: Eisen"
       expect(page).to have_button("Preview List (0)", disabled: true)
-      find(".select-all-articles-link", text: "select all").click
-      click_link "Select the remaining 14 articles"
+      find(".select-all-works-link", text: "select all").click
+      click_link "Select the remaining 14 works"
       wait_for_ajax
       expect(page).to have_button("Preview List (39)")
     end

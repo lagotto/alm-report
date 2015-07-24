@@ -8,6 +8,8 @@ class Search
         SearchPlos.new(query, opts).run
       elsif crossref?
         SearchCrossref.new(query, opts).run
+      elsif dataone?
+        SearchDataone.new(query, opts).run
       end
     end
   end
@@ -18,6 +20,10 @@ class Search
 
   def self.crossref?
     ENV["SEARCH"] == "crossref"
+  end
+
+  def self.dataone?
+    ENV["SEARCH"] == "dataone"
   end
 
   def self.find_by_ids(ids)

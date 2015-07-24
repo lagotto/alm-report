@@ -40,7 +40,7 @@ html.no-js lang="en"
 
         - if @display_nav
           ul.breadcrumb
-            li class=(@tab == :select_articles ? 'active' : nil) Select Articles
+            li class=(@tab == :select_works ? 'active' : nil) Select Works
             li class=(@tab == :preview_list ? 'active' : nil) Preview List
             li class=(@tab == :view_report ? 'active' : nil) View Report
 
@@ -88,6 +88,6 @@ html.no-js lang="en"
 
     javascript:
       var RESULTS_PER_PAGE = #{ENV["PER_PAGE"].to_i},
-          ARTICLE_LIMIT = #{ENV["ARTICLE_LIMIT"].to_i},
+          WORK_LIMIT = #{ENV["WORK_LIMIT"].to_i},
           VIZ_LIMIT = #{ENV["VIZ_LIMIT"].to_i};
       #{ "var search_total_found = #{@total_found};" if !@total_found.nil? }

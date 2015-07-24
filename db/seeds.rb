@@ -20,7 +20,7 @@ end
 
 
 # Loads geocodes based on the locations of the authors in the most recently
-# published PLOS articles.  This is about 4500 geocodes.
+# published PLOS works.  This is about 4500 geocodes.
 def load_from_csv(filename)
   CSV.foreach(filename) do |row|
     create_geocode(row[0], row[1].to_f, row[2].to_f)
@@ -158,7 +158,7 @@ end
 
 puts "Loading countries..."
 load_from_csv("db/seed/countries.csv")
-puts "Loading geocode data from article subset (4k)..."
+puts "Loading geocode data from work subset (4k)..."
 load_from_csv("db/seed/geocodes.csv")
 puts "Loading geocode data from geolite (300k)..."
 # TODO: Travis failing because this takes too long.

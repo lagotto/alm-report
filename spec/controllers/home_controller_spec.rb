@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe HomeController do
   describe "GET update_session", vcr: true do
-    let(:article_ids) {
+    let(:work_ids) {
       [
         "10.1371/journal.pone.0113157",
         "10.1371/journal.pone.0114307",
@@ -19,7 +19,7 @@ describe HomeController do
     }
 
     it "handles params" do
-      post :update_session, { "article_ids" => article_ids, "mode" => "ADD" }
+      post :update_session, { "work_ids" => work_ids, "mode" => "ADD" }
       body = JSON.parse(response.body)
       expect(body).to eq("status" => "success", "delta" => 3)
       session[:dois].should eq(dois)
@@ -34,29 +34,29 @@ describe HomeController do
 
     it "removes dois" do
       session[:dois] = dois
-      post :update_session, { "article_ids" => article_ids, "mode" => "REMOVE" }
+      post :update_session, { "work_ids" => work_ids, "mode" => "REMOVE" }
       body = JSON.parse(response.body)
       expect(body).to eq("status" => "success", "delta" => -3)
       session[:dois].should eq([])
     end
   end
 
-  describe "parse_article_keys" do
-    let(:article_ids) { ["10.1371/journal.pone.0010031|1410868245",
+  describe "parse_work_keys" do
+    let(:work_ids) { ["10.1371/journal.pone.0010031|1410868245",
                          "10.1371/journal.pmed.0008763|1410868258"] }
 
     it "parses keys" do
-      expect(subject.parse_article_keys(article_ids))
+      expect(subject.parse_work_keys(work_ids))
         .to eq("10.1371/journal.pone.0010031" => 1410868245,
                "10.1371/journal.pmed.0008763" => 1410868258)
     end
 
     it "parses nil" do
-      expect(subject.parse_article_keys(nil)).to be_empty
+      expect(subject.parse_work_keys(nil)).to be_empty
     end
 
     it "respects limit" do
-      expect(subject.parse_article_keys(article_ids, ENV["ARTICLE_LIMIT"].to_i))
+      expect(subject.parse_work_keys(work_ids, ENV["WORK_LIMIT"].to_i))
         .to be_empty
     end
   end
@@ -73,8 +73,8 @@ describe HomeController do
 
       response.status.should eq(200)
 
-      get :get_article_count
-      response.body.should eq(ENV["ARTICLE_LIMIT"].to_s)
+      get :get_work_count
+      response.body.should eq(ENV["WORK_LIMIT"].to_s)
     end
   end
 end

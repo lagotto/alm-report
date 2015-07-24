@@ -3,7 +3,7 @@ require "net/http"
 require "open-uri"
 require "json"
 
-# Interface to solr search for PLOS articles.  A thin wrapper around the solr http API.
+# Interface to solr search for PLOS works.  A thin wrapper around the solr http API.
 module Solr
   class Request
     include Performance
@@ -30,7 +30,7 @@ module Solr
       return JSON.parse(resp.body)
     end
 
-    # Returns a list of JSON entities for article results given a json response from solr.
+    # Returns a list of JSON entities for wokr results given a json response from solr.
     def self.parse_docs(json)
       docs = json["response"]["docs"]
       docs.map do |doc|
@@ -102,7 +102,7 @@ module Solr
       Request.fix_date(doc, "received_date")
       Request.fix_date(doc, "accepted_date")
 
-      # For articles cross-published in PLOS Collections, we want to display the
+      # For works cross-published in PLOS Collections, we want to display the
       # original journal name throughout the app.
       if doc["cross_published_journal_name"] && doc["cross_published_journal_name"].length > 1
         collections_index = doc["cross_published_journal_name"].index("PLOS Collections")
@@ -169,8 +169,8 @@ module Solr
       return all_results
     end
 
-    # Retrieves article related information from solr for a given list of DOIs.
-    def self.get_data_for_articles(report_dois)
+    # Retrieves work related information from solr for a given list of DOIs.
+    def self.get_data_for_works(report_dois)
       measure(dois: report_dois) do
         Request.get_data_helper(report_dois, "solr", FL)
       end
@@ -182,7 +182,7 @@ module Solr
       end
     end
 
-    # Performs a batch query for articles based on the list of PubMed IDs passed in.
+    # Performs a batch query for works based on the list of PubMed IDs passed in.
     # Returns a hash of PMID => solr doc, with only id, pmid, and publication_date defined
     # in the solr docs.
     def self.query_by_pmids(pmids)

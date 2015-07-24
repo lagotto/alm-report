@@ -44,7 +44,7 @@ describe Solr::Request do
 
   end
 
-  it "gets data for articles" do
+  it "gets data for works" do
 
     dois = [
       '10.1371/journal.pone.0064652',
@@ -58,10 +58,10 @@ describe Solr::Request do
         "&fl=id,pmid,publication_date,received_date,accepted_date,title," \
         "cross_published_journal_name,author_display,editor_display,article_type,affiliate," \
         "subject,financial_disclosure&wt=json&facet=false&rows=#{dois.size}"
-    body = File.read("#{fixture_path}solr_get_data_for_articles.json")
+    body = File.read("#{fixture_path}solr_get_data_for_works.json")
     stub_request(:get, url).to_return(:body => body, :status => 200)
 
-    data = Solr::Request.get_data_for_articles(dois)
+    data = Solr::Request.get_data_for_works(dois)
 
     data.size.should eq(2)
 
@@ -127,7 +127,7 @@ describe Solr::Request do
     metadata[:publication_date][1].should eq(DateTime.strptime("10-31-2014 23:59:59", "%m-%d-%Y %H:%M:%S"))
   end
 
-  it "query for articles using simple search", vcr: true do
+  it "query for works using simple search", vcr: true do
 
     # url = "http://api.plos.org/search?q=affiliate:%22University%20of%20California%22%20AND%20" \
     #     "author:Garmay%20AND%20everything:word%20AND%20subject:%22Gene%20regulation%22&" \

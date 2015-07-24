@@ -16,22 +16,22 @@
       <span class="btn-arrow"></span>
     </form>
   <% end %>
-  <p>Add more articles</p>
-  <ul class="add-article-links">
+  <p>Add more works</p>
+  <ul class="add-work-links">
     <% if request.query_parameters().key?("unformattedQueryId") %>
       <li>
-        <%= link_to 'Search Again', search_advanced_path(params), class: "article-links" %>
+        <%= link_to 'Search Again', search_advanced_path(params), class: "work-links" %>
       </li>
     <% else %>
-      <li><a href="/" class="article-links">Search Again</a></li>
+      <li><a href="/" class="work-links">Search Again</a></li>
     <% end %>
 
     <% if current_page != :doi_pmid %>
-      <li><a href="/id/" class="article-links">By DOI/PMID</a></li>
+      <li><a href="/id/" class="work-links">By DOI/PMID</a></li>
     <% end %>
     <% if current_page != :upload %>
-      <li><a href="/upload" class="article-links">Upload File</a></li>
+      <li><a href="/upload" class="work-links">Upload File</a></li>
     <% end %>
-    <li><a href="/start-over" class="article-links">Start Over</a></li>
+    <li><a href="/start-over" class="work-links">Start Over</a></li>
   </ul>
 </div>

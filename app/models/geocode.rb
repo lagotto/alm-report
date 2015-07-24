@@ -78,7 +78,7 @@ class Geocode < ActiveRecord::Base
     end
   end
 
-  # Parses the author affiliates field in the article XML to retrieve the
+  # Parses the author affiliates field in the work XML to retrieve the
   # location of the author. Returns a tuple of location and the institution name
   # (the latter just being everything found before the location), or nil if the
   # affiliate cannot be parsed.

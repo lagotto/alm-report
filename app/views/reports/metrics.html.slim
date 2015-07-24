@@ -4,8 +4,8 @@
   .eight.columns
     .metrics-left-content
       - if @show_metrics_data
-        p.metrics-article-count
-          | #{@start_result} - #{@end_result} of #{@total_found} articles
+        p.metrics-work-count
+          | #{@start_result} - #{@end_result} of #{@total_found} works
 
         - @dois.each do |doi|
           .metrics-list
@@ -17,7 +17,7 @@
               p.metrics-para
                 = doi.solr.authors
             p.metrics-description
-              | Research Article
+              | Research Work
               span.vertical-separator |
               = doi.solr.published
               span.vertical-separator |
@@ -27,7 +27,7 @@
                 = doi.doi
 
             - if doi.alm.blank?
-              .metrics-no-data-para This article data isn't available. Please check back later.
+              .metrics-no-data-para This work data isn't available. Please check back later.
             - else
               p
                 a.show-all-alms-link
@@ -92,5 +92,5 @@
         li
           = link_to({:controller => "reports", :action => "download_data", :id => @report, :format => :csv, :field => "doi"})
             span.csv
-            span.file-name Your List of Article DOIs
+            span.file-name Your List of Work DOIs
             span.arrow
