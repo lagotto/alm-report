@@ -108,7 +108,7 @@ input[type="text"] {
 .advanced-form h2 a {
   padding: 8px 6px 9px;
   cursor: pointer;
-  color: $button_color;
+  color: $link_color;
   font-family: $font_family;
   font-weight: bold;
   font-size: 17px;
@@ -150,7 +150,7 @@ input[type="text"] {
 /* 5.3. Articles list block
    ========================================================================== */
 
-.articles-list {
+.works-list {
   margin: 48px 0;
 
   div {
@@ -176,7 +176,7 @@ input[type="text"] {
 
     a:hover {
       // color: $button_text_color;
-      background: $button_color !important;
+      background: link_color !important;
     }
 
     a span {
@@ -237,6 +237,7 @@ input[type="text"] {
     width: 100%;
     float: left;
     text-align: center;
+    color: $link_color;
     div.title {
       color: $button_text_color;
       padding: 2rem;
@@ -249,7 +250,6 @@ input[type="text"] {
       font-size: 28px;
       font-weight: bold;
       padding: 2rem;
-      color: $button_color;
     }
   }
 
@@ -406,15 +406,15 @@ ul.actions li {
   display: none;
 }
 
-.select-articles-message a {
-  color: $button_color;
+.select-works-message a {
+  color: $link_color;
 }
 
 input[type="checkbox"] {
   cursor: pointer;
 }
 
-.article-info {
+.work-info {
   margin: 0 0 22px 22px;
   position: relative;
 
@@ -432,7 +432,7 @@ input[type="checkbox"] {
   }
 
   a:hover {
-    color: $button_color;
+    color: $link_color;
   }
 
   .success, .error {
@@ -481,13 +481,13 @@ input[type="checkbox"] {
   background: image-url('sprite.png') no-repeat -124px -142px;
 }
 
-.select-all-articles-link:hover,
-.unselect-all-articles-link:hover,
-.select-articles-message a:hover {
+.select-all-works-link:hover,
+.unselect-all-works-link:hover,
+.select-works-message a:hover {
   color: $active;
 }
 
-.unselect-all-articles-link {
+.unselect-all-works-link {
   margin-left: 2rem;
 }
 
@@ -551,7 +551,7 @@ span.next {
   &.scroll-fixed {
     margin: 10px 0 0;
   }
-  .add-article-links .article-links {
+  .add-work-links .work-links {
     padding: 11px 0 11px 4px;
   }
   li {
@@ -595,24 +595,24 @@ span.next {
   font-size: 22px;
 }
 
-.add-article-links {
+.add-work-links {
   margin: 19px 0 0;
 }
 
-.add-article-links li {
+.add-work-links li {
   width: 100%;
   display: inline-block;
   border-top: 1px solid #aeaeae;
 }
 
-.add-article-links .article-links {
+.add-work-links .work-links {
   padding: 11px 0 11px 4px;
   border-radius: 0;
   display: inline-block;
   background: none;
   font-size: 16px;
   font-weight: bold;
-  color: $button_color;
+  color: $link_color;
 }
 
 /* 5.9. Home.welcome-back
@@ -802,7 +802,7 @@ nav#report .metrics-chart-view + span {
   font-weight: bold;
 }
 
-.metrics-left-content .metrics-article {
+.metrics-left-content .metrics-work {
   width: 615px;
   position:absolute;
   top: 13px;
@@ -812,7 +812,7 @@ nav#report .metrics-chart-view + span {
   line-height: 19px;
 }
 
-.metrics-article-count {
+.metrics-work-count {
   margin: 0 0 5px 64px;
 }
 

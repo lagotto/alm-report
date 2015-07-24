@@ -1,22 +1,23 @@
 // Default colors and typography:
 
-$background: #fff;
-$footer_background: #fff;
-$header_background: #fff;
+$background: #ffffff;
+$footer_background: #ffffff;
+$header_background: #ffffff;
 $header_text_color: #222;
 $footer_text_color: #666;
 $footer_text_strong_color: #333;
 $main_background: #efefef;
 $body_text_color: #333;
 $light_body_text_color: #666;
-$button_color: #00ACE7;
-$button_text_color: #333;
+$button_color: #34495e;
+$link_color: #3498db;
+$button_text_color: #ffffff;
 $button_hover: #222;
-$font_family: 'Fira Sans', sans-serif;
+$font_family: 'Source Sans Pro', sans-serif;
 $secondary_font_family: $font_family;
-$font_normal_weight: 300;
+$font_normal_weight: 400;
 $active: #6EC652;
-$breadcrumb_background_first: #6B6B6B;
+$breadcrumb_background_first: #bfc5c9;
 $breadcrumb_background_second: #525252;
 $breadcrumb_background_third: #1E1E1E;
 $breadcrumb_text_color: white;
